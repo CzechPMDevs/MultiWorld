@@ -1,0 +1,63 @@
+name: WorldManager
+api:
+  - 1.0.0
+  - 2.0.0
+  - 3.0.0
+  - 3.0.0
+  - 3.0.0-ALPHA1
+  - 3.0.0-ALPHA2
+  - 3.0.0-ALPHA3
+  - 3.0.0-ALPHA4
+  - 3.0.0-ALPHA5
+author: GamakCZ
+main: WorldManager\WorldManager
+version: 0.1.0
+description: WorldManager plugin
+
+commands:
+  worldmanager:
+    description: WorldManager Command
+    aliases:
+      - wm
+      - mw
+
+permissions:
+  wm.cmd.create:
+    description: Permission for /wm create
+    default: op
+  wm.cmd.setspawn:
+    description: Permission for /wm setspawn
+    default: op
+  wm.cmd.setdefault:
+    description: Permission for /wm setdefault
+    default: op
+  wm.cmd.sethub:
+    description: Permission for /wm sethub
+    default: op
+  wm.cmd.list:
+    description: Permission for /wm list
+    default: op
+  wm.cmd.tp:
+    description: Permission for /wm tp
+    default: op
+  wm.cmd.help:
+    description: Permission for /wm help
+    default: op
+  wm.cmd.genlist:
+    description: Permission for /wm genlist
+    default: op
+  wm.cmd.load:
+    description: Permission for /wm load
+    default: op
+  wm.cmd.unload:
+    description: Permission for /wm unload
+    default: op
+  wm.cmd.delete:
+    description: Permission for /wm delete
+    default: op
+  wm.cmd.info:
+    description: Permission for /wm info
+    default: op
+  wm.cmd.rename:
+    description: Permission for /wm rename
+    default: op
