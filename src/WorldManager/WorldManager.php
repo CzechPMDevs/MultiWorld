@@ -26,7 +26,7 @@ class WorldManager extends PluginBase implements Listener {
         if(!is_file($this->getDataFolder()."/config.yml")) {
             @mkdir($this->getDataFolder());
             $cfg = new Config($this->getDataFolder()."/config.yml", Config::YAML);
-            $cfg->set("prefix", "§2[§aWorldManager§2]");
+            $cfg->set("prefix", "§2[§WorldManager§2]");
             $cfg->save();
         }
         $cfg = new Config($this->getDataFolder()."/config.yml", Config::YAML);
@@ -85,7 +85,7 @@ class WorldManager extends PluginBase implements Listener {
                     $this->getServer()->generateLevel($name,$seed,Generator::getGenerator("void"));
                     foreach ($this->getServer()->getOnlinePlayers() as $pl) {
                         if($pl->hasPermission("wm.cmd.create")) {
-                            $pl->sendMessage($this->prefix."§6Making wolrd with name {$name}, seed {$seed} and generator default.");
+                            $pl->sendMessage($this->prefix."§6Making wolrd with name {$name}, seed {$seed} and generator void.");
                         }
                     }
                     $p->sendMessage($this->prefix."§aThe world was created in the background.");
@@ -181,13 +181,14 @@ class WorldManager extends PluginBase implements Listener {
 
                         break;
                     case "list":
+                    case "ls":
                         if(!$s->hasPermission("wm.cmd.list")) {
                             $s->sendMessage($cmd->getPermissionMessage());
                             break;
                         }
                         $s->sendMessage("§2All Levels:");
                         foreach ($this->getServer()->getLevels() as $level) {
-                            $s->sendMessage("§7- §a{$level}");
+                            $s->sendMessage("§7- §a{$level->getName()}");
                         }
                         break;
                     case "teleport":
@@ -196,9 +197,9 @@ class WorldManager extends PluginBase implements Listener {
                             $s->sendMessage($cmd->getPermissionMessage());
                             break;
                         }
-                        if(isset($args[1]) && empty($args[2])) {
-                            if($this->getServer()->getLevelByName($args[1]) instanceof Level) {
-                                $this->getServer()->loadLevel($this->getServer()->getLevelByName($args[1]));
+                        if(!empty($args[1]) && empty($args[2])) {
+                            if($this->getServer()->getLevelByName($args[1]) !== null) {
+                                $this->getServer()->loadLevel($args[1]);
                                 $s->teleport($this->getServer()->getLevelByName($args[1])->getSpawnLocation());
                                 $s->sendMessage($this->prefix."§aYou've been teleported to the world {$args[1]}.");
                             }
@@ -206,8 +207,8 @@ class WorldManager extends PluginBase implements Listener {
                                 $s->sendMessage($this->prefix."§cWorld {$args[1]} does not exists.");
                             }
                         }
-                        elseif(isset($args[1]) && isset($args[2])) {
-                            if ($this->getServer()->getLevelByName($args[1]) instanceof Level) {
+                        elseif(!empty($args[1]) && !empty($args[2])) {
+                            if ($this->getServer()->getLevelByName($args[1]) !== null) {
                                 if ($this->getServer()->getPlayer($args[2]) instanceof Player) {
                                     $p = $this->getServer()->getPlayer($args[2]);
                                     $p->teleport($this->getServer()->getLevelByName($args[1])->getSpawnLocation());
@@ -266,12 +267,13 @@ class WorldManager extends PluginBase implements Listener {
                             break;
                         }
 
-                        if(isset($args[0])) {
+                        if(!empty($args[1])) {
                             if($this->getServer()->getLevelByName($args[1]) instanceof Level) {
                                 foreach ($this->getServer()->getLevelByName($args[1])->getPlayers() as $pl) {
                                     $pl->teleport($this->getServer()->getDefaultLevel()->getSafeSpawn());
                                 }
                                 rmdir($this->getServer()->getDataPath()."worlds/{$args[1]}");
+                                $this->getServer()->reload();
                                 $s->sendMessage($this->prefix."§aWorld deleted sucessfully");
                             }
                         }
@@ -285,8 +287,8 @@ class WorldManager extends PluginBase implements Listener {
                             break;
                         }
 
-                        if(isset($args[0]) && $this->getServer()->getLevelByName($args[0]) instanceof Level) {
-                            $level = $this->getServer()->getLevelByName($args[0]);
+                        if(!empty($args[1]) && $this->getServer()->getLevelByName($args[1]) instanceof Level) {
+                            $level = $this->getServer()->getLevelByName($args[1]);
                             $i1 = count($level->getPlayers());
                             $i2 = $level->getDimension();
                             $i3 = $level->getSeed();
@@ -297,6 +299,9 @@ class WorldManager extends PluginBase implements Listener {
                                             "§9Seed: §e{$i3}\n".
                                             "§9Time: §e{$i4}");
                         }
+                        else {
+                            $s->sendMessage($this->prefix."§7Usage: §c/wm info <level>");
+                        }
                         break;
                     case "rename":
                         if(!$s->hasPermission("wm.cmd.rename")) {
@@ -304,7 +309,7 @@ class WorldManager extends PluginBase implements Listener {
                             break;
                         }
 
-                        if(isset($args[1]) && isset($args[2])) {
+                        if(!empty($args[1]) && !empty($args[2])) {
                             if($this->getServer()->getLevelByName($args[1]) instanceof Level) {
                                 rename($this->getServer()->getDataPath()."worlds/{$args[1]}",$this->getServer()->getDataPath()."worlds/{$args[2]}");
                             }
@@ -315,6 +320,13 @@ class WorldManager extends PluginBase implements Listener {
                         else {
                             $s->sendMessage($this->prefix."§7Usage: §c/wm <ename <oldname> <newname>");
                         }
+                        break;
+                    default:
+                        if(!$s->hasPermission("wm.cmd.rename")) {
+                            $s->sendMessage($cmd->getPermissionMessage());
+                            break;
+                        }
+                        $s->sendMessage($this->prefix."§7Usage: §c/wm help");
                         break;
                 }
             }
