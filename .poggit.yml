@@ -1,0 +1,8 @@
+---
+branches:
+- master
+projects:
+  ServerManager:
+    path: ""
+    icon: icon.png
+...
