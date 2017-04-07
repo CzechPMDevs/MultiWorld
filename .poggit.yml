@@ -2,7 +2,7 @@
 branches:
 - master
 projects:
-  ServerManager:
+  WorldManager:
     path: ""
     icon: icon.png
 ...
