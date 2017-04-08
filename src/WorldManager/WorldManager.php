@@ -197,7 +197,7 @@ class WorldManager extends PluginBase implements Listener {
                             break;
                         }
                         if(!empty($args[1]) && empty($args[2])) {
-                            if($this->getServer()->getLevelByName($args[1]) !== null) {
+                            if(file_exists($this->getServer()->getDataPath()."worlds/{$args[1]}")) {
                                 $this->getServer()->loadLevel($args[1]);
                                 $s->teleport($this->getServer()->getLevelByName($args[1])->getSpawnLocation());
                                 $s->sendMessage($this->prefix."§aYou've been teleported to the world {$args[1]}.");
@@ -237,7 +237,7 @@ class WorldManager extends PluginBase implements Listener {
                         }
 
                         if(isset($args[1])) {
-                            if(file_exists($this->getDataFolder()."worlds/{$args[1]}")) {
+                            if(file_exists($this->getServer()->getDataPath()."worlds/{$args[1]}")) {
                                 $this->getServer()->loadLevel($args[1]);
                                 $s->sendMessage($this->prefix."§aThe level {$args[1]} was loaded in background");
                             }
@@ -276,12 +276,15 @@ class WorldManager extends PluginBase implements Listener {
                         }
 
                         if(!empty($args[1])) {
-                            if($this->getServer()->getLevelByName($args[1]) !== null) {
+                            if(file_exists($this->getServer()->getDataPath()."worlds/{$args[1]}")) {
                                 foreach ($this->getServer()->getLevelByName($args[1])->getPlayers() as $pl) {
                                     $pl->teleport($this->getServer()->getDefaultLevel()->getSafeSpawn());
                                 }
                                 rmdir($this->getServer()->getDataPath()."worlds/{$args[1]}");
                                 $this->getServer()->shutdown(true,$this->prefix."§aWorld deleted sucessfuly");
+                            }
+                            else {
+                                $s->sendMessage($this->prefix."§cWorld {$args[1]} does not exists!");
                             }
                         }
                         else {
@@ -307,7 +310,16 @@ class WorldManager extends PluginBase implements Listener {
                                             "§9Time: §e{$i4}");
                         }
                         else {
-                            $s->sendMessage($this->prefix."§7Usage: §c/wm info <level>");
+                            $level = $s->getLevel();
+                            $i1 = count($level->getPlayers());
+                            $i2 = $level->getDimension();
+                            $i3 = $level->getSeed();
+                            $i4 = $level->getTime();
+                            $s->sendMessage("§3---== §6{$level->getName()} §3==---\n".
+                                "§9Players: §e{$i1}\n".
+                                "§9Dimension: §e{$i2}\n".
+                                "§9Seed: §e{$i3}\n".
+                                "§9Time: §e{$i4}");
                         }
                         break;
                     case "rename":
@@ -317,7 +329,7 @@ class WorldManager extends PluginBase implements Listener {
                         }
 
                         if(!empty($args[1]) && !empty($args[2])) {
-                            if($this->getServer()->getLevelByName($args[1]) instanceof Level) {
+                            if(file_exists($this->getServer()->getDataPath()."worlds/{$args[1]}")) {
                                 rename($this->getServer()->getDataPath()."worlds/{$args[1]}",$this->getServer()->getDataPath()."worlds/{$args[2]}");
                                 $this->getServer()->reload();
                                 $s->sendMessage($this->prefix."§aWorld {$args[1]} was renamed to {$args[2]}!");
