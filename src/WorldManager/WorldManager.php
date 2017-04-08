@@ -258,12 +258,11 @@ class WorldManager extends PluginBase implements Listener {
                         if(isset($args[1])) {
                             if($this->getServer()->getLevelByName($args[1]) instanceof Level) {
                                 $this->getServer()->unloadLevel($this->getServer()->getLevelByName($args[1]), true);
-                                $s->sendMessage($this->prefix."World {$args[1]} deleted sucesfully");
+                                $s->sendMessage($this->prefix."§aWorld {$args[1]} unloaded successfully");
                             }
                         }
                         else {
                             $s->sendMessage($this->prefix."§7Usage: §c/wm unload <level>");
-                            $s->sendMessage($this->prefix."§aThe level {$args[1]} was loaded in background");
                         }
                         break;
                     case "delete":
@@ -281,7 +280,7 @@ class WorldManager extends PluginBase implements Listener {
                                     $pl->teleport($this->getServer()->getDefaultLevel()->getSafeSpawn());
                                 }
                                 rmdir($this->getServer()->getDataPath()."worlds/{$args[1]}");
-                                $this->getServer()->shutdown(true,$this->prefix."§aWorld deleted sucessfuly");
+                                $this->getServer()->shutdown(true,$this->prefix."§aWorld deleted successfully");
                             }
                             else {
                                 $s->sendMessage($this->prefix."§cWorld {$args[1]} does not exists!");
@@ -331,8 +330,7 @@ class WorldManager extends PluginBase implements Listener {
                         if(!empty($args[1]) && !empty($args[2])) {
                             if(file_exists($this->getServer()->getDataPath()."worlds/{$args[1]}")) {
                                 rename($this->getServer()->getDataPath()."worlds/{$args[1]}",$this->getServer()->getDataPath()."worlds/{$args[2]}");
-                                $this->getServer()->reload();
-                                $s->sendMessage($this->prefix."§aWorld {$args[1]} was renamed to {$args[2]}!");
+                                $this->getServer()->shutdown(true,$this->prefix."§aWorld {$args[1]} was renamed to {$args[2]}!");
                             }
                             else {
                                 $s->sendMessage($this->prefix."§cWorld {$args[1]} does not exists");
