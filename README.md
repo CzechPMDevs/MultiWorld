@@ -9,7 +9,7 @@ Advanced WorldManager for PocketMine
 | ------- | ----------- | ---------- | ------- |
 | /wm help | displays help | wm.cmd.help | - |
 | /wm create [name] [generator] [seed] | create new world | wm.cmd.create | new, add |
-| /wm delete [name] | delete world | wm.cmd.delete | remove |
+| /wm delete [name] | delete world | wm.cmd.delete | remove, del, rm |
 | /wm rename [oldname] [newname] | rename world | wm.cmd.rename | - |
 | /wm genlist | display list of generators | wm.cmd.genlist | generators, generatorlist |
 | /wm tp [world] (player) | teleport to world | wm.cmd.tp | teleport |
@@ -22,4 +22,5 @@ Advanced WorldManager for PocketMine
 | /wm setdefault | set default level | wm.cmd.setdefault | - |
 
 
-> Download soon...
+
+> Download: http://j.gs/8wa4
