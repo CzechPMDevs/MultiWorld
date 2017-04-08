@@ -11,12 +11,12 @@ api:
   - 3.0.0-ALPHA5
 author: GamakCZ
 main: WorldManager\WorldManager
-version: 0.1.3
+version: 1.0.0
 description: WorldManager plugin
 
 commands:
   worldmanager:
-    description: WorldManager Command
+    description: WorldManager Commands
     aliases:
       - wm
       - mw
