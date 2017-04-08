@@ -258,6 +258,7 @@ class WorldManager extends PluginBase implements Listener {
                         if(isset($args[1])) {
                             if($this->getServer()->getLevelByName($args[1]) instanceof Level) {
                                 $this->getServer()->unloadLevel($this->getServer()->getLevelByName($args[1]), true);
+                                $s->sendMessage($this->prefix."World {$args[1]} deleted sucesfully");
                             }
                         }
                         else {
@@ -275,13 +276,12 @@ class WorldManager extends PluginBase implements Listener {
                         }
 
                         if(!empty($args[1])) {
-                            if($this->getServer()->getLevelByName($args[1]) instanceof Level) {
+                            if($this->getServer()->getLevelByName($args[1]) !== null) {
                                 foreach ($this->getServer()->getLevelByName($args[1])->getPlayers() as $pl) {
                                     $pl->teleport($this->getServer()->getDefaultLevel()->getSafeSpawn());
                                 }
                                 rmdir($this->getServer()->getDataPath()."worlds/{$args[1]}");
-                                $this->getLogger()->debug($this->prefix."§aWorld deleted sucessfuly");
-                                $this->getServer()->shutdown(true);
+                                $this->getServer()->shutdown(true,$this->prefix."§aWorld deleted sucessfuly");
                             }
                         }
                         else {
@@ -331,13 +331,16 @@ class WorldManager extends PluginBase implements Listener {
                         }
                         break;
                     default:
-                        if(!$s->hasPermission("wm.cmd.rename")) {
+                        if(!$s->hasPermission("wm.cmd.help")) {
                             $s->sendMessage($cmd->getPermissionMessage());
                             break;
                         }
-                        $s->sendMessage($this->prefix."§7Usage: §c/wm help");
+
                         break;
                 }
+            }
+            else {
+                $s->sendMessage($this->prefix."§7Usage: §c/wm help");
             }
         }
     }
