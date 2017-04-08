@@ -11,7 +11,7 @@ api:
   - 3.0.0-ALPHA5
 author: GamakCZ
 main: WorldManager\WorldManager
-version: 0.1.1
+version: 0.1.2
 description: WorldManager plugin
 
 commands:
