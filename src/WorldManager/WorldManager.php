@@ -7,7 +7,6 @@ use pocketmine\command\CommandSender;
 use pocketmine\event\Listener;
 use pocketmine\level\generator\Generator;
 use pocketmine\level\Level;
-use pocketmine\level\Position;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
@@ -238,8 +237,13 @@ class WorldManager extends PluginBase implements Listener {
                         }
 
                         if(isset($args[1])) {
-                            $this->getServer()->loadLevel($args[1]);
-                            $s->sendMessage($this->prefix."§aThe level {$args[1]} was loaded in background");
+                            if(file_exists($this->getDataFolder()."worlds/{$args[1]}")) {
+                                $this->getServer()->loadLevel($args[1]);
+                                $s->sendMessage($this->prefix."§aThe level {$args[1]} was loaded in background");
+                            }
+                            else {
+                                $s->sendMessage($this->prefix."§cWorld does not exists!");
+                            }
                         }
                         else {
                             $s->sendMessage($this->prefix."§7Usage: §c/wm load <level>");
@@ -258,10 +262,13 @@ class WorldManager extends PluginBase implements Listener {
                         }
                         else {
                             $s->sendMessage($this->prefix."§7Usage: §c/wm unload <level>");
+                            $s->sendMessage($this->prefix."§aThe level {$args[1]} was loaded in background");
                         }
                         break;
                     case "delete":
                     case "remove":
+                    case "del":
+                    case "rm":
                         if(!$s->hasPermission("wm.cmd.delete")) {
                             $s->sendMessage($cmd->getPermissionMessage());
                             break;
@@ -273,8 +280,8 @@ class WorldManager extends PluginBase implements Listener {
                                     $pl->teleport($this->getServer()->getDefaultLevel()->getSafeSpawn());
                                 }
                                 rmdir($this->getServer()->getDataPath()."worlds/{$args[1]}");
-                                $this->getServer()->reload();
-                                $s->sendMessage($this->prefix."§aWorld deleted sucessfully");
+                                $this->getLogger()->debug($this->prefix."§aWorld deleted sucessfuly");
+                                $this->getServer()->shutdown(true);
                             }
                         }
                         else {
@@ -312,13 +319,15 @@ class WorldManager extends PluginBase implements Listener {
                         if(!empty($args[1]) && !empty($args[2])) {
                             if($this->getServer()->getLevelByName($args[1]) instanceof Level) {
                                 rename($this->getServer()->getDataPath()."worlds/{$args[1]}",$this->getServer()->getDataPath()."worlds/{$args[2]}");
+                                $this->getServer()->reload();
+                                $s->sendMessage($this->prefix."§aWorld {$args[1]} was renamed to {$args[2]}!");
                             }
                             else {
                                 $s->sendMessage($this->prefix."§cWorld {$args[1]} does not exists");
                             }
                         }
                         else {
-                            $s->sendMessage($this->prefix."§7Usage: §c/wm <ename <oldname> <newname>");
+                            $s->sendMessage($this->prefix."§7Usage: §c/wm rename <oldname> <newname>");
                         }
                         break;
                     default:
