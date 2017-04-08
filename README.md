@@ -15,7 +15,7 @@ Advanced WorldManager for PocketMine
 | /wm tp [world] (player) | teleport to world | wm.cmd.tp | teleport |
 | /wm load [world] | load world | wm.cmd.load | - |
 | /wm unload [world] | unload world | wm.cmd.unload | - |
-| /wm list | displays list of worlds | wm.cmd.list | - |
+| /wm list | displays list of loaded worlds | wm.cmd.list | - |
 | /wm info [world] | displays info about world | wm.cmd.info | - |
 | /wm setspawn | set the world spawn | wm.cmd.setspawn | setworldspawn |
 | /wm sethub | set hub of the server | wm.cmd.sethub | setlobby |
