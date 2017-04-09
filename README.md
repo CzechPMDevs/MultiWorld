@@ -1,9 +1,23 @@
 # WorldManager
----
+
 Advanced WorldManager for PocketMine
 
-## Commands:
 
+
+## TO DO:
+
+- [x] World Generator - /wm genlist & /wm create
+- [x] Teleport command
+- [x] SetLobby commands
+- [x] More functions - rename, load, unload
+- [ ] List of loaded and unloaded worlds
+- [x] Info about level
+- [ ] Portals setup (/wm target [nether | end])
+- [ ] Translaction
+- [ ] /wm delete command
+
+
+## Commands:
 
 | Command | Description | Permission | Aliases |
 | ------- | ----------- | ---------- | ------- |
@@ -20,7 +34,7 @@ Advanced WorldManager for PocketMine
 | /wm setspawn | set the world spawn | wm.cmd.setspawn | setworldspawn |
 | /wm sethub | set hub of the server | wm.cmd.sethub | setlobby |
 | /wm setdefault | set default level | wm.cmd.setdefault | - |
-
+---
 
 
 > Download: http://j.gs/8wa4
