@@ -13,7 +13,7 @@ Advanced WorldManager for PocketMine
 - [ ] List of loaded and unloaded worlds
 - [x] Info about level
 - [ ] Portals setup (/wm target [nether | end])
-- [ ] Translaction
+- [ ] Translations
 - [ ] /wm delete command
 
 
