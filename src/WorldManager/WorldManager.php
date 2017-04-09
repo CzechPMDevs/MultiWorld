@@ -25,7 +25,7 @@ class WorldManager extends PluginBase implements Listener {
         if(!is_file($this->getDataFolder()."/config.yml")) {
             @mkdir($this->getDataFolder());
             $cfg = new Config($this->getDataFolder()."/config.yml", Config::YAML);
-            $cfg->set("prefix", "§2[§WorldManager§2]");
+            $cfg->set("prefix", "§2[WorldManager]");
             $cfg->save();
         }
         $cfg = new Config($this->getDataFolder()."/config.yml", Config::YAML);
