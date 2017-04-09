@@ -36,5 +36,6 @@ Advanced WorldManager for PocketMine
 | /wm setdefault | set default level | wm.cmd.setdefault | - |
 ---
 
+## Download:
 
-> Download: http://j.gs/8wa4
+- Version 1.0 http://j.gs/8wa4
