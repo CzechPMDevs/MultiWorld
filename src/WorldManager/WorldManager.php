@@ -26,7 +26,7 @@ class WorldManager extends PluginBase implements Listener {
         if(!is_file($this->getDataFolder()."/config.yml")) {
             @mkdir($this->getDataFolder());
             $cfg = new Config($this->getDataFolder()."/config.yml", Config::YAML);
-            $cfg->set("prefix", "§2[WorldManager]");
+            $cfg->set("prefix", "§2[§WorldManager§2]");
             $cfg->save();
         }
         $cfg = new Config($this->getDataFolder()."/config.yml", Config::YAML);
@@ -200,7 +200,7 @@ class WorldManager extends PluginBase implements Listener {
                         if(!empty($args[1]) && empty($args[2])) {
                             if(file_exists($this->getServer()->getDataPath()."worlds/{$args[1]}")) {
                                 $this->getServer()->loadLevel($args[1]);
-                                $s->teleport($this->getServer()->getLevelByName($args[1])->getSpawnLocation());
+                                $s->teleport($this->getServer()->getLevelByName($args[1])->getSafeSpawn());
                                 $s->sendMessage($this->prefix."§aYou've been teleported to the world {$args[1]}.");
                             }
                             else {
@@ -208,13 +208,13 @@ class WorldManager extends PluginBase implements Listener {
                             }
                         }
                         elseif(!empty($args[1]) && !empty($args[2])) {
-                            if ($this->getServer()->getLevelByName($args[1]) !== null) {
+                            if (file_exists($this->getServer()->getDataPath()."worlds/{$args[1]}")) {
                                 if ($this->getServer()->getPlayer($args[2]) instanceof Player) {
                                     $p = $this->getServer()->getPlayer($args[2]);
                                     $p->teleport($this->getServer()->getLevelByName($args[1])->getSafeSpawn());
                                     $p->sendMessage($this->prefix . "§aYou've been teleported to the world {$args[1]}.");
                                 } else {
-                                    $s->sendMessage($this->prefix . "§cPlayer {$args[1]} is not online!");
+                                    $s->sendMessage($this->prefix . "§cPlayer {$args[2]} is not online!");
                                 }
                             } else {
                                 $s->sendMessage($this->prefix . "§cWorld {$args[1]} does not exists.");
