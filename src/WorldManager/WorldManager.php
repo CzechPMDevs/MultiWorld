@@ -7,6 +7,7 @@ use pocketmine\command\CommandSender;
 use pocketmine\event\Listener;
 use pocketmine\level\generator\Generator;
 use pocketmine\level\Level;
+use pocketmine\math\Vector3;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
@@ -210,7 +211,7 @@ class WorldManager extends PluginBase implements Listener {
                             if ($this->getServer()->getLevelByName($args[1]) !== null) {
                                 if ($this->getServer()->getPlayer($args[2]) instanceof Player) {
                                     $p = $this->getServer()->getPlayer($args[2]);
-                                    $p->teleport($this->getServer()->getLevelByName($args[1])->getSpawnLocation());
+                                    $p->teleport($this->getServer()->getLevelByName($args[1])->getSafeSpawn());
                                     $p->sendMessage($this->prefix . "§aYou've been teleported to the world {$args[1]}.");
                                 } else {
                                     $s->sendMessage($this->prefix . "§cPlayer {$args[1]} is not online!");
@@ -274,13 +275,13 @@ class WorldManager extends PluginBase implements Listener {
                             break;
                         }
 
-                        if(!empty($args[1])) {
+                        if(isset($args[1])) {
                             if(file_exists($this->getServer()->getDataPath()."worlds/{$args[1]}")) {
                                 foreach ($this->getServer()->getLevelByName($args[1])->getPlayers() as $pl) {
                                     $pl->teleport($this->getServer()->getDefaultLevel()->getSafeSpawn());
                                 }
                                 rmdir($this->getServer()->getDataPath()."worlds/{$args[1]}");
-                                $this->getServer()->shutdown(true,$this->prefix."§aWorld deleted successfully");
+                                $this->getServer()->shutdown(true,$this->prefix."§aWorld {$args[1]} deleted successfully");
                             }
                             else {
                                 $s->sendMessage($this->prefix."§cWorld {$args[1]} does not exists!");
