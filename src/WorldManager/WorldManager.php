@@ -48,6 +48,7 @@ class WorldManager extends PluginBase implements Listener {
             $cfg = new Config($this->getDataFolder()."/config.yml", Config::YAML);
             if($cfg->get("creative") == null) {
                 $cfg->set("creative", "");
+                $cfg->set("prefix", "[§2WorldManager]");
                 $cfg->save();
             }
         }
@@ -257,23 +258,25 @@ class WorldManager extends PluginBase implements Listener {
                             switch ($args[1]) {
                                 case "loded":
                                     $s->sendMessage($this->prefix . "Loaded levels:");
-                                    foreach ($this->getServer()->getLevels() as $level) {
-                                        $s->sendMessage("§7- §a{$level->getName()}");
-                                    }
+                                    $data = implode($this->getServer()->getLevels());
+                                    $s->sendMessage($this->prefix."§7Loaded levels: §a".$data);
                                     break;
                                 case "all":
                                     $s->sendMessage($this->prefix . "All levels:");
-                                    foreach (scandir($this->getServer()->getDataPath() . "worlds") as $level) {
-                                        $s->sendMessage("§7- §a{$level}");
-                                    }
+                                    $data = scandir($this->getServer()->getDataPath()."worlds");
+                                    $data = implode(", ",$data);
+                                    $data = str_replace(", .", "", $data);
+                                    $data = str_replace(".", "", $data);
+                                    $s->sendMessage($this->prefix."§7All levels: §a".$data);
                                     break;
                                 default:
                                     $s->sendMessage($this->prefix . "§7Usage: §c/wm ls <loaded | all>");
                                     break;
                             }
                         }
-                        $s->sendMessage("§2Loaded Levels:");
-
+                        else {
+                            $s->sendMessage($this->prefix."§7Usage: §c/wm ls <loaded | all>");
+                        }
                         break;
                     case "teleport":
                     case "tp":
@@ -375,7 +378,7 @@ class WorldManager extends PluginBase implements Listener {
                             break;
                         }
 
-                        if (!empty($args[1]) && $this->getServer()->getLevelByName($args[1]) instanceof Level) {
+                        if (isset($args[1]) && $this->getServer()->getLevelByName($args[1]) instanceof Level) {
                             $level = $this->getServer()->getLevelByName($args[1]);
                             $i1 = count($level->getPlayers());
                             $i2 = $level->getDimension();
