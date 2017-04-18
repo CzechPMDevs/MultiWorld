@@ -10,9 +10,9 @@ Advanced WorldManager for PocketMine
 - [x] Teleport command
 - [x] SetLobby commands
 - [x] More functions - rename, load, unload
-- [ ] List of loaded and unloaded worlds
+- [x] List of loaded and unloaded worlds
 - [x] Info about level
-- [ ] Portals setup (/wm target [nether | end])
+- [x] Dimesions setup - /wm setdimension
 - [ ] Translations
 - [ ] /wm delete command
 
@@ -38,4 +38,4 @@ Advanced WorldManager for PocketMine
 
 ## Download:
 
-- Version 1.0 http://j.gs/8wa4
+- Version 1.1 http://j.gs/8wa4
