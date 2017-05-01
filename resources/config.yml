@@ -1,0 +1,14 @@
+# Main configuration file for MultiWorld
+# MultiWorld plugin by @GamakCZ
+
+# Change default prefix
+prefix: "§5[§6MultiWorld§5]§r§7 "
+
+# Work in progress
+#language: English
+
+# Work in progress
+#guarded-levels: []
+
+# Work in progress
+#creative-levels: []
