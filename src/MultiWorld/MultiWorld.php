@@ -2,193 +2,295 @@
 
 namespace MultiWorld;
 
-use pocketmine\level\generator\Generator;
-use pocketmine\level\Level;
+use MultiWorld\Events\EventListener;
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
 use pocketmine\Player;
+use pocketmine\plugin\PluginBase;
 
-class WorldManager {
+class MultiWorld extends PluginBase {
 
-    /** @var  MultiWorld */
-    public $plugin;
+    /** @var  EventListener */
+    public $listener;
 
-    public function __construct($plugin) {
-        $this->plugin = $plugin;
+    /** @var  WorldManager */
+    public $manager;
+
+    public static $prefix;
+
+    public function onEnable() {
+        $this->loadConfig();
+        $this->registerListener();
+        $this->registerManager();
+        $this->getServer()->getPluginManager()->registerEvents($this->listener, $this);
     }
 
-    /**
-     * @param string $name
-     * @return bool
-     */
-    public function worldExists($name) {
-        if(file_exists($this->plugin->getServer()->getDataPath().$name)) {
-            return true;
+    public function registerListener() {
+        $this->listener = new EventListener($this);
+    }
+
+    public function registerManager() {
+        $this->manager = new WorldManager($this);
+    }
+
+    public static function getPermissionMessage() {
+        return "§cYou do not have permission to use this command";
+    }
+
+    public function loadConfig() {
+        if(!file_exists($this->getDataFolder())) {
+            @mkdir($this->getDataFolder());
+        }
+        if(!is_file($this->getDataFolder()."/config.yml")) {
+            $this->saveResource("/config.yml");
+            self::$prefix = $this->getConfig()->get("prefix");
         }
     }
 
     /**
-     * @param string $generator
+     * @param int $page
      * @return string
      */
-    public function getGenerator($generator) {
-        switch (strtolower($generator)) {
-            case "normal":
-            case "default":
-            case "1":
-                return "normal";
-            case "nether":
-            case "hell":
-            case "2":
-                return "hell";
-            /*
-            case "end":
-            case "3":
-                return "end";
-            */
-            case "flat":
-            case "superflat":
-            case "4":
-                return "flat";
-            case "void":
-            case "sky":
-            case "5":
-                return "void";
-            default:
-                return "normal";
+    public function getHelp($page) {
+        $title = "§3---== §aMultiWorld §3==---";
+        switch ($page) {
+            case 1:
+                $p1 = $title." §7(1/3)\n".
+                    "§9/mw create §6Create new World\n" .
+                    "§9/mw setspawn §6Sets world spawn\n" .
+                    "§9/mw setdefault §6Set world as the default level\n" .
+                    "§9/mw sethub §6Sets server hub\n";
+                return $p1;
+            case 2:
+                $p2 = $title." §7(2/3)\n".
+                    "§9/mw list §6Displays all worlds\n" .
+                    "§9/mw tp §6Moves you to the world\n" .
+                    "§9/mw genlist §6Displays all generators\n" .
+                    "§9/mw load §6Retrieves world\n";
+                return $p2;
+            case 3:
+                $p3 = $title." §7(3/3)\n".
+                    "§9/mw unload §6Unload wold\n" .
+                    "§9/mw delete §6Delete world\n" .
+                    "§9/mw info §6Info about level\n" .
+                    "§9/mw rename §6Rename world\n";
+                return $p3;
+            /*case 4:
+                $p4 = $title." §7(4/4)\n".
+                    "§9/mw setdimension §6Set world dimension\n".
+                    "§9/mw setgm §6Set world gamemode";
+                return $p4;*/
         }
     }
 
-    /**
-     * @param Player $player
-     * @param string $name
-     * @param string $generator
-     * @param int $seed
-     */
-    public function generate(Player $player, $name, $generator, $seed) {
-        if(!$this->worldExists($name)) {
-            $gen = $this->getGenerator($generator);
-            $this->plugin->getServer()->generateLevel($name,intval($seed),Generator::getGenerator($gen));
-            $player->sendMessage(MultiWorld::$prefix."§aWorld {$name} generated!");
-        }
-        else {
-            $player->sendMessage(MultiWorld::$prefix."§cWorld is now generated.");
-        }
-    }
+    public function onCommand(CommandSender $s, Command $cmd, $label, array $args)
+    {
+        if ($cmd->getName() == "multiworld" && $s instanceof Player) {
+            if (isset($args[0])) {
+                switch ($args[0]) {
+                    case "help":
+                        if (!$s->hasPermission("mw.cmd.help")) {
+                            $s->sendMessage(self::getPermissionMessage());
+                            break;
+                        }
+                        if (empty($args[1])) {
+                            $s->sendMessage($this->getHelp(1));
+                        } else {
+                            switch ($args[1]) {
+                                case "1":
+                                    $s->sendMessage($this->getHelp(1));
+                                    break;
+                                case "2":
+                                    $s->sendMessage($this->getHelp(2));
+                                    break;
+                                case "3":
+                                    $s->sendMessage($this->getHelp(3));
+                                    break;
+                                /*case "4":
+                                    $s->sendMessage($this->getHelp(4));
+                                    break;*/
+                                default:
+                                    $s->sendMessage($this->getHelp(1));
+                                    break;
+                            }
+                        }
+                        break;
+                    case "create":
+                    case "new":
+                    case "add":
+                        if (!$s->hasPermission("mw.cmd.create")) {
+                            $s->sendMessage(self::getPermissionMessage());
+                            break;
+                        }
+                        if (count($args) >= 4) {
+                            if (!is_numeric($args[3])) {
+                                $s->sendMessage(self::$prefix . "§cSeed must be formatted numbers!");
+                            } else {
+                                $this->manager->generate($s, $args[1], $args[2], $args[3]);
+                            }
+                        } else {
+                            $s->sendMessage(self::$prefix . "§7Usage: §c/mw <create | new | add> <name> <generator> <seed>");
+                        }
 
-    /**
-     * @param Level $level
-     * @param Player $player
-     */
-    public function delete(Level $level, Player $player) {
-        $name = $level->getName();
-        foreach ($level->getPlayers() as $players) {
-            $players->teleport($this->plugin->getServer()->getDefaultLevel()->getSafeSpawn());
-        }
-        $this->unload($name);
-        $path = $this->plugin->getServer()->getDataPath()."worlds/".$name;
-        foreach (scandir($path."/region/") as $file) {
-            unlink($file);
-        }
-        rmdir($path."region");
-        unlink($path."level.dat");
-        rmdir($path);
+                        break;
+                    case "setspawn":
+                    case "setworldspawn":
+                        if (!$s->hasPermission("mw.cmd.setspawn")) {
+                            $s->sendMessage(self::getPermissionMessage());
+                            break;
+                        }
+                        if (empty($args[1])) {
+                            $s->getLevel()->setSpawnLocation($s);
+                            $s->sendMessage(self::$prefix . "§aSpawn location updated!");
+                        }
+                        break;
+                    case "setdefault":
+                        if (!$s->hasPermission("mw.cmd.setdefault")) {
+                            $s->sendMessage(self::getPermissionMessage());
+                            break;
+                        }
+                        if (empty($args[1])) {
+                            $this->getServer()->setDefaultLevel($s->getLevel());
+                            $s->sendMessage(self::$prefix . "§aDefault level updated!");
+                        } else {
+                            $this->getServer()->setDefaultLevel($this->getServer()->getLevelByName($args[1]));
+                            $s->sendMessage(self::$prefix . "§aDefault level updated!");
+                        }
+                        break;
+                    case "sethub":
+                    case "setlobby":
+                        if (!$s->hasPermission("mw.cmd.sethub")) {
+                            $s->sendMessage(self::getPermissionMessage());
+                            break;
+                        }
+                        if (empty($args[1])) {
+                            $this->getServer()->setDefaultLevel($s->getLevel());
+                            $s->getLevel()->setSpawnLocation($s);
+                            $s->sendMessage(self::$prefix . "§aLobby position updated!");
+                        }
 
-        $player->sendMessage(MultiWorld::$prefix."§aWorld removed.");
-    }
-
-    /**
-     * @param string $name
-     */
-    public function load($name) {
-        if($this->worldExists($name)) {
-            $this->plugin->getServer()->loadLevel($name);
-            $this->plugin->getLogger()->debug(MultiWorld::$prefix."§6Loading world {$name}.");
-        }
-    }
-
-    /**
-     * @param string $name
-     */
-    public function unload($name) {
-        if($this->worldExists($name)) {
-            foreach ($this->plugin->getServer()->getLevelByName($name)->getPlayers() as $player) {
-                $player->teleport($this->plugin->getServer()->getDefaultLevel()->getSafeSpawn());
+                        break;
+                    case "list":
+                    case "ls":
+                        if (!$s->hasPermission("mw.cmd.list")) {
+                            $s->sendMessage(self::getPermissionMessage());
+                            break;
+                        }
+                        if (isset($args[1])) {
+                            switch ($args[1]) {
+                                case "loaded":
+                                    $s->sendMessage(self::$prefix . "Loaded levels: {$this->manager->getWorldList(1)}");
+                                    break;
+                                case "all":
+                                    $s->sendMessage(self::$prefix . "All levels: {$this->manager->getWorldList(2)}");
+                                    break;
+                                default:
+                                    $s->sendMessage(self::$prefix . "§7Usage: §c/wm ls <loaded | all>");
+                                    break;
+                            }
+                        } else {
+                            $s->sendMessage(self::$prefix . "§7Usage: §c/wm ls <loaded | all>");
+                        }
+                        break;
+                    case "teleport":
+                    case "tp":
+                        if (!$s->hasPermission("mw.cmd.tp")) {
+                            $s->sendMessage(self::getPermissionMessage());
+                            break;
+                        }
+                        if (isset($args[1]) && empty($args[2])) {
+                            $this->manager->teleportToWorld($s,$args[1]);
+                        }
+                        elseif (isset($args[1]) && isset($args[2]))  {
+                            if($this->getServer()->getPlayer($args[2])->isOnline()) {
+                                $this->manager->teleportToWorld($this->getServer()->getPlayer($args[2]),$args[1]);
+                                $s->sendMessage(self::$prefix."§aTeleporting player {$args[2]} to {$args[1]}...");
+                            }
+                            else {
+                                $s->sendMessage(self::$prefix."§cPlayer {$args[2]} is not online.");
+                            }
+                        }
+                        break;
+                    case "generators":
+                    case "genlist":
+                    case "generatorlist":
+                        if (!$s->hasPermission("mw.cmd.genlist")) {
+                            $s->sendMessage(self::getPermissionMessage());
+                            break;
+                        }
+                        $s->sendMessage(self::$prefix."§2Generators: §aDefault, Nether, Flat, Void");
+                        break;
+                    case "load":
+                        if (!$s->hasPermission("mw.cmd.load")) {
+                            $s->sendMessage(self::getPermissionMessage());
+                            break;
+                        }
+                        if (isset($args[1])) {
+                            $this->manager->unload($args[1]);
+                            $s->sendMessage(self::$prefix."§aLevel loaded.");
+                        } else {
+                            $s->sendMessage(self::$prefix."§7Usage: §c/mw load <level>");
+                        }
+                        break;
+                    case "unload":
+                        if (!$s->hasPermission("mw.cmd.unload")) {
+                            $s->sendMessage(self::getPermissionMessage());
+                            break;
+                        }
+                        if (isset($args[1])) {
+                            $this->manager->unload($args[1]);
+                            $s->sendMessage(self::$prefix."§aLevel unloaded.");
+                        } else {
+                            $s->sendMessage(self::$prefix."§7Usage: §c/mw unload <level>");
+                        }
+                        break;
+                    case "delete":
+                    case "remove":
+                    case "del":
+                    case "rm":
+                        if (!$s->hasPermission("mw.cmd.delete")) {
+                            $s->sendMessage(self::getPermissionMessage());
+                            break;
+                        }
+                        if (isset($args[1])) {
+                            $this->manager->delete($this->getServer()->getLevelByName($args[1]), $s);
+                        } else {
+                            $s->sendMessage(self::$prefix."§7Usage:§c /mw delete <level>");
+                        }
+                        break;
+                    case "info":
+                        if (!$s->hasPermission("mw.cmd.info")) {
+                            $s->sendMessage(self::getPermissionMessage());
+                            break;
+                        }
+                        if(isset($args[0])) {
+                            $this->manager->sendLevelInfo($s,$args[1]);
+                        }
+                        else {
+                            $this->manager->sendLevelInfo($s,$s->getLevel()->getName());
+                        }
+                        break;
+                    case "rename":
+                        if (!$s->hasPermission("mw.cmd.rename")) {
+                            $s->sendMessage(self::getPermissionMessage());
+                            break;
+                        }
+                        if (isset($args[1]) && isset($args[2])) {
+                            $this->manager->rename($args[1],$args[2],$s);
+                        } else {
+                            $s->sendMessage(self::$prefix . "§7Usage: §c/mw rename <oldname> <newname>");
+                        }
+                        break;
+                    default:
+                        if (!$s->hasPermission("wm.cmd.help")) {
+                            $s->sendMessage(self::getPermissionMessage());
+                            break;
+                        }
+                        break;
+                }
+            } else {
+                $s->sendMessage(self::$prefix . "§7Usage: §c/mw help");
             }
-            $this->plugin->getServer()->unloadLevel($this->plugin->getServer()->getLevelByName($name));
-            $this->plugin->getLogger()->debug(MultiWorld::$prefix."§6Unloading world {$name}.");
-        }
-    }
-
-    /**
-     * @param $int
-     * @return mixed|string
-     */
-    public function getWorldList($int) {
-        // loaded
-        if($int == 1) {
-            $list = implode(", ", $this->plugin->getServer()->getLevels());
-            return $list;
-        }
-        if($int == 2) {
-            $list = implode(", ", scandir($this->plugin->getServer()->getDataPath()."worlds"));
-            $list = str_replace(", .", "", $list);
-            $list = str_replace(".", "", $list);
-            return $list;
-        }
-    }
-
-    /**
-     * @param Player $player
-     * @param string $name
-     */
-    public function teleportToWorld(Player $player, $name) {
-        if($this->worldExists($name)) {
-            $this->load($name);
-            $player->teleport($this->plugin->getServer()->getLevelByName($name)->getSafeSpawn());
-            $player->sendMessage(MultiWorld::$prefix."§aYou have been teleported to {$name}.");
-        }
-        else {
-            $player->sendMessage(MultiWorld::$prefix."§cWorld {$name} does not exists!");
-        }
-    }
-
-    /**
-     * @param Player $player
-     * @param string $name
-     */
-    public function sendLevelInfo(Player $player, $name) {
-
-        // load level
-        $this->load($name);
-
-        // define level
-        $level = $this->plugin->getServer()->getLevelByName($name);
-
-        //players
-        $players = count($level->getPlayers());
-        //seed
-        $seed = $level->getSeed();
-        //spawn
-        $x = $level->getSafeSpawn()->getX();$y = $level->getSafeSpawn()->getY();$z = $level->getSafeSpawn()->getZ();
-        //time
-        $time = $level->getTime();
-
-        //define text
-        $text = "§b--- §7[ §5LevelInfo: {$name} §7] §b---\n".
-            "§2Players: §a{$players}\n".
-            "§2Seed: §a{$seed}\n".
-            "§2Spawn: §a{$x}, {$y}, {$z}\n".
-            "§2Time: §a{$time}";
-
-        //send message
-        $player->sendMessage($text);
-    }
-
-    public function rename($oldname, $newname, Player $player) {
-        if($this->worldExists($oldname)) {
-            $this->unload($oldname);
-            $path = $this->plugin->getServer()->getDataPath()."worlds";
-            @rename($path.$oldname,$path.$newname);
-            $player->sendMessage(MultiWorld::$prefix."§aLevel renamed.");
         }
     }
 }
