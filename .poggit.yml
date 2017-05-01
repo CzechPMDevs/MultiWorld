@@ -2,7 +2,7 @@
 branches:
 - master
 projects:
-  WorldManager:
+  MultiWorld:
     path: ""
     icon: icon.png
 ...
