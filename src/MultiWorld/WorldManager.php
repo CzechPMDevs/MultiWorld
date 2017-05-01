@@ -5,7 +5,6 @@ namespace MultiWorld;
 use pocketmine\level\generator\Generator;
 use pocketmine\level\Level;
 use pocketmine\Player;
-use pocketmine\Server;
 
 class WorldManager {
 
@@ -68,6 +67,7 @@ class WorldManager {
         if(!$this->worldExists($name)) {
             $gen = $this->getGenerator($generator);
             $this->plugin->getServer()->generateLevel($name,intval($seed),Generator::getGenerator($gen));
+            $player->sendMessage(MultiWorld::$prefix."§aWorld {$name} generated!");
         }
         else {
             $player->sendMessage(MultiWorld::$prefix."§cWorld is now generated.");
@@ -84,7 +84,14 @@ class WorldManager {
             $players->teleport($this->plugin->getServer()->getDefaultLevel()->getSafeSpawn());
         }
         $this->unload($name);
-        @rmdir($this->plugin->getServer()->getDataPath()."worlds/".$level->getFolderName().$name);
+        $path = $this->plugin->getServer()->getDataPath()."worlds/".$name;
+        foreach (scandir($path."/region/") as $file) {
+            unlink($file);
+        }
+        rmdir($path."region");
+        unlink($path."level.dat");
+        rmdir($path);
+
         $player->sendMessage(MultiWorld::$prefix."§aWorld removed.");
     }
 
@@ -140,7 +147,7 @@ class WorldManager {
             $player->sendMessage(MultiWorld::$prefix."§aYou have been teleported to {$name}.");
         }
         else {
-            $player->sendMessage(MultiWorld::$prefix."§cWorld does not exists!");
+            $player->sendMessage(MultiWorld::$prefix."§cWorld {$name} does not exists!");
         }
     }
 
