@@ -1,72 +1,61 @@
-name: WorldManager
-api:
-  - 1.0.0
-  - 2.0.0
-  - 3.0.0
-  - 3.0.0-ALPHA1
-  - 3.0.0-ALPHA2
-  - 3.0.0-ALPHA3
-  - 3.0.0-ALPHA4
-  - 3.0.0-ALPHA5
-
+name: MultiWorld
+api: [1.0.0, 2.0.0, 3.0.0, 3.0.0-ALPHA5, 3.0.0-ALPHA4, 3.0.0-ALPHA5, 4.0.0]
 author: GamakCZ
-main: WorldManager\WorldManager
-version: 1.1.0
-description: WorldManager plugin
+main: MultiWorld\MultiWorld
+version: 1.0.0
+description: MultWorld plugin with advanced features
 
 commands:
-  worldmanager:
-    description: WorldManager Commands
-    aliases:
-      - wm
-      - mw
+  multiworld:
+    description: MultiWorld Commands
+    aliases: [wm, mw]
 
 permissions:
-  wm.cmd.create:
-    description: Permission for /wm create
+  mw.cmd.create:
+    description: Permission for /mw create
     default: op
-  wm.cmd.setspawn:
-    description: Permission for /wm setspawn
+  mw.cmd.setspawn:
+    description: Permission for /mw setspawn
     default: op
-  wm.cmd.setdefault:
-    description: Permission for /wm setdefault
+  mw.cmd.setdefault:
+    description: Permission for /mw setdefault
     default: op
-  wm.cmd.sethub:
-    description: Permission for /wm sethub
+  mw.cmd.sethub:
+    description: Permission for /mw sethub
     default: op
-  wm.cmd.list:
-    description: Permission for /wm list
+  mw.cmd.list:
+    description: Permission for /mw list
     default: op
-  wm.cmd.tp:
-    description: Permission for /wm tp
+  mw.cmd.tp:
+    description: Permission for /mw tp
     default: op
-  wm.cmd.help:
-    description: Permission for /wm help
+  mw.cmd.help:
+    description: Permission for /mw help
     default: op
-  wm.cmd.genlist:
-    description: Permission for /wm genlist
+  mw.cmd.genlist:
+    description: Permission for /mw genlist
     default: op
-  wm.cmd.load:
-    description: Permission for /wm load
+  mw.cmd.load:
+    description: Permission for /mw load
     default: op
-  wm.cmd.unload:
-    description: Permission for /wm unload
+  mw.cmd.unload:
+    description: Permission for /mw unload
     default: op
-  wm.cmd.delete:
-    description: Permission for /wm delete
+  mw.cmd.delete:
+    description: Permission for /mw delete
     default: op
-  wm.cmd.info:
-    description: Permission for /wm info
+  mw.cmd.info:
+    description: Permission for /mw info
     default: op
-  wm.cmd.rename:
-    description: Permission for /wm rename
+  mw.cmd.rename:
+    description: Permission for /mw rename
     default: op
-  wm.cmd.setdim:
-    description: Permission for /wm setdimension
+  mw.cmd.setdim:
+    description: Permission for /mw setdimension
     default: op
-  wm.cmd.stc:
-    description: Permission for /wm stc
+  mw.cmd.stc:
+    description: Permission for /mw stc
     default: op
-  wm.gm.creative:
+  mw.gm.creative:
     description: Permission for creative out of Creative Worlds
     default: op
