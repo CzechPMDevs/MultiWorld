@@ -30,7 +30,7 @@ class MultiWorld extends PluginBase {
     }
 
     public function registerManager() {
-
+        $this->manager = new WorldManager($this);
     }
 
     public static function getPermissionMessage() {
