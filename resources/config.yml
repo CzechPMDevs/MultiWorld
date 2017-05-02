@@ -7,8 +7,6 @@ prefix: "§5[§6MultiWorld§5]§r§7 "
 # Work in progress
 #language: English
 
-# Work in progress
 guarded-levels: ["Lobby", "Hub", "world"]
 
-# Work in progress
 creative-levels: ["Creative", "CreativeLobby"]
