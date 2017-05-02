@@ -191,4 +191,16 @@ class WorldManager {
             $player->sendMessage(MultiWorld::$prefix."§aLevel renamed.");
         }
     }
+
+    public function addCreativeWorld($name, Player $player = null) {
+        if($this->worldExists($name)) {
+            if(!in_array($name,$this->plugin->getConfig()->get("creative-levels"))) {
+                $this->plugin->getConfig()->set("creative-levels", $name);
+                $this->plugin->getConfig()->save();
+                if($player != null) {
+                    $player->sendMessage(MultiWorld::$prefix."§aLevel {$name} added!");
+                }
+            }
+        }
+    }
 }
