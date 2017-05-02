@@ -3,6 +3,7 @@
 namespace MultiWorld;
 
 use MultiWorld\Events\EventListener;
+use MultiWorld\Tasks\GameGuard;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
@@ -16,22 +17,28 @@ class MultiWorld extends PluginBase {
     /** @var  WorldManager */
     public $manager;
 
+    /** @var  GameGuard */
+    public $gameguard;
+
     public static $prefix;
 
     public function onEnable() {
         $this->loadConfig();
-        $this->registerListener();
-        $this->registerManager();
+        $this->registerClasses();
+        $this->registerTask();
         $this->getServer()->getPluginManager()->registerEvents($this->listener, $this);
     }
 
-    public function registerListener() {
+    public function registerClasses() {
         $this->listener = new EventListener($this);
+        $this->manager = new WorldManager($this);
+        $this->gameguard = new GameGuard($this);
     }
 
-    public function registerManager() {
-        $this->manager = new WorldManager($this);
+    public function registerTask() {
+        $this->getServer()->getScheduler()->scheduleRepeatingTask($this->gameguard, 20);
     }
+
 
     public static function getPermissionMessage() {
         return "§cYou do not have permission to use this command";
@@ -55,31 +62,31 @@ class MultiWorld extends PluginBase {
         $title = "§3---== §aMultiWorld §3==---";
         switch ($page) {
             case 1:
-                $p1 = $title." §7(1/3)\n".
+                $p1 = $title." §7(1/4)\n".
                     "§9/mw create §6Create new World\n" .
                     "§9/mw setspawn §6Sets world spawn\n" .
                     "§9/mw setdefault §6Set world as the default level\n" .
                     "§9/mw sethub §6Sets server hub\n";
                 return $p1;
             case 2:
-                $p2 = $title." §7(2/3)\n".
+                $p2 = $title." §7(2/4)\n".
                     "§9/mw list §6Displays all worlds\n" .
                     "§9/mw tp §6Moves you to the world\n" .
                     "§9/mw genlist §6Displays all generators\n" .
                     "§9/mw load §6Retrieves world\n";
                 return $p2;
             case 3:
-                $p3 = $title." §7(3/3)\n".
+                $p3 = $title." §7(3/4)\n".
                     "§9/mw unload §6Unload wold\n" .
                     "§9/mw delete §6Delete world\n" .
                     "§9/mw info §6Info about level\n" .
                     "§9/mw rename §6Rename world\n";
                 return $p3;
-            /*case 4:
+            case 4:
                 $p4 = $title." §7(4/4)\n".
-                    "§9/mw setdimension §6Set world dimension\n".
-                    "§9/mw setgm §6Set world gamemode";
-                return $p4;*/
+                    "§9/mw addcrea §6Set world default gamemode to creative\n".
+                    "§9/mw addguard §6Add guard to world";
+                return $p4;
         }
     }
 
@@ -106,9 +113,9 @@ class MultiWorld extends PluginBase {
                                 case "3":
                                     $s->sendMessage($this->getHelp(3));
                                     break;
-                                /*case "4":
+                                case "4":
                                     $s->sendMessage($this->getHelp(4));
-                                    break;*/
+                                    break;
                                 default:
                                     $s->sendMessage($this->getHelp(1));
                                     break;
@@ -279,6 +286,26 @@ class MultiWorld extends PluginBase {
                             $this->manager->rename($args[1],$args[2],$s);
                         } else {
                             $s->sendMessage(self::$prefix . "§7Usage: §c/mw rename <oldname> <newname>");
+                        }
+                        break;
+                    case "addcrea":
+                        if (!$s->hasPermission("mw.cmd.addcrea")) {
+                            $s->sendMessage(self::getPermissionMessage());
+                            break;
+                        }
+                        if(isset($args[1])) {
+                            $this->getConfig()->set("creative-levels", array_push($this->getConfig()->get("creative-levels"),$args[1]));
+                            $s->sendMessage(self::$prefix."§aLevel added.");
+                        }
+                        break;
+                    case "addguard":
+                        if (!$s->hasPermission("mw.cmd.addguard")) {
+                            $s->sendMessage(self::getPermissionMessage());
+                            break;
+                        }
+                        if(isset($args[1])) {
+                            $this->getConfig()->set("guarded-levels", array_push($this->getConfig()->get("guarded-levels"),$args[1]));
+                            $s->sendMessage(self::$prefix."§aLevel added.");
                         }
                         break;
                     default:
