@@ -20,7 +20,7 @@ class WorldManager {
      * @return bool
      */
     public function worldExists($name) {
-        if(file_exists($this->plugin->getServer()->getDataPath().$name)) {
+        if(file_exists($this->plugin->getServer()->getDataPath()."worlds/".$name)) {
             return true;
         }
     }
