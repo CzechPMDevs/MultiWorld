@@ -51,7 +51,7 @@ class WorldManager {
             case "void":
             case "sky":
             case "5":
-                return "void";
+                return "Void";
             default:
                 return "normal";
         }
@@ -80,9 +80,6 @@ class WorldManager {
      */
     public function delete(Level $level, Player $player) {
         $name = $level->getName();
-        foreach ($level->getPlayers() as $players) {
-            $players->teleport($this->plugin->getServer()->getDefaultLevel()->getSafeSpawn());
-        }
         $this->unload($name);
         $path = $this->plugin->getServer()->getDataPath()."worlds/".$name;
         foreach (scandir($path."/region/") as $file) {
@@ -90,8 +87,11 @@ class WorldManager {
         }
         rmdir($path."region");
         unlink($path."level.dat");
+        foreach (scandir($path) as $file) {
+            unlink($file);
+        }
         rmdir($path);
-
+        $this->plugin->getServer()->reload();
         $player->sendMessage(MultiWorld::$prefix."§aWorld removed.");
     }
 
@@ -125,8 +125,14 @@ class WorldManager {
     public function getWorldList($int) {
         // loaded
         if($int == 1) {
-            $list = implode(", ", $this->plugin->getServer()->getLevels());
-            return $list;
+            #$list = implode(", ", $this->plugin->getServer()->getLevels());
+            #return $list;
+            $count = count($this->plugin->getServer()->getLevels());
+            for($c = 0;$c <= $count; $c++) {
+                $levels = [];
+                array_push($levels,$this->plugin->getServer()->getLevels()[$c]->getName());
+                return $levels;
+            }
         }
         if($int == 2) {
             $list = implode(", ", scandir($this->plugin->getServer()->getDataPath()."worlds"));
