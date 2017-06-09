@@ -39,11 +39,6 @@ class WorldManager {
             case "hell":
             case "2":
                 return "hell";
-            /*
-            case "end":
-            case "3":
-                return "end";
-            */
             case "flat":
             case "superflat":
             case "4":
@@ -203,7 +198,7 @@ class WorldManager {
             if(!in_array($name,$this->plugin->getConfig()->get("creative-levels"))) {
                 $this->plugin->getConfig()->set("creative-levels", $name);
                 $this->plugin->getConfig()->save();
-                if($player != null) {
+                if($player instanceof Player) {
                     $player->sendMessage(MultiWorld::$prefix."§aLevel {$name} added!");
                 }
             }
