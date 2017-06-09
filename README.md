@@ -1,7 +1,7 @@
 # MultiWorld
 **Advanced WorldManager plugin**
 
-https://travis-ci.org/CzechPMDevs/MultiWorld.svg?branch=master
+[![Build Status](https://travis-ci.org/CzechPMDevs/MultiWorld.svg?branch=master)](https://travis-ci.org/CzechPMDevs/MultiWorld)
 
 [- wiki](https://github.com/CzechPMDevs/MultiWorld/wiki)
 
