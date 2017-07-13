@@ -29,7 +29,7 @@ _**Ported MultiWorld to PocketMine-MP**_
     - [ ] Add commands /mw load & /mw unload
     - [ ] Fix some bugs
   
-### Wiky:
+### Wiki:
 
 - Commands:
   - **/mw create** command
