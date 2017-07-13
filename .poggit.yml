@@ -3,6 +3,6 @@ branches:
 - master
 projects:
   MultiWorld:
-    path: ""
+    path: MultiWorld
     icon: icon.png
 ...
