@@ -7,6 +7,7 @@ use MultiWorld\Generator\AdvancedGenerator;
 use MultiWorld\Generator\BasicGenerator;
 use MultiWorld\Task\DelayedTask\RegisterGeneratorTask;
 use MultiWorld\Util\ConfigManager;
+use MultiWorld\Util\LanguageManager;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
@@ -14,6 +15,10 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
 
 class MultiWorld extends PluginBase {
+
+    const NAME = "MultiWorld";
+    const VERSION = "1.3.0 [BETA 2]";
+    const AUTHOR = "GamakCZ";
 
     /** @var  MultiWorld */
     public static $instance;
@@ -35,6 +40,9 @@ class MultiWorld extends PluginBase {
     /** @var  ConfigManager */
     public $configmgr;
 
+    /** @var  LanguageManager */
+    public $langmgr;
+
 
     ##\
     ### > Generators
@@ -53,6 +61,7 @@ class MultiWorld extends PluginBase {
     /** @var  RegisterGeneratorTask */
     public $registerGeneratorTask;
 
+
     public function onEnable() {
         // INSTANCE
         self::$instance = $this;
@@ -63,15 +72,55 @@ class MultiWorld extends PluginBase {
 
         // utils
         $this->configmgr = new ConfigManager($this);
+        $this->langmgr = new LanguageManager($this);
         $this->configmgr->initConfig();
+        $this->langmgr->loadLang();
 
         // generators
         $this->bgenerator = new BasicGenerator($this);
         $this->agenerator = new AdvancedGenerator($this);
 
         // tasks
-        #$this->registerGeneratorTask = new RegisterGeneratorTask($this);
-        #$this->getServer()->getScheduler()->scheduleDelayedTask($this->registerGeneratorTask, 5*60);
+
+        if(strval($this->getConfig()->get("plugin-version")) != "1.3.0") {
+            $this->getServer()->getPluginManager()->disablePlugin($this);
+            $this->getLogger()->critical(self::getPrefix()."§cConfig is old. Delete config to start MultiWorld.");
+        }
+
+        if($this->getDescription()->getName() != self::NAME || strval($this->getDescription()->getVersion()) != self::VERSION || $this->getDescription()->getAuthors() != self::AUTHOR) {
+            $this->getServer()->getPluginManager()->disablePlugin($this);
+            $this->getLogger()->critical(self::getPrefix()."§cDownload plugin form github! (https://github.com/CzechPMDevs/MultiWorld");
+        }
+
+
+        if($this->isEnabled()) {
+            if($this->isPhar()) {
+                $this->getLogger()->info("§5******************************************\n".
+                    "§6 ---- == §c[§aMultiWorld§c]§6== ----\n".
+                    "§9> Version: §e{$this->getDescription()->getVersion()}\n".
+                    "§9> Author: §eCzechPMDevs :: GamakCZ, Kyd\n".
+                    "§9> GitHub: §egithub.com/CzechMPDevs/MultiWorld\n".
+                    "§9> Package: §ePhar\n".
+                    "§5*****************************************");
+            }
+            else {
+                $this->getLogger()->info("§5******************************************\n".
+                    "§6 ---- == §c[§aMultiWorld§c]§6== ----\n".
+                    "§9> Version: §e{$this->getDescription()->getVersion()}\n".
+                    "§9> Author: §eCzechPMDevs :: GamakCZ, Kyd\n".
+                    "§9> GitHub: §egithub.com/CzechMPDevs/MultiWorld\n".
+                    "§9> Package: §esrc\n".
+                    "§5*****************************************");
+            }
+        }
+        else {
+            $this->getLogger()->info(self::getPrefix()."§6Submit issue to http://github.com/CzechPMDevs/MultiWorld");
+        }
+
+    }
+
+    public function onDisable() {
+        $this->getLogger()->info("§aMultiWorld is disabled!");
     }
 
     public function onCommand(CommandSender $sender, Command $cmd, $label, array $args) {
