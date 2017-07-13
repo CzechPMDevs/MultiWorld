@@ -1,61 +1,28 @@
 name: MultiWorld
-api: [1.0.0, 2.0.0, 3.0.0, 3.0.0-ALPHA5, 3.0.0-ALPHA4, 3.0.0-ALPHA5, 3.0.0-ALPHA6, 4.0.0]
 author: GamakCZ
+api: [3.0.0-ALPHA5, 3.0.0-ALPHA6, 3.0.0-ALPHA7, 4.0.0]
+version: 1.3.0 [BETA 2]
 main: MultiWorld\MultiWorld
-version: 1.1.0
-description: MultWorld plugin with advanced features
+description: Ported MultiWorld to pocketmine
 
 commands:
   multiworld:
-    description: MultiWorld Commands
-    aliases: [wm, mw]
+    aliases: [mw, wm]
+    description: MultiWorld commands
 
 permissions:
+  mw.cmd.help:
+      description: Permission for /mw help
+      default: op
   mw.cmd.create:
     description: Permission for /mw create
     default: op
-  mw.cmd.setspawn:
-    description: Permission for /mw setspawn
+  mw.cmd.teleport:
+    description: Permission for /mw teleport
     default: op
-  mw.cmd.setdefault:
-    description: Permission for /mw setdefault
-    default: op
-  mw.cmd.sethub:
-    description: Permission for /mw sethub
-    default: op
+  mw.cmd.import:
+      description: Permission for /mw import
+      default: op
   mw.cmd.list:
-    description: Permission for /mw list
-    default: op
-  mw.cmd.tp:
-    description: Permission for /mw tp
-    default: op
-  mw.cmd.help:
-    description: Permission for /mw help
-    default: op
-  mw.cmd.genlist:
-    description: Permission for /mw genlist
-    default: op
-  mw.cmd.load:
-    description: Permission for /mw load
-    default: op
-  mw.cmd.unload:
-    description: Permission for /mw unload
-    default: op
-  mw.cmd.delete:
-    description: Permission for /mw delete
-    default: op
-  mw.cmd.info:
-    description: Permission for /mw info
-    default: op
-  mw.cmd.rename:
-    description: Permission for /mw rename
-    default: op
-  mw.cmd.addcrea:
-    description: Permission for /mw addcrea
-    default: op
-  mw.cmd.stc:
-    description: Permission for /mw addguard
-    default: op
-  mw.gm.creative:
-    description: Permission for creative out of Creative Worlds
-    default: op
+      description: Permission for /mw list
+      default: op
