@@ -2,15 +2,18 @@
 
 _**Ported MultiWorld to PocketMine-MP**_
 
+### Poggit Status:
+[![Poggit-CI](https://poggit.pmmp.io/ci.badge/dktapps/ClientConsole/ClientConsole)](https://poggit.pmmp.io/ci/dktapps/ClientConsole/ClientConsole)
+
 ### Phar Download:
   - Version 1.2.0:
-    - Poggit: 
-  - Version 1.3.0 [INDEV] (Stable):
-    - Poggit:
+    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:31
+  - Version 1.3.0 [BETA 1] (Stable):
+    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:40
     
 ### Update log:
 
-- Version 1.3.0 Changes:
+- Version 1.3.0 [BETA 1] Changes:
   - Plugin rewrite
   - Added import command
   - Removed unfunctional functions
