@@ -10,6 +10,7 @@ _**Ported MultiWorld to PocketMine-MP**_
     - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:31
   - Version 1.3.0 [BETA 1] (Stable):
     - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:40
+    - GitHub: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0-BETA1
     
 ### Update log:
 
