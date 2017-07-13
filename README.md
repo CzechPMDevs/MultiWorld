@@ -3,7 +3,8 @@
 _**Ported MultiWorld to PocketMine-MP**_
 
 ### Poggit Status:
-[![Poggit-CI](https://poggit.pmmp.io/ci.badge/dktapps/ClientConsole/ClientConsole)](https://poggit.pmmp.io/ci/dktapps/ClientConsole/ClientConsole)
+
+[![Poggit-CI](https://poggit.pmmp.io/ci.badge/CzechPMDevs/MultiWorld/MultiWorld)](https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld)
 
 ### Phar Download:
   - Version 1.2.0:
@@ -20,6 +21,13 @@ _**Ported MultiWorld to PocketMine-MP**_
   - Plugin rewrite
   - Added import command
   - Removed unfunctional functions
+  
+### Next Version:
+
+- Version 1.3.0 [BETA 2] Changes (TODO):
+    - [ ] Add Transaction support
+    - [ ] Add commands /mw load & /mw unload
+    - [ ] Fix some bugs
   
 ### Wiky:
 
