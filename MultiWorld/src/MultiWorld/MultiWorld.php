@@ -88,9 +88,9 @@ class MultiWorld extends PluginBase {
             $this->getLogger()->critical(self::getPrefix()."§cConfig is old. Delete config to start MultiWorld.");
         }
 
-        if($this->getDescription()->getName() != self::NAME || strval($this->getDescription()->getVersion()) != self::VERSION || $this->getDescription()->getAuthors() != self::AUTHOR) {
+        if(strval($this->getDescription()->getName()) != self::NAME || strval($this->getDescription()->getVersion()) != self::VERSION) {
             $this->getServer()->getPluginManager()->disablePlugin($this);
-            $this->getLogger()->critical(self::getPrefix()."§cDownload plugin form github! (https://github.com/CzechPMDevs/MultiWorld");
+            $this->getLogger()->critical(self::getPrefix()."§cDownload plugin form github! (https://github.com/CzechPMDevs/MultiWorld)");
         }
 
 
