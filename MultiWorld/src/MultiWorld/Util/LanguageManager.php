@@ -22,7 +22,7 @@ class LanguageManager {
 
     public function loadLang() {
         self::$lang = MultiWorld::getInstance()->getConfig()->get("lang");
-        self::$messages = new Config(MultiWorld::getInstance()->getDataFolder()."language/".self::getLang().".yml", Config::YAML);
+        self::$messages = MultiWorld::getInstance()->getConfig()->getAll();
     }
 
     public static function getLang() {
