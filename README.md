@@ -7,13 +7,13 @@ _**Ported MultiWorld to PocketMine-MP**_
 [![Poggit-CI](https://poggit.pmmp.io/ci.badge/CzechPMDevs/MultiWorld/MultiWorld)](https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld)
 
 ### Phar Download:
+  - Version Latest (Unstable):
+      - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld
+  - Version 1.3.0 [BETA 1] (Stable):
+      - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:45
+      - GitHub: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0-BETA1
   - Version 1.2.0:
     - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:31
-  - Version 1.3.0 [BETA 1] (Stable):
-    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:45
-    - GitHub: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0-BETA1
-  - Version Latest (Unstable):
-    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld
     
 ### Update log:
 
