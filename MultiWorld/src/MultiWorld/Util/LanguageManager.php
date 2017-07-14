@@ -35,6 +35,6 @@ class LanguageManager {
      */
     public static function translateMessage($message) {
         $messages = self::$messages;
-        return strval($messages[$message]);
+        return strval($messages[intval(array_search($message, $messages)-1)]);
     }
 }
