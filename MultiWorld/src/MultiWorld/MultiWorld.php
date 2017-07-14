@@ -82,11 +82,13 @@ class MultiWorld extends PluginBase {
         $this->agenerator = new AdvancedGenerator($this);
 
         // tasks
-
-        if(strval($this->getConfig()->get("plugin-version")) != "1.3.0") {
-            $this->getServer()->getPluginManager()->disablePlugin($this);
-            $this->getLogger()->critical(self::getPrefix()."§cConfig is old. Delete config to start MultiWorld.");
+        if(is_file($this->getDataFolder()."/config.yml")) {
+            if(strval($this->getConfig()->get("plugin-version")) != "1.3.0") {
+                $this->getServer()->getPluginManager()->disablePlugin($this);
+                $this->getLogger()->critical(self::getPrefix()."§cConfig is old. Delete config to start MultiWorld.");
+            }
         }
+
 
         if(strval($this->getDescription()->getName()) != self::NAME || strval($this->getDescription()->getVersion()) != self::VERSION) {
             $this->getServer()->getPluginManager()->disablePlugin($this);
