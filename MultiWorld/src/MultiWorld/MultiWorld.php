@@ -139,11 +139,11 @@ class MultiWorld extends PluginBase {
                             $sender->sendMessage("§cYou have not permissions to use this command!");
                             break;
                         }
-                        $sender->sendMessage("§b--- == §c[§aMultiWorld§c] §b== ---\n".
-                        "§e/mw create §7: §9Generate level\n".
-                        "§e/mw teleport §7: §9Teleport to level\n".
-                        "§e/mw import §7: §9Import level from zip\n".
-                        "§e/mw list §7: Displays list of all levels\n");
+                        $sender->sendMessage(LanguageManager::translateMessage("help-0")."\n".
+                        LanguageManager::translateMessage("help-1")."\n".
+                        LanguageManager::translateMessage("help-2")."\n".
+                        LanguageManager::translateMessage("help-3")."\n".
+                        LanguageManager::translateMessage("help-4")."\n");
                         break;
                     case "create":
                     case "add":
@@ -153,11 +153,11 @@ class MultiWorld extends PluginBase {
                             break;
                         }
                         if(empty($args[1])) {
-                            $sender->sendMessage(self::getPrefix()."§cUsage: §7/mw create <name> [seed] [generator]");
+                            $sender->sendMessage(self::getPrefix().LanguageManager::translateMessage("create-usage"));
                             break;
                         }
                         $this->bgenerator->generateLevel($args[1], $args[2], $args[3]);
-                        $sender->sendMessage(self::getPrefix()."§aGenerating level {$args[0]}");
+                        $sender->sendMessage(self::getPrefix().str_replace("%1", $args[1], LanguageManager::translateMessage("create.generating")));
                         break;
                     case "teleport":
                     case "tp":
