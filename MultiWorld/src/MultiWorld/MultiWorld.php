@@ -19,6 +19,7 @@ class MultiWorld extends PluginBase {
     const NAME = "MultiWorld";
     const VERSION = "1.3.0 [BETA 2]";
     const AUTHOR = "GamakCZ";
+    const GITHUB = "https://github.com/CzechPMDevs/MultiWorld/";
 
     /** @var  MultiWorld */
     public static $instance;
@@ -95,26 +96,28 @@ class MultiWorld extends PluginBase {
 
         if($this->isEnabled()) {
             if($this->isPhar()) {
-                $this->getLogger()->info("§5******************************************\n".
+                $this->getLogger()->info("\n§5******************************************\n".
                     "§6 ---- == §c[§aMultiWorld§c]§6== ----\n".
                     "§9> Version: §e{$this->getDescription()->getVersion()}\n".
                     "§9> Author: §eCzechPMDevs :: GamakCZ, Kyd\n".
-                    "§9> GitHub: §egithub.com/CzechMPDevs/MultiWorld\n".
+                    "§9> GitHub: §e".self::GITHUB."\n".
                     "§9> Package: §ePhar\n".
+                    "§9> Language: §e".LanguageManager::getLang()."\n".
                     "§5*****************************************");
             }
             else {
-                $this->getLogger()->info("§5******************************************\n".
+                $this->getLogger()->info("\n§5******************************************\n".
                     "§6 ---- == §c[§aMultiWorld§c]§6== ----\n".
                     "§9> Version: §e{$this->getDescription()->getVersion()}\n".
                     "§9> Author: §eCzechPMDevs :: GamakCZ, Kyd\n".
                     "§9> GitHub: §egithub.com/CzechMPDevs/MultiWorld\n".
                     "§9> Package: §esrc\n".
+                    "§9> Language: §e".LanguageManager::getLang()."\n".
                     "§5*****************************************");
             }
         }
         else {
-            $this->getLogger()->info(self::getPrefix()."§6Submit issue to http://github.com/CzechPMDevs/MultiWorld");
+            $this->getLogger()->info(self::getPrefix()."§6Submit issue to ".self::GITHUB."/issues");
         }
 
     }
@@ -138,7 +141,9 @@ class MultiWorld extends PluginBase {
                         }
                         $sender->sendMessage("§b--- == §c[§aMultiWorld§c] §b== ---\n".
                         "§e/mw create §7: §9Generate level\n".
-                        "§e/mw teleport §7: §9Teleport to level\n");
+                        "§e/mw teleport §7: §9Teleport to level\n".
+                        "§e/mw import §7: §9Import level from zip\n".
+                        "§e/mw list §7: Displays list of all levels\n");
                         break;
                     case "create":
                     case "add":
@@ -171,7 +176,7 @@ class MultiWorld extends PluginBase {
                         }
                         if(!Server::getInstance()->isLevelLoaded($args[1])) {
                             Server::getInstance()->loadLevel($args[1]);
-                            $this->getLogger()->debug("[MultiWorld] Loading level {$args[1]}...");
+                            $this->getLogger()->debug("Loading level {$args[1]}...");
                         }
                         if(isset($args[2])) {
                             $player = $this->getServer()->getPlayer($args[2]);

@@ -37,7 +37,7 @@ class ConfigManager {
         }
 
         // load prefix
-        self::$prefix = MultiWorld::getInstance()->getConfig()->get("prefix")." ";
+        self::$prefix = MultiWorld::getInstance()->getConfig()->get("prefix")." §7";
     }
 
     /**

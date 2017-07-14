@@ -11,18 +11,20 @@ commands:
     description: MultiWorld commands
 
 permissions:
-  mw.cmd.help:
-      description: Permission for /mw help
-      default: op
-  mw.cmd.create:
-    description: Permission for /mw create
-    default: op
-  mw.cmd.teleport:
-    description: Permission for /mw teleport
-    default: op
-  mw.cmd.import:
-      description: Permission for /mw import
-      default: op
-  mw.cmd.list:
-      description: Permission for /mw list
-      default: op
+  mw.cmd:
+    childern:
+      mw.cmd.help:
+        description: Permission for /mw help
+        default: op
+      mw.cmd.create:
+        description: Permission for /mw create
+        default: op
+      mw.cmd.teleport:
+        description: Permission for /mw teleport
+        default: op
+      mw.cmd.import:
+        description: Permission for /mw import
+        default: op
+      mw.cmd.list:
+        description: Permission for /mw list
+        default: op
