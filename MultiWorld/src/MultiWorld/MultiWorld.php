@@ -138,7 +138,7 @@ class MultiWorld extends PluginBase {
                     case "help":
                     case "?":
                         if(!$sender->hasPermission("mw.cmd.help")) {
-                            $sender->sendMessage("§cYou have not permissions to use this command!");
+                            $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
                             break;
                         }
                         $sender->sendMessage(LanguageManager::translateMessage("help-0")."\n".
@@ -151,7 +151,7 @@ class MultiWorld extends PluginBase {
                     case "add":
                     case "generate":
                         if(!$sender->hasPermission("mw.cmd.create")) {
-                            $sender->sendMessage("§cYou have not permissions to use this command!");
+                            $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
                             break;
                         }
                         if(empty($args[1])) {
@@ -165,51 +165,51 @@ class MultiWorld extends PluginBase {
                     case "tp":
                     case "move":
                         if(!$sender->hasPermission("mw.cmd.teleport")) {
-                            $sender->sendMessage("§cYou have not permissions to use this command!");
+                            $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
                             break;
                         }
                         if(empty($args[1])) {
-                            $sender->sendMessage(self::getPrefix()."§cUsage: §7/mw teleport <level> [player]");
+                            $sender->sendMessage(self::getPrefix().LanguageManager::translateMessage("teleport-usage"));
                             break;
                         }
                         if(!Server::getInstance()->isLevelGenerated($args[1])) {
-                            $sender->sendMessage(self::getPrefix()."§cLevel is not generated yet! Try /mw create for generate level.");
+                            $sender->sendMessage(self::getPrefix().LanguageManager::translateMessage("teleport-levelnotexists"));
                             break;
                         }
                         if(!Server::getInstance()->isLevelLoaded($args[1])) {
                             Server::getInstance()->loadLevel($args[1]);
-                            $this->getLogger()->debug("Loading level {$args[1]}...");
+                            $this->getLogger()->debug(self::getPrefix().str_replace("%1", $args[1], LanguageManager::translateMessage("teleport-load")));
                         }
                         if(isset($args[2])) {
                             $player = $this->getServer()->getPlayer($args[2]);
                             if($player->isOnline()) {
                                 $player->teleport(Server::getInstance()->getLevelByName($args[1])->getSafeSpawn(), 0, 0);
-                                $player->sendMessage(self::getPrefix()."§aYou are teleported to level {$args[1]}.");
-                                $sender->sendMessage(self::getPrefix()."§aPlayer {$player->getName()} is teleported to level {$args[1]}!");
+                                $player->sendMessage(self::getPrefix().str_replace("%1", $args[1], LanguageManager::translateMessage("teleport-done-1")));
+                                $sender->sendMessage(self::getPrefix().str_replace("%1", $args[1], str_replace("%2", $player->getName(), LanguageManager::translateMessage("teleport-done-2"))));
                                 break;
                             }
                             else {
-                                $sender->sendMessage(self::getPrefix()."§cPlayer does not exists!");
+                                $sender->sendMessage(self::getPrefix().LanguageManager::translateMessage("teleport-playernotexists"));
                                 break;
                             }
                         }
                         else {
                             $sender->teleport(Server::getInstance()->getLevelByName($args[1])->getSafeSpawn(), 0, 0);
-                            $sender->sendMessage(self::getPrefix()."§aYou are teleported to {$args[1]}!");
+                            $sender->sendMessage(self::getPrefix().str_replace("%1", $args[1], LanguageManager::translateMessage("teleport-done-2")));
                         }
                         break;
                     case "import":
                         if(!$sender->hasPermission("mw.cmd.import")) {
-                            $sender->sendMessage("§cYou have not permissions to use this command!");
+                            $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
                             break;
                         }
                         if(empty($args[1])) {
-                            $sender->sendMessage(self::getPrefix()."§cUsage: §7/mw import <FolderName>");
+                            $sender->sendMessage(self::getPrefix().LanguageManager::translateMessage("import-usage"));
                             break;
                         }
                         $zipPath = ConfigManager::getDataPath()."levels/{$args[1]}.zip";
                         if(!file_exists($zipPath)) {
-                            $sender->sendMessage(self::getPrefix()."§cZip does not exists!");
+                            $sender->sendMessage(self::getPrefix().LanguageManager::translateMessage("import-zipnotexists"));
                             break;
                         }
                         $zip = new \ZipArchive;
@@ -218,27 +218,30 @@ class MultiWorld extends PluginBase {
                         $zip->close();
                         unset($zip);
                         $this->getServer()->loadLevel($args[1]);
-                        $sender->sendMessage(self::getPrefix()."§aLevel imported!");
+                        $sender->sendMessage(self::getPrefix().LanguageManager::translateMessage("import-done"));
                         break;
                     case "list":
                     case "ls":
                     case "levels":
                     case "worlds":
                         if(!$sender->hasPermission("mw.cmd.list")) {
-                            $sender->sendMessage("§cYou have not permissions to use this command!");
+                            $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
                             break;
                         }
-                        $list = scandir(ConfigManager::getDataPath()."worlds/");
-                        $sender->sendMessage(self::getPrefix()."§aLevels:".implode(", ", array_shift(array_shift($list))));
+                        $list = scandir(ConfigManager::getDataPath()."worlds");
+                        $list = array_shift($list);
+                        $list = array_shift($list);
+                        $list = implode(", ", $list);
+                        $sender->sendMessage(self::getPrefix().str_replace("%1", $list, LanguageManager::translateMessage("list-done")));
                         break;
                 }
             }
             else {
                 if(!$sender->hasPermission("mw.cmd.help")) {
-                    $sender->sendMessage("§cYou have not permissions to use this command!");
+                    $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
                 }
                 else {
-                    $sender->sendMessage(self::getPrefix()."§cUsage: §7/mw help");
+                    $sender->sendMessage(self::getPrefix().LanguageManager::translateMessage("default-usage"));
                 }
             }
         }

@@ -4,23 +4,30 @@
 ## Commands:
 
 not-perms: '§cYou have not permissions to use this command!'
+default-usage: '§cUsage: §7/mw help'
 
 # Help Command:
 help-0: '§b--- == §c[§aMultiWorld§c] §b== ---'
 help-1: '§e/mw create §7: §9Generate level'
 help-2: '§e/mw teleport §7: §9Teleport to level'
 help-3: '§e/mw import §7: §9Import level from zip'
-help-4: '§e/mw list §7: Displays list of all levels'
-# Create Command
+help-4: '§e/mw list §7: §9Displays list of all levels'
+# Create Command:
 create-usage: '§cUsage: §7/mw create <name> [seed] [generator]'
 create-generating: '§aGenerating level %1'
 create-done: 'Level %1 is generated using seed: %2 and generator: %3.'
-# Teleport Command
+# Teleport Command:
 teleport-usage: '§cUsage: §7/mw teleport <level> [player]'
 teleport-levelnotexists: '§cLevel is not generated yet! Try /mw create for generate level.'
 teleport-load: 'Loading level %1...'
 teleport-done-1: '§aYou are teleported to level %1.'
 teleport-done-2: '§aPlayer %2 is teleported to level %1!'
-teleport-done-3: '§aYou are teleported to {$args[1]}!'
 teleport-playernotexists: '§cPlayer does not exists!'
+# Import Command:
+import-usage: '§cUsage: §7/mw import <FolderName>'
+import-zipnotexists: '§cZip does not exists!'
+import-done: '§aLevel imported!'
+# List Command:
+list-done: '§aLevels: %1'
+
 ...
