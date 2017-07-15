@@ -195,7 +195,7 @@ class MultiWorld extends PluginBase {
                         }
                         else {
                             $sender->teleport(Server::getInstance()->getLevelByName($args[1])->getSafeSpawn(), 0, 0);
-                            $sender->sendMessage(self::getPrefix().str_replace("%1", $args[1], LanguageManager::translateMessage("teleport-done-2")));
+                            $sender->sendMessage(self::getPrefix().str_replace("%1", $args[1], LanguageManager::translateMessage("teleport-done-1")));
                         }
                         break;
                     case "import":
@@ -233,6 +233,38 @@ class MultiWorld extends PluginBase {
                         unset($list[1]);
                         $list = implode(", ", $list);
                         $sender->sendMessage(self::getPrefix().str_replace("%1", $list, LanguageManager::translateMessage("list-done")));
+                        break;
+                    case "load":
+                        if(!$sender->hasPermission("mw.cmd.load")) {
+                            $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
+                            break;
+                        }
+                        if(empty($args[1])) {
+                            $sender->sendMessage(self::getPrefix().LanguageManager::translateMessage("load-usage"));
+                            break;
+                        }
+                        if(!$this->getServer()->isLevelGenerated($args[1])) {
+                            $sender->sendMessage(self::getPrefix().str_replace("%1", $args[1], LanguageManager::translateMessage("load-levelnotexists")));
+                            break;
+                        }
+                        $this->getServer()->loadLevel($args[1]);
+                        $sender->sendMessage(self::getPrefix().str_replace("%1", $args[1], LanguageManager::translateMessage("load-done")));
+                        break;
+                    case "unload":
+                        if(!$sender->hasPermission("mw.cmd.unload")) {
+                            $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
+                            break;
+                        }
+                        if(empty($args[1])) {
+                            $sender->sendMessage(self::getPrefix().LanguageManager::translateMessage("unload-usage"));
+                            break;
+                        }
+                        if(!$this->getServer()->isLevelGenerated($args[1])) {
+                            $sender->sendMessage(self::getPrefix().str_replace("%1", $args[1], LanguageManager::translateMessage("unload-levelnotexists")));
+                            break;
+                        }
+                        $this->getServer()->unloadLevel($this->getServer()->getLevelByName($args[1]));
+                        $sender->sendMessage(self::getPrefix().str_replace("%1", $args[1], LanguageManager::translateMessage("unload-done")));
                         break;
                 }
             }
