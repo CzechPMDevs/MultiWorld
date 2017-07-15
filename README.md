@@ -32,8 +32,9 @@ _**Ported MultiWorld to PocketMine-MP**_
 
 - Version 1.3.0 [BETA 2] Changes (TODO):
     - [x] Add Transaction support
-    - [ ] Add commands /mw load & /mw unload
+    - [x] Add commands /mw load & /mw unload
     - [x] Fix some bugs
+    - [ ] Published
   
 ### Wiki:
 
