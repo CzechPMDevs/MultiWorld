@@ -2,6 +2,12 @@
 
 _**Ported MultiWorld to PocketMine-MP**_
 
+### Works on:
+  - PocketMine-MP
+  - GenisysPro
+  - BlueLight
+  - Tesseract
+
 ### Poggit Status:
 
 [![Poggit-CI](https://poggit.pmmp.io/ci.badge/CzechPMDevs/MultiWorld/MultiWorld)](https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld)
