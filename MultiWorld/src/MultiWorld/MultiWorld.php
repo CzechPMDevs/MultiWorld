@@ -229,8 +229,8 @@ class MultiWorld extends PluginBase {
                             break;
                         }
                         $list = scandir(ConfigManager::getDataPath()."worlds");
-                        $list = array_shift($list);
-                        $list = array_shift($list);
+                        unset($list[0]);
+                        unset($list[1]);
                         $list = implode(", ", $list);
                         $sender->sendMessage(self::getPrefix().str_replace("%1", $list, LanguageManager::translateMessage("list-done")));
                         break;
