@@ -2,6 +2,12 @@
 
 _**Ported MultiWorld to PocketMine-MP**_
 
+### Works on:
+  - PocketMine-MP
+  - GenisysPro
+  - BlueLight
+  - Tesseract
+
 ### Poggit Status:
 
 [![Poggit-CI](https://poggit.pmmp.io/ci.badge/CzechPMDevs/MultiWorld/MultiWorld)](https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld)
@@ -25,9 +31,9 @@ _**Ported MultiWorld to PocketMine-MP**_
 ### Next Version:
 
 - Version 1.3.0 [BETA 2] Changes (TODO):
-    - [ ] Add Transaction support
+    - [x] Add Transaction support
     - [ ] Add commands /mw load & /mw unload
-    - [ ] Fix some bugs
+    - [x] Fix some bugs
   
 ### Wiki:
 
