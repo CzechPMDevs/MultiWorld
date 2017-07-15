@@ -13,28 +13,35 @@ _**Ported MultiWorld to PocketMine-MP**_
 [![Poggit-CI](https://poggit.pmmp.io/ci.badge/CzechPMDevs/MultiWorld/MultiWorld)](https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld)
 
 ### Phar Download:
-  - Version Latest (Unstable):
-      - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld
-  - Version 1.3.0 [BETA 1] (Stable):
-      - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:45
-      - GitHub: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0-BETA1
-  - Version 1.2.0:
+- Version Latest (Unstable):
+    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld
+- Version 1.3.0 [BETA 2] (Stable):
+    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:59
+    - Github: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0-BETA2
+- Version 1.3.0 [BETA 1] (Unstable):
+    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:45
+    - GitHub: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0-BETA1
+- Version 1.2.0:
     - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:31
     
 ### Update log:
 
+- Version 1.3.0 [BETA 2] Changes:
+    - Added Transaction support
+    - Added commands /mw load & /mw unload
+    - Fixed some bugs (/mw list command, ...)
+
 - Version 1.3.0 [BETA 1] Changes:
-  - Plugin rewrite
-  - Added import command
-  - Removed unfunctional functions
+    - Plugin rewrite
+    - Added import command
+    - Removed unfunctional functions
   
 ### Next Version:
 
-- Version 1.3.0 [BETA 2] Changes (TODO):
-    - [x] Add Transaction support
-    - [x] Add commands /mw load & /mw unload
-    - [x] Fix some bugs
-    - [ ] Published
+- Version 1.3.0 [BETA 3] Changes (TODO):
+    - [ ] Move commands to src/MultiWorld/Command file
+    - [ ] Add commands /mw delete, /mw setlobby, /mw setdefault, /mw setspawn
+    - [ ] Fix some bugs
   
 ### Wiki:
 
