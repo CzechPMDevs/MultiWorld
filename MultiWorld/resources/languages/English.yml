@@ -34,8 +34,8 @@ load-usage: '§cUsage: §7/mw load <level>'
 load-levelnotexists: '§cLevel %1 does not exists!'
 load-done: '§aLevel loaded!'
 # Unload Command
-load-usage: '§cUsage: §7/mw unload <level>'
-load-levelnotexists: '§cLevel %1 does not exists!'
-load-done: '§aLevel unloaded!'
+unload-usage: '§cUsage: §7/mw unload <level>'
+unload-levelnotexists: '§cLevel %1 does not exists!'
+unload-done: '§aLevel unloaded!'
 
 ...
