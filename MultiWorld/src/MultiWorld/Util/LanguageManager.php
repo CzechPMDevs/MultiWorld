@@ -13,7 +13,7 @@ class LanguageManager {
     /** @string $lang */
     public static $lang;
 
-    // messages from config
+    /** @var  Config */
     public static $messages;
 
     public function __construct(MultiWorld $plugin) {
@@ -22,7 +22,7 @@ class LanguageManager {
 
     public function loadLang() {
         self::$lang = MultiWorld::getInstance()->getConfig()->get("lang");
-        self::$messages = MultiWorld::getInstance()->getConfig()->getAll();
+        self::$messages = new Config(ConfigManager::getDataFolder()."/languages/".MultiWorld::getInstance()->getConfig()->get("lang").".yml", Config::YAML);
     }
 
     public static function getLang() {
@@ -34,7 +34,6 @@ class LanguageManager {
      * @return string
      */
     public static function translateMessage($message) {
-        $messages = self::$messages;
-        return strval($messages[intval(array_search($message, $messages)-1)]);
+        return strval(self::$messages->get($message));
     }
 }

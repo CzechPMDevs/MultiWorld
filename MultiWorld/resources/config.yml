@@ -1,7 +1,10 @@
 ---
-
-### config for MultiWorld v:
+### Config for MultiWorld v:
 plugin-version: '1.3.0'
 
+## MultiWorld Language
+lang: 'English'
+
+## If you want to disable prefix, set prefix to ' '
 prefix: '§6[§2MultiWorld§6]§7'
 ...

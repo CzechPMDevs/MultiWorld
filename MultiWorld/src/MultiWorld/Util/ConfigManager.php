@@ -3,6 +3,7 @@
 namespace MultiWorld\Util;
 
 use MultiWorld\MultiWorld;
+use pocketmine\utils\Config;
 
 class ConfigManager {
 
@@ -26,14 +27,14 @@ class ConfigManager {
         if(!is_dir(self::getDataPath()."levels")) {
             @mkdir(self::getDataPath()."levels");
         }
-        if(!is_dir(self::getDataFolder()."language")) {
-            @mkdir(self::getDataFolder()."language");
-        }
-        if(!is_file(self::getDataFolder()."language/".MultiWorld::getInstance()->getConfig()->get("lang").".yml")) {
-            MultiWorld::getInstance()->saveResource("language/".MultiWorld::getInstance()->getConfig()->get("lang").".yml");
+        if(!is_dir(self::getDataFolder()."languages")) {
+            @mkdir(self::getDataFolder()."languages");
         }
         if(!is_file(self::getDataFolder()."/config.yml")) {
             MultiWorld::getInstance()->saveResource("/config.yml");
+        }
+        if(!is_file(self::getDataFolder()."languages/English.yml")) {
+            MultiWorld::getInstance()->saveResource("languages/English.yml");
         }
 
         // load prefix

@@ -98,24 +98,24 @@ class MultiWorld extends PluginBase {
 
         if($this->isEnabled()) {
             if($this->isPhar()) {
-                $this->getLogger()->info("\n§5******************************************\n".
+                $this->getLogger()->info("\n§5**********************************************\n".
                     "§6 ---- == §c[§aMultiWorld§c]§6== ----\n".
                     "§9> Version: §e{$this->getDescription()->getVersion()}\n".
                     "§9> Author: §eCzechPMDevs :: GamakCZ, Kyd\n".
                     "§9> GitHub: §e".self::GITHUB."\n".
                     "§9> Package: §ePhar\n".
                     "§9> Language: §e".LanguageManager::getLang()."\n".
-                    "§5*****************************************");
+                    "§5*********************************************");
             }
             else {
-                $this->getLogger()->info("\n§5******************************************\n".
+                $this->getLogger()->info("\n§5**********************************************\n".
                     "§6 ---- == §c[§aMultiWorld§c]§6== ----\n".
                     "§9> Version: §e{$this->getDescription()->getVersion()}\n".
                     "§9> Author: §eCzechPMDevs :: GamakCZ, Kyd\n".
                     "§9> GitHub: §egithub.com/CzechMPDevs/MultiWorld\n".
                     "§9> Package: §esrc\n".
                     "§9> Language: §e".LanguageManager::getLang()."\n".
-                    "§5*****************************************");
+                    "§5*********************************************");
             }
         }
         else {
