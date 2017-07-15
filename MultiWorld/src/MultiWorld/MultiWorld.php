@@ -263,6 +263,10 @@ class MultiWorld extends PluginBase {
                             $sender->sendMessage(self::getPrefix().str_replace("%1", $args[1], LanguageManager::translateMessage("unload-levelnotexists")));
                             break;
                         }
+                        if(!$this->getServer()->isLevelLoaded($args[1])) {
+                            $sender->sendMessage(self::getPrefix().str_replace("%1", $args[1], LanguageManager::translateMessage("unload-unloaded")));
+                            break;
+                        }
                         $this->getServer()->unloadLevel($this->getServer()->getLevelByName($args[1]));
                         $sender->sendMessage(self::getPrefix().str_replace("%1", $args[1], LanguageManager::translateMessage("unload-done")));
                         break;
