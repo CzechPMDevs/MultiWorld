@@ -39,9 +39,9 @@ _**Ported MultiWorld to PocketMine-MP**_
 ### Next Version:
 
 - Version 1.3.0 [BETA 3] Changes (TODO):
-    - [ ] Move commands to src/MultiWorld/Command file
+    - [x] Move commands to src/MultiWorld/Command file
     - [ ] Add commands /mw delete, /mw setlobby, /mw setdefault, /mw setspawn
-    - [ ] Fix some bugs
+    - [x] Fix some bugs
   
 ### Wiki:
 
