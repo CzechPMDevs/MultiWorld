@@ -8,7 +8,7 @@ use MultiWorld\Command\Commands\ImportCommand;
 use MultiWorld\Command\Commands\ListCommand;
 use MultiWorld\Command\Commands\LoadCommand;
 use MultiWorld\Command\Commands\TeleportCommand;
-use MultiWorld\Command\Commands\UnoadCommand;
+use MultiWorld\Command\Commands\UnloadCommand;
 use MultiWorld\MultiWorld;
 use MultiWorld\Util\LanguageManager;
 use pocketmine\command\Command;
@@ -38,7 +38,7 @@ class MultiWorldCommand {
     /** @var  LoadCommand */
     public $loadcmd;
 
-    /** @var  UnoadCommand */
+    /** @var  UnloadCommand */
     public $unloadcmd;
 
     public function __construct(MultiWorld $plugin) {

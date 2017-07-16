@@ -8,7 +8,7 @@ use MultiWorld\Util\LanguageManager;
 use pocketmine\Player;
 use pocketmine\Server;
 
-class UnoadCommand {
+class UnloadCommand {
 
     /** @var  MultiWorld */
     public $plugin;
