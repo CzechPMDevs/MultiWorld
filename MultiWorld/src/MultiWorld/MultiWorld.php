@@ -18,7 +18,7 @@ use pocketmine\Server;
 class MultiWorld extends PluginBase {
 
     const NAME = "MultiWorld";
-    const VERSION = "1.3.0 [BETA 2]";
+    const VERSION = "1.3.0 [BETA 3] [PocketMine-MP]";
     const AUTHOR = "GamakCZ";
     const GITHUB = "https://github.com/CzechPMDevs/MultiWorld/";
 
@@ -158,7 +158,8 @@ class MultiWorld extends PluginBase {
      * @param array $args
      * @return bool
      */
-    public function onCommand(CommandSender $sender, Command $cmd, $label, array $args) {
+    public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args):bool {
+        $this->multiWorldCommand->onCommand($sender, $cmd, $label, $args);
         /*if(!($sender instanceof Player)) {
             return false;
         }
