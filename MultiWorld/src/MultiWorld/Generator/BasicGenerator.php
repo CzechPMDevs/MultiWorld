@@ -25,7 +25,7 @@ class BasicGenerator {
      * @param int|string $seed
      * @param string $generatorName
      */
-    public function generateLevel($name, $seed = 0, $generatorName = "normal") {
+    public function generateLevel(string $name, int $seed = 0, string $generatorName) {
         $seed = intval($seed);
         // Flat is advanced -> if($generatorName == "FlatGenerator") $generator = "...");
         $generator = $this->getBasicGeneratorByName($generatorName);
