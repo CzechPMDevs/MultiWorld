@@ -16,7 +16,8 @@ _**Ported MultiWorld to PocketMine-MP**_
 - Version Latest (Unstable):
     - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld
 - Version 1.3.0 [BETA 2] (Stable):
-    - Github: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0-BETA2
+    - Github: (for PocketMine-MP) https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0-BETA2
+    - Poggit: (for GenisysPro, Tesseract, BlueLight, ...) https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:59
 - Version 1.3.0 [BETA 1] (Unstable):
     - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:45
     - GitHub: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0-BETA1
