@@ -4,9 +4,6 @@ _**Ported MultiWorld to PocketMine-MP**_
 
 ### Works on:
   - PocketMine-MP
-  - GenisysPro
-  - BlueLight
-  - Tesseract
 
 ### Poggit Status:
 
@@ -17,7 +14,6 @@ _**Ported MultiWorld to PocketMine-MP**_
     - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld
 - Version 1.3.0 [BETA 2] (Stable):
     - Github: (for PocketMine-MP) https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0-BETA2
-    - Poggit: (for GenisysPro, Tesseract, BlueLight, ...) https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:59
 - Version 1.3.0 [BETA 1] (Unstable):
     - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:45
     - GitHub: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0-BETA1
@@ -40,8 +36,10 @@ _**Ported MultiWorld to PocketMine-MP**_
 
 - Version 1.3.0 [BETA 3] Changes (TODO):
     - [x] Move commands to src/MultiWorld/Command file
-    - [ ] Add commands /mw delete, /mw setlobby, /mw setdefault, /mw setspawn
+    - [x] Add commands /mw delete, /mw setlobby, /mw setdefault, /mw setspawn
     - [x] Fix some bugs
+    - [ ] Test it
+    - [ ] Release it
   
 ### Wiki:
 
