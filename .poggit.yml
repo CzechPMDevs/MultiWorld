@@ -1,6 +1,7 @@
 ---
 branches:
-- master
+- Genisys
+- PocketMine-MP
 projects:
   MultiWorld:
     path: MultiWorld
