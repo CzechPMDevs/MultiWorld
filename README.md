@@ -23,6 +23,12 @@ _**Ported MultiWorld to PocketMine-MP**_
     
 ### Update log:
 
+- Version 1.3.0 [BETA 3] Changes:
+    - Fixed generator (/mw create)
+    - CleanUp plugin
+    - Fixed some bugs
+    - Plugin is now stable for PMMP
+
 - Version 1.3.0 [BETA 2] Changes:
     - Added Transaction support
     - Added commands /mw load & /mw unload
@@ -35,10 +41,10 @@ _**Ported MultiWorld to PocketMine-MP**_
   
 ### Next Version:
 
-- Version 1.3.0 [BETA 3] Changes (TODO):
-    - [x] Fix /mw create
-    - [x] Fix some bugs
-    - [ ] Test it
+- Version 1.3.0 Changes (TODO):
+    - [ ] Add command /mw delete
+    - [ ] Add Czech language support
+    - [ ] Update wiki
     - [ ] Release it
   
 ### Wiki:
