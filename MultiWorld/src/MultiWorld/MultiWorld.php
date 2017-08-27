@@ -26,17 +26,17 @@ class MultiWorld extends PluginBase {
     const GITHUB = "https://github.com/CzechPMDevs/MultiWorld/";
 
     /** @var  MultiWorld */
-    public static $instance;
+    static $instance;
 
-    // prefix
-    public static $prefix;
+    /** @var  string $prefix */
+    static $prefix;
 
     ##\
     ### > Events
     ##/
 
     /** @var  EventListener */
-    public $listener;
+    public $eventListener;
 
     ##\
     ### > Utils
@@ -48,51 +48,18 @@ class MultiWorld extends PluginBase {
     /** @var  LanguageManager */
     public $langmgr;
 
-
-    ##\
-    ### > Generators
-    ##/
-
-    /** @var  BasicGenerator */
-    public $bgenerator;
-
-    /** @var  AdvancedGenerator */
-    public $agenerator;
-
-    ##\
-    ### > Tasks
-    ##/
-
-    /** @var  RegisterGeneratorTask */
-    public $registerGeneratorTask;
-
-    ##\
-    ### > Commands
-    ##/
-
-    /** @var  MultiWorldCommand */
-    public $multiWorldCommand;
-
     public function onEnable() {
         // INSTANCE
         self::$instance = $this;
 
         // events
-        $this->listener = new EventListener($this);
-        $this->getServer()->getPluginManager()->registerEvents($this->listener, $this);
+        $this->getServer()->getPluginManager()->registerEvents($this->eventListener = new EventListener($this), $this);
 
         // utils
         $this->configmgr = new ConfigManager($this);
         $this->langmgr = new LanguageManager($this);
         $this->configmgr->initConfig();
         $this->langmgr->loadLang();
-
-        // generators
-        $this->bgenerator = new BasicGenerator($this);
-        $this->agenerator = new AdvancedGenerator($this);
-
-        // commands
-        $this->multiWorldCommand = new MultiWorldCommand($this);
 
         if($this->getServer()->getName() != "PocketMine-MP") {
             $this->getLogger()->critical("§cMultiWorld does not support {$this->getServer()->getName()}");
@@ -193,10 +160,9 @@ class MultiWorld extends PluginBase {
                     }
                     $seed = null;
                     $generator = null;
-                    # command: /mw [1]create [2]name [3]seed [4]generator
                     count($args) < 3 ? $seed = rand(1,99999) : $seed = $args[2];
                     count($args) < 4 ? $generator = "normal" : $generator = $args[3];
-                    # check if generator exists
+                    strtolower($generator) == "nether" ? $generator = "hell" : $generator = strtolower($generator);
                     if(Generator::getGeneratorName(Generator::getGenerator($generator)) != strtolower($generator)) {
                         $sender->sendMessage(str_replace("%1", strtolower($generator), LanguageManager::translateMessage("create-gennotexists")));
                         return false;
@@ -208,13 +174,6 @@ class MultiWorld extends PluginBase {
                 case "teleport":
                 case "tp":
                 case "move":
-                    /*if(!($sender instanceof Player)) {
-                        return false;
-                    }
-                    if (!$sender->hasPermission("mw.cmd.teleport")) {
-                        $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
-                        return false;
-                    }*/
                     if (empty($args[1])) {
                         if(($sender instanceof Player && $sender->hasPermission("mw.cmd.teleport")) || ($sender instanceof ConsoleCommandSender)) {
                             $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("teleport-usage"));
@@ -232,8 +191,6 @@ class MultiWorld extends PluginBase {
                         $this->getLogger()->debug(MultiWorld::getPrefix() . str_replace("%1", $args[1], LanguageManager::translateMessage("teleport-load")));
                     }
 
-                    # Command: /mw (1)tp (2)level (3)player
-                    # Command: /mw [0]tp [1]level [2]player
                     if($sender instanceof Player) {
                         if(empty($args[2])) {
                             $sender->teleport($this->getServer()->getLevelByName($args[1])->getSpawnLocation());
@@ -256,7 +213,12 @@ class MultiWorld extends PluginBase {
                     }
                     return false;
                 default:
-                    $sender->sendMessage("§c/mw create §7create level\n§c/mw tp §7teleport to level");
+                    if(($sender->hasPermission("mw.cmd.help")) || $sender instanceof ConsoleCommandSender) {
+                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("default-usage"));
+                    }
+                    else {
+                        $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
+                    }
                     return false;
             }
         }
