@@ -2,22 +2,21 @@
 
 namespace MultiWorld;
 
-use MultiWorld\Command\MultiWorldCommand;
 use MultiWorld\Event\EventListener;
-use MultiWorld\Generator\AdvancedGenerator;
-use MultiWorld\Generator\BasicGenerator;
-use MultiWorld\Task\DelayedTask\RegisterGeneratorTask;
 use MultiWorld\Util\ConfigManager;
 use MultiWorld\Util\LanguageManager;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\ConsoleCommandSender;
 use pocketmine\level\generator\Generator;
-use pocketmine\level\Position;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
 
+/**
+ * Class MultiWorld
+ * @package MultiWorld
+ */
 class MultiWorld extends PluginBase {
 
     const NAME = "MultiWorld";
@@ -81,26 +80,16 @@ class MultiWorld extends PluginBase {
 
 
         if($this->isEnabled()) {
-            if($this->isPhar()) {
-                $this->getLogger()->info("\n§5**********************************************\n".
-                    "§6 ---- == §c[§aMultiWorld§c]§6== ----\n".
-                    "§9> Version: §e{$this->getDescription()->getVersion()}\n".
-                    "§9> Author: §eCzechPMDevs :: GamakCZ, Kyd\n".
-                    "§9> GitHub: §e".self::GITHUB."\n".
-                    "§9> Package: §ePhar\n".
-                    "§9> Language: §e".LanguageManager::getLang()."\n".
-                    "§5*********************************************");
-            }
-            else {
-                $this->getLogger()->info("\n§5**********************************************\n".
-                    "§6 ---- == §c[§aMultiWorld§c]§6== ----\n".
-                    "§9> Version: §e{$this->getDescription()->getVersion()}\n".
-                    "§9> Author: §eCzechPMDevs :: GamakCZ, Kyd\n".
-                    "§9> GitHub: §egithub.com/CzechMPDevs/MultiWorld\n".
-                    "§9> Package: §esrc\n".
-                    "§9> Language: §e".LanguageManager::getLang()."\n".
-                    "§5*********************************************");
-            }
+            $phar = null;
+            $this->isPhar() ? $phar = "Phar" : $phar = "src";
+            $this->getLogger()->info("\n§5**********************************************\n".
+                "§6 ---- == §c[§aMultiWorld§c]§6== ----\n".
+                "§9> Version: §e{$this->getDescription()->getVersion()}\n".
+                "§9> Author: §eCzechPMDevs :: GamakCZ, Kyd\n".
+                "§9> GitHub: §e".self::GITHUB."\n".
+                "§9> Package: §e{$phar}\n".
+                "§9> Language: §e".LanguageManager::getLang()."\n".
+                "§5**********************************************");
         }
         else {
             $this->getLogger()->info(self::getPrefix()."§6Submit issue to ".self::GITHUB."/issues");
@@ -133,51 +122,66 @@ class MultiWorld extends PluginBase {
      * @param array $args
      * @return bool
      */
-    public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args):bool {
+    public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args):bool
+    {
         $command = $cmd->getName();
-        if(in_array($command, ["mw", "wm", "multiworld"])) {
-            if(empty($args[0])) {
-                $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("default-usage"));
+        if (in_array($command, ["mw", "wm", "multiworld"])) {
+            if (empty($args[0])) {
+                $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("default-usage"));
                 return false;
             }
 
             switch (strtolower($args[0])) {
+                case "help":
+                case "?":
+                    if (($sender instanceof Player && !$sender->hasPermission("mw.cmd.help")) || (!$sender instanceof ConsoleCommandSender)) {
+                        $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
+                        return false;
+                    }
+                    $sender->sendMessage(LanguageManager::translateMessage("help-0") . "\n" .
+                        LanguageManager::translateMessage("help-1") . "\n" .
+                        LanguageManager::translateMessage("help-2") . "\n" .
+                        LanguageManager::translateMessage("help-3") . "\n" .
+                        LanguageManager::translateMessage("help-4") . "\n");
+                    return false;
                 case "create":
                 case "new":
                 case "add":
                 case "generate":
-                    if(($sender instanceof Player && !$sender->hasPermission("mw.cmd.create")) || !$sender instanceof ConsoleCommandSender) {
+                    if (($sender instanceof Player && !$sender->hasPermission("mw.cmd.create")) || !($sender instanceof ConsoleCommandSender)) {
                         $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
                         return false;
                     }
-                    if(empty($args[1])) {
-                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("create-usage"));
+                    if (empty($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("create-usage"));
                         return false;
                     }
-                    if($this->getServer()->isLevelGenerated($args[1])) {
-                        $sender->sendMessage(MultiWorld::getPrefix().str_replace("%1", $args[1], LanguageManager::translateMessage("create-exists")));
+                    if ($this->getServer()->isLevelGenerated($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[1], LanguageManager::translateMessage("create-exists")));
                         return false;
                     }
                     $seed = null;
                     $generator = null;
-                    count($args) < 3 ? $seed = rand(1,99999) : $seed = $args[2];
+                    count($args) < 3 ? $seed = rand(rand(1,10), rand(50, 99999999999999)) : $seed = $args[2];
                     count($args) < 4 ? $generator = "normal" : $generator = $args[3];
                     strtolower($generator) == "nether" ? $generator = "hell" : $generator = strtolower($generator);
-                    if(Generator::getGeneratorName(Generator::getGenerator($generator)) != strtolower($generator)) {
+                    if (Generator::getGeneratorName(Generator::getGenerator($generator)) != strtolower($generator)) {
                         $sender->sendMessage(str_replace("%1", strtolower($generator), LanguageManager::translateMessage("create-gennotexists")));
                         return false;
                     }
                     is_numeric($seed) ? $seed = (int)$seed : $seed = intval($seed);
                     $this->getServer()->generateLevel($args[1], $seed, Generator::getGenerator($generator));
-                    $sender->sendMessage(MultiWorld::getPrefix().str_replace("%1", $args[1], str_replace("%2", $seed, str_replace("%3", strtolower($generator), LanguageManager::translateMessage("create-done")))));
+                    $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[1], str_replace("%2", $seed, str_replace("%3", strtolower($generator), LanguageManager::translateMessage("create-done")))));
                     return false;
                 case "teleport":
                 case "tp":
                 case "move":
+                    if(($sender instanceof Player && !$sender->hasPermission("mw.cmd.teleport")) || !($sender instanceof ConsoleCommandSender)) {
+                        $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
+                        return false;
+                    }
                     if (empty($args[1])) {
-                        if(($sender instanceof Player && $sender->hasPermission("mw.cmd.teleport")) || ($sender instanceof ConsoleCommandSender)) {
-                            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("teleport-usage"));
-                        }
+                        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("teleport-usage"));
                         return false;
                     }
 
@@ -191,32 +195,98 @@ class MultiWorld extends PluginBase {
                         $this->getLogger()->debug(MultiWorld::getPrefix() . str_replace("%1", $args[1], LanguageManager::translateMessage("teleport-load")));
                     }
 
-                    if($sender instanceof Player) {
-                        if(empty($args[2])) {
+                    if ($sender instanceof Player) {
+                        if (empty($args[2])) {
                             $sender->teleport($this->getServer()->getLevelByName($args[1])->getSpawnLocation());
-                            $sender->sendMessage(MultiWorld::getPrefix().str_replace("%1", $args[1], LanguageManager::translateMessage("teleport-done-1")));
+                            $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[1], LanguageManager::translateMessage("teleport-done-1")));
                             return false;
                         }
                     }
-                    if(isset($args[2])) {
+                    if (isset($args[2])) {
                         $player = $this->getServer()->getPlayer($args[2]);
-                        if($player != null && $player->isOnline()) {
+                        if (!is_null($player) && $player->isOnline()) {
                             $player->teleport($this->getServer()->getLevelByName($args[1])->getSpawnLocation());
-                            $player->sendMessage(MultiWorld::getPrefix().str_replace("%1", $args[1], LanguageManager::translateMessage("teleport-done-1")));
-                            $sender->sendMessage(MultiWorld::getPrefix().str_replace("%1", $args[1], str_replace("%2", $args[2], LanguageManager::translateMessage("teleport-done-2"))));
+                            $player->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[1], LanguageManager::translateMessage("teleport-done-1")));
+                            $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[1], str_replace("%2", $args[2], LanguageManager::translateMessage("teleport-done-2"))));
                             return false;
-                        }
-                        else {
-                            $sender->sendMessage(MultiWorld::getPrefix().str_replace("%1", $args[2], LanguageManager::translateMessage("teleport-playernotexists")));
+                        } else {
+                            $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[2], LanguageManager::translateMessage("teleport-playernotexists")));
                             return false;
                         }
                     }
                     return false;
-                default:
-                    if(($sender->hasPermission("mw.cmd.help")) || $sender instanceof ConsoleCommandSender) {
-                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("default-usage"));
+                case "ls":
+                case "list":
+                    if(($sender instanceof Player && !$sender->hasPermission("mw.cmd.list")) || !($sender instanceof ConsoleCommandSender)) {
+                        $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
+                        return false;
                     }
-                    else {
+                    $allLevels = scandir(ConfigManager::getDataPath()."worlds");
+                    unset($allLevels[0]);
+                    unset($allLevels[1]);
+                    $loaded = [];
+                    foreach ($this->getServer()->getLevels() as $level) {
+                        array_push($loaded, $level->getName());
+                    }
+                    foreach ($loaded as $loadedLevel) {
+                        $index = intval(array_search($loadedLevel, $allLevels))-1;
+                        $allLevels[$index] = "§a".$loadedLevel;
+                    }
+                    foreach ($allLevels as $lvl) {
+                        if(str_replace("§a", "", $lvl) == $lvl) {
+                            $index = intval(array_search($lvl, $allLevels))-1;
+                            $allLevels[$index] = "§c".$lvl;
+                        }
+                    }
+                    $list = implode(", ", $allLevels);
+                    $sender->sendMessage(MultiWorld::getPrefix().str_replace("%1", $list, LanguageManager::translateMessage("list-done")));
+                    return false;
+                case "load":
+                case "ld":
+                    if(($sender instanceof Player && !$sender->hasPermission("mw.cmd.load")) || !($sender instanceof ConsoleCommandSender)) {
+                        $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
+                        return false;
+                    }
+                    if(empty($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("load-usage"));
+                        return false;
+                    }
+                    if(!$this->getServer()->isLevelGenerated($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("load-notexists"));
+                        return false;
+                    }
+                    if($this->getServer()->isLevelLoaded($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("load-loaded"));
+                        return false;
+                    }
+                    $this->getServer()->loadLevel($args[1]);
+                    $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("load-done"));
+                    return false;
+                case "unload":
+                case "uld":
+                    if(($sender instanceof Player && !$sender->hasPermission("mw.cmd.unload")) || !($sender instanceof ConsoleCommandSender)) {
+                        $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
+                        return false;
+                    }
+                    if(empty($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("unload-usage"));
+                        return false;
+                    }
+                    if(!$this->getServer()->isLevelGenerated($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("unload-notexists"));
+                        return false;
+                    }
+                    if(!$this->getServer()->isLevelLoaded($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("unload-unloaded"));
+                        return false;
+                    }
+                    $this->getServer()->unloadLevel($this->getServer()->getLevelByName($args[1]));
+                    $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("unload-done"));
+                    return false;
+                default:
+                    if (($sender->hasPermission("mw.cmd.help")) || $sender instanceof ConsoleCommandSender) {
+                        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("default-usage"));
+                    } else {
                         $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
                     }
                     return false;

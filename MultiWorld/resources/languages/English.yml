@@ -10,8 +10,8 @@ default-usage: '§cUsage: §7/mw help'
 help-0: '§b--- == §c[§aMultiWorld§c] §b== ---'
 help-1: '§e/mw create §7: §9Generate level'
 help-2: '§e/mw teleport §7: §9Teleport to level'
-help-3: '§e/mw import §7: §9Import level from zip'
-help-4: '§e/mw list §7: §9Displays list of all levels'
+help-3: '§e/mw list §7: §9Displays list of all levels'
+help-4: '§e/mw <load|unload> §7: §9Load | Unload level'
 # Create Command:
 create-usage: '§cUsage: §7/mw create <name> [seed] [generator]'
 create-generating: '§aGenerating level %1'
@@ -32,11 +32,12 @@ list-done: '§aLevels: %1'
 # Load Command
 load-usage: '§cUsage: §7/mw load <level>'
 load-levelnotexists: '§cLevel %1 does not exists!'
+load-loaded: '§cUnable to load loaded level!'
 load-done: '§aLevel loaded!'
 # Unload Command
 unload-usage: '§cUsage: §7/mw unload <level>'
 unload-levelnotexists: '§cLevel %1 does not exists!'
-unload-unloaded: '§cLevel %1 is unloaded!'
+unload-unloaded: '§cUnable to unload unloaded level!'
 unload-done: '§aLevel unloaded!'
 
 ...

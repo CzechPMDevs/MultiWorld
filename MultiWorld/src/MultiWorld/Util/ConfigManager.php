@@ -5,6 +5,10 @@ namespace MultiWorld\Util;
 use MultiWorld\MultiWorld;
 use pocketmine\utils\Config;
 
+/**
+ * Class ConfigManager
+ * @package MultiWorld\Util
+ */
 class ConfigManager {
 
     /** @var  MultiWorld */
@@ -13,6 +17,10 @@ class ConfigManager {
     // prefix
     public static $prefix;
 
+    /**
+     * ConfigManager constructor.
+     * @param MultiWorld $plugin
+     */
     public function __construct(MultiWorld $plugin) {
         $this->plugin = $plugin;
     }

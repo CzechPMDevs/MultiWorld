@@ -7,11 +7,19 @@ use pocketmine\event\entity\EntityLevelChangeEvent;
 use pocketmine\event\Listener;
 use pocketmine\Player;
 
+/**
+ * Class EventListener
+ * @package MultiWorld\Event
+ */
 class EventListener implements Listener {
 
     /** @var  MultiWorld */
     public $plugin;
 
+    /**
+     * EventListener constructor.
+     * @param MultiWorld $plugin
+     */
     public function __construct(MultiWorld $plugin) {
         $this->plugin = $plugin;
     }

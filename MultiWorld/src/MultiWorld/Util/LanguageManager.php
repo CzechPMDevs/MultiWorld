@@ -5,6 +5,10 @@ namespace MultiWorld\Util;
 use MultiWorld\MultiWorld;
 use pocketmine\utils\Config;
 
+/**
+ * Class LanguageManager
+ * @package MultiWorld\Util
+ */
 class LanguageManager {
 
     /** @var  MultiWorld */
@@ -25,8 +29,11 @@ class LanguageManager {
         self::$messages = new Config(ConfigManager::getDataFolder()."/languages/".MultiWorld::getInstance()->getConfig()->get("lang").".yml", Config::YAML);
     }
 
+    /**
+     * @return string $lang
+     */
     public static function getLang() {
-        return self::$lang;
+        return strval(self::$lang);
     }
 
     /**
