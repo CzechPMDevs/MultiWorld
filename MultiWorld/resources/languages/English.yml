@@ -23,10 +23,6 @@ teleport-load: 'Loading level %1...'
 teleport-done-1: '§aYou are teleported to level %1.'
 teleport-done-2: '§aPlayer %2 is teleported to level %1!'
 teleport-playernotexists: '§cPlayer does not exists!'
-# Import Command:
-import-usage: '§cUsage: §7/mw import <FolderName>'
-import-zipnotexists: '§cZip does not exists!'
-import-done: '§aLevel imported!'
 # List Command:
 list-done: '§aLevels: %1'
 # Load Command
@@ -39,5 +35,8 @@ unload-usage: '§cUsage: §7/mw unload <level>'
 unload-levelnotexists: '§cLevel %1 does not exists!'
 unload-unloaded: '§cUnable to unload unloaded level!'
 unload-done: '§aLevel unloaded!'
-
+# Delete Command
+delete-usage: '§cUsage: §7/mw delete <level>'
+delete-levelnotexists: '§cLevel %1 does not exists!'
+delete-done: '§aLevel deleted!'
 ...

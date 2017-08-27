@@ -1,0 +1,48 @@
+---
+
+### Czech language file by @GamakCZ
+
+## Commands:
+
+not-perms: '§cNemáš povolení použít tento příkaz!'
+default-usage: '§cPoužij: §7/mw help'
+
+# Help Command:
+help-0: '§b--- == §c[§aMultiWorld§c] §b== ---'
+help-1: '§e/mw create §7: §9Vytvoří nový svět'
+help-2: '§e/mw teleport §7: §9Teleportuje na svět'
+help-3: '§e/mw list §7: §9Zobrazí list všech světů'
+help-4: '§e/mw <load|unload> §7: §9Načte | Odnačte svět'
+# Create Command:
+create-usage: '§cPoužij: §7/mw create <jméno> [seed] [generátor]'
+create-generating: '§aVytvářím svět %1'
+create-done: 'Svět %1 je vytvořen se seedem: %2 a generátorem: %3.'
+# Teleport Command:
+teleport-usage: '§cPoužij: §7/mw teleport <svět> [hráč]'
+teleport-levelnotexists: '§cSvět nebyl nalezen! Použij /mw create pro vytvoření světa.'
+teleport-load: 'Načítám svět %1...'
+teleport-done-1: '§aJsi teleportován do světa %1.'
+teleport-done-2: '§aHráč %2 byl teleportován do světa %1!'
+teleport-playernotexists: '§cPlayer does not exists!'
+# Import Command:
+import-usage: '§cPoužij: §7/mw import <NázevSložky>'
+import-zipnotexists: '§cSložka neexistuje!'
+import-done: '§aSvět byl importován!'
+# List Command:
+list-done: '§aSvěty: %1'
+# Load Command
+load-usage: '§cPoužij: §7/mw load <svět>'
+load-levelnotexists: '§cSvět %1 neexistuje!'
+load-loaded: '§cNelze načíst načtený svět!'
+load-done: '§aSvět byl načten!'
+# Unload Command
+unload-usage: '§cPoužij: §7/mw unload <svět>'
+unload-levelnotexists: '§cSvět %1 neexistuje!'
+unload-unloaded: '§cNelze odnačíst odnačtený svět!'
+unload-done: '§aSvět byl odnačten!'
+# Delete Command
+delete-usage: '§cPoužij: §7/mw delete <svět>'
+delete-levelnotexists: '§cSvět %1 neexistuje!'
+delete-done: '§aSvět byl smazán!'
+
+...

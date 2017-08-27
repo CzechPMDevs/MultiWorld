@@ -20,7 +20,7 @@ use pocketmine\Server;
 class MultiWorld extends PluginBase {
 
     const NAME = "MultiWorld";
-    const VERSION = "1.3.0 [BETA 3] [PocketMine]";
+    const VERSION = "1.3.0";
     const AUTHOR = "GamakCZ";
     const GITHUB = "https://github.com/CzechPMDevs/MultiWorld/";
 
@@ -154,7 +154,7 @@ class MultiWorld extends PluginBase {
             switch (strtolower($args[0])) {
                 case "help":
                 case "?":
-                    if(!$this->checkPerms($sender, "help")) return false;
+                    if (!$this->checkPerms($sender, "help")) return false;
                     $sender->sendMessage(LanguageManager::translateMessage("help-0") . "\n" .
                         LanguageManager::translateMessage("help-1") . "\n" .
                         LanguageManager::translateMessage("help-2") . "\n" .
@@ -165,7 +165,7 @@ class MultiWorld extends PluginBase {
                 case "new":
                 case "add":
                 case "generate":
-                if(!$this->checkPerms($sender, "create")) return false;
+                    if (!$this->checkPerms($sender, "create")) return false;
                     if (empty($args[1])) {
                         $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("create-usage"));
                         return false;
@@ -176,7 +176,7 @@ class MultiWorld extends PluginBase {
                     }
                     $seed = null;
                     $generator = null;
-                    count($args) < 3 ? $seed = rand(rand(1,10), rand(50, 99999999999999)) : $seed = $args[2];
+                    count($args) < 3 ? $seed = rand(rand(1, 10), rand(50, 99999999999999)) : $seed = $args[2];
                     count($args) < 4 ? $generator = "normal" : $generator = $args[3];
                     strtolower($generator) == "nether" ? $generator = "hell" : $generator = strtolower($generator);
                     if (Generator::getGeneratorName(Generator::getGenerator($generator)) != strtolower($generator)) {
@@ -190,7 +190,7 @@ class MultiWorld extends PluginBase {
                 case "teleport":
                 case "tp":
                 case "move":
-                    if(!$this->checkPerms($sender, "teleport")) return false;
+                    if (!$this->checkPerms($sender, "teleport")) return false;
                     if (empty($args[1])) {
                         $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("teleport-usage"));
                         return false;
@@ -228,8 +228,8 @@ class MultiWorld extends PluginBase {
                     return false;
                 case "ls":
                 case "list":
-                    if(!$this->checkPerms($sender, "list")) return false;
-                    $allLevels = scandir(ConfigManager::getDataPath()."worlds");
+                    if (!$this->checkPerms($sender, "list")) return false;
+                    $allLevels = scandir(ConfigManager::getDataPath() . "worlds");
                     unset($allLevels[0]);
                     unset($allLevels[1]);
                     $loaded = [];
@@ -247,46 +247,103 @@ class MultiWorld extends PluginBase {
                         }
                     }*/
                     $list = implode(", ", $allLevels);
-                    $sender->sendMessage(MultiWorld::getPrefix().str_replace("%1", $list, LanguageManager::translateMessage("list-done")));
+                    $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $list, LanguageManager::translateMessage("list-done")));
                     return false;
                 case "load":
                 case "ld":
-                    if(!$this->checkPerms($sender, "load")) return false;
-                    if(empty($args[1])) {
-                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("load-usage"));
+                    if (!$this->checkPerms($sender, "load")) return false;
+                    if (empty($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("load-usage"));
                         return false;
                     }
-                    if(!$this->getServer()->isLevelGenerated($args[1])) {
-                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("load-notexists"));
+                    if (!$this->getServer()->isLevelGenerated($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("load-levelnotexists"));
                         return false;
                     }
-                    if($this->getServer()->isLevelLoaded($args[1])) {
-                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("load-loaded"));
+                    if ($this->getServer()->isLevelLoaded($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("load-loaded"));
                         return false;
                     }
                     $this->getServer()->loadLevel($args[1]);
-                    $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("load-done"));
+                    $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("load-done"));
                     return false;
                 case "unload":
                 case "uld":
-                    if(!$this->checkPerms($sender, "unload")) return false;
-                    if(empty($args[1])) {
-                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("unload-usage"));
+                    if (!$this->checkPerms($sender, "unload")) return false;
+                    if (empty($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("unload-usage"));
                         return false;
                     }
-                    if(!$this->getServer()->isLevelGenerated($args[1])) {
-                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("unload-notexists"));
+                    if (!$this->getServer()->isLevelGenerated($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("unload-levelnotexists"));
                         return false;
                     }
-                    if(!$this->getServer()->isLevelLoaded($args[1])) {
-                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("unload-unloaded"));
+                    if (!$this->getServer()->isLevelLoaded($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("unload-unloaded"));
                         return false;
                     }
                     $this->getServer()->unloadLevel($this->getServer()->getLevelByName($args[1]));
-                    $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("unload-done"));
+                    $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("unload-done"));
+                    return false;
+                case "delete":
+                case "remove":
+                case "del":
+                case "rm":
+                    if (!$this->checkPerms($sender, "delete")) return false;
+                    if (empty($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("delete-usage"));
+                        return false;
+                    }
+                    if (!$this->getServer()->isLevelGenerated($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("delete-levelnotexists"));
+                        return false;
+                    }
+                    $levelName = $args[1];
+                    $folderName = $args[1];
+                    if ($this->getServer()->isLevelLoaded($levelName)) {
+                        $level = $this->getServer()->getLevelByName($levelName);
+                        if (count($level->getPlayers()) != 0) {
+                            foreach ($level->getPlayers() as $player) {
+                                $player->teleport($this->getServer()->getDefaultLevel()->getSpawnLocation());
+                            }
+                        }
+                        $folderName = $level->getFolderName();
+                        $level->unload();
+                    }
+                    $folderPath = ConfigManager::getDataPath() . "worlds/{$folderName}";
+                    try {
+                        if(is_dir($folderPath)) {
+                            if(is_dir($folderPath."/region")) {
+                                foreach (glob($folderPath."/region/*.mca") as $chunks) {
+                                    unlink($chunks);
+                                }
+                            }
+                            else {
+                                $this->getLogger()->critical("DELETE ERROR #1");
+                            }
+                            rmdir($folderPath."/region");
+                            unlink($folderPath."/level.dat");
+                            foreach (scandir($folderPath) as $file) {
+                                if(!in_array($file, [".", ".."])) {
+                                    is_dir($file) ? rmdir($folderPath.$file) : unlink($folderPath.$file);
+                                }
+                            }
+                            rmdir($folderPath);
+                        }
+                        else {
+                            $this->getLogger()->critical("DELETE ERROR #2");
+                        }
+                    }
+                    catch (\Exception $exception) {
+                        $github = MultiWorld::GITHUB;
+                        $sender->sendMessage("§cError when deleting world. Submit issue to {$github}\n§7Error: {$exception->getMessage()}");
+                        $this->getLogger()->critical("\n§cError when deleting world. Submit issue to {$github}\n§7Error: {$exception->getMessage()}");
+                    }
+
+                    $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("delete-done"));
                     return false;
                 default:
-                    if($this->checkPerms($sender, "help")) {
+                    if ($this->checkPerms($sender, "help")) {
                         $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("default-usage"));
                     }
                     return false;

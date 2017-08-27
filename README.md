@@ -11,9 +11,15 @@ _**Ported MultiWorld to PocketMine-MP**_
   - BlueLight
 
 ### Phar Download:
+- Version 1.3.0 (Stable):
+    - PocketMine:
+        - GitHub:
+        - Poggit:
+    - GenisysPro:
+        - GitHub: unavaliable
 - Version Latest (Unstable):
-    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld
-- Version 1.3.0 [BETA 3] (Stable):
+    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld   
+- Version 1.3.0 [BETA 3] (Unstable):
     - Github: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0-BETA3
     - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:73
 - Version 1.3.0 [BETA 2] (Untable):
@@ -28,6 +34,7 @@ _**Ported MultiWorld to PocketMine-MP**_
 ### Features:
   - MultiLanguage support
   - Working on PMMP 3.0.0-ALPHA7
+  - Commands works in console
   
 
 ### Update log:
@@ -56,10 +63,7 @@ _**Ported MultiWorld to PocketMine-MP**_
     - [ ] Update wiki
     - [ ] Release it
   
-### Wiki:
 
-- Commands:
-  - **/mw create** command
-  - **/mw teleport** command
-  - **/mw load|unload** command
-  - **/mw list** command
+### MultiWorld wiki:
+
+- https://github.com/CzechPMDevs/MultiWorld/wiki/MultiWorld-wiki
