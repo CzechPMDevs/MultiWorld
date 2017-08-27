@@ -104,15 +104,35 @@ class MultiWorld extends PluginBase {
     /**
      * @return MultiWorld
      */
-    public static function getInstance() {
+    public static function getInstance():MultiWorld {
         return self::$instance;
     }
 
     /**
      * @return string
      */
-    public static function getPrefix() {
+    public static function getPrefix():string {
         return ConfigManager::getPrefix();
+    }
+
+    /**
+     * @param CommandSender $sender
+     * @param string $command
+     * @return bool
+     */
+    function checkPerms(CommandSender $sender, string $command):bool {
+        if($sender instanceof Player) {
+            if(!$sender->hasPermission("mw.cmd.{$command}")) {
+                $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        else {
+            return true;
+        }
     }
 
     /**
@@ -134,10 +154,7 @@ class MultiWorld extends PluginBase {
             switch (strtolower($args[0])) {
                 case "help":
                 case "?":
-                    if (($sender instanceof Player && !$sender->hasPermission("mw.cmd.help")) || (!$sender instanceof ConsoleCommandSender)) {
-                        $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
-                        return false;
-                    }
+                    if(!$this->checkPerms($sender, "help")) return false;
                     $sender->sendMessage(LanguageManager::translateMessage("help-0") . "\n" .
                         LanguageManager::translateMessage("help-1") . "\n" .
                         LanguageManager::translateMessage("help-2") . "\n" .
@@ -148,10 +165,7 @@ class MultiWorld extends PluginBase {
                 case "new":
                 case "add":
                 case "generate":
-                    if (($sender instanceof Player && !$sender->hasPermission("mw.cmd.create")) || !($sender instanceof ConsoleCommandSender)) {
-                        $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
-                        return false;
-                    }
+                if(!$this->checkPerms($sender, "create")) return false;
                     if (empty($args[1])) {
                         $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("create-usage"));
                         return false;
@@ -176,10 +190,7 @@ class MultiWorld extends PluginBase {
                 case "teleport":
                 case "tp":
                 case "move":
-                    if(($sender instanceof Player && !$sender->hasPermission("mw.cmd.teleport")) || !($sender instanceof ConsoleCommandSender)) {
-                        $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
-                        return false;
-                    }
+                    if(!$this->checkPerms($sender, "teleport")) return false;
                     if (empty($args[1])) {
                         $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("teleport-usage"));
                         return false;
@@ -217,10 +228,7 @@ class MultiWorld extends PluginBase {
                     return false;
                 case "ls":
                 case "list":
-                    if(($sender instanceof Player && !$sender->hasPermission("mw.cmd.list")) || !($sender instanceof ConsoleCommandSender)) {
-                        $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
-                        return false;
-                    }
+                    if(!$this->checkPerms($sender, "list")) return false;
                     $allLevels = scandir(ConfigManager::getDataPath()."worlds");
                     unset($allLevels[0]);
                     unset($allLevels[1]);
@@ -228,7 +236,7 @@ class MultiWorld extends PluginBase {
                     foreach ($this->getServer()->getLevels() as $level) {
                         array_push($loaded, $level->getName());
                     }
-                    foreach ($loaded as $loadedLevel) {
+                    /*foreach ($loaded as $loadedLevel) {
                         $index = intval(array_search($loadedLevel, $allLevels))-1;
                         $allLevels[$index] = "§a".$loadedLevel;
                     }
@@ -237,16 +245,13 @@ class MultiWorld extends PluginBase {
                             $index = intval(array_search($lvl, $allLevels))-1;
                             $allLevels[$index] = "§c".$lvl;
                         }
-                    }
+                    }*/
                     $list = implode(", ", $allLevels);
                     $sender->sendMessage(MultiWorld::getPrefix().str_replace("%1", $list, LanguageManager::translateMessage("list-done")));
                     return false;
                 case "load":
                 case "ld":
-                    if(($sender instanceof Player && !$sender->hasPermission("mw.cmd.load")) || !($sender instanceof ConsoleCommandSender)) {
-                        $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
-                        return false;
-                    }
+                    if(!$this->checkPerms($sender, "load")) return false;
                     if(empty($args[1])) {
                         $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("load-usage"));
                         return false;
@@ -264,10 +269,7 @@ class MultiWorld extends PluginBase {
                     return false;
                 case "unload":
                 case "uld":
-                    if(($sender instanceof Player && !$sender->hasPermission("mw.cmd.unload")) || !($sender instanceof ConsoleCommandSender)) {
-                        $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
-                        return false;
-                    }
+                    if(!$this->checkPerms($sender, "unload")) return false;
                     if(empty($args[1])) {
                         $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("unload-usage"));
                         return false;
@@ -284,10 +286,8 @@ class MultiWorld extends PluginBase {
                     $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("unload-done"));
                     return false;
                 default:
-                    if (($sender->hasPermission("mw.cmd.help")) || $sender instanceof ConsoleCommandSender) {
+                    if($this->checkPerms($sender, "help")) {
                         $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("default-usage"));
-                    } else {
-                        $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
                     }
                     return false;
             }
