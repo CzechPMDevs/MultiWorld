@@ -4,6 +4,7 @@ _**Ported MultiWorld to PocketMine-MP**_
 
 ### Works on:
   - PocketMine-MP
+  - BlueLight
 
 ### Poggit Status:
 
