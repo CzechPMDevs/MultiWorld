@@ -2,12 +2,10 @@
 
 namespace MultiWorld;
 
-use MultiWorld\Event\EventListener;
 use MultiWorld\Util\ConfigManager;
 use MultiWorld\Util\LanguageManager;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\command\ConsoleCommandSender;
 use pocketmine\level\generator\Generator;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
@@ -30,17 +28,6 @@ class MultiWorld extends PluginBase {
     /** @var  string $prefix */
     static $prefix;
 
-    ##\
-    ### > Events
-    ##/
-
-    /** @var  EventListener */
-    public $eventListener;
-
-    ##\
-    ### > Utils
-    ##/
-
     /** @var  ConfigManager */
     public $configmgr;
 
@@ -48,11 +35,9 @@ class MultiWorld extends PluginBase {
     public $langmgr;
 
     public function onEnable() {
+
         // INSTANCE
         self::$instance = $this;
-
-        // events
-        $this->getServer()->getPluginManager()->registerEvents($this->eventListener = new EventListener($this), $this);
 
         // utils
         $this->configmgr = new ConfigManager($this);
@@ -142,8 +127,7 @@ class MultiWorld extends PluginBase {
      * @param array $args
      * @return bool
      */
-    public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args):bool
-    {
+    public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args):bool {
         $command = $cmd->getName();
         if (in_array($command, ["mw", "wm", "multiworld"])) {
             if (empty($args[0])) {
@@ -236,16 +220,6 @@ class MultiWorld extends PluginBase {
                     foreach ($this->getServer()->getLevels() as $level) {
                         array_push($loaded, $level->getName());
                     }
-                    /*foreach ($loaded as $loadedLevel) {
-                        $index = intval(array_search($loadedLevel, $allLevels))-1;
-                        $allLevels[$index] = "§a".$loadedLevel;
-                    }
-                    foreach ($allLevels as $lvl) {
-                        if(str_replace("§a", "", $lvl) == $lvl) {
-                            $index = intval(array_search($lvl, $allLevels))-1;
-                            $allLevels[$index] = "§c".$lvl;
-                        }
-                    }*/
                     $list = implode(", ", $allLevels);
                     $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $list, LanguageManager::translateMessage("list-done")));
                     return false;
