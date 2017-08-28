@@ -4,7 +4,7 @@ _**Ported MultiWorld to PocketMine-MP**_
 
 ### Poggit Status:
 
-[![Poggit-CI](https://poggit.pmmp.io/ci.badge/CzechPMDevs/MultiWorld/MultiWorld)](https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld)
+[![Poggit-CI](https://image.ibb.co/mpVx1k/Poggit_Passed.png)](https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld)
 
 ### Works on:
   - PocketMine-MP
