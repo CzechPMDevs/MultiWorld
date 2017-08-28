@@ -2,11 +2,14 @@
 
 namespace MultiWorld;
 
+use MultiWorld\Generator\MultiWorldGenerator;
 use MultiWorld\Util\ConfigManager;
 use MultiWorld\Util\LanguageManager;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\command\ConsoleCommandSender;
 use pocketmine\level\generator\Generator;
+use pocketmine\math\Vector3;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
@@ -34,6 +37,9 @@ class MultiWorld extends PluginBase {
     /** @var  LanguageManager */
     public $langmgr;
 
+    /** @var  MultiWorldGenerator $multiWorldGenerator */
+    public $multiWorldGenerator;
+
     public function onEnable() {
 
         // INSTANCE
@@ -42,8 +48,10 @@ class MultiWorld extends PluginBase {
         // utils
         $this->configmgr = new ConfigManager($this);
         $this->langmgr = new LanguageManager($this);
+        $this->multiWorldGenerator = new MultiWorldGenerator($this);
         $this->configmgr->initConfig();
         $this->langmgr->loadLang();
+        $this->multiWorldGenerator->loadGenerators();
 
         if($this->getServer()->getName() != "PocketMine-MP") {
             $this->getLogger()->critical("§cMultiWorld does not support {$this->getServer()->getName()}");
@@ -143,7 +151,8 @@ class MultiWorld extends PluginBase {
                         LanguageManager::translateMessage("help-1") . "\n" .
                         LanguageManager::translateMessage("help-2") . "\n" .
                         LanguageManager::translateMessage("help-3") . "\n" .
-                        LanguageManager::translateMessage("help-4") . "\n");
+                        LanguageManager::translateMessage("help-4") . "\n" .
+                        LanguageManager::translateMessage("help-5") . "\n");
                     return false;
                 case "create":
                 case "new":
@@ -315,6 +324,53 @@ class MultiWorld extends PluginBase {
                     }
 
                     $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("delete-done"));
+                    return false;
+                case "update":
+                case "ue":
+                case "upte":
+                    // commmand: /mw [0]ue [1]<spawn|lobby|default> [options:[2]x [3]y [4]z [5](level)]
+                    if (!$this->checkPerms($sender, "update")) return false;
+                    if(empty($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("update-usage"));
+                        return false;
+                    }
+                    switch (strtolower($args[1])) {
+                        case "spawn":
+                        case "0":
+                            if($sender instanceof Player) {
+                                $sender->getLevel()->setSpawnLocation($sender->asVector3());
+                                $sender->sendMessage(MultiWorld::getPrefix().str_replace("%1", $sender->getLevel()->getName(), LanguageManager::translateMessage("update-spawn-done")));
+                            }
+                            else {
+                                if(!(count($args) < 7)) {
+                                    $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("update-spawn-usage"));
+                                    return false;
+                                }
+                                if(!$this->getServer()->isLevelGenerated($args[5])) {
+                                    $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("update-levelnotexists"));
+                                    return false;
+                                }
+                                if(!$this->getServer()->isLevelLoaded($args[5])) {
+                                    $this->getServer()->loadLevel($args[5]);
+                                }
+                                $level = $this->getServer()->getLevelByName($args[5]);
+                                $level->setSpawnLocation(new Vector3(intval($args[2]), intval($args[3]), intval($args[4])));
+                                $sender->sendMessage(MultiWorld::getPrefix().str_replace("%1", $level->getName(), LanguageManager::translateMessage("update-spawn-done")));
+                            }
+                            return false;
+                        case "lobby":
+                        case "1":
+                            if($sender instanceof Player) {
+                                $level = $sender->getLevel();
+                                $this->getServer()->setDefaultLevel($level);
+                                $level->setSpawnLocation($sender->asVector3());
+                                $sender->sendMessage(MultiWorld::getPrefix().str_replace("%1", $level->getName(), LanguageManager::translateMessage("update-lobby-done")));
+                            }
+                            else {
+
+                            }
+                            return false;
+                    }
                     return false;
                 default:
                     if ($this->checkPerms($sender, "help")) {

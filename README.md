@@ -6,7 +6,7 @@ _**Ported MultiWorld to PocketMine-MP**_
 
 [![Poggit-CI](https://poggit.pmmp.io/ci.badge/CzechPMDevs/MultiWorld/MultiWorld)](https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld)
 
-### Works on:
+### Support Software:
   - PocketMine-MP
   - BlueLight
 
@@ -18,23 +18,16 @@ _**Ported MultiWorld to PocketMine-MP**_
     - GenisysPro:
         - GitHub: unavaliable
 - Version Latest (Unstable):
-    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld   
-- Version 1.3.0 [BETA 3] (Unstable):
-    - Github: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0-BETA3
-    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:73
-- Version 1.3.0 [BETA 2] (Untable):
-    - Github: (for PocketMine-MP) https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0-BETA2
-- Version 1.3.0 [BETA 1] (Unstable):
-    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:45
-    - GitHub: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0-BETA1
-- Version 1.2.0:
+    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld
+- Version 1.2.0 (Unstable):
     - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:31
     
     
 ### Features:
-  - MultiLanguage support
+  - MultiLanguage support (English, Russian, Chinese, German, Czech)
   - Working on PMMP 3.0.0-ALPHA7
   - Commands works in console
+  - End and Void generator
   
 
 ### Update log:

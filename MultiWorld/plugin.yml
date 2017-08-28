@@ -38,3 +38,6 @@ permissions:
       mw.cmd.delete:
         description: Permission for /mw delete
         default: op
+      mw.cmd.update:
+        description: Permission for /mw update
+        default: op
