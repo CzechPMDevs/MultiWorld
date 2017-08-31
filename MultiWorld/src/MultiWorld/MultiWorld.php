@@ -390,13 +390,16 @@ class MultiWorld extends PluginBase {
                                 return false;
                             }
                             if(in_array($args[2], scandir(ConfigManager::getDataPath()."worlds"))) {
-                                if(!$this->getServer()->isLevelLoaded($args[2])) $this->getServer()->loadLevel($args[1]);
-                                $this->getServer()->setDefaultLevel($this->getServer()->getLevelByName($args[1]));
-                                $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("update-default-done"));
+                                if(!$this->getServer()->isLevelLoaded($args[2])) $this->getServer()->loadLevel($args[2]);
+                                $this->getServer()->setDefaultLevel($this->getServer()->getLevelByName($args[2]));
+                                $sender->sendMessage(MultiWorld::getPrefix().str_replace("%1", $args[2], LanguageManager::translateMessage("update-default-done")));
                             }
                             else {
-                                $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("update-levelnotexists"));
+                                $sender->sendMessage(MultiWorld::getPrefix().str_replace("%1", $args[2], LanguageManager::translateMessage("update-levelnotexists")));
                             }
+                            return false;
+                        default:
+                            $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("update-usage"));
                             return false;
                     }
                     return false;
