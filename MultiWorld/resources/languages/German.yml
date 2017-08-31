@@ -1,0 +1,50 @@
+---
+### deutsche Sprachdatei von GoogleTranslator, muss behoben werden
+### German language file by GoogleTranslator, need fix
+
+## Commands:
+not-perms: '§cSie haben keine Berechtigungen, diesen Befehl zu benutzen!'
+default-usage: '§cUsage: §7 /mw help'
+
+# Hilfe Befehl:
+help-0: '§b --- == §c [§aMultiWorld§c] §b == ---'
+help-1: '§e/mw create §7: §9Generate level'
+help-2: '§e/mw teleport §7: §9Teleport zur Ebene'
+help-3: '§e/mw list §7: §9Displays Liste aller Ebenen'
+help-4: '§e/mw <load | unload> §7: §9Load | Unload Level '
+help-5: '§e/mw update §7: §9Set Lobby, Spawn oder Default-Ebene'
+help-6: '§e/mw delete §7: §9Ebene entfernen'
+# Befehl erstellen:
+create-usage: '§cUsage: §7 / ​mw erstellen <name> [seed] [generator]'
+create-generating: '§aGenerating Level %1'
+create-done: 'Level% 1 wird mit Samen erzeugt: %2 und Generator: %3.'
+# Teleport Befehl:
+teleport-use: '§cUsage: §7 /​​mw teleport <level> [spieler]'
+teleport-levelnotexists: '§cLevel ist noch nicht generiert! Versuche /mw für generiere Ebene erstellen. '
+teleport-load: 'Lade Level %1 ...'
+teleport-done-1: '§aSie werden auf Level %1 teleportiert.'
+teleport-done-2: '§aPlayer %2 wird auf Level %1 teleportiert!'
+teleport-playernotexisten: '§cPlayer existiert nicht!'
+# Liste Befehl:
+list-done: '§aLevels: %1'
+# Befehl laden:
+load-usage: '§cUsage: §7 /​​mw load <level>'
+load-levelnotexists: '§cLevel %1 existiert nicht!'
+load-loaded: '§cUnable zum Laden geladener Ebene!'
+Load-done: '§aLevel geladen!'
+# Befehl entladen:
+unload-usage: '§cUsage: §7 /​​mw unload <level>'
+unload-levelnotexists: '§cLevel %1 existiert nicht!'
+unload-unloaded: '§cUnable, um unbeladene Ebene zu entladen!'
+unload-done: '§aLevel entladen!'
+# Befehl löschen:
+delete-use: '§cUsage: §7 /mw delete <level>'
+delete-levelnotexists: '§cLevel %1 existiert nicht!'
+delete-done: '§aLevel gelöscht!'
+# Update Befehl:
+update-usage: '§cUsage: §7 /​​mw update <mod: spawn | Lobby | default> [Optionen: (x) (y) (z) (Level)]'
+update-levelnotexists: '§cLevel %1 existiert nicht!'
+update-spawn-done: '§aSpawn in Level %1 wurde geändert.'
+update-lobby-done: '§aLobby in Level %1 wurde geändert.'
+update-default-done: '§aDefault-Ebene wurde auf %1 geändert.'
+update-notsupported: '§cDieser Befehl wird in der Konsole nicht unterstützt.'

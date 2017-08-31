@@ -13,6 +13,7 @@ use pocketmine\math\Vector3;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
+use pocketmine\utils\Config;
 
 /**
  * Class MultiWorld
@@ -21,7 +22,7 @@ use pocketmine\Server;
 class MultiWorld extends PluginBase {
 
     const NAME = "MultiWorld";
-    const VERSION = "1.3.0";
+    const VERSION = "1.3.1";
     const AUTHOR = "GamakCZ";
     const GITHUB = "https://github.com/CzechPMDevs/MultiWorld/";
 
@@ -152,7 +153,8 @@ class MultiWorld extends PluginBase {
                         LanguageManager::translateMessage("help-2") . "\n" .
                         LanguageManager::translateMessage("help-3") . "\n" .
                         LanguageManager::translateMessage("help-4") . "\n" .
-                        LanguageManager::translateMessage("help-5") . "\n");
+                        LanguageManager::translateMessage("help-5") . "\n" .
+                        LanguageManager::translateMessage("help-6") . "\n");
                     return false;
                 case "create":
                 case "new":
@@ -295,23 +297,33 @@ class MultiWorld extends PluginBase {
                     }
                     $folderPath = ConfigManager::getDataPath() . "worlds/{$folderName}";
                     try {
+                        $count = 0;
                         if(is_dir($folderPath)) {
                             if(is_dir($folderPath."/region")) {
                                 foreach (glob($folderPath."/region/*.mca") as $chunks) {
                                     unlink($chunks);
+                                    $count++;
+                                }
+                                foreach (glob($folderPath."/region/*.mcapm") as $chunks) {
+                                    unlink($chunks);
+                                    $count++;
                                 }
                             }
                             else {
                                 $this->getLogger()->critical("DELETE ERROR #1");
                             }
                             rmdir($folderPath."/region");
+                            $count++;
                             unlink($folderPath."/level.dat");
+                            $count++;
                             foreach (scandir($folderPath) as $file) {
                                 if(!in_array($file, [".", ".."])) {
+                                    $count++;
                                     is_dir($file) ? rmdir($folderPath.$file) : unlink($folderPath.$file);
                                 }
                             }
                             rmdir($folderPath);
+                            $sender->sendMessage(MultiWorld::getPrefix().str_replace("%1", $count,LanguageManager::translateMessage("delete-done")));
                         }
                         else {
                             $this->getLogger()->critical("DELETE ERROR #2");
@@ -323,7 +335,7 @@ class MultiWorld extends PluginBase {
                         $this->getLogger()->critical("\n§cError when deleting world. Submit issue to {$github}\n§7Error: {$exception->getMessage()}");
                     }
 
-                    $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("delete-done"));
+
                     return false;
                 case "update":
                 case "ue":
@@ -359,6 +371,7 @@ class MultiWorld extends PluginBase {
                             }
                             return false;
                         case "lobby":
+                        case "hub":
                         case "1":
                             if($sender instanceof Player) {
                                 $level = $sender->getLevel();
@@ -367,7 +380,23 @@ class MultiWorld extends PluginBase {
                                 $sender->sendMessage(MultiWorld::getPrefix().str_replace("%1", $level->getName(), LanguageManager::translateMessage("update-lobby-done")));
                             }
                             else {
-
+                                $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("update-notsupported"));
+                            }
+                            return false;
+                        case "default":
+                        case "defaultlevel":
+                        case "2":
+                            if(empty($args[1])) {
+                                $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("update-default-usage"));
+                                return false;
+                            }
+                            if(in_array($args[1], scandir(ConfigManager::getDataPath()."worlds"))) {
+                                if(!$this->getServer()->isLevelLoaded($args[1])) $this->getServer()->loadLevel($args[1]);
+                                $this->getServer()->setDefaultLevel($this->getServer()->getLevelByName($args[1]));
+                                $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("update-default-done"));
+                            }
+                            else {
+                                $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("update-default-levelnotexists"));
                             }
                             return false;
                     }

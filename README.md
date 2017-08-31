@@ -24,7 +24,7 @@ _**Ported MultiWorld to PocketMine-MP**_
     
     
 ### Features:
-  - MultiLanguage support (English, Russian, Chinese, German, Czech)
+  - MultiLanguage support (English, Russian, German, Czech)
   - Working on PMMP 3.0.0-ALPHA7
   - Commands works in console
   - End and Void generator
@@ -44,9 +44,10 @@ _**Ported MultiWorld to PocketMine-MP**_
 ### Next Version:
 
 - Version 1.3.1 Changes (TODO):
-    - Add command /mw update
-    - Add German, Russian & Chinese language support
-    - Add Void & Ender generator
+    - [ ] Add command /mw update
+    - [ ] Add German & Russian language support
+    - [ ] Add Void & Ender generator
+    - [ ] Test It
 
   
 

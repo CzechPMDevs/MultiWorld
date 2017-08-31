@@ -13,6 +13,7 @@ help-2: '§e/mw teleport §7: §9Teleport to level'
 help-3: '§e/mw list §7: §9Displays list of all levels'
 help-4: '§e/mw <load|unload> §7: §9Load | Unload level'
 help-5: '§e/mw update §7: §9Set lobby, spawn or default level'
+help-6: '§e/mw delete §7: §9Delete level'
 # Create Command:
 create-usage: '§cUsage: §7/mw create <name> [seed] [generator]'
 create-generating: '§aGenerating level %1'
@@ -39,11 +40,14 @@ unload-done: '§aLevel unloaded!'
 # Delete Command:
 delete-usage: '§cUsage: §7/mw delete <level>'
 delete-levelnotexists: '§cLevel %1 does not exists!'
-delete-done: '§aLevel deleted!'
+delete-done: '§aLevel deleted! (%1 files removed.)'
 # Update Command:
 update-usage: '§cUsage: §7/mw update <mod: spawn|lobby|default> [options: (x) (y) (z) (level)]'
+update-default-usage: '§cUsage: §7/mw update default <level>'
+update-default-levelnotexists: '§cLevel %1 does not exists!'
 update-levelnotexists: '§cLevel %1 does not exists!'
 update-spawn-done: '§aSpawn in level %1 was changed.'
 update-lobby-done: '§aLobby in level %1 was changed.'
 update-default-done: '§aDefault level was changet to %1.'
+update-notsupported: '§cThis command is not supported in console.'
 ...

@@ -1,24 +1,5 @@
 <?php
 
-/*
- *
- *  _____   _____   __   _   _   _____  __    __  _____
- * /  ___| | ____| |  \ | | | | /  ___/ \ \  / / /  ___/
- * | |     | |__   |   \| | | | | |___   \ \/ /  | |___
- * | |  _  |  __|  | |\   | | | \___  \   \  /   \___  \
- * | |_| | | |___  | | \  | | |  ___| |   / /     ___| |
- * \_____/ |_____| |_|  \_| |_| /_____/  /_/     /_____/
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * @author iTX Technologies
- * @link https://itxtech.org
- *
- */
-
 namespace MultiWorld\Generator\void;
 
 use pocketmine\block\Block;
@@ -36,19 +17,26 @@ class Void extends Generator {
 
     /** @var ChunkManager */
     private $level;
+
     /** @var Chunk */
     private $chunk;
+
     /** @var Random */
     private $random;
+
+    /** @var array  */
     private $options;
+
     /** @var Chunk */
     private $emptyChunk = null;
+
     /**
      * @return array
      */
     public function getSettings() : array {
         return [];
     }
+
     /**
      * @return string
      */
@@ -117,6 +105,7 @@ class Void extends Generator {
      */
     public function populateChunk(int $chunkX, int $chunkZ){
     }
+
     /**
      * @return Vector3
      */

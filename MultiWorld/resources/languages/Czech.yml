@@ -13,7 +13,8 @@ help-1: '§e/mw create §7: §9Vytvoří nový svět'
 help-2: '§e/mw teleport §7: §9Teleportuje na svět'
 help-3: '§e/mw list §7: §9Zobrazí list všech světů'
 help-4: '§e/mw <load|unload> §7: §9Načte | Odnačte svět'
-help-5: '§e/mw update §7: Nastaví spawn, lobby nebo základní svět'
+help-5: '§e/mw update §7: §9Nastaví spawn, lobby nebo základní svět'
+help-6: '§e/mw delete §7: §9Odstraní svět'
 # Create Command:
 create-usage: '§cPoužij: §7/mw create <jméno> [seed] [generátor]'
 create-generating: '§aVytvářím svět %1'
@@ -44,10 +45,12 @@ unload-done: '§aSvět byl odnačten!'
 # Delete Command:
 delete-usage: '§cPoužij: §7/mw delete <svět>'
 delete-levelnotexists: '§cSvět %1 neexistuje!'
-delete-done: '§aSvět byl smazán!'
+delete-done: '§aSvět byl smazán (Bylo smazáno %1 složek)!'
 # Update Command:
 update-usage: '§cPoužij: §7/mw update <mód: spawn|lobby|default> [nastavení: (x) (y) (z) (svět)]'
 update-spawn-done: '§aSpawn ve světě %1 byl změněn.'
 update-lobby-done: '§aLobby ve světě %1 bylo změněno.'
 update-default-done: '§aHlavní svět byl změněn.'
+update-notsupported: '§cTento příkaz není v konzoli podporován'
+update-default-usage: '§cPoužij: §7/mw update default <level>'
 ...
