@@ -84,6 +84,9 @@ class MultiWorld extends PluginBase {
                 "§9> Package: §e{$phar}\n".
                 "§9> Language: §e".LanguageManager::getLang()."\n".
                 "§5**********************************************");
+            if(in_array(LanguageManager::getLang(), ["Czech", "English"])) {
+                $this->getLogger()->notice("Language ".LanguageManager::getLang(). "is not 100% supported. You can fix it on ".self::GITHUB."pulls");
+            }
         }
         else {
             $this->getLogger()->info(self::getPrefix()."§6Submit issue to ".self::GITHUB."/issues");
@@ -174,6 +177,7 @@ class MultiWorld extends PluginBase {
                     count($args) < 3 ? $seed = rand(rand(1, 10), rand(50, 99999999999999)) : $seed = $args[2];
                     count($args) < 4 ? $generator = "normal" : $generator = $args[3];
                     strtolower($generator) == "nether" ? $generator = "hell" : $generator = strtolower($generator);
+                    strtolower($generator) == "end" ? $generator = "ender" : $generator = strtolower($generator);
                     if (Generator::getGeneratorName(Generator::getGenerator($generator)) != strtolower($generator)) {
                         $sender->sendMessage(str_replace("%1", strtolower($generator), LanguageManager::translateMessage("create-gennotexists")));
                         return false;

@@ -17,6 +17,7 @@ help-5: '§e/mw update §7: §9Nastaví spawn, lobby nebo základní svět'
 help-6: '§e/mw delete §7: §9Odstraní svět'
 # Create Command:
 create-usage: '§cPoužij: §7/mw create <jméno> [seed] [generátor]'
+create-gennotexists: '§cGenerátor neexistuje!';
 create-generating: '§aVytvářím svět %1'
 create-done: 'Svět %1 je vytvořen se seedem: %2 a generátorem: %3.'
 # Teleport Command:
