@@ -2,7 +2,6 @@
 
 _**Ported MultiWorld to PocketMine-MP**_
 
-### Poggit Status:
 
 [![Poggit-CI](https://poggit.pmmp.io/ci.shield/CzechPMDevs/MultiWorld/MultiWorld)](https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld)
 
@@ -11,14 +10,17 @@ _**Ported MultiWorld to PocketMine-MP**_
   - BlueLight
 
 ### Phar Download:
+- Version 1.3.1 (Stable):
+    - PocketMine:
+        - GitHub: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0
+    - GenisysPro:
+        - GitHub: unavaliable
 - Version 1.3.0 (Stable):
     - PocketMine:
         - GitHub: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0
-        - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:74
+        - Poggit: https://poggit.pmmp.io/p/MultiWorld/1.3.0
     - GenisysPro:
         - GitHub: unavaliable
-- Version Latest (Unstable):
-    - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld
 - Version 1.2.0 (Unstable):
     - Poggit: https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/~/dev:31
     
@@ -32,7 +34,9 @@ _**Ported MultiWorld to PocketMine-MP**_
 
 ### Update log:
 
-- Version 1.3.0 Changes:
+- Version 1.3 Changes:
+
+    **1.3.0 Changes:**
     - Plugin rewrite
     - Clean Up plugin
     - Fixed Generator (/mw create)
@@ -40,14 +44,19 @@ _**Ported MultiWorld to PocketMine-MP**_
     - Added multi language support
     - Made works /mw delete command
     - Added ConsoleCommand support
+    
+    **1.3.1 Changes:**
+    - Added End & Void generators
+    - Added Russian language
+    - New command /mw update
+    - Fixed some bugs
   
 ### Next Version:
 
-- Version 1.3.1 Changes (TODO):
-    - [ ] Add command /mw update
-    - [ ] Add German & Russian language support
-    - [ ] Add Void & Ender generator
-    - [ ] Test It
+- Version 1.3.2:
+    - Add Simple WorldEdit
+    - Add Per-World Gamemode system
+    - Fix languages
 
   
 

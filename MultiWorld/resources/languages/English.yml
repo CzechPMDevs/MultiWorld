@@ -43,11 +43,11 @@ delete-levelnotexists: '§cLevel %1 does not exists!'
 delete-done: '§aLevel deleted! (%1 files removed.)'
 # Update Command:
 update-usage: '§cUsage: §7/mw update <mod: spawn|lobby|default> [options: (x) (y) (z) (level)]'
-update-default-usage: '§cUsage: §7/mw update default <level>'
-update-default-levelnotexists: '§cLevel %1 does not exists!'
 update-levelnotexists: '§cLevel %1 does not exists!'
 update-spawn-done: '§aSpawn in level %1 was changed.'
 update-lobby-done: '§aLobby in level %1 was changed.'
+update-default-usage: '§cUsage: §7/mw update default <level>'
+update-default-levelnotexists: '§cLevel %1 does not exists!'
 update-default-done: '§aDefault level was changet to %1.'
 update-notsupported: '§cThis command is not supported in console.'
 ...

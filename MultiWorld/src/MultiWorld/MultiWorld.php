@@ -42,11 +42,7 @@ class MultiWorld extends PluginBase {
     public $multiWorldGenerator;
 
     public function onEnable() {
-
-        // INSTANCE
         self::$instance = $this;
-
-        // utils
         $this->configmgr = new ConfigManager($this);
         $this->langmgr = new LanguageManager($this);
         $this->multiWorldGenerator = new MultiWorldGenerator($this);
@@ -84,7 +80,7 @@ class MultiWorld extends PluginBase {
                 "§9> Package: §e{$phar}\n".
                 "§9> Language: §e".LanguageManager::getLang()."\n".
                 "§5**********************************************");
-            if(in_array(LanguageManager::getLang(), ["Czech", "English"])) {
+            if(!in_array(LanguageManager::getLang(), ["Czech", "English"])) {
                 $this->getLogger()->notice("Language ".LanguageManager::getLang(). "is not 100% supported. You can fix it on ".self::GITHUB."pulls");
             }
         }
@@ -344,7 +340,6 @@ class MultiWorld extends PluginBase {
                 case "update":
                 case "ue":
                 case "upte":
-                    // commmand: /mw [0]ue [1]<spawn|lobby|default> [options:[2]x [3]y [4]z [5](level)]
                     if (!$this->checkPerms($sender, "update")) return false;
                     if(empty($args[1])) {
                         $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("update-usage"));
@@ -400,7 +395,7 @@ class MultiWorld extends PluginBase {
                                 $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("update-default-done"));
                             }
                             else {
-                                $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("update-default-levelnotexists"));
+                                $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("update-levelnotexists"));
                             }
                             return false;
                     }
