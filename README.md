@@ -12,7 +12,7 @@ _**Ported MultiWorld to PocketMine-MP**_
 ### Phar Download:
 - Version 1.3.1 (Stable):
     - PocketMine:
-        - GitHub: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.0
+        - GitHub: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.1
     - GenisysPro:
         - GitHub: unavaliable
 - Version 1.3.0 (Stable):
