@@ -3,7 +3,6 @@
 namespace MultiWorld\Util;
 
 use MultiWorld\MultiWorld;
-use pocketmine\utils\Config;
 
 /**
  * Class ConfigManager

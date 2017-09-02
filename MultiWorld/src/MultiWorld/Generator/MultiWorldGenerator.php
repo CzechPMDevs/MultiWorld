@@ -2,8 +2,8 @@
 
 namespace MultiWorld\Generator;
 
-use MultiWorld\Generator\ender\Ender;
-use MultiWorld\Generator\void\Void;
+use MultiWorld\Generator\ender\EnderGenerator;
+use MultiWorld\Generator\void\VoidGenerator;
 use MultiWorld\MultiWorld;
 use pocketmine\level\generator\Generator;
 
@@ -25,7 +25,7 @@ class MultiWorldGenerator {
     }
 
     public function loadGenerators() {
-        Generator::addGenerator(Ender::class, "ender");
-        Generator::addGenerator(Void::class, "void");
+        Generator::addGenerator(EnderGenerator::class, "ender");
+        Generator::addGenerator(VoidGenerator::class, "void");
     }
 }

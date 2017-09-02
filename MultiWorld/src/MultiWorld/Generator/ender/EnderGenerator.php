@@ -1,6 +1,5 @@
 <?php
 
-
 namespace MultiWorld\Generator\ender;
 
 use MultiWorld\Generator\ender\populator\EnderPilar;
@@ -14,10 +13,10 @@ use pocketmine\math\Vector3 as Vector3;
 use pocketmine\utils\Random;
 
 /**
- * Class Ender
+ * Class EnderGenerator
  * @package MultiWorld\Generator\ender
  */
-class Ender extends Generator {
+class EnderGenerator extends Generator {
 
     /** @var Populator[] */
     private $populators = [];
@@ -43,7 +42,7 @@ class Ender extends Generator {
     private static $SMOOTH_SIZE = 2;
 
     /**
-     * Ender constructor.
+     * EnderGenerator constructor.
      * @param array $options
      */
     public function __construct(array $options = []) {

@@ -10,10 +10,10 @@ use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
 
 /**
- * Class Void
+ * Class VoidGenerator
  * @package pocketmine\level\generator
  */
-class Void extends Generator {
+class VoidGenerator extends Generator {
 
     /** @var ChunkManager */
     private $level;
@@ -45,7 +45,7 @@ class Void extends Generator {
     }
 
     /**
-     * Void constructor.
+     * VoidGenerator constructor.
      *
      * @param array $settings
      */

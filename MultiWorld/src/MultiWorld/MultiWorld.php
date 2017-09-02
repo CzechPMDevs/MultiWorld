@@ -7,13 +7,11 @@ use MultiWorld\Util\ConfigManager;
 use MultiWorld\Util\LanguageManager;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\command\ConsoleCommandSender;
 use pocketmine\level\generator\Generator;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
-use pocketmine\utils\Config;
 
 /**
  * Class MultiWorld
