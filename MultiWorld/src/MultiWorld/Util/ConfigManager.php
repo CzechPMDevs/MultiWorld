@@ -16,18 +16,39 @@ class ConfigManager {
     // prefix
     public static $prefix;
 
+    /** @var  array $configData */
+    public $configData;
+
     /**
      * ConfigManager constructor.
      * @param MultiWorld $plugin
      */
     public function __construct(MultiWorld $plugin) {
         $this->plugin = $plugin;
+        $this->initConfig();
+        if(is_file(self::getDataFolder()."/config.yml")) {
+            $this->loadData();
+        }
+    }
+
+    function loadData() {
+        $config = $this->plugin->getConfig();
+        $gmWorlds = $config->get("gamemodeWorlds");
+        if(is_array($gmWorlds)) {
+            $this->configData["creativeWorlds"] = $gmWorlds["creativeWorlds"];
+            $this->configData["survivalWorlds"] = $gmWorlds["survivalWorlds"];
+            $this->configData["adventureWorlds"] = $gmWorlds["adventureWorlds"];
+            $this->configData["spectatorWorlds"] = $gmWorlds["spectatorWorlds"];
+        }
+        else {
+            $this->plugin->getLogger()->critical("Cloud not load GameMode world data (Data is not saved in array)");
+        }
     }
 
     /**
      * @return void
      */
-    public function initConfig() {
+    function initConfig() {
         if(!is_dir(self::getDataFolder())) {
             @mkdir(self::getDataFolder());
         }

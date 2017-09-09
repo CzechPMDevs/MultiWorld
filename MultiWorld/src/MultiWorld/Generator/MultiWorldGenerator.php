@@ -21,10 +21,11 @@ class MultiWorldGenerator {
      * @param MultiWorld $plugin
      */
     public function __construct(MultiWorld $plugin) {
+        $this->loadGenerators();
         $this->plugin = $plugin;
     }
 
-    public function loadGenerators() {
+    function loadGenerators() {
         Generator::addGenerator(EnderGenerator::class, "ender");
         Generator::addGenerator(VoidGenerator::class, "void");
     }

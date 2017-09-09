@@ -5,6 +5,7 @@ namespace MultiWorld;
 use MultiWorld\Generator\MultiWorldGenerator;
 use MultiWorld\Util\ConfigManager;
 use MultiWorld\Util\LanguageManager;
+use MultiWorld\WorldEdit\WorldEdit;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\level\generator\Generator;
@@ -20,7 +21,7 @@ use pocketmine\Server;
 class MultiWorld extends PluginBase {
 
     const NAME = "MultiWorld";
-    const VERSION = "1.3.1";
+    const VERSION = "1.3.2 [BETA]";
     const AUTHOR = "GamakCZ";
     const GITHUB = "https://github.com/CzechPMDevs/MultiWorld/";
 
@@ -39,14 +40,15 @@ class MultiWorld extends PluginBase {
     /** @var  MultiWorldGenerator $multiWorldGenerator */
     public $multiWorldGenerator;
 
+    /** @var  WorldEdit $worldEdit */
+    public $worldEdit;
+
     public function onEnable() {
         self::$instance = $this;
         $this->configmgr = new ConfigManager($this);
         $this->langmgr = new LanguageManager($this);
         $this->multiWorldGenerator = new MultiWorldGenerator($this);
-        $this->configmgr->initConfig();
-        $this->langmgr->loadLang();
-        $this->multiWorldGenerator->loadGenerators();
+        $this->worldEdit = new WorldEdit($this);
 
         if($this->getServer()->getName() != "PocketMine-MP") {
             $this->getLogger()->critical("§cMultiWorld does not support {$this->getServer()->getName()}");
@@ -106,34 +108,7 @@ class MultiWorld extends PluginBase {
         return ConfigManager::getPrefix();
     }
 
-    /**
-     * @param CommandSender $sender
-     * @param string $command
-     * @return bool
-     */
-    function checkPerms(CommandSender $sender, string $command):bool {
-        if($sender instanceof Player) {
-            if(!$sender->hasPermission("mw.cmd.{$command}")) {
-                $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
-        else {
-            return true;
-        }
-    }
-
-    /**
-     * @param CommandSender $sender
-     * @param Command $cmd
-     * @param string $label
-     * @param array $args
-     * @return bool
-     */
-    public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args):bool {
+    /*public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args):bool {
         $command = $cmd->getName();
         if (in_array($command, ["mw", "wm", "multiworld"])) {
             if (empty($args[0])) {
@@ -332,8 +307,6 @@ class MultiWorld extends PluginBase {
                         $sender->sendMessage("§cError when deleting world. Submit issue to {$github}\n§7Error: {$exception->getMessage()}");
                         $this->getLogger()->critical("\n§cError when deleting world. Submit issue to {$github}\n§7Error: {$exception->getMessage()}");
                     }
-
-
                     return false;
                 case "update":
                 case "ue":
@@ -400,6 +373,36 @@ class MultiWorld extends PluginBase {
                             $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("update-usage"));
                             return false;
                     }
+                case "worldedit":
+                case "we":
+                case "/":
+                    if (!$this->checkPerms($sender, "worldedit")) return false;
+                    if(!$sender instanceof Player) {
+                        $sender->sendMessage(MultiWorld::getPrefix()."§cThis command is not supported in console.");
+                        return false;
+                    }
+                    if(empty($args[1])) {
+                        $sender->sendMessage(MultiWorld::getPrefix()."§cUsage: §7/mw we <pos1|pos2|set>");
+                        return false;
+                    }
+                    switch ($args[1]) {
+                        case "1":
+                        case "pos1":
+                            $this->worldEdit->selectPos($sender, $sender->asPosition(), 1);
+                            return false;
+                        case "2":
+                        case "pos2":
+                            $this->worldEdit->selectPos($sender, $sender->asPosition(), 2);
+                            return false;
+                        case "set":
+                            if(empty($args[2])) {
+                                $sender->sendMessage("§cMissing arguments");
+                                return false;
+                            }
+                            $this->worldEdit->fill($sender, $args[1]);
+                            return false;
+                    }
+
                     return false;
                 default:
                     if ($this->checkPerms($sender, "help")) {
@@ -408,6 +411,6 @@ class MultiWorld extends PluginBase {
                     return false;
             }
         }
-    }
+    }*/
 }
 

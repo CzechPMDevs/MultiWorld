@@ -2,17 +2,20 @@ name: MultiWorld
 author: CzechPMDevs
 authors: [GamakCZ]
 api: [3.0.0-ALPHA7]
-version: 1.3.1
+version: 1.3.2 [BETA]
 main: MultiWorld\MultiWorld
 description: Ported MultiWorld to pocketmine.
 website: https://github.com/CzechPMDevs/MultiWorld
 
-commands:
-  multiworld:
-    aliases: [mw, wm]
-    description: MultiWorld commands
+#commands:
+#  multiworld:
+#    aliases: [mw, wm]
+#    description: MultiWorld commands
 
 permissions:
+  mw.gm:
+    default: op
+    description: Permission for per-world gamemode
   mw.cmd:
     default: op
     description: Permission for all MultiWorld commands
@@ -40,4 +43,7 @@ permissions:
         default: op
       mw.cmd.update:
         description: Permission for /mw update
+        default: op
+      mw.cmd.worldedit:
+        description: Permission for /mw we
         default: op

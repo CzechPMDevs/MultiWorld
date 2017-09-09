@@ -22,6 +22,7 @@ class LanguageManager {
 
     public function __construct(MultiWorld $plugin) {
         $this->plugin = $plugin;
+        $this->loadLang();
     }
 
     public function loadLang() {
