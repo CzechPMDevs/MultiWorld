@@ -2,6 +2,7 @@
 
 namespace MultiWorld;
 
+use MultiWorld\Command\MultiWorldCommand;
 use MultiWorld\Generator\MultiWorldGenerator;
 use MultiWorld\Util\ConfigManager;
 use MultiWorld\Util\LanguageManager;
@@ -50,18 +51,12 @@ class MultiWorld extends PluginBase {
         $this->multiWorldGenerator = new MultiWorldGenerator($this);
         $this->worldEdit = new WorldEdit($this);
 
+        $this->getServer()->getCommandMap()->register("multiworld", new MultiWorldCommand("multiworld", "MultiWorld commands", null, ["mw", "wm"]));
+
         if($this->getServer()->getName() != "PocketMine-MP") {
             $this->getLogger()->critical("§cMultiWorld does not support {$this->getServer()->getName()}");
             $this->getServer()->getPluginManager()->disablePlugin($this);
         }
-
-        if(is_file($this->getDataFolder()."/config.yml")) {
-            if(strval($this->getConfig()->get("plugin-version")) != "1.3.0") {
-                $this->getServer()->getPluginManager()->disablePlugin($this);
-                $this->getLogger()->critical(self::getPrefix()."§cConfig is old. Delete config to start MultiWorld.");
-            }
-        }
-
 
         if(strval($this->getDescription()->getName()) != self::NAME || strval($this->getDescription()->getVersion()) != self::VERSION) {
             $this->getServer()->getPluginManager()->disablePlugin($this);

@@ -27,11 +27,11 @@ class ConfigManager {
         $this->plugin = $plugin;
         $this->initConfig();
         if(is_file(self::getDataFolder()."/config.yml")) {
-            $this->loadData();
+            #$this->loadData();
         }
     }
 
-    function loadData() {
+    /*public function loadData() {
         $config = $this->plugin->getConfig();
         $gmWorlds = $config->get("gamemodeWorlds");
         if(is_array($gmWorlds)) {
@@ -43,12 +43,12 @@ class ConfigManager {
         else {
             $this->plugin->getLogger()->critical("Cloud not load GameMode world data (Data is not saved in array)");
         }
-    }
+    }*/
 
     /**
      * @return void
      */
-    function initConfig() {
+    public function initConfig() {
         if(!is_dir(self::getDataFolder())) {
             @mkdir(self::getDataFolder());
         }
