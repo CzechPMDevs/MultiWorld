@@ -10,6 +10,9 @@ _**Ported MultiWorld to PocketMine-MP**_
   - BlueLight
 
 ### Phar Download:
+- For api 3.0.0-ALPHA8:
+    - PocketMine UNSTABLE version:
+        - Poggit: https://poggit.pmmp.io/babs/7045
 - Version 1.3.1 (Stable):
     - PocketMine:
         - GitHub: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.3.1

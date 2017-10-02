@@ -1,6 +1,6 @@
 <?php
 
-namespace MultiWorld\Generator\ender\populator;
+namespace multiworld\generator\ender\populator;
 
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
@@ -9,7 +9,7 @@ use pocketmine\utils\Random;
 
 /**
  * Class EnderPilar
- * @package MultiWorld\Generator\ender\populator
+ * @package multiworld\Generator\ender\populator
  */
 class EnderPilar extends Populator {
 

@@ -1,16 +1,17 @@
 <?php
 
-namespace MultiWorld\WorldEdit;
+namespace multiworld\WorldEdit;
 
-use MultiWorld\MultiWorld;
+use multiworld\MultiWorld;
 use pocketmine\block\Block;
+use pocketmine\item\Item;
 use pocketmine\level\Position;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
 
 /**
  * Class WorldEdit
- * @package MultiWorld\WorldEdit
+ * @package multiworld\WorldEdit
  */
 class WorldEdit {
 
@@ -18,7 +19,7 @@ class WorldEdit {
     public $plugin;
 
     /** @var  array $pos */
-    public $pos;
+    public $pos = [];
 
     /**
      * WorldEdit constructor.
@@ -44,8 +45,11 @@ class WorldEdit {
                 for($x = $x1; $x < $x2; $x++) {
                     for($z = $z1; $z < $z2; $z++) {
                         for($y = $y1; $y < $y2; $y++) {
+                            $this->plugin->getLogger()->notice("[MultiWorld] WE - filling ($x,$y,$z)");
                             $this->getBlock($block);
+                            if(!$pos1->getLevel()->isChunkLoaded($x, $z)) $pos1->getLevel()->loadChunk($x, $z);
                             $pos1->getLevel()->setBlock(new Vector3($x, $y, $z), Block::get(Block::STONE));
+                            $player->sendMessage("§6Filling...");
                         }
                     }
                 }
@@ -65,22 +69,9 @@ class WorldEdit {
      * @return Block
      */
     public function getBlock($block):Block {
-        if (is_numeric($block)) {
-            return Block::get(intval($block));
-        } else {
-            if (is_string($block)) {
-                $id = explode(",", $block);
-                $index = array_rand($id, 1);
-                $arg = explode(":", $id[$index]);
-                try {
-                    return Block::get($arg[0],$arg[1]);
-                }
-                catch (\Exception $exception) {
-                    $this->plugin->getLogger()->debug("§cSome bug");
-                    return Block::get(Block::AIR);
-                }
-            }
-        }
+        $blocks = explode(",", $block);
+        $item = Item::fromString(strval($blocks[array_rand($blocks, 1)]));
+        return Block::get($item->getId(), $item->getDamage());
     }
 
     /**
@@ -89,7 +80,7 @@ class WorldEdit {
      * @param int $pos
      */
     public function selectPos(Player $player, Position $position, int $pos) {
-        $this->pos["{$pos}"][strtolower($player->getName())] = new Position(intval($position->getX()), intval($position->getY()), intval($position->getZ()));
+        $this->pos["{$pos}"][strtolower($player->getName())] = new Position(intval($position->getX()), intval($position->getY()), intval($position->getZ()), $position->getLevel());
         var_dump($this->pos["{$pos}"][strtolower($player->getName())]);
         $player->sendMessage("§aSelected");
     }

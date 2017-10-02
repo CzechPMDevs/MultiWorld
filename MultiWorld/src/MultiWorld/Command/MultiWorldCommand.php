@@ -1,11 +1,11 @@
 <?php
 
-namespace MultiWorld\Command;
+namespace multiworld\Command;
 
-use MultiWorld\MultiWorld;
-use MultiWorld\Util\ConfigManager;
-use MultiWorld\Util\LanguageManager;
-use MultiWorld\WorldEdit\WorldEdit;
+use multiworld\MultiWorld;
+use multiworld\util\ConfigManager;
+use multiworld\util\LanguageManager;
+use multiworld\worldedit\WorldEdit;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\PluginIdentifiableCommand;
@@ -17,15 +17,12 @@ use pocketmine\Server;
 
 /**
  * Class MultiWorldCommand
- * @package MultiWorld\Command
+ * @package multiworld\Command
  */
 class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
 
     /** @var  MultiWorld $plugin */
     public $plugin;
-
-    /** @var  WorldEdit $worldEdit */
-    public $worldEdit;
 
     /**
      * MultiWorldCommand constructor.
@@ -34,9 +31,8 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
      * @param null $usageMessage
      * @param array $aliases
      */
-    public function __construct($name = "multiworld", $description = "MultiWorld commands", $usageMessage = null, $aliases = ["mw", "wm"]) {
+    public function __construct($name = "multiworld", $description = "multiworld commands", $usageMessage = null, $aliases = ["mw", "wm"]) {
         $this->plugin = MultiWorld::getInstance();
-        $this->worldEdit = $this->plugin->worldEdit;
         parent::__construct($name, $description, $usageMessage, $aliases);
     }
 
@@ -318,7 +314,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
                 switch ($args[1]) {
                     case "1":
                     case "pos1":
-                        $this->worldEdit->selectPos($sender, $sender->asPosition(), 1);
+                        $this->getWorldEdit()->selectPos($sender, $sender->asPosition(), 1);
                         return false;
                     case "2":
                     case "pos2":
@@ -347,7 +343,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
      * @param string $command
      * @return bool
      */
-    function checkPerms(CommandSender $sender, string $command):bool {
+    public function checkPerms(CommandSender $sender, string $command):bool {
         if($sender instanceof Player) {
             if(!$sender->hasPermission("mw.cmd.{$command}")) {
                 $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
@@ -365,8 +361,12 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
     /**
      * @return Server
      */
-    function getServer():Server {
+    public function getServer():Server {
         return Server::getInstance();
+    }
+
+    public function getWorldEdit():WorldEdit {
+        return WorldEdit::getWorldEdit();
     }
 
     /**

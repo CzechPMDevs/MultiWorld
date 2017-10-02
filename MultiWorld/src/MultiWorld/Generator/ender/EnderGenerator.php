@@ -1,6 +1,6 @@
 <?php
 
-namespace MultiWorld\Generator\ender;
+namespace multiworld\generator\ender;
 
 use MultiWorld\Generator\ender\populator\EnderPilar;
 use pocketmine\block\Block;
@@ -14,7 +14,7 @@ use pocketmine\utils\Random;
 
 /**
  * Class EnderGenerator
- * @package MultiWorld\Generator\ender
+ * @package multiworld\Generator\ender
  */
 class EnderGenerator extends Generator {
 

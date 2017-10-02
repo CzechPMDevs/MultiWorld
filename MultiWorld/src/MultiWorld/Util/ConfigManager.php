@@ -1,12 +1,12 @@
 <?php
 
-namespace MultiWorld\Util;
+namespace multiworld\Util;
 
-use MultiWorld\MultiWorld;
+use multiworld\MultiWorld;
 
 /**
  * Class ConfigManager
- * @package MultiWorld\Util
+ * @package multiworld\Util
  */
 class ConfigManager {
 
@@ -27,7 +27,7 @@ class ConfigManager {
         $this->plugin = $plugin;
         $this->initConfig();
         if(is_file(self::getDataFolder()."/config.yml")) {
-            #$this->loadData();
+            $this->loadData();
         }
     }
 
@@ -57,6 +57,9 @@ class ConfigManager {
         }
         if(!is_dir(self::getDataFolder()."languages")) {
             @mkdir(self::getDataFolder()."languages");
+        }
+        if(!is_dir(self::getDataFolder()."worlds")) {
+            @mkdir(self::getDataFolder()."worlds");
         }
         if(!is_file(self::getDataFolder()."/config.yml")) {
             MultiWorld::getInstance()->saveResource("/config.yml");

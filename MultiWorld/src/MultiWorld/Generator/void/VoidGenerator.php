@@ -1,6 +1,6 @@
 <?php
 
-namespace MultiWorld\Generator\void;
+namespace multiworld\generator\void;
 
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
@@ -11,7 +11,7 @@ use pocketmine\utils\Random;
 
 /**
  * Class VoidGenerator
- * @package pocketmine\level\generator
+ * @package multiworld\generator\void
  */
 class VoidGenerator extends Generator {
 

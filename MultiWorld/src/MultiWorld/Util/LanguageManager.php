@@ -7,7 +7,7 @@ use pocketmine\utils\Config;
 
 /**
  * Class LanguageManager
- * @package MultiWorld\Util
+ * @package multiworld\Util
  */
 class LanguageManager {
 

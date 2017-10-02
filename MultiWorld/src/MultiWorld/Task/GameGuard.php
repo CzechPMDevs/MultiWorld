@@ -1,33 +1,19 @@
 <?php
 
-namespace MultiWorld\Task;
+namespace multiworld\task;
 
-use MultiWorld\MultiWorld;
 use pocketmine\level\Level;
 use pocketmine\Player;
-use pocketmine\scheduler\PluginTask;
 
-class GameGuard extends PluginTask {
-
-    /** @var MultiWorld */
-    public $plugin;
-
-    /**
-     * GameGuard constructor.
-     * @param MultiWorld $plugin
-     */
-    public function __construct(MultiWorld $plugin) {
-        $this->plugin = $plugin;
-        parent::__construct($plugin);
-    }
+class GameGuard extends MultiWorldTask {
 
     public function onRun(int $currentTick) {
-        $configData = $this->plugin->configmgr->configData;
+        $configData = $this->getPlugin()->getConfigManager()->configData;
         $survWorlds = $configData["survivalWorlds"];
         $creaWorlds = $configData["creaWorlds"];
         $adveWorlds = $configData["adventureWorlds"];
         $specWorlds = $configData["spectatorWorlds"];
-        foreach ($this->plugin->getServer()->getLevels() as $level) {
+        foreach ($this->getPlugin()->getServer()->getLevels() as $level) {
             if(in_array($level->getName(), $survWorlds)) {
                 $this->changeGamemode($level, Player::SURVIVAL);
             }
@@ -47,7 +33,7 @@ class GameGuard extends PluginTask {
      * @param Level $level
      * @param int $gamemode
      */
-    function changeGamemode(Level $level, int $gamemode) {
+    public function changeGamemode(Level $level, int $gamemode) {
         foreach ($level->getPlayers() as $player) {
             if(!$player->hasPermission("mw.gm")) {
                 $player->setGamemode($gamemode);
