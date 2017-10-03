@@ -1,16 +1,23 @@
-name: multiworld
+name: MultiWorld
 author: CzechPMDevs
 authors: [GamakCZ]
 api: [3.0.0-ALPHA7, 3.0.0-ALPHA8, 3.0.0-ALPHA9]
-version: 1.3.2 [BETA]
+version: 1.4.0 [BETA]
 main: multiworld\MultiWorld
-description: Ported multiworld to pocketmine.
-website: https://github.com/CzechPMDevs/MultiWorl
+description: Ported MultiWorld to pocketmine.
+website: https://github.com/CzechPMDevs/MultiWorld
 
 permissions:
-  mw.gm:
+  mw.gamerule:
     default: op
-    description: Permission for per-world gamemode
+    description: Permission for all gamerules
+    children:
+      mw.gamerule.edit:
+        default: op
+        description: Permission for editing worlds
+      mw.gamerule.allowcommands:
+        default: op
+        description: Permission for allow commands
   mw.cmd:
     default: op
     description: Permission for all multiworld commands
@@ -41,4 +48,7 @@ permissions:
         default: op
       mw.cmd.worldedit:
         description: Permission for /mw we
+        default: op
+      mw.cmd.edit:
+        description: Permission for /mw edit
         default: op
