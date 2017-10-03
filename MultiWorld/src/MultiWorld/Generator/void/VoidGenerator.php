@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace multiworld\generator\void;
 
 use pocketmine\block\Block;

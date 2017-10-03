@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace multiworld\Command;
 
 use multiworld\MultiWorld;
@@ -318,14 +320,14 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
                         return false;
                     case "2":
                     case "pos2":
-                        $this->worldEdit->selectPos($sender, $sender->asPosition(), 2);
+                        $this->getWorldEdit()->selectPos($sender, $sender->asPosition(), 2);
                         return false;
                     case "set":
                         if(empty($args[2])) {
                             $sender->sendMessage("§cMissing arguments");
                             return false;
                         }
-                        $this->worldEdit->fill($sender, $args[1]);
+                        $this->getWorldEdit()->fill($sender, $args[1]);
                         return false;
                 }
 
@@ -366,11 +368,11 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
     }
 
     public function getWorldEdit():WorldEdit {
-        return WorldEdit::getWorldEdit();
+        return $this->getPlugin()->getWorldEdit();
     }
 
     /**
-     * @return Plugin
+     * @return Plugin|MultiWorld $multiWorld
      */
     public function getPlugin(): Plugin {
         return MultiWorld::getInstance();

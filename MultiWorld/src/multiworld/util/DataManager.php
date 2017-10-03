@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace multiworld\util;
 
 use multiworld\MultiWorld;
@@ -27,6 +29,7 @@ class DataManager implements Listener {
     public function __construct(ConfigManager $configManager) {
         $this->getPlugin()->getServer()->getPluginManager()->registerEvents($this, $this->getPlugin());
         $this->configManager = $configManager;
+        $this->loadData();
     }
 
     public function onGenerate(LevelLoadEvent $event) {
@@ -67,7 +70,10 @@ class DataManager implements Listener {
 
         $this->data[$levelName] = new Data($this, $levelName, ConfigManager::getDataFolder()."worlds/{$levelName}.yml");
         if(($data = $this->data[$levelName]) instanceof Data) {
-
+            $data->setAllowCommands($config->get("allowCommands"));
+            $data->setAllowEditWorld($config->get("editWorld"));
+            $data->setAlwaysDay($config->get("alwaysDay"));
+            $data->setGameMode($config->get("gameMode"));
         }
     }
 

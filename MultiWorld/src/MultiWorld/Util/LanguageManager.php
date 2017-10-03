@@ -1,6 +1,8 @@
 <?php
 
-namespace MultiWorld\Util;
+declare(strict_types=1);
+
+namespace multiworld\Util;
 
 use MultiWorld\MultiWorld;
 use pocketmine\utils\Config;

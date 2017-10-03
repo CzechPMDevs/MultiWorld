@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace multiworld\generator\ender;
 
 use MultiWorld\Generator\ender\populator\EnderPilar;

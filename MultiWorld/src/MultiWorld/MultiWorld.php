@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * 1.4 TODO:
  * - API 3.0.0-ALPHA7 - 3.0.0-ALPHA9
@@ -105,7 +107,7 @@ class MultiWorld extends PluginBase {
     }
 
     /**
-     * @return WorldEdit
+     * @return WorldEdit $worldEdit
      */
     public function getWorldEdit():WorldEdit {
         return (($worldEdit = $this->editors["WorldEdit"]) instanceof WorldEdit) ? $worldEdit : null;
