@@ -142,20 +142,27 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
 
                 $level = [];
 
+                $loaded = [];
+
                 foreach ($this->getServer()->getLevels() as $loadedLevel) {
-                    foreach ($allLevels as $allLevel) {
-                        if(strval($allLevel) == $loadedLevel->getName()) {
-                            array_push($level, strval("§a".$allLevel." §fPlayers: §b".count($loadedLevel->getPlayers())));
-                        }
-                        else {
-                            array_push($level, strval("§c".$allLevel. "§fPlayers: §b0"));
-                        }
+                    array_push($loaded, $loadedLevel->getFolderName());
+                }
+
+                var_dump($loaded);
+
+                foreach ($allLevels as $allLevel) {
+                    if(in_array($allLevel, $loaded)) {
+                        $text = strval("§a".$allLevel." §fPlayers: §b".count(Server::getInstance()->getLevelByName($allLevel)->getPlayers()));
+                        array_push($level, $text);
+                    }
+                    else {
+                        array_push($level, strval("§c".$allLevel." §fPlayers: §b0"));
                     }
                 }
 
                 $list = implode("\n", $level);
 
-                $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $list, LanguageManager::translateMessage("list-done")));
+                $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", "\n".$list, LanguageManager::translateMessage("list-done")));
                 return false;
             case "load":
             case "ld":
@@ -310,7 +317,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
                         }
                         $this->getPlugin()->getConfigManager()->getDataManager()->getLevelData($args[1])->setGameMode($gamemode);
                         $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("set-gamemode-done"));
-                        break;
+                        break;/*
                     case "break":
                     case "editworld":
                         if(empty($args[3])) {
@@ -321,7 +328,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
                             $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage(""));
                             return false;
                         }
-                        break;
+                        break;*/
                     default:
                         break;
                 }

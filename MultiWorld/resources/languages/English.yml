@@ -50,4 +50,9 @@ update-default-usage: '§cUsage: §7/mw update default <level>'
 update-default-levelnotexists: '§cLevel %1 does not exists!'
 update-default-done: '§aDefault level was changet to %1.'
 update-notsupported: '§cThis command is not supported in console.'
+# Set Command:
+set-usage: '§cUsage: §7/mw set <level> <gamemode> <options: 0|1|2|3>'
+set-levelnotfound: '§cLevel % does not found!'
+set-gamemode-notfound: '§cGamemode %1 does not found!'
+set-gamemode-done: '§aGamemode in level %1 was changet to %2!'
 ...

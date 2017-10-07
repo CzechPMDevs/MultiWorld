@@ -48,10 +48,10 @@ class DataManager implements Listener {
 
     /**
      * @param $levelName
-     * @return Data
+     * @return Data $data
      */
     public function getLevelData($levelName): Data {
-        return (($data = $this->data[$levelName]) instanceof Data) ? $data : null;
+        return (($data = isset($this->data[$levelName]) ? $this->data[$levelName] : $this->addNewData($this->getPlugin()->getServer()->getLevelByName($levelName))) instanceof Data) ? $data : null;
     }
 
 

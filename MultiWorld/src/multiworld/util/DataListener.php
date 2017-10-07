@@ -27,6 +27,7 @@ class DataListener implements Listener {
     public function __construct(Data $data) {
         $this->data = $data;
         Server::getInstance()->getPluginManager()->registerEvents($this, $this->getPlugin());
+        $this->getPlugin()->getLogger()->info("Data listener loaded (level ".$this->getData()->getLevelName()." )");
     }
 
     /**

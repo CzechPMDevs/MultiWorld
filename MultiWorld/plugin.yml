@@ -2,7 +2,7 @@ name: MultiWorld
 author: CzechPMDevs
 authors: [GamakCZ]
 api: [3.0.0-ALPHA7, 3.0.0-ALPHA8, 3.0.0-ALPHA9]
-version: 1.4.0 [BETA]
+version: 1.4.0 [BETA 1]
 main: multiworld\MultiWorld
 description: Ported MultiWorld to pocketmine.
 website: https://github.com/CzechPMDevs/MultiWorld

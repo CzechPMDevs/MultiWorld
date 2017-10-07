@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace multiworld\Util;
+namespace multiworld\util;
 
 use multiworld\MultiWorld;
 
@@ -85,10 +85,10 @@ class ConfigManager {
     }
 
     /**
-     * @return bool|mixed
+     * @return string $prefix
      */
-    public static function getPrefix() {
-        return self::$prefix;
+    public static function getPrefix():string {
+        return is_string(self::$prefix) ? self::$prefix : "[MultiWorld]";
     }
 
     public function getDataManager():DataManager {

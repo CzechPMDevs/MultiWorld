@@ -29,12 +29,12 @@ use pocketmine\plugin\PluginBase;
  */
 class MultiWorld extends PluginBase {
 
-    const NAME = "multiworld";
-    const VERSION = "1.3.2 [BETA]";
+    const NAME = "MultiWorld";
+    const VERSION = "1.4.0 [BETA 1]";
     const AUTHOR = "GamakCZ";
     const GITHUB = "https://github.com/CzechPMDevs/multiworld/";
 
-    /** @var  MultiWorld */
+    /** @var  MultiWorld $instance */
     static $instance;
 
     /** @var  string $prefix */
@@ -48,10 +48,10 @@ class MultiWorld extends PluginBase {
 
     public function onEnable() {
         self::$instance = $this;
-        $this->check();
         $this->registerGenerators();
         $this->registerManagers();
         $this->registerEditors();
+        $this->check();
         $this->getServer()->getCommandMap()->register("multiworld", new MultiWorldCommand("multiworld", "multiworld commands", null, ["mw", "wm"]));
         if($this->isEnabled()) {
             $phar = null;
