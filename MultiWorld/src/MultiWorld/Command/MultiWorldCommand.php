@@ -416,7 +416,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
                             $sender->sendMessage("§cMissing arguments");
                             return false;
                         }
-                        $this->getWorldEdit()->fill($sender, $args[1]);
+                        $this->getWorldEdit()->startFill($sender, $args[2]);
                         return false;
                 }
 

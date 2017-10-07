@@ -6,7 +6,7 @@ _**Ported MultiWorld to PocketMine-MP**_
 [![Poggit-CI](https://poggit.pmmp.io/ci.shield/CzechPMDevs/MultiWorld/MultiWorld)](https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld)
 
 ### 3.0.0-ALPHA9 Status:
-  - 68% Completed
+  - 87% Completed
   - /mw set command is now under development
 
 ### Support Software:

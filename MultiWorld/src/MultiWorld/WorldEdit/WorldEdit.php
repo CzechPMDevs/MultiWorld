@@ -7,6 +7,7 @@ namespace multiworld\WorldEdit;
 use multiworld\MultiWorld;
 use pocketmine\block\Block;
 use pocketmine\item\Item;
+use pocketmine\level\Level;
 use pocketmine\level\Position;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
@@ -21,7 +22,13 @@ class WorldEdit {
     public $plugin;
 
     /** @var  array $pos */
-    public $pos = [];
+    public $pos1 = [];
+
+    /** @var array $pos2 */
+    public $pos2 = [];
+
+    /** @var array $level */
+    public $level = [];
 
     /**
      * WorldEdit constructor.
@@ -32,38 +39,44 @@ class WorldEdit {
     }
 
     /**
-     * @param Player $player
-     * @param $block
+     * @param Vector3 $pos1
+     * @param Vector3 $pos2
+     * @param Level $level
+     * @param string $blocks
+     * @return int
      */
-    public function fill(Player $player, $block) {
-        $pos1 = $this->getPos($player, 1);
-        $pos2 = $this->getPos($player, 2);
-        if($pos1 instanceof Position && $pos2 instanceof Position) {
-            if($pos1->getLevel()->getName() == $pos2->getLevel()->getName()) {
-                $pos1 = new Position(min($pos1->getX(), $pos2->getX()), min($pos1->getY(), $pos2->getY()), min($pos1->getZ(), $pos2->getZ()), $pos1->getLevel());
-                $pos2 = new Position(max($pos1->getX(), $pos2->getX()), max($pos1->getY(), $pos2->getY()), max($pos1->getZ(), $pos2->getZ()), $pos2->getLevel());
-                $x1 = $pos1->getX(); $y1 = $pos1->getY(); $z1 = $pos1->getZ();
-                $x2 = $pos2->getX(); $y2 = $pos2->getY(); $z2 = $pos2->getZ();
-                for($x = $x1; $x < $x2; $x++) {
-                    for($z = $z1; $z < $z2; $z++) {
-                        for($y = $y1; $y < $y2; $y++) {
-                            $this->plugin->getLogger()->notice("[MultiWorld] WE - filling ($x,$y,$z)");
-                            $this->getBlock($block);
-                            if(!$pos1->getLevel()->isChunkLoaded($x, $z)) $pos1->getLevel()->loadChunk($x, $z);
-                            $pos1->getLevel()->setBlock(new Vector3($x, $y, $z), Block::get(Block::STONE));
-                            $player->sendMessage("§6Filling...");
-                        }
-                    }
+    public function fill(Vector3 $pos1, Vector3 $pos2, Level $level, string $blocks) {
+        $count = 0;
+        $minPos = new Vector3(min($pos1->getX(), $pos2->getX()), min($pos1->getY(), $pos2->getY()), min($pos1->getZ(), $pos2->getZ()));
+        $maxPos = new Vector3(max($pos1->getX(), $pos2->getX()), max($pos1->getY(), $pos2->getY()), max($pos1->getZ(), $pos2->getZ()));
+        for($x = $minPos->x; $x < $maxPos->x; $x++) {
+            for($y = $minPos->y; $y < $maxPos->y; $y++) {
+                for($z = $minPos->z; $z < $maxPos->z; $z++) {
+                    $blockArray = explode(",", $blocks);
+                    $item = Item::fromString($blockArray[array_rand($blockArray, 1)]);
+                    $vec = new Vector3($x, $y, $z);
+                    $level->setBlock($vec, $item->getBlock());
+                    $count++;
                 }
-                $player->sendMessage("§aFillded.");
-            }
-            else {
-                $player->sendMessage("§cPositions must be in same level.");
             }
         }
-        else {
-            $player->sendMessage("§cSelect position first");
+        return $count;
+    }
+
+    /**
+     * @param Player $player
+     * @param $blocks
+     */
+    public function startFill(Player $player, $blocks) {
+        $pos1 = $this->pos1[$player->getName()];
+        $pos2 = $this->pos2[$player->getName()];
+        $level = $this->level[$player->getName()];
+        if(!($pos1 instanceof Vector3) && !($pos2 instanceof Vector3) && !($level instanceof Level)) {
+            $player->sendMessage("§cNO VECTOR");
+            return;
         }
+        $count = $this->fill($pos1, $pos2, $level, $blocks);
+        $player->sendMessage("§aFilled ($count block changed).");
     }
 
     /**
@@ -82,18 +95,14 @@ class WorldEdit {
      * @param int $pos
      */
     public function selectPos(Player $player, Position $position, int $pos) {
-        $this->pos["{$pos}"][strtolower($player->getName())] = new Position(intval($position->getX()), intval($position->getY()), intval($position->getZ()), $position->level);
-        var_dump($this->pos["{$pos}"][strtolower($player->getName())]);
-        $player->sendMessage("§aSelected");
-    }
-
-    /**
-     * @param Player $player
-     * @param int $pos
-     * @return Position|null
-     */
-    public function getPos(Player $player, int $pos) {
-        var_dump($this->pos["{$pos}"][strtolower($player->getName())]);
-        return $this->pos["{$pos}"][strtolower($player->getName())];
+        if(strval($pos) == "1") {
+            $this->pos1[$player->getName()] = $vec = new Vector3(intval($position->getX()), intval($position->getY()), intval($position->getZ()));
+            $player->sendMessage("§aSelected first position at §b{$vec->getX()}, {$vec->getY()}, {$vec->getZ()}");
+        }
+        elseif(strval($pos) == "2") {
+            $this->pos2[$player->getName()] = $vec = new Vector3(intval($position->getX()), intval($position->getY()), intval($position->getZ()));
+            $player->sendMessage("§aSelected second position at §b{$vec->getX()}, {$vec->getY()}, {$vec->getZ()}");
+        }
+        $this->level[$player->getName()] = $position->getLevel();
     }
 }
