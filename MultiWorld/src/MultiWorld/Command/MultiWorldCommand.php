@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace multiworld\Command;
 
 use multiworld\MultiWorld;
+use MultiWorld\Task\MultiWorldTask;
 use multiworld\util\ConfigManager;
 use multiworld\util\LanguageManager;
 use multiworld\worldedit\WorldEdit;
@@ -131,14 +132,29 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
             case "ls":
             case "list":
                 if (!$this->checkPerms($sender, "list")) return false;
+
                 $allLevels = scandir(ConfigManager::getDataPath() . "worlds");
+
+                // .
                 unset($allLevels[0]);
+                // ..
                 unset($allLevels[1]);
-                $loaded = [];
-                foreach ($this->getServer()->getLevels() as $level) {
-                    array_push($loaded, $level->getName());
+
+                $level = [];
+
+                foreach ($this->getServer()->getLevels() as $loadedLevel) {
+                    foreach ($allLevels as $allLevel) {
+                        if(strval($allLevel) == $loadedLevel->getName()) {
+                            array_push($level, strval("§a".$allLevel." §fPlayers: §b".count($loadedLevel->getPlayers())));
+                        }
+                        else {
+                            array_push($level, strval("§c".$allLevel. "§fPlayers: §b0"));
+                        }
+                    }
                 }
-                $list = implode(", ", $allLevels);
+
+                $list = implode("\n", $level);
+
                 $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $list, LanguageManager::translateMessage("list-done")));
                 return false;
             case "load":
@@ -234,6 +250,80 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
                     $github = MultiWorld::GITHUB;
                     $sender->sendMessage("§cError when deleting world. Submit issue to {$github}\n§7Error: {$exception->getMessage()}");
                     $this->plugin->getLogger()->critical("\n§cError when deleting world. Submit issue to {$github}\n§7Error: {$exception->getMessage()}");
+                }
+                return false;
+            case "set":
+                # /mw 0:set 1:<level> 2:<gamemode|edit|commands> 3:<options>
+                /**
+                 * Messages:
+                 *
+                 * - set-usage
+                 * - set-levelnotfound
+                 * - set-gamemode-done
+                 * - set-gamemode-notfound
+                 */
+                if (!$this->checkPerms($sender, "set")) return false;
+                if(empty($args[1]) || empty($args[2])) {
+                    $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("set-usage"));
+                    return false;
+                }
+                if(!Server::getInstance()->isLevelGenerated($args[1])) {
+                    $sender->sendMessage("set-levelnotfound");
+                    return false;
+                }
+                if(!Server::getInstance()->isLevelGenerated($args[1])) {
+                    Server::getInstance()->loadLevel($args[1]);
+                }
+                switch(strtolower($args[2])) {
+                    case "gamemode":
+                    case "gm":
+                        if(empty($args[3])) {
+                            $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("set-usage"));
+                            return false;
+                        }
+                        if(!in_array($args[3], ["0", "1", "2", "3", "c", "s", "a", "sp", "creative", "survival", "adventure", "spectator"])) {
+                            $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("set-gamemode-notfound"));
+                            return false;
+                        }
+                        $gamemode = 0;
+                        switch ($args[3]) {
+                            case "0":
+                            case "s":
+                            case "survival":
+                                $gamemode = 0;
+                                break;
+                            case "1":
+                            case "c":
+                            case "creative":
+                                $gamemode = 1;
+                                break;
+                            case "2":
+                            case "a":
+                            case "adventure":
+                                $gamemode = 2;
+                                break;
+                            case 3:
+                            case "sp":
+                            case "spectator":
+                                $gamemode = 3;
+                                break;
+                        }
+                        $this->getPlugin()->getConfigManager()->getDataManager()->getLevelData($args[1])->setGameMode($gamemode);
+                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("set-gamemode-done"));
+                        break;
+                    case "break":
+                    case "editworld":
+                        if(empty($args[3])) {
+                            $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("set-usage"));
+                            return false;
+                        }
+                        if(!in_array(strval($args[3]), ["true", "false"])) {
+                            $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage(""));
+                            return false;
+                        }
+                        break;
+                    default:
+                        break;
                 }
                 return false;
             case "update":

@@ -90,4 +90,8 @@ class ConfigManager {
     public static function getPrefix() {
         return self::$prefix;
     }
+
+    public function getDataManager():DataManager {
+        return $this->dataManager;
+    }
 }

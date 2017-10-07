@@ -82,7 +82,7 @@ class WorldEdit {
      * @param int $pos
      */
     public function selectPos(Player $player, Position $position, int $pos) {
-        $this->pos["{$pos}"][strtolower($player->getName())] = new Position(intval($position->getX()), intval($position->getY()), intval($position->getZ()), $position->getLevel());
+        $this->pos["{$pos}"][strtolower($player->getName())] = new Position(intval($position->getX()), intval($position->getY()), intval($position->getZ()), $position->level);
         var_dump($this->pos["{$pos}"][strtolower($player->getName())]);
         $player->sendMessage("§aSelected");
     }

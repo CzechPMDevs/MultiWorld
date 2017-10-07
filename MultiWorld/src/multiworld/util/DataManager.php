@@ -32,7 +32,7 @@ class DataManager implements Listener {
         $this->loadData();
     }
 
-    public function onGenerate(LevelLoadEvent $event) {
+    public function onLevelLoad(LevelLoadEvent $event) {
         if(empty($this->data[$event->getLevel()->getName()])) {
             $this->addNewData($event->getLevel());
         }
@@ -70,10 +70,10 @@ class DataManager implements Listener {
 
         $this->data[$levelName] = new Data($this, $levelName, ConfigManager::getDataFolder()."worlds/{$levelName}.yml");
         if(($data = $this->data[$levelName]) instanceof Data) {
-            $data->setAllowCommands($config->get("allowCommands"));
-            $data->setAllowEditWorld($config->get("editWorld"));
-            $data->setAlwaysDay($config->get("alwaysDay"));
-            $data->setGameMode($config->get("gameMode"));
+            $data->setAllowCommands(boolval($config->get("allowCommands")));
+            $data->setAllowEditWorld(boolval($config->get("editWorld")));
+            $data->setAlwaysDay(boolval($config->get("alwaysDay")));
+            $data->setGameMode(intval($config->get("gameMode")));
         }
     }
 
