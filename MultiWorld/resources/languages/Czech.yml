@@ -1,5 +1,4 @@
 ---
-
 ### Czech language file by @GamakCZ
 
 ## Commands:
@@ -15,6 +14,7 @@ help-3: '§e/mw list §7: §9Zobrazí list všech světů'
 help-4: '§e/mw <load|unload> §7: §9Načte | Odnačte svět'
 help-5: '§e/mw update §7: §9Nastaví spawn, lobby nebo základní svět'
 help-6: '§e/mw delete §7: §9Odstraní svět'
+help-7: '§e/mw set §7: §9Nastaví funkce světa'
 # Create Command:
 create-usage: '§cPoužij: §7/mw create <jméno> [seed] [generátor]'
 create-gennotexists: '§cGenerátor neexistuje!';
@@ -27,10 +27,6 @@ teleport-load: 'Načítám svět %1...'
 teleport-done-1: '§aJsi teleportován do světa %1.'
 teleport-done-2: '§aHráč %2 byl teleportován do světa %1!'
 teleport-playernotexists: '§cPlayer does not exists!'
-# Import Command:
-import-usage: '§cPoužij: §7/mw import <NázevSložky>'
-import-zipnotexists: '§cSložka neexistuje!'
-import-done: '§aSvět byl importován!'
 # List Command:
 list-done: '§aSvěty: %1'
 # Load Command:
@@ -49,6 +45,7 @@ delete-levelnotexists: '§cSvět %1 neexistuje!'
 delete-done: '§aSvět byl smazán (Bylo smazáno %1 složek)!'
 # Update Command:
 update-usage: '§cPoužij: §7/mw update <mód: spawn|lobby|default> [nastavení: (x) (y) (z) (svět)]'
+update-levelnotexists: 'Svět %1 nebyl nalezen'
 update-spawn-done: '§aSpawn ve světě %1 byl změněn.'
 update-lobby-done: '§aLobby ve světě %1 bylo změněno.'
 update-default-usage: '§cPoužij: §7/mw update default <level>'

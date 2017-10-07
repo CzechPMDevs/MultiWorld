@@ -1,5 +1,4 @@
 ---
-
 ### Файл с русским языком от Google Translator
 ### Russian language by Google Translator
 ### Need fix.
@@ -15,8 +14,12 @@ help-2: '§e /mw teleport §7: §9Телепорты в мир'
 help-3: '§e /mw list §7: §9Просмотреть список всех миров'
 help-4: '§e /mw <load | unload> §7: §9Выберите | Проверьте мир '
 help-5: '§e /mw update §7: Устанавливает икру, лобби или базовый мир'
+help-6: ''
+help-7: ''
 # Create Command:
 create-usage: '§cПрименение: §7/​​mw create <имя> [семя] [генератор]'
+create-gennotexists: ''
+create-generating: ''
 create-done: 'Мир %1 создается с семенем: %2 и генератором: %3'
 # Teleport Command:
 teleport-usage: '§cПрименение: §7/​​mw teleport <мир> [игрок]'
@@ -25,9 +28,11 @@ teleport-load: '§aЗагрузка мира %1 ...'
 teleport-done-1: '§aТы телепортирован в мир %1.'
 teleport-done-2: '§aИгрок %2 был телепортирован в мир %1!'
 teleport-playernotexists: '§cИгрок не существует!'
+# List Command
+list-done: ''
 # Load Command:
 load-usage: '§Применение: §7/mw load <мир>'
-Load-levelnotexists: '§cCange %1 не существует!'
+load-levelnotexists: '§cCange %1 не существует!'
 load-loaded: '§cНе удается загрузить загруженный мир!'
 load-done: '§aмир был загружен!'
 # Unload Command:
@@ -41,7 +46,15 @@ delete-levelnotexists: '§cCange% 1 не существует!'
 delete-done: '§aи World был удален!'
 # Update Command:
 update-usage: '§cИспользование:§7 /​​mw update <mode: spawn|lobby|default> [настройка: (x) (y) (z) (мир)]'
+update-levelnotexists: ''
 update-spawn-done: '§aSpawn in world %1 было изменено.'
 update-lobby-done: '§aМир %1 был изменен.'
 update-default-done: '§aОсновной мир был изменен.'
+update-default-usage: ''
+update-notsupported: ''
+# Set Command:
+set-usage: ''
+set-levelnotfound: ''
+set-gamemode-notfound: ''
+set-gamemode-done: ''
 ...

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace multiworld\Command;
 
 use multiworld\MultiWorld;
-use MultiWorld\Task\MultiWorldTask;
 use multiworld\util\ConfigManager;
 use multiworld\util\LanguageManager;
 use multiworld\worldedit\WorldEdit;
@@ -34,7 +33,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
      * @param null $usageMessage
      * @param array $aliases
      */
-    public function __construct($name = "multiworld", $description = "multiworld commands", $usageMessage = null, $aliases = ["mw", "wm"]) {
+    public function __construct($name = "multiworld", $description = "MultiWorld Commands", $usageMessage = null, $aliases = ["mw", "wm"]) {
         $this->plugin = MultiWorld::getInstance();
         parent::__construct($name, $description, $usageMessage, $aliases);
     }
@@ -61,7 +60,8 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
                     LanguageManager::translateMessage("help-3") . "\n" .
                     LanguageManager::translateMessage("help-4") . "\n" .
                     LanguageManager::translateMessage("help-5") . "\n" .
-                    LanguageManager::translateMessage("help-6") . "\n");
+                    LanguageManager::translateMessage("help-6") . "\n" .
+                    LanguageManager::translateMessage("help-7") . "\n");
                 return false;
             case "create":
             case "new":
@@ -88,6 +88,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
                 }
                 is_numeric($seed) ? $seed = (int)$seed : $seed = intval($seed);
                 $this->getServer()->generateLevel($args[1], $seed, Generator::getGenerator($generator));
+                $this->getServer()->broadcastMessage(MultiWorld::getPrefix().str_replace("%1", $args[1], LanguageManager::translateMessage("create-generating")));
                 $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[1], str_replace("%2", $seed, str_replace("%3", strtolower($generator), LanguageManager::translateMessage("create-done")))));
                 return false;
             case "teleport":
@@ -255,20 +256,11 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
                 }
                 catch (\Exception $exception) {
                     $github = MultiWorld::GITHUB;
-                    $sender->sendMessage("§cError when deleting world. Submit issue to {$github}\n§7Error: {$exception->getMessage()}");
+                    $sender->sendMessage("§cError when deleting world. Submit issue to {$github}issues\n§7Error: {$exception->getMessage()}");
                     $this->plugin->getLogger()->critical("\n§cError when deleting world. Submit issue to {$github}\n§7Error: {$exception->getMessage()}");
                 }
                 return false;
             case "set":
-                # /mw 0:set 1:<level> 2:<gamemode|edit|commands> 3:<options>
-                /**
-                 * Messages:
-                 *
-                 * - set-usage
-                 * - set-levelnotfound
-                 * - set-gamemode-done
-                 * - set-gamemode-notfound
-                 */
                 if (!$this->checkPerms($sender, "set")) return false;
                 if(empty($args[1]) || empty($args[2])) {
                     $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("set-usage"));
