@@ -49,9 +49,9 @@ class WorldEdit {
         $count = 0;
         $minPos = new Vector3(min($pos1->getX(), $pos2->getX()), min($pos1->getY(), $pos2->getY()), min($pos1->getZ(), $pos2->getZ()));
         $maxPos = new Vector3(max($pos1->getX(), $pos2->getX()), max($pos1->getY(), $pos2->getY()), max($pos1->getZ(), $pos2->getZ()));
-        for($x = $minPos->x; $x < $maxPos->x; $x++) {
-            for($y = $minPos->y; $y < $maxPos->y; $y++) {
-                for($z = $minPos->z; $z < $maxPos->z; $z++) {
+        for($x = $minPos->x; $x <= $maxPos->x; $x++) {
+            for($y = $minPos->y; $y <= $maxPos->y; $y++) {
+                for($z = $minPos->z; $z <= $maxPos->z; $z++) {
                     $blockArray = explode(",", $blocks);
                     $item = Item::fromString($blockArray[array_rand($blockArray, 1)]);
                     $vec = new Vector3($x, $y, $z);

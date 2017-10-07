@@ -56,4 +56,9 @@ set-usage: '§cUsage: §7/mw set <level> <gamemode> <options: 0|1|2|3>'
 set-levelnotfound: '§cLevel % does not found!'
 set-gamemode-notfound: '§cGamemode %1 does not found!'
 set-gamemode-done: '§aGamemode in level %1 was changet to %2!'
+# Worldedit Command:
+worldedit-usage: '§cUsage: §7/mw we <pos1|pos2|set> [options: blocks]'
+worldedit-select-pos1: '§aFirst position was selected at %1'
+worldedit-select-pos2: '§aSecond position was selected at %2'
+worldedit-filled: '§aFilled (%1 blocks changed)!'
 ...

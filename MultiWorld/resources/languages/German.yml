@@ -56,4 +56,9 @@ set-usage: ''
 set-levelnotfound: ''
 set-gamemode-notfound: ''
 set-gamemode-done: ''
+# Worldedit Command:
+worldedit-usage: ''
+worldedit-select-pos1: ''
+worldedit-select-pos2: ''
+worldedit-filled: ''
 ...
