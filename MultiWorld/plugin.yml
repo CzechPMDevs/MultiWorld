@@ -12,12 +12,9 @@ permissions:
     default: op
     description: Permission for all gamerules
     children:
-      mw.gamerule.edit:
+      mw.gamerule.gamemode:
         default: op
-        description: Permission for editing worlds
-      mw.gamerule.allowcommands:
-        default: op
-        description: Permission for allow commands
+        description: Permission for per-world gamemode
   mw.cmd:
     default: op
     description: Permission for all multiworld commands

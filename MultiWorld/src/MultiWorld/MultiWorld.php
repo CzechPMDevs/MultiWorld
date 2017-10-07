@@ -75,6 +75,7 @@ class MultiWorld extends PluginBase {
     }
 
     public function onDisable() {
+        $this->getConfigManager()->getDataManager()->saveAllData();
         $this->getLogger()->info("§aMultiWorld is disabled!");
     }
 

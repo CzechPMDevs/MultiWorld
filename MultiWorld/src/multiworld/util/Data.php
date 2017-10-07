@@ -10,6 +10,12 @@ namespace multiworld\util;
  */
 class Data {
 
+    /** @var  DataTask $task */
+    public $task;
+
+    /** @var  DataListener $listener */
+    public $listener;
+
     /** @var  string $levelName */
     public $levelName;
 
@@ -70,6 +76,8 @@ class Data {
         $this->allowCommands = $allowCommands;
         $this->alwaysDay = $alwaysDay;
         $this->allowEditWorld = $allowEditWorld;
+        $this->getDataManager()->getPlugin()->getServer()->getScheduler()->scheduleRepeatingTask($this->task = new DataTask($this), 20);
+        $this->getDataManager()->getPlugin()->getServer()->getPluginManager()->registerEvents($this->listener = new DataListener($this), $this->getDataManager()->getPlugin());
     }
 
     /**

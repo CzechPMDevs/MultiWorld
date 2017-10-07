@@ -61,18 +61,22 @@ class DataManager implements Listener {
         }
     }
 
+    public function saveAllData() {
+        foreach ($this->data as $data) {
+            $config = new Config(ConfigManager::getDataFolder()."worlds/{$data->getLevelName()}.yml", Config::YAML);
+            $config->set("gamemode", $data->getGameMode());
+            $config->save();
+        }
+    }
+
     /**
      * @param Config $config
      * @param string $levelName
      */
     public function saveDataFromConfig(Config $config, string $levelName) {
         $this->getPlugin()->getLogger()->notice("Loading data for level {$levelName}...");
-
         $this->data[$levelName] = new Data($this, $levelName, ConfigManager::getDataFolder()."worlds/{$levelName}.yml");
         if(($data = $this->data[$levelName]) instanceof Data) {
-            $data->setAllowCommands(boolval($config->get("allowCommands")));
-            $data->setAllowEditWorld(boolval($config->get("editWorld")));
-            $data->setAlwaysDay(boolval($config->get("alwaysDay")));
             $data->setGameMode(intval($config->get("gameMode")));
         }
     }

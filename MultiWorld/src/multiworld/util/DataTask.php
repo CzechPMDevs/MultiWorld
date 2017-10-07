@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace multiworld\util;
 
-use MultiWorld\Task\MultiWorldTask;
+use multiworld\task\MultiWorldTask;
+use pocketmine\level\Level;
+use pocketmine\Server;
 
 /**
  * Class DataTask
@@ -27,7 +29,19 @@ class DataTask extends MultiWorldTask {
      * @param int $currentTick
      */
     public function onRun(int $currentTick) {
-        $this->getPlugin()->getLogger()->info("§aTask running ({$this->getData()->getLevelName()})");
+        $this->checkGamemode();
+    }
+
+    public function checkGamemode() {
+        $level = Server::getInstance()->getLevelByName($this->getData()->getLevelName());
+        if(!$level instanceof Level) return;
+        foreach ($level->getPlayers() as $player) {
+            if(!$player->hasPermission("mw.gamerule.gamemode")) {
+                if($player->getGamemode() != $this->getData()->getGameMode()) {
+                    $player->setGamemode($this->getData()->getGameMode());
+                }
+            }
+        }
     }
 
     /**
