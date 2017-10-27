@@ -3,6 +3,6 @@ branches:
 - PocketMine-MP
 projects:
   MultiWorld:
-    path: multiworld
+    path: MultiWorld
     icon: icon.png
 ...
