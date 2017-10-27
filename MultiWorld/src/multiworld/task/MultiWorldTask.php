@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace MultiWorld\Task;
+namespace multiworld\task;
 
 use MultiWorld\MultiWorld;
 use pocketmine\scheduler\Task;

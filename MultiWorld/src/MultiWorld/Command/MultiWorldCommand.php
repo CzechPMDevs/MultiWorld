@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace multiworld\Command;
+namespace multiworld\command;
 
 use multiworld\MultiWorld;
 use multiworld\util\ConfigManager;

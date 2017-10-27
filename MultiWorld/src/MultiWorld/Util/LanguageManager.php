@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace multiworld\Util;
+namespace multiworld\util;
 
 use MultiWorld\MultiWorld;
 use pocketmine\utils\Config;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace multiworld\WorldEdit;
+namespace multiworld\worldedit;
 
 use multiworld\MultiWorld;
 use pocketmine\block\Block;
