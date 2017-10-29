@@ -78,7 +78,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
                 }
                 $seed = null;
                 $generator = null;
-                count($args) < 3 ? $seed = rand(rand(1, 10), rand(50, 99999999999999)) : $seed = $args[2];
+                count($args) < 3 ? $seed = rand(1, PHP_INT_MAX) : $seed = $args[2];
                 count($args) < 4 ? $generator = "normal" : $generator = $args[3];
                 strtolower($generator) == "nether" ? $generator = "hell" : $generator = strtolower($generator);
                 strtolower($generator) == "end" ? $generator = "ender" : $generator = strtolower($generator);
@@ -260,71 +260,6 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
                     $this->plugin->getLogger()->critical("\n§cError when deleting world. Submit issue to {$github}\n§7Error: {$exception->getMessage()}");
                 }
                 return false;
-            case "set":
-                if (!$this->checkPerms($sender, "set")) return false;
-                if(empty($args[1]) || empty($args[2])) {
-                    $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("set-usage"));
-                    return false;
-                }
-                if(!Server::getInstance()->isLevelGenerated($args[1])) {
-                    $sender->sendMessage("set-levelnotfound");
-                    return false;
-                }
-                if(!Server::getInstance()->isLevelGenerated($args[1])) {
-                    Server::getInstance()->loadLevel($args[1]);
-                }
-                switch(strtolower($args[2])) {
-                    case "gamemode":
-                    case "gm":
-                        if(empty($args[3])) {
-                            $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("set-usage"));
-                            return false;
-                        }
-                        if(!in_array($args[3], ["0", "1", "2", "3", "c", "s", "a", "sp", "creative", "survival", "adventure", "spectator"])) {
-                            $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("set-gamemode-notfound"));
-                            return false;
-                        }
-                        $gamemode = 0;
-                        switch ($args[3]) {
-                            case "0":
-                            case "s":
-                            case "survival":
-                                $gamemode = 0;
-                                break;
-                            case "1":
-                            case "c":
-                            case "creative":
-                                $gamemode = 1;
-                                break;
-                            case "2":
-                            case "a":
-                            case "adventure":
-                                $gamemode = 2;
-                                break;
-                            case 3:
-                            case "sp":
-                            case "spectator":
-                                $gamemode = 3;
-                                break;
-                        }
-                        $this->getPlugin()->getConfigManager()->getDataManager()->getLevelData($args[1])->setGameMode($gamemode);
-                        $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("set-gamemode-done"));
-                        break;/*
-                    case "break":
-                    case "editworld":
-                        if(empty($args[3])) {
-                            $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("set-usage"));
-                            return false;
-                        }
-                        if(!in_array(strval($args[3]), ["true", "false"])) {
-                            $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage(""));
-                            return false;
-                        }
-                        break;*/
-                    default:
-                        break;
-                }
-                return false;
             case "update":
             case "ue":
             case "upte":
@@ -390,37 +325,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
                         $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::translateMessage("update-usage"));
                         return false;
                 }
-            case "worldedit":
-            case "we":
-            case "/":
-                if (!$this->checkPerms($sender, "worldedit")) return false;
-                if(!$sender instanceof Player) {
-                    $sender->sendMessage(MultiWorld::getPrefix()."§cThis command is not supported in console.");
-                    return false;
-                }
-                if(empty($args[1])) {
-                    $sender->sendMessage(MultiWorld::getPrefix()."§cUsage: §7/mw we <pos1|pos2|set>");
-                    return false;
-                }
-                switch ($args[1]) {
-                    case "1":
-                    case "pos1":
-                        $this->getWorldEdit()->selectPos($sender, $sender->asPosition(), 1);
-                        return false;
-                    case "2":
-                    case "pos2":
-                        $this->getWorldEdit()->selectPos($sender, $sender->asPosition(), 2);
-                        return false;
-                    case "set":
-                        if(empty($args[2])) {
-                            $sender->sendMessage("§cMissing arguments");
-                            return false;
-                        }
-                        $this->getWorldEdit()->startFill($sender, $args[2]);
-                        return false;
-                }
 
-                return false;
             default:
                 if ($this->checkPerms($sender, "help")) {
                     $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("default-usage"));

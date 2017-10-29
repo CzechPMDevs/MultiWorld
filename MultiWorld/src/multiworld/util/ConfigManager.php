@@ -21,9 +21,6 @@ class ConfigManager {
     /** @var  array $configData */
     public $configData;
 
-    /** @var DataManager $dataManager */
-    public $dataManager;
-
     /**
      * ConfigManager constructor.
      * @param MultiWorld $plugin
@@ -41,14 +38,8 @@ class ConfigManager {
         if(!is_dir(self::getDataFolder())) {
             @mkdir(self::getDataFolder());
         }
-        if(!is_dir(self::getDataPath()."levels")) {
-            @mkdir(self::getDataPath()."levels");
-        }
         if(!is_dir(self::getDataFolder()."languages")) {
             @mkdir(self::getDataFolder()."languages");
-        }
-        if(!is_dir(self::getDataFolder()."worlds")) {
-            @mkdir(self::getDataFolder()."worlds");
         }
         if(!is_file(self::getDataFolder()."/config.yml")) {
             MultiWorld::getInstance()->saveResource("/config.yml");
@@ -89,9 +80,5 @@ class ConfigManager {
      */
     public static function getPrefix():string {
         return is_string(self::$prefix) ? self::$prefix : "[MultiWorld]";
-    }
-
-    public function getDataManager():DataManager {
-        return $this->dataManager;
     }
 }

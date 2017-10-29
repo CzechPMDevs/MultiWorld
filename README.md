@@ -6,14 +6,16 @@ _**Ported MultiWorld to PocketMine-MP**_
 [![Poggit-CI](https://poggit.pmmp.io/ci.shield/CzechPMDevs/MultiWorld/MultiWorld)](https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld)
 
 ### 3.0.0-ALPHA9 Status:
-  - 87% Completed
-  - /mw set command is now under development
+  - 95% Completed
 
 ### Support Software:
   - PocketMine-MP
   - BlueLight
 
 ### Phar Download:
+- Version 1.3.2 (Stable):
+    - PocketMine:
+        - Poggit: 
 - For api 3.0.0-ALPHA8:
     - PocketMine UNSTABLE version:
         - Poggit: https://poggit.pmmp.io/babs/7045
@@ -58,6 +60,9 @@ _**Ported MultiWorld to PocketMine-MP**_
     - New command /mw update
     - Fixed some bugs
   
+    **1.3.2 Changes:**
+    - Added api 3.0.0-ALPHA8, 3.0.0-ALPHA9
+    
 ### Next Version:
 
 - Version 1.3.2:

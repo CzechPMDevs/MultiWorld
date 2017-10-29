@@ -2,15 +2,6 @@
 
 declare(strict_types=1);
 
-/**
- * 1.4 TODO:
- * - API 3.0.0-ALPHA7 - 3.0.0-ALPHA9
- * - WorldData for gamememode, gamerule etc.
- * - Add simple WorldEdit
- * - Support for 1.2
- * - All move to multiworld\...
- * - Fix languages
- */
 
 namespace multiworld;
 
@@ -30,7 +21,7 @@ use pocketmine\plugin\PluginBase;
 class MultiWorld extends PluginBase {
 
     const NAME = "MultiWorld";
-    const VERSION = "1.4.0 [BETA 1]";
+    const VERSION = "1.3.2";
     const AUTHOR = "GamakCZ";
     const GITHUB = "https://github.com/CzechPMDevs/multiworld/";
 
