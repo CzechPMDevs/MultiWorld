@@ -51,14 +51,4 @@ update-lobby-done: '§aLobby ve světě %1 bylo změněno.'
 update-default-usage: '§cPoužij: §7/mw update default <level>'
 update-default-done: '§aHlavní svět byl změněn.'
 update-notsupported: '§cTento příkaz není v konzoli podporován'
-# Set Command:
-set-usage: '§cPoužij: §7/mw set <svět> <gamemode> <nastavení: 0|1|2|3>'
-set-levelnotfound: '§cSvět %1 nebyl nalezen!'
-set-gamemode-notfound: '§cHerní mód %1 neexistuje!'
-set-gamemode-done: '§aHerní mód ve světě %1 byl změněn na %2!'
-# Worldedit Command:
-worldedit-usage: '§cPoužij §7/mw we <pos1|pos2|set> [nastavení: bloky]'
-worldedit-select-pos1: '§aPrvní pozice byla nastavena na %1'
-worldedit-select-pos2: '§aDruhá pozice byla nastavena na %2'
-worldedit-filled: '§aProstor byl vyplněn (%1 bloků změněno)!'
 ...

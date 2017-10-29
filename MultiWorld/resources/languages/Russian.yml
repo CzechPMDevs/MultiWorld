@@ -52,14 +52,4 @@ update-lobby-done: '§aМир %1 был изменен.'
 update-default-done: '§aОсновной мир был изменен.'
 update-default-usage: ''
 update-notsupported: ''
-# Set Command:
-set-usage: ''
-set-levelnotfound: ''
-set-gamemode-notfound: ''
-set-gamemode-done: ''
-# Worldedit Command:
-worldedit-usage: ''
-worldedit-select-pos1: ''
-worldedit-select-pos2: ''
-worldedit-filled: ''
 ...

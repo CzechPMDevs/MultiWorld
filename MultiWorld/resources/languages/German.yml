@@ -51,14 +51,4 @@ update-lobby-done: '§aLobby in Level %1 wurde geändert.'
 update-default-done: '§aDefault-Ebene wurde auf %1 geändert.'
 update-default-usage: ''
 update-notsupported: '§cDieser Befehl wird in der Konsole nicht unterstützt.'
-# Set Command:
-set-usage: ''
-set-levelnotfound: ''
-set-gamemode-notfound: ''
-set-gamemode-done: ''
-# Worldedit Command:
-worldedit-usage: ''
-worldedit-select-pos1: ''
-worldedit-select-pos2: ''
-worldedit-filled: ''
 ...
