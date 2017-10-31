@@ -28,7 +28,6 @@ class ConfigManager {
     public function __construct(MultiWorld $plugin) {
         $this->plugin = $plugin;
         $this->initConfig();
-        $this->dataManager = new DataManager($this);
     }
 
     /**
