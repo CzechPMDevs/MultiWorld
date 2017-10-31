@@ -41,7 +41,6 @@ class MultiWorld extends PluginBase {
         self::$instance = $this;
         $this->registerGenerators();
         $this->registerManagers();
-        $this->registerEditors();
         $this->check();
         $this->getServer()->getCommandMap()->register("multiworld", new MultiWorldCommand("multiworld", "multiworld commands", null, ["mw", "wm"]));
         if($this->isEnabled()) {
@@ -96,17 +95,6 @@ class MultiWorld extends PluginBase {
      */
     public function getLanguageManager():LanguageManager {
         return (($languageManager = $this->managers["LanguageManager"]) instanceof LanguageManager) ? $languageManager : null;
-    }
-
-    /**
-     * @return WorldEdit $worldEdit
-     */
-    public function getWorldEdit():WorldEdit {
-        return (($worldEdit = $this->editors["WorldEdit"]) instanceof WorldEdit) ? $worldEdit : null;
-    }
-
-    public function registerEditors() {
-        $this->editors["WorldEdit"] = new WorldEdit($this);
     }
 
     public function registerManagers() {
