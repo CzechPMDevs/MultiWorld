@@ -60,8 +60,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
                     LanguageManager::translateMessage("help-3") . "\n" .
                     LanguageManager::translateMessage("help-4") . "\n" .
                     LanguageManager::translateMessage("help-5") . "\n" .
-                    LanguageManager::translateMessage("help-6") . "\n" .
-                    LanguageManager::translateMessage("help-7") . "\n");
+                    LanguageManager::translateMessage("help-6") . "\n");
                 return false;
             case "create":
             case "new":

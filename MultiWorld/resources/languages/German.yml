@@ -14,7 +14,6 @@ help-3: '§e/mw list §7: §9Displays Liste aller Ebenen'
 help-4: '§e/mw <load | unload> §7: §9Load | Unload Level '
 help-5: '§e/mw update §7: §9Set Lobby, Spawn oder Default-Ebene'
 help-6: '§e/mw delete §7: §9Ebene entfernen'
-help-7: ''
 # Befehl erstellen:
 create-usage: '§cUsage: §7 / ​mw erstellen <name> [seed] [generator]'
 create-gennotexists: ''

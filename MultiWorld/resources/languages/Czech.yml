@@ -14,7 +14,6 @@ help-3: '§e/mw list §7: §9Zobrazí list všech světů'
 help-4: '§e/mw <load|unload> §7: §9Načte | Odnačte svět'
 help-5: '§e/mw update §7: §9Nastaví spawn, lobby nebo základní svět'
 help-6: '§e/mw delete §7: §9Odstraní svět'
-help-7: '§e/mw set §7: §9Nastaví funkce světa'
 # Create Command:
 create-usage: '§cPoužij: §7/mw create <jméno> [seed] [generátor]'
 create-gennotexists: '§cGenerátor neexistuje!';

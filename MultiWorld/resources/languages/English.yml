@@ -14,7 +14,6 @@ help-3: '§e/mw list §7: §9Displays list of all levels'
 help-4: '§e/mw <load|unload> §7: §9Load | Unload level'
 help-5: '§e/mw update §7: §9Set lobby, spawn or default level'
 help-6: '§e/mw delete §7: §9Delete level'
-help-7: '§e/mw set §7: §9Manage world'
 # Create Command:
 create-usage: '§cUsage: §7/mw create <name> [seed] [generator]'
 create-gennotexists: '§cGenerator %1 not found.'

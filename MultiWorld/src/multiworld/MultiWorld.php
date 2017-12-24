@@ -47,7 +47,7 @@ class MultiWorld extends PluginBase {
             $this->isPhar() ? $phar = "Phar" : $phar = "src";
             $this->getLogger()->info("\n".
                 "§c--------------------------------\n".
-                "§6§lCzechPMDevs §r§e>>> §bBuilderTools\n".
+                "§6§lCzechPMDevs §r§e>>> §bMultiWorld\n".
                 "§o§9MultiWorld ported to PocketMine\n".
                 "§aAuthors: §7GamakCZ, Kyd\n".
                 "§aVersion: §7".$this->getDescription()->getVersion()."\n".
