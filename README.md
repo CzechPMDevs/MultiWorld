@@ -5,9 +5,6 @@ _**Ported MultiWorld to PocketMine-MP**_
 
 [![Poggit-CI](https://poggit.pmmp.io/ci.shield/CzechPMDevs/MultiWorld/MultiWorld)](https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld)
 
-### 3.0.0-ALPHA9 Status:
-  - 95% Completed
-
 ### Support Software:
   - PocketMine-MP
   - BlueLight
