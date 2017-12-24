@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace multiworld\generator\ender;
 
-use MultiWorld\Generator\ender\populator\EnderPilar;
+use multiworld\generator\ender\populator\EnderPilar;
 use pocketmine\block\Block;
+use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\biome\Biome;
 use pocketmine\level\generator\Generator;
@@ -98,7 +99,7 @@ class EnderGenerator extends Generator {
         $this->random->setSeed($this->level->getSeed());
         $this->noiseBase = new Simplex($this->random, 4, 1 / 4, 1 / 64);
         $this->random->setSeed($this->level->getSeed());
-        $pilar = new EnderPilar();
+        $pilar = new EnderPilar;
         $pilar->setBaseAmount(0);
         $pilar->setRandomAmount(0);
         $this->populators[] = $pilar;

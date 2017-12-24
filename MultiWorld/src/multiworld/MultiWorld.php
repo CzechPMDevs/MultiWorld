@@ -15,21 +15,21 @@ use pocketmine\level\generator\Generator;
 use pocketmine\plugin\PluginBase;
 
 /**
- * Class multiworld
+ * Class MultiWorld
  * @package multiworld
  */
 class MultiWorld extends PluginBase {
 
     const NAME = "MultiWorld";
-    const VERSION = "1.3.2";
+    const VERSION = "1.3.3";
     const AUTHOR = "GamakCZ";
     const GITHUB = "https://github.com/CzechPMDevs/multiworld/";
 
     /** @var  MultiWorld $instance */
-    static $instance;
+    private static $instance;
 
     /** @var  string $prefix */
-    static $prefix;
+    private static $prefix;
 
     /**
      * @var array $managers
