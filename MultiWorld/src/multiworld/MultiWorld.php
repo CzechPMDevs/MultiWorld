@@ -10,7 +10,6 @@ use multiworld\generator\ender\EnderGenerator;
 use multiworld\generator\void\VoidGenerator;
 use multiworld\util\ConfigManager;
 use multiworld\util\LanguageManager;
-use multiworld\worldedit\WorldEdit;
 use pocketmine\level\generator\Generator;
 use pocketmine\plugin\PluginBase;
 
@@ -46,14 +45,14 @@ class MultiWorld extends PluginBase {
         if($this->isEnabled()) {
             $phar = null;
             $this->isPhar() ? $phar = "Phar" : $phar = "src";
-            $this->getLogger()->info("\n§5**********************************************\n".
-                "§6 ---- == §c[§aMultiWorld§c]§6== ----\n".
-                "§9> Version: §e{$this->getDescription()->getVersion()}\n".
-                "§9> Author: §eCzechPMDevs :: GamakCZ, Kyd\n".
-                "§9> GitHub: §e".self::GITHUB."\n".
-                "§9> Package: §e{$phar}\n".
-                "§9> Language: §e".LanguageManager::getLang()."\n".
-                "§5**********************************************");
+            $this->getLogger()->info("\n".
+                "§c--------------------------------\n".
+                "§6§lCzechPMDevs §r§e>>> §bBuilderTools\n".
+                "§o§9MultiWorld ported to PocketMine\n".
+                "§aAuthors: §7GamakCZ, Kyd\n".
+                "§aVersion: §7".$this->getDescription()->getVersion()."\n".
+                "§aStatus: §7Loading...\n".
+                "§c--------------------------------");
             if(!in_array(LanguageManager::getLang(), ["Czech", "English"])) {
                 $this->getLogger()->notice("Language ".LanguageManager::getLang(). "is not 100% supported. You can fix it on ".self::GITHUB."pulls");
             }
@@ -65,7 +64,6 @@ class MultiWorld extends PluginBase {
     }
 
     public function onDisable() {
-        $this->getConfigManager()->getDataManager()->saveAllData();
         $this->getLogger()->info("§aMultiWorld is disabled!");
     }
 
@@ -87,7 +85,11 @@ class MultiWorld extends PluginBase {
      * @return ConfigManager
      */
     public function getConfigManager():ConfigManager {
-        return (($configManager = $this->managers["ConfigManager"]) instanceof ConfigManager) ? $configManager : null;
+        $return = (($configManager = $this->managers["ConfigManager"]) instanceof ConfigManager) ? $configManager : null;
+        if(!$return instanceof ConfigManager) {
+            $this->getLogger()->critical("§cCloud not found ConfigManager!");
+        }
+        return $return;
     }
 
     /**
