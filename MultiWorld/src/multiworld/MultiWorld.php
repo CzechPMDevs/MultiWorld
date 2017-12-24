@@ -115,7 +115,7 @@ class MultiWorld extends PluginBase {
 
         if(strval($this->getDescription()->getName()) != self::NAME || strval($this->getDescription()->getVersion()) != self::VERSION) {
             $this->getServer()->getPluginManager()->disablePlugin($this);
-            $this->getLogger()->critical(self::getPrefix()."§cDownload plugin form github! (https://github.com/CzechPMDevs/multiworld)");
+            $this->getLogger()->critical(self::getPrefix()."§cDownload plugin form github! (https://github.com/CzechPMDevs/MultiWorld)");
         }
     }
 }
