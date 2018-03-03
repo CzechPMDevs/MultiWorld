@@ -4,24 +4,24 @@
 
 ## Commands:
 not-perms: '§cSie haben keine Berechtigungen, diesen Befehl zu benutzen!'
-default-usage: '§cUsage: §7 /mw help'
+default-usage: '§cUsage: §7/mw help'
 
 # Hilfe Befehl:
-help-0: '§b --- == §c [§aMultiWorld§c] §b == ---'
-help-1: '§e/mw create §7: §9Generate level'
-help-2: '§e/mw teleport §7: §9Teleport zur Ebene'
-help-3: '§e/mw list §7: §9Displays Liste aller Ebenen'
-help-4: '§e/mw <load | unload> §7: §9Load | Unload Level '
-help-5: '§e/mw update §7: §9Set Lobby, Spawn oder Default-Ebene'
-help-6: '§e/mw delete §7: §9Ebene entfernen'
+help: '§2--- §fMultiWorld §2---'
+help-1: '§2/mw create §fGenerate level'
+help-2: '§2/mw teleport §fTeleport zur Ebene'
+help-3: '§2/mw list §fDisplays Liste aller Ebenen'
+help-4: '§2/mw <load | unload> §fLoad | Unload Level '
+help-5: '§2/mw update §fSet Lobby, Spawn oder Default-Ebene'
+help-6: '§2/mw delete §fEbene entfernen'
 # Befehl erstellen:
-create-usage: '§cUsage: §7 / ​mw erstellen <name> [seed] [generator]'
+create-usage: '§cUsage: §7 /​mw create <name> [seed] [generator]'
 create-gennotexists: ''
 create-generating: '§aGenerating Level %1'
 create-done: 'Level% 1 wird mit Samen erzeugt: %2 und Generator: %3.'
 # Teleport Befehl:
 teleport-usage: '§cUsage: §7 /​​mw teleport <level> [spieler]'
-teleport-levelnotexists: '§cLevel ist noch nicht generiert! Versuche /mw für generiere Ebene erstellen. '
+teleport-levelnotexists: '§cLevel ist noch nicht generiert! Versuche /mw create generiere Ebene erstellen. '
 teleport-load: 'Lade Level %1 ...'
 teleport-done-1: '§aSie werden auf Level %1 teleportiert.'
 teleport-done-2: '§aPlayer %2 wird auf Level %1 teleportiert!'
@@ -50,4 +50,12 @@ update-lobby-done: '§aLobby in Level %1 wurde geändert.'
 update-default-done: '§aDefault-Ebene wurde auf %1 geändert.'
 update-default-usage: ''
 update-notsupported: '§cDieser Befehl wird in der Konsole nicht unterstützt.'
+# Info Command:
+info: '§a--- %1 ---'
+info-name: '§7Name: %1'
+info-folderName: '§7Folder name: %2'
+info-players: '§7Player count: %3'
+info-generator: '§7Generator: %4'
+info-seed: '§7Seed: %5'
+info-time: '§7Time: %6'
 ...

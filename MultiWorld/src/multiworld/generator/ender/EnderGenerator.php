@@ -121,12 +121,6 @@ class EnderGenerator extends Generator {
                     Block::get(Block::OBSIDIAN, 0)
                 ]);
                 $chunk->setBiomeId($x, $z, $biome->getId());
-                $color = [0, 0, 0];
-                $bColor = 2;
-                $color[0] += (($bColor >> 16) ** 2);
-                $color[1] += ((($bColor >> 8) & 0xff) ** 2);
-                $color[2] += (($bColor & 0xff) ** 2);
-                //$chunk->setBiomeColor($x, $z, $color[0], $color[1], $color[2]);
                 for ($y = 0; $y < 128; ++$y) {
                     $noiseValue = (abs($this->emptyHeight - $y) / $this->emptyHeight) * $this->emptyAmplitude - $noise[$x][$z][$y];
                     $noiseValue -= 1 - $this->density;

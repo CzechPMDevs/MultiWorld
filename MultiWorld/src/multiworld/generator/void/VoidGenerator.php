@@ -6,7 +6,6 @@ namespace multiworld\generator\void;
 
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
-use pocketmine\level\format\Chunk;
 use pocketmine\level\generator\Generator;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
@@ -17,20 +16,15 @@ use pocketmine\utils\Random;
  */
 class VoidGenerator extends Generator {
 
-    /** @var ChunkManager */
+    /** @var ChunkManager $level */
     private $level;
 
-    /** @var Chunk */
-    private $chunk;
-
-    /** @var Random */
+    /** @var Random $random */
     private $random;
 
-    /** @var array  */
+    /** @var array $options */
     private $options;
 
-    /** @var Chunk */
-    private $emptyChunk = null;
 
     /**
      * @return array
@@ -67,36 +61,25 @@ class VoidGenerator extends Generator {
     }
 
     /**
-     * @param $chunkX
-     * @param $chunkZ
-     *
-     * @return mixed|void
+     * @param int $chunkX
+     * @param int $chunkZ
      */
-    public function generateChunk(int $chunkX, int $chunkZ){
-        if($this->emptyChunk === null){
-            $this->chunk = clone $this->level->getChunk($chunkX, $chunkZ);
-            $this->chunk->setGenerated();
-            for($Z = 0; $Z < 16; ++$Z){
-                for($X = 0; $X < 16; ++$X){
-                    $this->chunk->setBiomeId($X, $Z, 1);
-                    for($y = 0; $y < 128; ++$y){
-                        $this->chunk->setBlockId($X, $y, $Z, Block::AIR);
+    public function generateChunk(int $chunkX, int $chunkZ) {
+        $chunk = $this->level->getChunk($chunkX, $chunkZ);
+        for($x = 0; $x < 16; ++$x) {
+            for ($z = 0; $z < 16; ++$z) {
+                for($y = 0; $y < 168; ++$y) {
+                    $spawn = $this->getSpawn();
+                    if($spawn->getX() >> 4 === $chunkX && $spawn->getZ() >> 4 === $chunkZ){
+                        $chunk->setBlockId(0, 64, 0, Block::GRASS);
+                    }
+                    else {
+                        $chunk->setBlockId($x, $y, $z, Block::AIR);
                     }
                 }
             }
-            $spawn = $this->getSpawn();
-            if($spawn->getX() >> 4 === $chunkX and $spawn->getZ() >> 4 === $chunkZ){
-                $this->chunk->setBlockId(0, 64, 0, Block::GRASS);
-            }else{
-                $this->emptyChunk = clone $this->chunk;
-            }
-        }else{
-            $this->chunk = clone $this->emptyChunk;
         }
-        $chunk = clone $this->chunk;
-        $chunk->setX($chunkX);
-        $chunk->setZ($chunkZ);
-        $this->level->setChunk($chunkX, $chunkZ, $chunk);
+        $chunk->setGenerated(true);
     }
 
     /**
@@ -105,13 +88,12 @@ class VoidGenerator extends Generator {
      *
      * @return mixed|void
      */
-    public function populateChunk(int $chunkX, int $chunkZ){
-    }
+    public function populateChunk(int $chunkX, int $chunkZ) {}
 
     /**
      * @return Vector3
      */
     public function getSpawn(): Vector3 {
-        return new Vector3(128, 72, 128);
+        return new Vector3(256, 65, 256);
     }
 }

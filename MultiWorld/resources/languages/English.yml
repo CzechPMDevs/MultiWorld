@@ -7,18 +7,22 @@ not-perms: '§cYou have not permissions to use this command!'
 default-usage: '§cUsage: §7/mw help'
 
 # Help Command:
-help-0: '§b--- == §c[§aMultiWorld§c] §b== ---'
-help-1: '§e/mw create §7: §9Generate level'
-help-2: '§e/mw teleport §7: §9Teleport to level'
-help-3: '§e/mw list §7: §9Displays list of all levels'
-help-4: '§e/mw <load|unload> §7: §9Load | Unload level'
-help-5: '§e/mw update §7: §9Set lobby, spawn or default level'
-help-6: '§e/mw delete §7: §9Delete level'
+help: '§2--- §fMultiWorld Help page (%page/%max) §2---'
+help-1: '§2/mw create §fGenerate level'
+help-2: '§2/mw teleport §fTeleport to level'
+help-3: '§2/mw list §f Displays list of all levels'
+help-4: '§2/mw <load|unload> §fLoad | Unload level'
+help-5: '§2/mw update §fUpdate lobby, spawn or default level'
+
+help-6: '§2/mw delete §fRemove world'
+help-7: '§2/mw info §fDisplays informations about level'
+
 # Create Command:
 create-usage: '§cUsage: §7/mw create <name> [seed] [generator]'
 create-gennotexists: '§cGenerator %1 not found.'
 create-generating: '§aGenerating level %1'
 create-done: 'Level %1 is generated using seed: %2 and generator: %3.'
+
 # Teleport Command:
 teleport-usage: '§cUsage: §7/mw teleport <level> [player]'
 teleport-levelnotexists: '§cLevel is not generated yet! Try /mw create for generate level.'
@@ -26,28 +30,42 @@ teleport-load: 'Loading level %1...'
 teleport-done-1: '§aYou are teleported to level %1.'
 teleport-done-2: '§aPlayer %2 is teleported to level %1!'
 teleport-playernotexists: '§cPlayer does not exists!'
+
 # List Command:
 list-done: '§aLevels: %1'
+
 # Load Command:
 load-usage: '§cUsage: §7/mw load <level>'
 load-levelnotexists: '§cLevel %1 does not exists!'
 load-loaded: '§cUnable to load loaded level!'
 load-done: '§aLevel loaded!'
+
 # Unload Command:
 unload-usage: '§cUsage: §7/mw unload <level>'
 unload-levelnotexists: '§cLevel %1 does not exists!'
 unload-unloaded: '§cUnable to unload unloaded level!'
 unload-done: '§aLevel unloaded!'
+
 # Delete Command:
 delete-usage: '§cUsage: §7/mw delete <level>'
 delete-levelnotexists: '§cLevel %1 does not exists!'
 delete-done: '§aLevel deleted! (%1 files removed.)'
+
 # Update Command:
-update-usage: '§cUsage: §7/mw update <mod: spawn|lobby|default> [options: (x) (y) (z) (level)]'
+update-usage: '§cUsage: §7/mw update <mod: spawn|lobby|default> [options: (level) (x) (y) (z)]'
 update-levelnotexists: '§cLevel %1 does not exists!'
 update-spawn-done: '§aSpawn in level %1 was changed.'
 update-lobby-done: '§aLobby in level %1 was changed.'
 update-default-usage: '§cUsage: §7/mw update default <level>'
 update-default-done: '§aDefault level was changet to %1.'
 update-notsupported: '§cThis command is not supported in console.'
+
+# Info Command:
+info: '§a--- %1 ---'
+info-name: '§7Name: %1'
+info-folderName: '§7Folder name: %2'
+info-players: '§7Player count: %3'
+info-generator: '§7Generator: %4'
+info-seed: '§7Seed: %5'
+info-time: '§7Time: %6'
 ...

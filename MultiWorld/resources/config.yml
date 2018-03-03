@@ -6,5 +6,5 @@
 lang: 'English'
 
 ## If you want to disable prefix, set prefix to ' '
-prefix: '§6[§2MultiWorld§6]§7'
+prefix: '§3[MultiWorld]'
 ...

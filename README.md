@@ -32,13 +32,26 @@ _**Ported MultiWorld to PocketMine-MP**_
     
     
 ### Features:
+  - Manage worlds (create, remove, update, ...)
+  - Load / unload worlds
   - MultiLanguage support (English, Russian, German, Czech)
-  - Working on PMMP 3.0.0-ALPHA7
+  - Working on PMMP 3.0.0-ALPHA11
   - Commands works in console
-  - End and Void generator
+  - End, Void and SkyBlock generators
+  
   
 
 ### Update log:
+
+- Version 1.4 Changes:
+    
+    **1.4.0 Changes:**
+    - Commands rewrite
+    - Plugin cleanup
+    - Fixed /mw delete command
+    - Added /mw info command
+    - Added api 3.0.0-ALPHA11
+    - New SkyBlock generator
 
 - Version 1.3 Changes:
 
@@ -59,15 +72,6 @@ _**Ported MultiWorld to PocketMine-MP**_
   
     **1.3.2 Changes:**
     - Added api 3.0.0-ALPHA8, 3.0.0-ALPHA9
-    
-### Next Version:
-
-- Version 1.3.2:
-    - Add Simple WorldEdit
-    - Add Per-World Gamemode system
-    - Fix languages
-
-  
 
 ### MultiWorld wiki:
 

@@ -5,15 +5,16 @@
 
 ## Commands:
 not-perms: 'Вы не хотите разрешения использовать эту команду!'
-default-usage: '§CПрименение: §7/​​mw help'
+default-usage: '§cПрименение: §7/​​mw help'
 
 # Help Command:
-help-0: '§b --- == §c [§aMultiWorld§c] §b == ---'
-help-1: '§e /mw create §7: §9 Создает новый мир'
-help-2: '§e /mw teleport §7: §9Телепорты в мир'
-help-3: '§e /mw list §7: §9Просмотреть список всех миров'
-help-4: '§e /mw <load | unload> §7: §9Выберите | Проверьте мир '
-help-5: '§e /mw update §7: Устанавливает икру, лобби или базовый мир'
+help-0: '§2--- §fMultiWorld §2---'
+help-1: '§2/mw create §fСоздает новый мир'
+help-2: '§2/mw teleport §fТелепорты в мир'
+help-3: '§2/mw list §fПросмотреть список всех миров'
+help-4: '§2/mw <load | unload> §fВыберите | Проверьте мир '
+help-5: '§2/mw update §fУстанавливает икру, лобби или базовый мир'
+help-6: ''
 help-6: ''
 # Create Command:
 create-usage: '§cПрименение: §7/​​mw create <имя> [семя] [генератор]'
@@ -51,4 +52,12 @@ update-lobby-done: '§aМир %1 был изменен.'
 update-default-done: '§aОсновной мир был изменен.'
 update-default-usage: ''
 update-notsupported: ''
+# Info Command:
+info: '§a--- %1 ---'
+info-name: '§7Name: %1'
+info-folderName: '§7Folder name: %2'
+info-players: '§7Player count: %3'
+info-generator: '§7Generator: %4'
+info-seed: '§7Seed: %5'
+info-time: '§7Time: %6'
 ...
