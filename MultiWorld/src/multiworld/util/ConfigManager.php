@@ -43,17 +43,20 @@ class ConfigManager {
         if(!is_file(self::getDataFolder()."/config.yml")) {
             MultiWorld::getInstance()->saveResource("/config.yml");
         }
+        if(!is_file(self::getDataFolder()."languages/Czech.yml")) {
+          MultiWorld::getInstance()->saveResource("languages/Czech.yml");
+        }
         if(!is_file(self::getDataFolder()."languages/English.yml")) {
             MultiWorld::getInstance()->saveResource("languages/English.yml");
         }
-        if(!is_file(self::getDataFolder()."languages/Czech.yml")) {
-            MultiWorld::getInstance()->saveResource("languages/Czech.yml");
+        if(!is_file(self::getDataFolder()."languages/German.yml")) {
+          MultiWorld::getInstance()->saveResource("languages/German.yml");
+        }
+        if(!is_file(self::getDataFolder()."languages/Japanese.yml")) {
+            MultiWorld::getInstance()->saveResource("languages/Japanese.yml");
         }
         if(!is_file(self::getDataFolder()."languages/Russian.yml")) {
             MultiWorld::getInstance()->saveResource("languages/Russian.yml");
-        }
-        if(!is_file(self::getDataFolder()."languages/German.yml")) {
-            MultiWorld::getInstance()->saveResource("languages/German.yml");
         }
 
         // load prefix

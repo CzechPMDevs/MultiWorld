@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace multiworld\command\subcommand;
 
+use multiworld\MultiWorld;
 use multiworld\command\MultiWorldCommand;
 use multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
@@ -49,15 +50,15 @@ class HelpSubcommand extends MultiWorldCommand implements SubCommand {
 
         switch ($page) {
             default:
-                $text .= PHP_EOL.LanguageManager::translateMessage("help-1");
-                $text .= PHP_EOL.LanguageManager::translateMessage("help-2");
-                $text .= PHP_EOL.LanguageManager::translateMessage("help-3");
-                $text .= PHP_EOL.LanguageManager::translateMessage("help-4");
-                $text .= PHP_EOL.LanguageManager::translateMessage("help-5");
+                $text .= MultiWorld::EOL.LanguageManager::translateMessage("help-1");
+                $text .= MultiWorld::EOL.LanguageManager::translateMessage("help-2");
+                $text .= MultiWorld::EOL.LanguageManager::translateMessage("help-3");
+                $text .= MultiWorld::EOL.LanguageManager::translateMessage("help-4");
+                $text .= MultiWorld::EOL.LanguageManager::translateMessage("help-5");
                 break;
 
             case 2:
-                $text .= PHP_EOL.LanguageManager::translateMessage("help-6");
+                $text .= MultiWorld::EOL.LanguageManager::translateMessage("help-6");
                 break;
         }
         return $text;
