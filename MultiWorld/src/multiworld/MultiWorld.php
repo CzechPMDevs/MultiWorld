@@ -20,6 +20,9 @@ use pocketmine\plugin\PluginBase;
  */
 class MultiWorld extends PluginBase {
 
+    /** @var string EOL */
+    public const EOL = "\n";
+
     /** @var  MultiWorld $instance */
     private static $instance;
 
@@ -52,8 +55,8 @@ class MultiWorld extends PluginBase {
                 "§aVersion: §7".$this->getDescription()->getVersion()."\n".
                 "§aStatus: §7Loading...\n".
                 "§c--------------------------------");
-            if(!in_array(LanguageManager::getLang(), ["Czech", "English"])) {
-                $this->getLogger()->notice("Language ".LanguageManager::getLang(). "is not 100% supported. You can fix it on https://github.com/MultiWorld/pulls");
+            if(!in_array(LanguageManager::getLang(), ["Czech", "English", "Japanese"])) {
+                $this->getLogger()->notice("Language ".LanguageManager::getLang(). " is not 100% supported. You can fix it on https://github.com/MultiWorld/pulls");
             }
         }
         else {
@@ -76,4 +79,3 @@ class MultiWorld extends PluginBase {
         return ConfigManager::getPrefix();
     }
 }
-

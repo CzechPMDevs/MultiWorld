@@ -1,0 +1,71 @@
+---
+### Japanese language file by @fuyutsuki
+
+## Commands:
+
+not-perms: '§cこのコマンドを実行する権限がありません!'
+default-usage: '§c使用方法: §7/mw help'
+
+# Help Command:
+help: '§2--- §fMultiWorld ヘルプ ページ(%page/%max) §2---'
+help-1: '§2/mw create §fワールドを生成'
+help-2: '§2/mw teleport §fワールドにテレポート'
+help-3: '§2/mw list §f全てのワールドをリスト表示'
+help-4: '§2/mw <load|unload> §fワールドを <ロード | アンロード>'
+help-5: '§2/mw update §fワールドのロビー、スポーン、デフォルトを設定'
+
+help-6: '§2/mw delete §fワールドを削除'
+help-7: '§2/mw info §fワールドの情報を表示'
+
+# Create Command:
+create-usage: '§c使用方法: §7/mw create <ワールド名> [シード値] [ジェネレータ名]'
+create-gennotexists: '§c%1 という名前のジェネレータは存在しません'
+create-generating: '§aワールド %1 を生成中です'
+create-done: 'ワールド %1 はシード値 %2 , ジェネレータ名 %3 によって生成されました'
+
+# Teleport Command:
+teleport-usage: '§c使用方法: §7/mw teleport <ワールド名> [プレイヤー名]'
+teleport-levelnotexists: '§c指定されたワールドは存在しません! ワールドを生成するには /mw create を使用して下さい'
+teleport-load: 'ワールド %1 を読込中です'
+teleport-done-1: '§aワールド %1 にテレポートしました'
+teleport-done-2: '§aプレイヤー名 %2 をワールド %1 にテレポートしました'
+teleport-playernotexists: '§c指定されたプレイヤーは存在しません!'
+
+# List Command:
+list-done: '§a全ワールド: %1'
+
+# Load Command:
+load-usage: '§c使用方法: §7/mw load <ワールド名>'
+load-levelnotexists: '§cワールド %1 は存在しません!'
+load-loaded: '§c既に読み込まれたワールドを再度読み込むことはできません!'
+load-done: '§aワールドを読み込みました'
+
+# Unload Command:
+unload-usage: '§c使用方法: §7/mw unload <ワールド名>'
+unload-levelnotexists: '§cワールド %1 は存在しません!'
+unload-unloaded: '§c読み込まれていないワールドを読み込み解除することはできません!'
+unload-done: '§aワールドの読み込みを解除しました'
+
+# Delete Command:
+delete-usage: '§c使用方法: §7/mw delete <ワールド名>'
+delete-levelnotexists: '§cワールド %1 は存在しません!'
+delete-done: '§aワールドを削除しました (%1 つのファイルを削除しました)'
+
+# Update Command:
+update-usage: '§c使用方法: §7/mw update <spawn|lobby|default> [(ワールド名) (x座標) (y座標) (z座標)]'
+update-levelnotexists: '§cワールド %1 は存在しません!'
+update-spawn-done: '§aワールド %1 のスポーン位置を変更しました'
+update-lobby-done: '§aワールド %1 のロビーの位置を変更しました'
+update-default-usage: '§c使用方法: §7/mw update default <ワールド名>'
+update-default-done: '§aワールド %1 を標準のワールドとして設定しました'
+update-notsupported: '§cこのコマンドはコンソールでの実行に対応していません'
+
+# Info Command:
+info: '§a--- %1 ---'
+info-name: '§7ワールド名: %1'
+info-folderName: '§7フォルダ名: %2'
+info-players: '§7プレイヤー数: %3'
+info-generator: '§7ジェネレータ名: %4'
+info-seed: '§7シード値: %5'
+info-time: '§7ワールド内時間: %6'
+...

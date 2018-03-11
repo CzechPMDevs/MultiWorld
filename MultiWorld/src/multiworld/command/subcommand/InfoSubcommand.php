@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 namespace multiworld\command\subcommand;
+
+use multiworld\MultiWorld;
 use multiworld\command\MultiWorldCommand;
 use multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
@@ -37,12 +39,12 @@ class InfoSubcommand extends MultiWorldCommand implements SubCommand {
         $time = $level->getTime();
 
         $msg = LanguageManager::translateMessage("info");
-        $msg .= PHP_EOL.LanguageManager::translateMessage("info-name");
-        $msg .= PHP_EOL.LanguageManager::translateMessage("info-folderName");
-        $msg .= PHP_EOL.LanguageManager::translateMessage("info-players");
-        $msg .= PHP_EOL.LanguageManager::translateMessage("info-generator");
-        $msg .= PHP_EOL.LanguageManager::translateMessage("info-seed");
-        $msg .= PHP_EOL.LanguageManager::translateMessage("info-time");
+        $msg .= MultiWorld::EOL.LanguageManager::translateMessage("info-name");
+        $msg .= MultiWorld::EOL.LanguageManager::translateMessage("info-folderName");
+        $msg .= MultiWorld::EOL.LanguageManager::translateMessage("info-players");
+        $msg .= MultiWorld::EOL.LanguageManager::translateMessage("info-generator");
+        $msg .= MultiWorld::EOL.LanguageManager::translateMessage("info-seed");
+        $msg .= MultiWorld::EOL.LanguageManager::translateMessage("info-time");
 
         $msg = str_replace
         ([
