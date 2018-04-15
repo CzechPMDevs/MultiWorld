@@ -7,12 +7,19 @@ _**Ported MultiWorld to PocketMine-MP**_
 
 ### Support Software:
   - PocketMine-MP
-  - BlueLight
 
 ### Phar Download:
+- Version 1.4.1 (Latest) (Stable):
+   - PocketMine:
+      - Poggit (PHAR): https://poggit.pmmp.io/r/27881/MultiWorld_dev-99.phar
+      - GitHub: https://github.com/CzechPMDevs/MultiWorld/releases/tag/1.4.1
+- Version 1.4.0 (Stable):
+    - PocketMine:
+       - Poggit: https://poggit.pmmp.io/p/MultiWorld/1.4.0
+       - Poggit (PHAR): https://poggit.pmmp.io/r/25218/MultiWorld.phar
 - Version 1.3.2 (Stable):
     - PocketMine:
-        - Poggit: 
+        - Poggit (PHAR): https://poggit.pmmp.io/r/11536/MultiWorld_dev-86.phar
 - For api 3.0.0-ALPHA8:
     - PocketMine UNSTABLE version:
         - Poggit: https://poggit.pmmp.io/babs/7045
@@ -44,6 +51,10 @@ _**Ported MultiWorld to PocketMine-MP**_
 ### Update log:
 
 - Version 1.4 Changes:
+    **1.4.1 Changes:**
+    - Added API 3.0.0-ALPHA12
+    - Added Japanese language
+    - Fixed #9
     
     **1.4.0 Changes:**
     - Commands rewrite
