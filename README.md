@@ -4,8 +4,11 @@
 <p align="center"> MultiWorld Ported to PocketMine </p>
 <br>
 
+<div style="align-content: center">
+
 [![](https://poggit.pmmp.io/shield.state/MultiWorld)](https://poggit.pmmp.io/p/MultiWorld) [![](https://poggit.pmmp.io/shield.api/MultiWorld)](https://poggit.pmmp.io/p/MultiWorld) [![](https://poggit.pmmp.io/shield.dl.total/MultiWorld)](https://poggit.pmmp.io/p/MultiWorld) [![](https://poggit.pmmp.io/shield.dl/MultiWorld)](https://poggit.pmmp.io/p/MultiWorld)
 
+</div>
 
 <p align="center">World Management commands ✔️</p>
 <p align="center">MultiLanguage support ✔️</p>
