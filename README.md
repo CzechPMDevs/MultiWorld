@@ -4,16 +4,30 @@
 <p align="center"> MultiWorld Ported to PocketMine </p>
 <br>
 
-<div style="align-content: center">
-
-[![](https://poggit.pmmp.io/shield.state/MultiWorld)](https://poggit.pmmp.io/p/MultiWorld) [![](https://poggit.pmmp.io/shield.api/MultiWorld)](https://poggit.pmmp.io/p/MultiWorld) [![](https://poggit.pmmp.io/shield.dl.total/MultiWorld)](https://poggit.pmmp.io/p/MultiWorld) [![](https://poggit.pmmp.io/shield.dl/MultiWorld)](https://poggit.pmmp.io/p/MultiWorld)
-
-</div>
+<p align="center">
+	<a href="https://poggit.pmmp.io/p/MultiWorld">
+		<img src="https://poggit.pmmp.io/shield.state/MultiWorld">
+	</a>
+	<a href="https://poggit.pmmp.io/p/MultiWorld">
+		<img src="https://poggit.pmmp.io/shield.api/MultiWorld">
+	</a> 
+	<a href="https://poggit.pmmp.io/p/MultiWorld">
+		<img src="https://poggit.pmmp.io/shield.dl.total/MultiWorld">
+	</a> 
+	<a href="https://poggit.pmmp.io/p/MultiWorld">
+		<img src="https://poggit.pmmp.io/shield.dl/MultiWorld">
+	</a> 
+	<a href="https://poggit.pmmp.io/p/MultiWorld">
+		<img src="https://poggit.pmmp.io/ci.shield/CzechPMDevs/MultiWorld/MultiWorld">
+	</a>
+</p>
 
 <p align="center">World Management commands ✔️</p>
 <p align="center">MultiLanguage support ✔️</p>
 <p align="center">More generators ✔️</p>
 <p align="center">Latest PocketMine-MP API Support ✔️</p>
+<br>
+
 
 ### Latest Version:
 - 1.4.1
@@ -39,9 +53,92 @@
 - **Latest released version on Poggit [here](https://poggit.pmmp.io/p/MultiWorld/)**
 -  **Latest developement build on Poggit [here](https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld)**
 
-### Wiki:
+### Commands:
 
-- On GitHub: https://github.com/CzechPMDevs/MultiWorld/wiki/MultiWorld-wiki 
+**All commands in MultiWorld:**
 
+- Create Command:
+	- usage: /mw create <level> [seed] [generator]
+	- permission: mw.cmd.create
+	- aliases: add, new, generate
+	- generators: Normal, Flat, Nether
+
+- Teleport Command:
+	- usage: /mw teleport <level> [player]
+	- permission: mw.cmd.teleport
+	- aliases: tp
+
+- List Command:
+	- usage: /mw list
+	- permission: mw.cmd.list
+	- aliases: ls
+
+- Help Command:
+	- usage: /mw help
+	- permission: mw.cmd.help
+	- aliases: ?
+
+- Delete Command:
+	- usage: /mw delete <level>
+	- permission: mw.cmd.delete
+	- aliases: rm, del, remove
+
+- Load Command:
+	- usage: /mw load <level>
+	- permission: mw.cmd.load
+	- aliases: ld
+
+- Unload Command:
+	- usage: /mw unload <level>
+	- permission: mw.cmd.unload
+	- aliases: unld
+
+- Update Command:
+	- usage: /mw update <spawn|lobby|defaultlevel> [options]
+	- permissions: mw.cmd.updete
+	- aliases: upte, ue
+
+- Info Command:
+	- usage: /mw info
+	- permissions: mw.cmd.info
+	- aliases: i
+
+
+### Permissions:
+
+- Permission to all command: **mw. cmd**
+
+- **Other** permissions:
+	- mw.cmd.help:
+		- Allows player to use /mw help
+		- Default: op
+	- mw.cmd.create:
+		- Allows player to use /mw create
+		- Default: op
+	- mw.cmd.teleport:
+		- Allows player to use /mw teleport
+		- Default: op
+	- mw.cmd.list:
+		- Allows player to use /mw list
+		- Default: op
+	- mw.cmd.load:
+		- Allows player to use /mw load
+		- Default: op
+	- mw.cmd.unload:
+		- Allows player to use /mw unload
+		- Default: op
+	- mw.cmd.delete:
+		- Allows player to use /mw delete
+		- Default: op
+	- mw.cmd.info:
+		- Allows player to use /mw info
+		- Default: op
+	- mw.cmd.update:
+		- Allows player to use /mw update
+		- Default: op
+
+### API:
+
+- **Api will be added in version 1.4.2**
 
 
