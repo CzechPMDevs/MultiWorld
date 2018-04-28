@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace multiworld;
 
 use multiworld\command\MultiWorldCommand;
@@ -48,19 +47,19 @@ class MultiWorld extends PluginBase {
             $phar = null;
             $this->isPhar() ? $phar = "Phar" : $phar = "src";
             $this->getLogger()->info("\n".
-                "§c--------------------------------\n".
-                "§6§lCzechPMDevs §r§e>>> §bMultiWorld\n".
-                "§o§9MultiWorld ported to PocketMine\n".
-                "§aAuthors: §7GamakCZ, Kyd\n".
-                "§aVersion: §7".$this->getDescription()->getVersion()."\n".
-                "§aStatus: §7Loading...\n".
-                "§c--------------------------------");
+                "--------------------------------\n".
+                "CzechPMDevs >>> MultiWorld\n".
+                "MultiWorld ported to PocketMine\n".
+                "Authors: GamakCZ, Kyd\n".
+                "Version: ".$this->getDescription()->getVersion()."\n".
+                "Status: Loading...\n".
+                "--------------------------------");
             if(!in_array(LanguageManager::getLang(), ["Czech", "English", "Japanese"])) {
                 $this->getLogger()->notice("Language ".LanguageManager::getLang(). " is not 100% supported. You can fix it on https://github.com/MultiWorld/pulls");
             }
         }
         else {
-            $this->getLogger()->critical("§6Submit issue to https://github.com/CzechPMDevs/MultiWorld/issues");
+            $this->getLogger()->critical("Submit issue to https://github.com/CzechPMDevs/MultiWorld/issues");
         }
 
     }
