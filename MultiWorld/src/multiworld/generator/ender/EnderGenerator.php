@@ -25,10 +25,10 @@ class EnderGenerator extends Generator {
     private $populators = [];
 
     /** @var ChunkManager */
-    private $level;
+    protected $level;
 
     /** @var Random */
-    private $random;
+    protected $random;
 
     private $waterHeight = 0;
     private $emptyHeight = 32;
@@ -93,7 +93,7 @@ class EnderGenerator extends Generator {
      * @param ChunkManager $level
      * @param Random $random
      */
-    public function init(ChunkManager $level, Random $random) {
+    public function init(ChunkManager $level, Random $random) : void{
         $this->level = $level;
         $this->random = $random;
         $this->random->setSeed($this->level->getSeed());
@@ -109,7 +109,7 @@ class EnderGenerator extends Generator {
      * @param int $chunkX
      * @param int $chunkZ
      */
-    public function generateChunk(int $chunkX, int $chunkZ) {
+    public function generateChunk(int $chunkX, int $chunkZ) : void{
         $this->random->setSeed(0xa6fe78dc ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
         $noise = Generator::getFastNoise3D($this->noiseBase, 16, 128, 16, 4, 8, 4, $chunkX * 16, 0, $chunkZ * 16);
         $chunk = $this->level->getChunk($chunkX, $chunkZ);
@@ -141,7 +141,7 @@ class EnderGenerator extends Generator {
      * @param int $chunkX
      * @param int $chunkZ
      */
-    public function populateChunk(int $chunkX, int $chunkZ) {
+    public function populateChunk(int $chunkX, int $chunkZ) : void{
         $this->random->setSeed(0xa6fe78dc ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
         foreach ($this->populators as $populator) {
             $populator->populate($this->level, $chunkX, $chunkZ, $this->random);

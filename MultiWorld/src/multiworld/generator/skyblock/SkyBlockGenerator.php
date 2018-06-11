@@ -16,10 +16,10 @@ use pocketmine\utils\Random;
 class SkyBlockGenerator extends Generator {
 
     /** @var ChunkManager $level */
-    private $level;
+    protected $level;
 
     /** @var Random $random */
-    private $random;
+    protected $random;
 
     /** @var array $options */
     private $options;
@@ -28,12 +28,12 @@ class SkyBlockGenerator extends Generator {
         $this->options = $settings;
     }
 
-    public function init(ChunkManager $level, Random $random) {
+    public function init(ChunkManager $level, Random $random) : void{
         $this->level = $level;
         $this->random = $random;
     }
 
-    public function generateChunk(int $chunkX, int $chunkZ) {
+    public function generateChunk(int $chunkX, int $chunkZ) : void{
         $chunk = $this->level->getChunk($chunkX, $chunkZ);
         for($x = 0; $x < 16; ++$x) {
             for($z = 0; $z < 16; ++$z) {
@@ -44,7 +44,7 @@ class SkyBlockGenerator extends Generator {
         }
     }
 
-    public function populateChunk(int $chunkX, int $chunkZ) {
+    public function populateChunk(int $chunkX, int $chunkZ) : void{
         if($chunkX === 16 && $chunkZ === 16) {
             $island = new Island;
             $island->populate($this->level, $chunkX, $chunkZ, $this->random);
