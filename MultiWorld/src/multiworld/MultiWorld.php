@@ -28,7 +28,7 @@ use multiworld\generator\skyblock\SkyBlockGenerator;
 use multiworld\generator\void\VoidGenerator;
 use multiworld\util\ConfigManager;
 use multiworld\util\LanguageManager;
-use pocketmine\level\generator\Generator;
+use pocketmine\level\generator\GeneratorManager;
 use pocketmine\plugin\PluginBase;
 
 /**
@@ -52,9 +52,9 @@ class MultiWorld extends PluginBase {
     public function onEnable() {
         self::$instance = $this;
 
-        Generator::addGenerator(EnderGenerator::class, "ender");
-        Generator::addGenerator(VoidGenerator::class, "void");
-        Generator::addGenerator(SkyBlockGenerator::class, "skyblock");
+        GeneratorManager::addGenerator(EnderGenerator::class, "ender");
+        GeneratorManager::addGenerator(VoidGenerator::class, "void");
+        GeneratorManager::addGenerator(SkyBlockGenerator::class, "skyblock");
 
         $this->getServer()->getCommandMap()->register("MultiWorld", new MultiWorldCommand);
 
