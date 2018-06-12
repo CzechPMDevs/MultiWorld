@@ -27,7 +27,10 @@ use pocketmine\block\Block;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\biome\Biome;
+use pocketmine\level\generator\biome\BiomeSelector;
 use pocketmine\level\generator\Generator;
+use pocketmine\level\generator\GeneratorManager;
+use pocketmine\level\generator\noise\Noise;
 use pocketmine\level\generator\noise\Simplex;
 use pocketmine\level\generator\populator\Populator;
 use pocketmine\math\Vector3 as Vector3;
@@ -43,10 +46,10 @@ class EnderGenerator extends Generator {
     private $populators = [];
 
     /** @var ChunkManager */
-    private $level;
+    protected $level;
 
     /** @var Random */
-    private $random;
+    protected $random;
 
     private $waterHeight = 0;
     private $emptyHeight = 32;
@@ -111,7 +114,7 @@ class EnderGenerator extends Generator {
      * @param ChunkManager $level
      * @param Random $random
      */
-    public function init(ChunkManager $level, Random $random) {
+    public function init(ChunkManager $level, Random $random): void {
         $this->level = $level;
         $this->random = $random;
         $this->random->setSeed($this->level->getSeed());
@@ -127,18 +130,20 @@ class EnderGenerator extends Generator {
      * @param int $chunkX
      * @param int $chunkZ
      */
-    public function generateChunk(int $chunkX, int $chunkZ) {
+    public function generateChunk(int $chunkX, int $chunkZ): void {
         $this->random->setSeed(0xa6fe78dc ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
-        $noise = Generator::getFastNoise3D($this->noiseBase, 16, 128, 16, 4, 8, 4, $chunkX * 16, 0, $chunkZ * 16);
+        if(class_exists(GeneratorManager::class)) {
+            $noise = $this->noiseBase->getFastNoise3D(16, 128, 16, 4, 8, 4, $chunkX * 16, 0, $chunkZ * 16);
+        }
+        else {
+            $noise = Generator::getFastNoise3D($this->noiseBase, 16, 128, 16, 4, 8, 4, $chunkX * 16, 0, $chunkZ * 16);
+        }
+
         $chunk = $this->level->getChunk($chunkX, $chunkZ);
         for ($x = 0; $x < 16; ++$x) {
             for ($z = 0; $z < 16; ++$z) {
                 // 9 = biome end
-                $biome = Biome::getBiome(9);
-                $biome->setGroundCover([
-                    Block::get(Block::OBSIDIAN, 0)
-                ]);
-                $chunk->setBiomeId($x, $z, $biome->getId());
+                $chunk->setBiomeId($x, $z, 9);
                 for ($y = 0; $y < 128; ++$y) {
                     $noiseValue = (abs($this->emptyHeight - $y) / $this->emptyHeight) * $this->emptyAmplitude - $noise[$x][$z][$y];
                     $noiseValue -= 1 - $this->density;
@@ -159,14 +164,12 @@ class EnderGenerator extends Generator {
      * @param int $chunkX
      * @param int $chunkZ
      */
-    public function populateChunk(int $chunkX, int $chunkZ) {
+    public function populateChunk(int $chunkX, int $chunkZ): void {
         $this->random->setSeed(0xa6fe78dc ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
         foreach ($this->populators as $populator) {
             $populator->populate($this->level, $chunkX, $chunkZ, $this->random);
         }
         $chunk = $this->level->getChunk($chunkX, $chunkZ);
-        $biome = Biome::getBiome($chunk->getBiomeId(7, 7));
-        $biome->populateChunk($this->level, $chunkX, $chunkZ, $this->random);
     }
 
     /**
