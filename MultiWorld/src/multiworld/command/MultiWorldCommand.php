@@ -1,5 +1,23 @@
 <?php
 
+/**
+ * MultiWorld - PocketMine plugin that manages worlds.
+ * Copyright (C) 2018  CzechPMDevs
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 declare(strict_types=1);
 
 namespace multiworld\command;
@@ -22,6 +40,10 @@ use pocketmine\command\CommandSender;
 use pocketmine\command\PluginIdentifiableCommand;
 use pocketmine\level\generator\Generator;
 use pocketmine\math\Vector3;
+use pocketmine\network\mcpe\protocol\AvailableCommandsPacket;
+use pocketmine\network\mcpe\protocol\types\CommandData;
+use pocketmine\network\mcpe\protocol\types\CommandEnum;
+use pocketmine\network\mcpe\protocol\types\CommandParameter;
 use pocketmine\Player;
 use pocketmine\plugin\Plugin;
 use pocketmine\Server;
@@ -147,6 +169,28 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
         } else {
             return true;
         }
+    }
+
+    public function sendCommandParameters(Player $player) {
+        $pk = new AvailableCommandsPacket;
+
+        $data = new CommandData;
+        $data->commandName = $this->getName();
+        $data->commandDescription = $this->getDescription();
+
+        $data->aliases = new CommandEnum;
+        $data->aliases->enumName = "MultiWorld Aliases";
+        $data->aliases->enumValues = $this->getAliases();
+
+        $parameter = new CommandParameter;
+        $parameter->paramName = "subcommand";
+        $parameter->paramType = $pk::ARG_TYPE_STRING;
+        $parameter->isOptional = true;
+
+        $data->overloads[0][0] = $parameter;
+
+        $pk->commandData[$this->getName()] = $data;
+        $player->dataPacket($pk);
     }
 
     /**
