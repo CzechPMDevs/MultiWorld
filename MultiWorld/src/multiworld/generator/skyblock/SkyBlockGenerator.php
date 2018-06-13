@@ -22,12 +22,9 @@ declare(strict_types=1);
 
 namespace multiworld\generator\skyblock;
 
-use buildertools\commands\TreeCommand;
 use multiworld\generator\skyblock\populator\Island;
-use pocketmine\block\Sapling;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\Generator;
-use pocketmine\level\generator\populator\Tree;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
 
