@@ -73,14 +73,7 @@ class MultiWorld extends PluginBase {
         if($this->isEnabled()) {
             $phar = null;
             $this->isPhar() ? $phar = "Phar" : $phar = "src";
-            $this->getLogger()->info("\n".
-                "--------------------------------\n".
-                "CzechPMDevs >>> MultiWorld\n".
-                "MultiWorld ported to PocketMine\n".
-                "Authors: GamakCZ, Kyd\n".
-                "Version: ".$this->getDescription()->getVersion()."\n".
-                "Status: Loading...\n".
-                "--------------------------------");
+            $this->getLogger()->info("Enabling MultiWorld...");
             if(!in_array(LanguageManager::getLang(), ["Czech", "English", "Japanese"])) {
                 $this->getLogger()->notice("Language ".LanguageManager::getLang(). " is not 100% supported. You can fix it on https://github.com/MultiWorld/pulls");
             }
