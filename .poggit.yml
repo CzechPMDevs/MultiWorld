@@ -1,6 +1,7 @@
 ---
 branches:
 - PocketMine-MP
+- 1.4.3
 projects:
   MultiWorld:
     path: MultiWorld

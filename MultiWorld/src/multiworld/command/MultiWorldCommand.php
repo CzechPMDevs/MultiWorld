@@ -33,7 +33,6 @@ use multiworld\command\subcommand\TeleportSubcommand;
 use multiworld\command\subcommand\UnloadSubcommand;
 use multiworld\command\subcommand\UpdateSubcommand;
 use multiworld\MultiWorld;
-use multiworld\util\ConfigManager;
 use multiworld\util\LanguageManager;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;

@@ -22,36 +22,45 @@ declare(strict_types=1);
 
 namespace multiworld\generator\skyblock;
 
-use buildertools\commands\TreeCommand;
 use multiworld\generator\skyblock\populator\Island;
-use pocketmine\block\Sapling;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\Generator;
-use pocketmine\level\generator\populator\Tree;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
 
 class SkyBlockGenerator extends Generator {
 
     /** @var ChunkManager $level */
-    private $level;
+    protected $level;
 
     /** @var Random $random */
-    private $random;
+    protected $random;
 
     /** @var array $options */
     private $options;
 
+    /**
+     * SkyBlockGenerator constructor.
+     * @param array $settings
+     */
     public function __construct(array $settings = []) {
         $this->options = $settings;
     }
 
-    public function init(ChunkManager $level, Random $random) {
+    /**
+     * @param ChunkManager $level
+     * @param Random $random
+     */
+    public function init(ChunkManager $level, Random $random): void {
         $this->level = $level;
         $this->random = $random;
     }
 
-    public function generateChunk(int $chunkX, int $chunkZ) {
+    /**
+     * @param int $chunkX
+     * @param int $chunkZ
+     */
+    public function generateChunk(int $chunkX, int $chunkZ): void {
         $chunk = $this->level->getChunk($chunkX, $chunkZ);
         for($x = 0; $x < 16; ++$x) {
             for($z = 0; $z < 16; ++$z) {
@@ -62,21 +71,34 @@ class SkyBlockGenerator extends Generator {
         }
     }
 
-    public function populateChunk(int $chunkX, int $chunkZ) {
+    /**
+     * @param int $chunkX
+     * @param int $chunkZ
+     */
+    public function populateChunk(int $chunkX, int $chunkZ): void {
         if($chunkX === 16 && $chunkZ === 16) {
             $island = new Island;
             $island->populate($this->level, $chunkX, $chunkZ, $this->random);
         }
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string {
         return "skyblock";
     }
 
+    /**
+     * @return array
+     */
     public function getSettings(): array {
         return [];
     }
 
+    /**
+     * @return Vector3
+     */
     public function getSpawn(): Vector3 {
         return new Vector3(256, 70, 256);
     }
