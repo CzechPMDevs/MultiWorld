@@ -51,7 +51,7 @@ class MultiWorld extends PluginBase {
     public $configManager;
 
     public function onEnable() {
-        $start = (bool) !(self::$instance instanceof $this)
+        $start = (bool) !(self::$instance instanceof $this);
         self::$instance = $this;
 
         if($start) {
