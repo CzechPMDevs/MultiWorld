@@ -54,13 +54,11 @@ class MultiWorld extends PluginBase {
         self::$instance = $this;
 
         if(!class_exists(GeneratorManager::class)) {
-            Generator::addGenerator(EnderGenerator::class, "ender");
             Generator::addGenerator(VoidGenerator::class, "void");
             Generator::addGenerator(SkyBlockGenerator::class, "skyblock");
         }
 
         else {
-            GeneratorManager::addGenerator(EnderGenerator::class, "ender");
             GeneratorManager::addGenerator(VoidGenerator::class, "void");
             GeneratorManager::addGenerator(SkyBlockGenerator::class, "skyblock");
         }
