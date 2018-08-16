@@ -40,7 +40,7 @@
 
 | Version | Download (PHAR) | Download (ZIP) |
 | --- | --- | --- |
-| 1.4.3 | Under development | Under development |
+| 1.4.3 | [Poggit Releases](https://poggit.pmmp.io/r/34104/MultiWorld.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/ef6f73109c0438ab2a5c404ccdd288e2d73b5002.zip) |
 | 1.4.2 | [Poggit Releases](https://poggit.pmmp.io/r/28962/MultiWorld.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.4.2.zip) |
 | 1.4.1 | [Poggit-CI Downloads](https://poggit.pmmp.io/r/27881/MultiWorld_dev-99.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.4.1.zip) |
 | 1.4.0 | [Poggit Releases](https://poggit.pmmp.io/r/25218/MultiWorld.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/be4083eae06adc249e3d4a8968ea0992d42f929c.zip) |
