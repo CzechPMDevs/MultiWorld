@@ -1,9 +1,13 @@
 ---
 ## Main configuration file for MultiWorld
 
-## Supported languages (English, Czech, German, Japanese, Russian)
+# Do not change this!
+config-version: '1.5.0'
+
+## Supported languages (English (en_US), Czech (cs_CZ), German (de_DE), Japanese (ja_JP), Russian (ru_RU))
 # You can add your language by creating PullRequest at github (github.com/CzechPMDevs/MultiWorld/pulls)
-lang: 'English'
+# Language is automatically chosen from minecraft. However 'lang' in config is default language e.g for players with Chinese lang.
+lang: 'en_US'
 
 ## If you want to disable prefix, set prefix to ' '
 prefix: '§3[MultiWorld]'

@@ -30,17 +30,13 @@ use pocketmine\level\Level;
 use pocketmine\level\Position;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
+use pocketmine\Server;
 
 /**
  * Class UpdateSubcommand
  * @package multiworld\command\subcommand
  */
-class UpdateSubcommand extends MultiWorldCommand implements SubCommand {
-
-    /**
-     * UpdateSubcommand constructor.
-     */
-    public function __construct() {}
+class UpdateSubcommand implements SubCommand {
 
     /**
      * @param CommandSender $sender
@@ -50,7 +46,7 @@ class UpdateSubcommand extends MultiWorldCommand implements SubCommand {
      */
     public function executeSub(CommandSender $sender, array $args, string $name) {
         if(empty($args[0])) {
-            $sender->sendMessage(LanguageManager::translateMessage("update-usage"));
+            $sender->sendMessage(LanguageManager::getMsg($sender, "update-usage"));
             return;
         }
 
@@ -58,41 +54,41 @@ class UpdateSubcommand extends MultiWorldCommand implements SubCommand {
             case "spawn":
                 if(empty($args[1]) && ($sender instanceof Player)) {
                     $this->setSpawn($sender->getLevel(), $sender->asVector3());
-                    $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $sender->getLevel()->getName(), LanguageManager::translateMessage("update-spawn-done")));
+                    $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "update-spawn-done", $sender->getLevel()->getName()));
                     break;
                 }
 
                 if(count($args) < 5 || !is_numeric($args[2]) || !is_numeric($args[3]) || !is_numeric($args[4])) {
-                    $sender->sendMessage(LanguageManager::translateMessage("update-usage"));
+                    $sender->sendMessage(LanguageManager::getMsg($sender, "update-usage"));
                     break;
                 }
 
                 if(!$this->getServer()->isLevelGenerated($args[1])) {
-                    $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("update-levelnotexists"));
+                    $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "update-levelnotexists"));
                     break;
                 }
 
                 $this->setSpawn($this->getServer()->getLevelByName($args[1]), new Vector3((int)$args[2], (int)$args[3], (int)$args[4]));
-                $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("update-done"));
+                $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "update-done"));
                 break;
             case "lobby":
             case "hub":
                 if(!$sender instanceof Player) {
-                    $sender->sendMessage(LanguageManager::translateMessage("update-notsupported"));
+                    $sender->sendMessage(LanguageManager::getMsg($sender, "update-notsupported"));
                     break;
                 }
                 $this->setLobby($sender->asPosition());
-                $sender->sendMessage(LanguageManager::translateMessage("update-lobby-done"));
+                $sender->sendMessage(LanguageManager::getMsg($sender, "update-lobby-done"));
                 break;
             case "default":
             case "defaultlevel":
                 if(empty($args[1])) {
-                    $sender->sendMessage(LanguageManager::translateMessage("update-usage"));
+                    $sender->sendMessage(LanguageManager::getMsg($sender, "update-usage"));
                     break;
                 }
 
                 if(!$this->getServer()->isLevelGenerated($args[1])) {
-                    $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[1], LanguageManager::translateMessage("update-levelnotexists")));
+                    $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[1], LanguageManager::getMsg($sender, "update-levelnotexists")));
                     break;
                 }
 
@@ -101,10 +97,10 @@ class UpdateSubcommand extends MultiWorldCommand implements SubCommand {
                 }
 
                 $this->setDefaultLevel($this->getServer()->getLevelByName($args[1]));
-                $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[1], LanguageManager::translateMessage("update-default-done")));
+                $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[1], LanguageManager::getMsg($sender, "update-default-done")));
                 break;
             default:
-                $sender->sendMessage(LanguageManager::translateMessage("update-usage"));
+                $sender->sendMessage(LanguageManager::getMsg($sender, "update-usage"));
                 break;
         }
     }
@@ -130,5 +126,12 @@ class UpdateSubcommand extends MultiWorldCommand implements SubCommand {
      */
     public function setDefaultLevel(Level $level) {
         $this->getServer()->setDefaultLevel($level);
+    }
+
+    /**
+     * @return Server $server
+     */
+    private function getServer(): Server {
+        return Server::getInstance();
     }
 }

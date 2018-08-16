@@ -22,34 +22,33 @@ declare(strict_types=1);
 
 namespace multiworld\command\subcommand;
 
+use multiworld\api\WorldManagementAPI;
 use multiworld\command\MultiWorldCommand;
-use multiworld\generator\ender\EnderGenerator;
-use multiworld\generator\skyblock\SkyBlockGenerator;
-use multiworld\generator\void\VoidGenerator;
 use multiworld\MultiWorld;
 use multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
-use pocketmine\level\generator\Flat;
-use pocketmine\level\generator\hell\Nether;
-use pocketmine\level\generator\normal\Normal;
 
 /**
  * Class CreateSubcommand
  * @package multiworld\command\subcommand
  */
-class CreateSubcommand extends MultiWorldCommand implements SubCommand {
+class CreateSubcommand implements SubCommand {
 
-    public function __construct(){}
-
+    /**
+     * @param CommandSender $sender
+     * @param array $args
+     * @param string $name
+     * @return mixed|void
+     */
     public function executeSub(CommandSender $sender, array $args, string $name) {
-        if(empty($args[0])) {
-            $sender->sendMessage(LanguageManager::translateMessage("create-usage"));
+        if(!isset($args[0])) {
+            $sender->sendMessage(LanguageManager::getMsg($sender, "create-usage"));
             return;
         }
 
         $seed = 0;
         if(isset($args[1]) && is_numeric($args[1])) {
-            $seed = intval($args[1]);
+            $seed = (int) $args[1];
         }
 
         $generatorName = "normal";
@@ -63,48 +62,41 @@ class CreateSubcommand extends MultiWorldCommand implements SubCommand {
             case "normal":
             case "classic":
             case "basic":
-                $generator = Normal::class;
+                $generator = WorldManagementAPI::GENERATOR_NORMAL;
                 $generatorName = "Normal";
                 break;
             case "flat":
             case "superflat":
-                $generator = Flat::class;
+                $generator = WorldManagementAPI::GENERATOR_HELL;
                 $generatorName = "Flat";
                 break;
             case "nether":
             case "hell":
-                $generator = Nether::class;
+                $generator = WorldManagementAPI::GENERATOR_ENDER;
                 $generatorName = "Nether";
                 break;
             case "ender":
             case "end":
-                $generator = EnderGenerator::class;
+                $generator = WorldManagementAPI::GENERATOR_FLAT;
                 $generatorName = "End";
                 break;
             case "void":
-                $generator = VoidGenerator::class;
+                $generator = WorldManagementAPI::GENERATOR_VOID;
                 $generatorName = "Void";
                 break;
             case "skyblock":
             case "sb":
             case "sky":
-                $generator = SkyBlockGenerator::class;
+                $generator = WorldManagementAPI::GENERATOR_SKYBLOCK;
                 $generatorName = "SkyBlock";
                 break;
             default:
-                $generator = Normal::class;
+                $generator = WorldManagementAPI::GENERATOR_NORMAL;
                 $generatorName = "Normal";
                 break;
         }
 
-        $this->getPlugin()->getServer()->generateLevel($args[0], $seed, $generator);
-
-        $msg = LanguageManager::translateMessage("create-done");
-        $msg = str_replace("%1", $args[0], $msg);
-        $msg = str_replace("%2", $seed, $msg);
-        $msg = str_replace("%3", $generatorName, $msg);
-
-
-        $sender->sendMessage(MultiWorld::getPrefix().$msg);
+        WorldManagementAPI::generateLevel($args[0], $seed, $generator);
+        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "create-done", [$args[0], $seed, $generatorName]));
     }
 }

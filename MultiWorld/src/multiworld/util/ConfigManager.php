@@ -45,7 +45,29 @@ class ConfigManager {
      */
     public function __construct(MultiWorld $plugin) {
         $this->plugin = $plugin;
+        $this->checkConfigUpdates();
         $this->initConfig();
+    }
+
+    public function checkConfigUpdates() {
+        if(is_file(self::getDataFolder() . "/config.yml")) {
+            $data = @yaml_parse_file(self::getDataFolder() . "/config.yml");
+
+            $currentVersion = "1.5";
+
+            if(isset($data["config-version"])) {
+                $configVersion = $data["config-version"];
+            } else $configVersion = "1.4";
+
+            if($configVersion !== $currentVersion) {
+                $this->plugin->getLogger()->notice("Old config found, updating config...");
+                if(in_array($configVersion, ["1.4"])) {
+                    @rename(self::getDataFolder() . "/config.yml", $old = self::getDataFolder() . "/config.{$configVersion}.yml");
+                    $this->plugin->saveResource("/config.yml");
+                    $this->plugin->getLogger()->notice("Config updated! Old config can be found at $old.");
+                }
+            }
+        }
     }
 
     /**
@@ -61,20 +83,20 @@ class ConfigManager {
         if(!is_file(self::getDataFolder()."/config.yml")) {
             MultiWorld::getInstance()->saveResource("/config.yml");
         }
-        if(!is_file(self::getDataFolder()."languages/Czech.yml")) {
-          MultiWorld::getInstance()->saveResource("languages/Czech.yml");
+        if(!is_file(self::getDataFolder()."languages/cs_CZ.yml")) {
+          MultiWorld::getInstance()->saveResource("languages/cs_CZ.yml");
         }
-        if(!is_file(self::getDataFolder()."languages/English.yml")) {
-            MultiWorld::getInstance()->saveResource("languages/English.yml");
+        if(!is_file(self::getDataFolder()."languages/en_US.yml")) {
+            MultiWorld::getInstance()->saveResource("languages/en_US.yml");
         }
-        if(!is_file(self::getDataFolder()."languages/German.yml")) {
-          MultiWorld::getInstance()->saveResource("languages/German.yml");
+        if(!is_file(self::getDataFolder()."languages/de_DE.yml")) {
+          MultiWorld::getInstance()->saveResource("languages/de_DE.yml");
         }
-        if(!is_file(self::getDataFolder()."languages/Japanese.yml")) {
-            MultiWorld::getInstance()->saveResource("languages/Japanese.yml");
+        if(!is_file(self::getDataFolder()."languages/ja_JP.yml")) {
+            MultiWorld::getInstance()->saveResource("languages/ja_JP.yml");
         }
-        if(!is_file(self::getDataFolder()."languages/Russian.yml")) {
-            MultiWorld::getInstance()->saveResource("languages/Russian.yml");
+        if(!is_file(self::getDataFolder()."languages/ru_RU.yml")) {
+            MultiWorld::getInstance()->saveResource("languages/ru_RU.yml");
         }
 
         // load prefix

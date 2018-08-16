@@ -23,7 +23,8 @@ declare(strict_types=1);
 namespace multiworld\util;
 
 use MultiWorld\MultiWorld;
-use pocketmine\utils\Config;
+use pocketmine\command\CommandSender;
+use pocketmine\Player;
 
 /**
  * Class LanguageManager
@@ -31,14 +32,17 @@ use pocketmine\utils\Config;
  */
 class LanguageManager {
 
-    /** @var  MultiWorld */
+    /** @var MultiWorld $plugin */
     public $plugin;
 
-    /** @string $lang */
-    public static $lang;
+    /** @var string $defaultLang */
+    public static $defaultLang;
 
-    /** @var  Config */
-    public static $messages;
+    /** @var array $languages */
+    public static $languages = [];
+
+    /** @var array $players */
+    public static $players = [];
 
     public function __construct(MultiWorld $plugin) {
         $this->plugin = $plugin;
@@ -46,22 +50,35 @@ class LanguageManager {
     }
 
     public function loadLang() {
-        self::$lang = MultiWorld::getInstance()->getConfig()->get("lang");
-        self::$messages = new Config(ConfigManager::getDataFolder()."/languages/".MultiWorld::getInstance()->getConfig()->get("lang").".yml", Config::YAML);
+        self::$defaultLang = $this->plugin->getConfig()->get("lang");
+        foreach (glob(ConfigManager::getDataFolder() . "/languages/*.yml") as $langResource) {
+            self::$languages[basename($langResource, ".yml")] = yaml_parse_file($langResource);
+        }
     }
 
     /**
-     * @return string $lang
+     * @param CommandSender $sender
+     * @param string $msg
+     * @param array $params
+     *
+     * @return string $message
      */
-    public static function getLang() {
-        return strval(self::$lang);
-    }
+    public static function getMsg(CommandSender $sender, string $msg, array $params = []): string {
+        $lang = self::$defaultLang;
+        if($sender instanceof Player && isset(self::$players[$sender->getName()])) {
+            $lang = self::$players[$sender->getName()];
+        }
 
-    /**
-     * @param $message
-     * @return string
-     */
-    public static function translateMessage($message) {
-        return strval(self::$messages->get($message));
+        if(empty(self::$languages[$lang])) {
+            $lang = self::$defaultLang;
+        }
+
+        $message = self::$languages[$lang][$msg];
+
+        foreach ($params as $index => $param) {
+            $message = str_replace("{%$index}", $param, $message);
+        }
+
+        return $message;
     }
 }

@@ -31,52 +31,52 @@ use pocketmine\command\CommandSender;
  * Class HelpSubcommand
  * @package multiworld\command\subcommand
  */
-class HelpSubcommand extends MultiWorldCommand implements SubCommand {
-
-    /**
-     * HelpSubcommand constructor.
-     */
-    public function __construct() {}
+class HelpSubcommand implements SubCommand {
 
     /**
      * @param CommandSender $sender
      * @param array $args
      * @param string $name
+     *
      * @return mixed|void
      */
     public function executeSub(CommandSender $sender, array $args, string $name) {
         if(empty($args[0])) {
-            $sender->sendMessage($this->getHelpPage(1));
+            $sender->sendMessage($this->getHelpPage($sender, 1));
             return;
         }
 
         if(!is_numeric($args[0])) {
-            $sender->sendMessage($this->getHelpPage(1));
+            $sender->sendMessage($this->getHelpPage($sender,1));
             return;
         }
 
-        $sender->sendMessage($this->getHelpPage((int)$args[0]));
+        $sender->sendMessage($this->getHelpPage($sender, (int)$args[0]));
     }
 
-    public function getHelpPage(int $page): string {
-        $title = LanguageManager::translateMessage("help");
-
-        $title = str_replace("%page", $page, $title);
-        $title = str_replace("%max", "2", $title);
+    /**
+     * @param CommandSender $sender
+     * @param int $page
+     *
+     * @return string
+     */
+    public function getHelpPage(CommandSender $sender, int $page): string {
+        $title = LanguageManager::getMsg($sender, "help", [$page, "2"]);
 
         $text = $title;
 
         switch ($page) {
             default:
-                $text .= MultiWorld::EOL.LanguageManager::translateMessage("help-1");
-                $text .= MultiWorld::EOL.LanguageManager::translateMessage("help-2");
-                $text .= MultiWorld::EOL.LanguageManager::translateMessage("help-3");
-                $text .= MultiWorld::EOL.LanguageManager::translateMessage("help-4");
-                $text .= MultiWorld::EOL.LanguageManager::translateMessage("help-5");
+                $text .= "\n" . LanguageManager::getMsg($sender, "help-1");
+                $text .= "\n" . LanguageManager::getMsg($sender, "help-2");
+                $text .= "\n" . LanguageManager::getMsg($sender, "help-3");
+                $text .= "\n" . LanguageManager::getMsg($sender, "help-4");
+                $text .= "\n" . LanguageManager::getMsg($sender, "help-5");
                 break;
 
             case 2:
-                $text .= MultiWorld::EOL.LanguageManager::translateMessage("help-6");
+                $text .= "\n" . LanguageManager::getMsg($sender, "help-6");
+                $text .= "\n" . LanguageManager::getMsg($sender, "help-7");
                 break;
         }
         return $text;

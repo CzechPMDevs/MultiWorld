@@ -22,16 +22,17 @@ declare(strict_types=1);
 
 namespace multiworld\command\subcommand;
 
+use multiworld\api\WorldManagementAPI;
 use multiworld\command\MultiWorldCommand;
 use multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
+use pocketmine\Server;
 
-class ListSubcommand extends MultiWorldCommand implements SubCommand {
-
-    /**
-     * ListSubcommand constructor.
-     */
-    public function __construct(){}
+/**
+ * Class ListSubcommand
+ * @package multiworld\command\subcommand
+ */
+class ListSubcommand implements SubCommand {
 
     /**
      * @param CommandSender $sender
@@ -40,13 +41,11 @@ class ListSubcommand extends MultiWorldCommand implements SubCommand {
      * @return mixed|void
      */
     public function executeSub(CommandSender $sender, array $args, string $name) {
-        $msg = LanguageManager::translateMessage("list-done");
-
         $levels = [];
 
         foreach (scandir($this->getServer()->getDataPath()."worlds") as $file) {
             if($this->getServer()->isLevelGenerated($file)) {
-                $isLoaded = $this->getServer()->isLevelLoaded($file);
+                $isLoaded = WorldManagementAPI::isLevelLoaded($file);
                 $players = 0;
 
                 if($isLoaded) {
@@ -57,13 +56,18 @@ class ListSubcommand extends MultiWorldCommand implements SubCommand {
             }
         }
 
-        $msg = str_replace("%1", "(".count($levels)."):", $msg);
-
-        $sender->sendMessage($msg);
+        $sender->sendMessage(LanguageManager::getMsg($sender, "list-done", []));
 
         foreach ($levels as $level => [$loaded, $players]) {
             $loaded = $loaded ? "§aloaded§7" : "§cunloaded§7";
             $sender->sendMessage("§7{$level} > {$loaded} §7players: {$players}");
         }
+    }
+
+    /**
+     * @return Server $server
+     */
+    private function getServer(): Server {
+        return Server::getInstance();
     }
 }
