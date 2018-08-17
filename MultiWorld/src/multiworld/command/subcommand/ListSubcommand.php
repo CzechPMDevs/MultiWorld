@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace multiworld\command\subcommand;
 
 use multiworld\api\WorldManagementAPI;
-use multiworld\command\MultiWorldCommand;
 use multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
@@ -44,7 +43,7 @@ class ListSubcommand implements SubCommand {
         $levels = [];
 
         foreach (scandir($this->getServer()->getDataPath()."worlds") as $file) {
-            if($this->getServer()->isLevelGenerated($file)) {
+            if(WorldManagementAPI::isLevelGenerated($file)) {
                 $isLoaded = WorldManagementAPI::isLevelLoaded($file);
                 $players = 0;
 
@@ -56,7 +55,7 @@ class ListSubcommand implements SubCommand {
             }
         }
 
-        $sender->sendMessage(LanguageManager::getMsg($sender, "list-done", []));
+        $sender->sendMessage(LanguageManager::getMsg($sender, "list-done", [""]));
 
         foreach ($levels as $level => [$loaded, $players]) {
             $loaded = $loaded ? "§aloaded§7" : "§cunloaded§7";

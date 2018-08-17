@@ -1,11 +1,30 @@
 <?php
 
+/**
+ * MultiWorld - PocketMine plugin that manages worlds.
+ * Copyright (C) 2018  CzechPMDevs
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 declare(strict_types=1);
 
 namespace multiworld\command\subcommand;
 
 use multiworld\api\WorldGameRulesAPI;
 use multiworld\api\WorldManagementAPI;
+use multiworld\MultiWorld;
 use multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
@@ -31,9 +50,14 @@ class GameruleSubcommand implements SubCommand {
 
         $all = WorldGameRulesAPI::getAllGameRules();
 
+
         if($args[0] == "list") {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule.list", [implode(", ", $all)]));
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule.list", [implode(", ", $all)]));
             return;
+        }
+
+        foreach ($all as $index => $string) {
+            $all[$index] = strtolower($string);
         }
 
         if(!isset($args[1])) {
@@ -41,8 +65,8 @@ class GameruleSubcommand implements SubCommand {
             return;
         }
 
-        if(!in_array($args[0], $all)) {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule.notexists", [$args[0]]));
+        if(!in_array(strtolower($args[0]), $all)) {
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule.notexists", [$args[0]]));
             return;
         }
 
@@ -53,8 +77,8 @@ class GameruleSubcommand implements SubCommand {
 
         if(!isset($args[2])) {
             if($sender instanceof Player) {
-                WorldGameRulesAPI::updateLevelGameRule($sender->getLevel(), $args[0], $args[1] == "true");
-                $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule.done", [$args[0], $sender->getLevel(), $args[1]]));
+                WorldGameRulesAPI::updateLevelGameRule($sender->getLevel(), WorldGameRulesAPI::getRuleFromLowerString($args[0]), $args[1] == "true");
+                $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule.done", [$args[0], $sender->getLevel()->getFolderName(), $args[1]]));
                 return;
             }
             else {
@@ -64,11 +88,11 @@ class GameruleSubcommand implements SubCommand {
         }
 
         if(!WorldManagementAPI::isLevelGenerated($args[2])) {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule.levelnotfound", [$args[1]]));
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule.levelnotfound", [$args[1]]));
             return;
         }
 
-        WorldGameRulesAPI::updateLevelGameRule(WorldManagementAPI::getLevel($args[1]), $args[0], $args[2] == "true");
-        $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule.done", [$args[0], $args[1], $args[2]]));
+        WorldGameRulesAPI::updateLevelGameRule(WorldManagementAPI::getLevel($args[1]), WorldGameRulesAPI::getRuleFromLowerString($args[0]), $args[2] == "true");
+        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule.done", [$args[0], $args[1], $args[2]]));
     }
 }

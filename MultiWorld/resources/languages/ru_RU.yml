@@ -33,7 +33,7 @@ teleport-done-2: '§aИгрок {%1} был телепортирован в ми
 teleport-playernotexists: '§cИгрок не существует!'
 
 # List Command
-list-done: 'Levels: {%0}' # needs translate
+list-done: 'Levels ({%0}):' # needs translate
 
 # Load Command:
 load-usage: '§cПрименение: §7/mw load <мир>'
@@ -62,13 +62,13 @@ update-default-usage: '§cUsage: §7/mw update default <level>' # needs translat
 update-notsupported: '§cThis command is not supported in console!' # needs translate
 
 # Info Command:
-info: '§a--- %1 ---'
-info-name: '§7Name: %1'
-info-folderName: '§7Folder name: %2'
-info-players: '§7Player count: %3'
-info-generator: '§7Generator: %4'
-info-seed: '§7Seed: %5'
-info-time: '§7Time: %6'
+info: '§a--- {%0} ---' # needs translate
+info-name: '§7Name: {%0}' # needs translate
+info-folderName: '§7Folder name: {%0}' # needs translate
+info-players: '§7Player count: {%0}' # needs translate
+info-generator: '§7Generator: {%0}' # needs translate
+info-seed: '§7Seed: {%0}' # needs translate
+info-time: '§7Time: {%0}' # needs translate
 
 # Gamerule Command:
 gamerule.usage: '§cUsage: §7/mw gamerule <list|gamerule> [true|false] [level]' # needs translate

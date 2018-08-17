@@ -50,7 +50,7 @@ class ConfigManager {
     }
 
     public function checkConfigUpdates() {
-        if(is_file(self::getDataFolder() . "/config.yml")) {
+        if(file_exists(self::getDataFolder() . "/config.yml")) {
             $data = @yaml_parse_file(self::getDataFolder() . "/config.yml");
 
             $currentVersion = "1.5";

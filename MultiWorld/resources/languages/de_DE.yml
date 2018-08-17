@@ -33,7 +33,7 @@ teleport-done-2: '§aPlayer {%1} wird auf Level {%0} teleportiert!'
 teleport-playernotexisten: '§cPlayer {%0} existiert nicht!'
 
 # Liste Befehl:
-list-done: '§aLevels: {%0}'
+list-done: '§aLevels ({%0}):'
 
 # Befehl laden:
 load-usage: '§cUsage: §7/mw load <level>'
@@ -64,11 +64,11 @@ update-notsupported: '§cDieser Befehl wird in der Konsole nicht unterstützt.'
 # Info Command:
 info: '§a--- {%0} ---'
 info-name: '§7Name: {%0}'
-info-folderName: '§7Folder name: {%1}'
-info-players: '§7Player count: {%2}'
-info-generator: '§7Generator: {%3}'
-info-seed: '§7Seed: {%4}'
-info-time: '§7Time: {%5}'
+info-folderName: '§7Folder name: {%0}'
+info-players: '§7Player count: {%0}'
+info-generator: '§7Generator: {%0}'
+info-seed: '§7Seed: {%0}'
+info-time: '§7Time: {%0}'
 
 # Gamerule Command:
 gamerule.usage: '§cUsage: §7/mw gamerule <list|gamerule> [true|false] [level]' # needs translate

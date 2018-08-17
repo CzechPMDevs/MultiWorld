@@ -1,5 +1,23 @@
 <?php
 
+/**
+ * MultiWorld - PocketMine plugin that manages worlds.
+ * Copyright (C) 2018  CzechPMDevs
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 declare(strict_types=1);
 
 namespace multiworld;
@@ -21,6 +39,7 @@ use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerRespawnEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\item\Item;
+use pocketmine\network\mcpe\protocol\ChangeDimensionPacket;
 use pocketmine\network\mcpe\protocol\LoginPacket;
 use pocketmine\Player;
 
@@ -63,7 +82,33 @@ class EventListener implements Listener {
     public function onLevelChange(EntityLevelChangeEvent $event) {
         $entity = $event->getEntity();
         if($entity instanceof Player) {
-            WorldGameRulesAPI::updateGameRules($entity);
+            WorldGameRulesAPI::updateGameRules($entity, $event->getTarget());
+
+            $originGenerator = $event->getOrigin()->getProvider()->getGenerator();
+            $targetGenerator = $event->getTarget()->getProvider()->getGenerator();
+
+            $getDimension = function ($generator): int {
+                switch ($generator) {
+                    case "normal":
+                    case "skyblock":
+                    case "void":
+                        return 0;
+                    case "nether":
+                        return 1;
+                    case "ender":
+                        return 2;
+                    default:
+                        return 0;
+                }
+            };
+
+            if($getDimension($originGenerator) == $getDimension($targetGenerator)) return;
+
+            $pk = new ChangeDimensionPacket();
+            $pk->dimension = $getDimension($targetGenerator);
+            $pk->position = $event->getTarget()->getSpawnLocation();
+
+            $entity->dataPacket($pk);
         }
     }
 

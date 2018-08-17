@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace multiworld\command\subcommand;
 
-use multiworld\command\MultiWorldCommand;
 use multiworld\MultiWorld;
 use multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
@@ -42,7 +41,7 @@ class TeleportSubcommand implements SubCommand {
      * @return mixed|void
      */
     public function executeSub(CommandSender $sender, array $args, string $name) {
-        if(empty($args[0])) {
+        if(!isset($args[0])) {
             LanguageManager::getMsg($sender, "teleport-usage");
             return;
         }
@@ -58,7 +57,7 @@ class TeleportSubcommand implements SubCommand {
 
         $level = $this->getServer()->getLevelByName($args[0]);
 
-        if(empty($args[1])) {
+        if(!isset($args[1])) {
             if(!$sender instanceof Player) {
                 $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::getMsg($sender, "teleport-usage"));
                 return;
@@ -69,7 +68,7 @@ class TeleportSubcommand implements SubCommand {
             return;
         }
 
-        $player = $this->getServer()->getPlayer($args[2]);
+        $player = $this->getServer()->getPlayer($args[1]);
 
         if((!$player instanceof Player) || !$player->isOnline()) {
             $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::getMsg($sender, "teleport-playernotexists", [$player->getName()]));
@@ -78,7 +77,7 @@ class TeleportSubcommand implements SubCommand {
 
         $player->teleport($level->getSafeSpawn());
 
-        $player->sendMessage(LanguageManager::getMsg($sender, "teleport-done-1", [$level->getName()]));
+        $player->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "teleport-done-1", [$level->getName()]));
         $sender->sendMessage(LanguageManager::getMsg($sender, "teleport-done-2", [$level->getName(), $player->getName()]));
         return;
     }

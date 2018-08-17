@@ -22,8 +22,6 @@ declare(strict_types=1);
 
 namespace multiworld\command\subcommand;
 
-use multiworld\MultiWorld;
-use multiworld\command\MultiWorldCommand;
 use multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
 
@@ -77,6 +75,7 @@ class HelpSubcommand implements SubCommand {
             case 2:
                 $text .= "\n" . LanguageManager::getMsg($sender, "help-6");
                 $text .= "\n" . LanguageManager::getMsg($sender, "help-7");
+                $text .= "\n" . LanguageManager::getMsg($sender, "help-8");
                 break;
         }
         return $text;

@@ -33,7 +33,7 @@ teleport-done-2: '§aHráč {%1} byl teleportován do světa {%0}!'
 teleport-playernotexists: '§cHráč {%0} nebyl nalezen!'
 
 # List Command:
-list-done: '§aSvěty: {%0}'
+list-done: '§aSvěty ({%0}):'
 
 # Load Command:
 load-usage: '§cPoužij: §7/mw load <svět>'
@@ -64,11 +64,11 @@ update-notsupported: '§cTento příkaz není v konzoli podporován.'
 # Info Command:
 info: '§a--- {%0} ---'
 info-name: '§7Název: {%0}'
-info-folderName: '§7Název složky: {%1}'
-info-players: '§7Počet hráčů: {%2}'
-info-generator: '§7Generátor: {%3}'
-info-seed: '§7Seed: {%4}'
-info-time: '§7Čas: {%5}'
+info-folderName: '§7Název složky: {%0}'
+info-players: '§7Počet hráčů: {%0}'
+info-generator: '§7Generátor: {%0}'
+info-seed: '§7Seed: {%0}'
+info-time: '§7Čas: {%0}'
 
 # Gamerule Command:
 gamerule.usage: '§cPoužij: §7/mw gamerule <list|gamerule> [true|false] [level]'

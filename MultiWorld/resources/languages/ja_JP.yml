@@ -33,7 +33,7 @@ teleport-done-2: '§aプレイヤー名 {%1} をワールド {%0} にテレポ�
 teleport-playernotexists: '§c指定されたプレイヤーは存在しません!'
 
 # List Command:
-list-done: '§a全ワールド: {%0}'
+list-done: '§a全ワールド ({%0}):'
 
 # Load Command:
 load-usage: '§c使用方法: §7/mw load <ワールド名>'
@@ -64,11 +64,11 @@ update-notsupported: '§cこのコマンドはコンソールでの実行に対�
 # Info Command:
 info: '§a--- {%0} ---'
 info-name: '§7ワールド名: {%0}'
-info-folderName: '§7フォルダ名: {%1}'
-info-players: '§7プレイヤー数: {%2}'
-info-generator: '§7ジェネレータ名: {%3}'
-info-seed: '§7シード値: {%4}'
-info-time: '§7ワールド内時間: {%5}'
+info-folderName: '§7フォルダ名: {%0}'
+info-players: '§7プレイヤー数: {%0}'
+info-generator: '§7ジェネレータ名: {%0}'
+info-seed: '§7シード値: {%0}'
+info-time: '§7ワールド内時間: {%0}'
 
 # Gamerule Command:
 gamerule.usage: '§cUsage: §7/mw gamerule <list|gamerule> [true|false] [level]' # needs translate

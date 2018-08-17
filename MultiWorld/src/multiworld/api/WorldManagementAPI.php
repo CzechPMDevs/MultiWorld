@@ -1,10 +1,29 @@
 <?php
 
+/**
+ * MultiWorld - PocketMine plugin that manages worlds.
+ * Copyright (C) 2018  CzechPMDevs
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 declare(strict_types=1);
 
 namespace multiworld\api;
 
 use multiworld\generator\ender\EnderGenerator;
+use multiworld\generator\nether\NetherGenerator;
 use multiworld\generator\void\VoidGenerator;
 use pocketmine\level\generator\Flat;
 use pocketmine\level\generator\hell\Nether;
@@ -24,6 +43,8 @@ class WorldManagementAPI {
     public const GENERATOR_FLAT = 3;
     public const GENERATOR_VOID = 4;
     public const GENERATOR_SKYBLOCK = 5;
+
+    public const GENERATOR_HELL_OLD = 6;
 
     /**
      * @param string $levelName
@@ -85,7 +106,7 @@ class WorldManagementAPI {
 
         switch ($generator) {
             case self::GENERATOR_HELL:
-                $generatorClass = Nether::class;
+                $generatorClass = NetherGenerator::class;
                 break;
             case self::GENERATOR_ENDER:
                 $generatorClass = EnderGenerator::class;
@@ -95,6 +116,9 @@ class WorldManagementAPI {
                 break;
             case self::GENERATOR_VOID:
                 $generatorClass = VoidGenerator::class;
+                break;
+            case self::GENERATOR_HELL_OLD:
+                $generatorClass = Nether::class;
                 break;
         }
 

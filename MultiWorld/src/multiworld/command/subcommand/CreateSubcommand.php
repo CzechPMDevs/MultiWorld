@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace multiworld\command\subcommand;
 
 use multiworld\api\WorldManagementAPI;
-use multiworld\command\MultiWorldCommand;
 use multiworld\MultiWorld;
 use multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
@@ -67,17 +66,17 @@ class CreateSubcommand implements SubCommand {
                 break;
             case "flat":
             case "superflat":
-                $generator = WorldManagementAPI::GENERATOR_HELL;
+                $generator = WorldManagementAPI::GENERATOR_FLAT;
                 $generatorName = "Flat";
                 break;
             case "nether":
             case "hell":
-                $generator = WorldManagementAPI::GENERATOR_ENDER;
+                $generator = WorldManagementAPI::GENERATOR_HELL;
                 $generatorName = "Nether";
                 break;
             case "ender":
             case "end":
-                $generator = WorldManagementAPI::GENERATOR_FLAT;
+                $generator = WorldManagementAPI::GENERATOR_ENDER;
                 $generatorName = "End";
                 break;
             case "void":
@@ -89,6 +88,10 @@ class CreateSubcommand implements SubCommand {
             case "sky":
                 $generator = WorldManagementAPI::GENERATOR_SKYBLOCK;
                 $generatorName = "SkyBlock";
+                break;
+            case "nether_old":
+                $generator = WorldManagementAPI::GENERATOR_HELL_OLD;
+                $generatorName = "Old Nether";
                 break;
             default:
                 $generator = WorldManagementAPI::GENERATOR_NORMAL;

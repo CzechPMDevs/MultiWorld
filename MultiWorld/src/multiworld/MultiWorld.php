@@ -25,6 +25,7 @@ namespace multiworld;
 use multiworld\command\GameruleCommand;
 use multiworld\command\MultiWorldCommand;
 use multiworld\generator\ender\EnderGenerator;
+use multiworld\generator\nether\NetherGenerator;
 use multiworld\generator\skyblock\SkyBlockGenerator;
 use multiworld\generator\void\VoidGenerator;
 use multiworld\util\ConfigManager;
@@ -32,6 +33,7 @@ use multiworld\util\LanguageManager;
 use pocketmine\command\Command;
 use pocketmine\level\generator\GeneratorManager;
 use pocketmine\plugin\PluginBase;
+use pocketmine\plugin\PluginException;
 
 /**
  * Class MultiWorld
@@ -51,15 +53,24 @@ class MultiWorld extends PluginBase {
     /** @var Command[] $commands */
     public $commands = [];
 
+
+    /**
+     * @throws PluginException
+     */
     public function onEnable() {
         $start = (bool) !(self::$instance instanceof $this);
         self::$instance = $this;
 
         if($start) {
+            if($this->getServer()->getName() !== "PocketMine-MP") {
+                throw new PluginException("Could not load MultiWorld because {$this->getServer()->getName()} spoon is not supported. If you want to use MultiWorld, run server on PocketMine (pmmp.io) instead of {$this->getServer()->getName()}");
+            }
+
             $generators = [
                 "ender" => EnderGenerator::class,
                 "void" => VoidGenerator::class,
-                "skyblock" => SkyBlockGenerator::class
+                "skyblock" => SkyBlockGenerator::class,
+                "nether" => NetherGenerator::class
             ];
 
             foreach ($generators as $name => $class) {
@@ -71,7 +82,7 @@ class MultiWorld extends PluginBase {
         $this->languageManager = new LanguageManager($this);
 
         $this->commands = [
-            "multiworld" => new MultiWorldCommand(),
+            "multiworld" => $cmd = new MultiWorldCommand(),
             "gamerule" => new GameruleCommand()
         ];
 
@@ -79,7 +90,6 @@ class MultiWorld extends PluginBase {
             $this->getServer()->getCommandMap()->register("MultiWorld", $command);
         }
 
-        $this->getServer()->getCommandMap()->register("MultiWorld", $cmd = new MultiWorldCommand);
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this, $cmd), $this);
     }
 

@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace multiworld\command\subcommand;
 
-use multiworld\command\MultiWorldCommand;
 use multiworld\MultiWorld;
 use multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
