@@ -28,6 +28,10 @@ use pocketmine\level\generator\Generator;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
 
+/**
+ * Class SkyBlockGenerator
+ * @package multiworld\generator\skyblock
+ */
 class SkyBlockGenerator extends Generator {
 
     /** @var ChunkManager $level */

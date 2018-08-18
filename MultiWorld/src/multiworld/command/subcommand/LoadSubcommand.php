@@ -46,7 +46,7 @@ class LoadSubcommand implements SubCommand {
         }
 
         if(!$this->getServer()->isLevelGenerated($args[0])) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "load-levelnotexists"));
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "load-levelnotexists", [$args[0]]));
             return;
         }
 

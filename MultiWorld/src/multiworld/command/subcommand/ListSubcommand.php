@@ -55,7 +55,9 @@ class ListSubcommand implements SubCommand {
             }
         }
 
-        $sender->sendMessage(LanguageManager::getMsg($sender, "list-done", [""]));
+
+
+        $sender->sendMessage(LanguageManager::getMsg($sender, "list-done", [(string) count($levels)]));
 
         foreach ($levels as $level => [$loaded, $players]) {
             $loaded = $loaded ? "§aloaded§7" : "§cunloaded§7";

@@ -23,12 +23,15 @@ declare(strict_types=1);
 namespace multiworld\generator\skyblock\populator;
 
 use pocketmine\block\Block;
+use pocketmine\event\level\LevelLoadEvent;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\object\OakTree;
 use pocketmine\level\generator\populator\Populator;
 use pocketmine\level\generator\populator\Tree;
+use pocketmine\level\Level;
 use pocketmine\math\Vector3;
 use pocketmine\tile\Chest;
+use pocketmine\tile\Tile;
 use pocketmine\utils\Random;
 
 /**
@@ -37,6 +40,14 @@ use pocketmine\utils\Random;
  */
 class Island extends Populator {
 
+    /**
+     * @param ChunkManager|Level $level
+     * @param int $chunkX
+     * @param int $chunkZ
+     * @param Random $random
+     *
+     * @return mixed|void
+     */
     public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random) {
         $center = new Vector3(256, 68, 256);
 
@@ -76,7 +87,11 @@ class Island extends Populator {
 
         // chest
         $chestVec = $center->add(0, 2, -4);
-        $level->setBlockIdAt($chestVec->getX(), $chestVec->getY(), $chestVec->getZ(), Block::CHEST);
+
+        if($level instanceof Level) {
+            $level->addTile(Tile::createTile(Tile::CHEST, $level, Tile::createNBT($chestVec)));
+            $level->setBlockIdAt($chestVec->getX(), $chestVec->getY(), $chestVec->getZ(), Block::CHEST);
+        }
 
         // tree
         $treeVec = $center->add(4, 2, 1);

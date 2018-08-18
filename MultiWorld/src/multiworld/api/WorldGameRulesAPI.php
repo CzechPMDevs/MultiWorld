@@ -89,7 +89,7 @@ class WorldGameRulesAPI {
      *
      * @return bool
      */
-    public static function updateLevelGameRule(Level $level, string $gameRule, bool $value) {
+    public static function updateLevelGameRule(Level $level, string $gameRule, bool $value): bool {
         $levelProvider = $level->getProvider();
         if(!$levelProvider instanceof BaseLevelProvider) {
             return false;
@@ -143,7 +143,7 @@ class WorldGameRulesAPI {
      *
      * @return string
      */
-    public static function getRuleFromLowerString(string $lowerString) {
+    public static function getRuleFromLowerString(string $lowerString): string {
         $rules = [];
         foreach (self::getAllGameRules() as $rule) {
             $rules[strtolower($rule)] = $rule;
@@ -165,7 +165,7 @@ class WorldGameRulesAPI {
     /**
      * @return array
      */
-    public static function getAllGameRules() {
+    public static function getAllGameRules(): array {
         return array_keys(self::getDefaultGameRules());
     }
 
@@ -177,6 +177,7 @@ class WorldGameRulesAPI {
         foreach ($gameRules as $gameRule => [$valueType, $value]) {
             switch ($gameRule) {
                 case "doDaylightCycle":
+                    $level->setTime(0);
                     $level->stopTime = !$value;
                     continue;
             }

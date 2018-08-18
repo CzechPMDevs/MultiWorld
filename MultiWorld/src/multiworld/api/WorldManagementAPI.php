@@ -24,6 +24,7 @@ namespace multiworld\api;
 
 use multiworld\generator\ender\EnderGenerator;
 use multiworld\generator\nether\NetherGenerator;
+use multiworld\generator\skyblock\SkyBlockGenerator;
 use multiworld\generator\void\VoidGenerator;
 use pocketmine\level\generator\Flat;
 use pocketmine\level\generator\hell\Nether;
@@ -68,7 +69,7 @@ class WorldManagementAPI {
      * @param string $name
      * @return null|Level
      */
-    public static function getLevel(string $name): Level {
+    public static function getLevel(string $name): ?Level {
         return Server::getInstance()->getLevelByName($name);
     }
 
@@ -120,6 +121,8 @@ class WorldManagementAPI {
             case self::GENERATOR_HELL_OLD:
                 $generatorClass = Nether::class;
                 break;
+            case self::GENERATOR_SKYBLOCK:
+                $generatorClass = SkyBlockGenerator::class;
         }
 
         return Server::getInstance()->generateLevel($levelName, $seed, $generatorClass);

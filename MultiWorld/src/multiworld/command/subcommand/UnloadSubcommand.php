@@ -47,7 +47,7 @@ class UnloadSubcommand implements SubCommand {
         }
 
         if(!$this->getServer()->isLevelGenerated($args[0])) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "unload-levelnotexists"));
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "unload-levelnotexists", [$args[0]]));
             return;
         }
 
