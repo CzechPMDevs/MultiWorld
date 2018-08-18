@@ -81,6 +81,7 @@
 
 ## 🔧 How to install MultiWorld?
 
+1.5.0
 1) [Download](https://poggit.pmmp.io/p/MultiWorld) latest stable released version from poggit
 2) Move dowloaded file to your server **/plugins/** folder
 3) Restart the server
@@ -89,6 +90,17 @@
 
 - All MultiWorld commands starts with `/mw` (`/multiworld`) except for the `/gamerule` command that was added as an alias to change game rules from settings.
 - In game, you can get list of all commands using commands `/mw help`
+
+| Version | Download (PHAR) | Download (ZIP) |
+| --- | --- | --- |
+| 1.4.3 | [Poggit Releases](https://poggit.pmmp.io/r/34104/MultiWorld.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/ef6f73109c0438ab2a5c404ccdd288e2d73b5002.zip) |
+| 1.4.2 | [Poggit Releases](https://poggit.pmmp.io/r/28962/MultiWorld.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.4.2.zip) |
+| 1.4.1 | [Poggit-CI Downloads](https://poggit.pmmp.io/r/27881/MultiWorld_dev-99.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.4.1.zip) |
+| 1.4.0 | [Poggit Releases](https://poggit.pmmp.io/r/25218/MultiWorld.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/be4083eae06adc249e3d4a8968ea0992d42f929c.zip) |
+| 1.3.2 | [Poggit-CI Downloads](https://poggit.pmmp.io/r/11536/MultiWorld_dev-86.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/5237db27b69fbf9a9aac66075fd81e9e804f180c.zip) |
+| 1.3.1 | [GitHub](https://github.com/CzechPMDevs/MultiWorld/releases/download/1.3.1/MultiWorld.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.3.1.zip) |
+| 1.3.0 | [Poggit-CI Downloads](https://poggit.pmmp.io/r/10889/MultiWorld.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.3.0.zip) |
+
 
 <br>
 
