@@ -31,11 +31,6 @@ use pocketmine\command\CommandSender;
 interface SubCommand {
 
     /**
-     * SubCommand constructor.
-     */
-    public function __construct();
-
-    /**
      * @api
      *
      * @param CommandSender $sender

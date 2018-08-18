@@ -22,8 +22,6 @@ declare(strict_types=1);
 
 namespace multiworld\command\subcommand;
 
-use multiworld\MultiWorld;
-use multiworld\command\MultiWorldCommand;
 use multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
 use pocketmine\level\Level;
@@ -33,22 +31,17 @@ use pocketmine\Player;
  * Class InfoSubcommand
  * @package multiworld\command\subcommand
  */
-class InfoSubcommand extends MultiWorldCommand implements SubCommand {
-
-    /**
-     * InfoSubcommand constructor.
-     */
-    public function __construct(){}
+class InfoSubcommand implements SubCommand {
 
     public function executeSub(CommandSender $sender, array $args, string $name) {
         if(!$sender instanceof Player) {
             $sender->sendMessage("§cThis command can be used only in-game!");
             return;
         }
-        $sender->sendMessage($this->getInfoMsg($sender->getLevel()));
+        $sender->sendMessage($this->getInfoMsg($sender, $sender->getLevel()));
     }
 
-    public function getInfoMsg(Level $level): string {
+    public function getInfoMsg(CommandSender $sender, Level $level): string {
         $name = $level->getName();
         $folderName = $level->getFolderName();
         $seed = $level->getSeed();
@@ -56,30 +49,13 @@ class InfoSubcommand extends MultiWorldCommand implements SubCommand {
         $generator = $level->getProvider()->getGenerator();
         $time = $level->getTime();
 
-        $msg = LanguageManager::translateMessage("info");
-        $msg .= MultiWorld::EOL.LanguageManager::translateMessage("info-name");
-        $msg .= MultiWorld::EOL.LanguageManager::translateMessage("info-folderName");
-        $msg .= MultiWorld::EOL.LanguageManager::translateMessage("info-players");
-        $msg .= MultiWorld::EOL.LanguageManager::translateMessage("info-generator");
-        $msg .= MultiWorld::EOL.LanguageManager::translateMessage("info-seed");
-        $msg .= MultiWorld::EOL.LanguageManager::translateMessage("info-time");
-
-        $msg = str_replace
-        ([
-            "%1",
-            "%2",
-            "%3",
-            "%4",
-            "%5",
-            "%6"
-        ], [
-            $name,
-            $folderName,
-            $players,
-            $generator,
-            $seed,
-            $time
-        ], $msg);
+        $msg = LanguageManager::getMsg($sender, "info", [$name]);
+        $msg .= "\n".LanguageManager::getMsg($sender, "info-name", [$name]);
+        $msg .= "\n".LanguageManager::getMsg($sender, "info-folderName", [$folderName]);
+        $msg .= "\n".LanguageManager::getMsg($sender, "info-players", [$players]);
+        $msg .= "\n".LanguageManager::getMsg($sender, "info-generator", [$generator]);
+        $msg .= "\n".LanguageManager::getMsg($sender, "info-seed", [$seed]);
+        $msg .= "\n".LanguageManager::getMsg($sender,"info-time", [$time]);
 
         return $msg;
     }

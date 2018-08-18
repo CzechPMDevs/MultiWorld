@@ -1,0 +1,79 @@
+---
+### English language file by @GamakCZ, need fix
+
+## Commands:
+
+not-perms: '§cYou have not permissions to use this command!'
+default-usage: '§cUsage: §7/mw help'
+
+# Help Command:
+help: '§2--- §fMultiWorld Help page ({%0}/{%1}) §2---'
+help-1: '§2/mw create §fGenerate level'
+help-2: '§2/mw teleport §fTeleport to level'
+help-3: '§2/mw list §f Displays list of all levels'
+help-4: '§2/mw <load|unload> §fLoad | Unload level'
+help-5: '§2/mw update §fUpdate lobby, spawn or default level'
+
+help-6: '§2/mw delete §fRemove world'
+help-7: '§2/mw info §fDisplays informations about level'
+help-8: '§2/mw gamerule §fManage with level game rules'
+
+# Create Command:
+create-usage: '§cUsage: §7/mw create <name> [seed] [generator]'
+create-gennotexists: '§cGenerator {%0} not found.'
+create-generating: '§aGenerating level {%0}'
+create-done: 'Level {%0} is generated using seed: {%1} and generator: {%2}.'
+
+# Teleport Command:
+teleport-usage: '§cUsage: §7/mw teleport <level> [player]'
+teleport-levelnotexists: '§cLevel {%0} is not generated yet! Try /mw create for generate level.'
+teleport-load: 'Loading level {%0}...'
+teleport-done-1: '§aYou are teleported to level {%0}.'
+teleport-done-2: '§aPlayer {%1} is teleported to level {%0}!'
+teleport-playernotexists: '§cPlayer {%0} does not exists!'
+
+# List Command:
+list-done: '§aLevels ({%0}):'
+
+# Load Command:
+load-usage: '§cUsage: §7/mw load <level>'
+load-levelnotexists: '§cLevel {%0} does not exists!'
+load-loaded: '§cUnable to load loaded level!'
+load-done: '§aLevel loaded!'
+
+# Unload Command:
+unload-usage: '§cUsage: §7/mw unload <level>'
+unload-levelnotexists: '§cLevel {%0} does not exists!'
+unload-unloaded: '§cUnable to unload unloaded level!'
+unload-done: '§aLevel unloaded!'
+
+# Delete Command:
+delete-usage: '§cUsage: §7/mw delete <level>'
+delete-levelnotexists: '§cLevel {%0} does not exists!'
+delete-done: '§aLevel deleted! ({%0} files removed.)'
+
+# Update Command:
+update-usage: '§cUsage: §7/mw update <mod: spawn|lobby|default> [options: (level) (x) (y) (z)]'
+update-levelnotexists: '§cLevel {%0} does not exists!'
+update-spawn-done: '§aSpawn in level {%0} was changed.'
+update-lobby-done: '§aLobby in level {%0} was changed.'
+update-default-usage: '§cUsage: §7/mw update default <level>'
+update-default-done: '§aDefault level was changet to {%0}.'
+update-notsupported: '§cThis command is not supported in console.'
+
+# Info Command:
+info: '§a--- {%0} ---'
+info-name: '§7Name: {%0}'
+info-folderName: '§7Folder name: {%0}'
+info-players: '§7Player count: {%0}'
+info-generator: '§7Generator: {%0}'
+info-seed: '§7Seed: {%0}'
+info-time: '§7Time: {%0}'
+
+# Gamerule Command:
+gamerule.usage: '§cUsage: §7/mw gamerule <list|gamerule> [true|false] [level]'
+gamerule.list: '§aEditable GameRules: {%0}'
+gamerule.levelnotfound: '§cLevel {%0} not found.'
+gamerule.notexists: '§cGame rule {%0} not exists.'
+gamerule.done: '§aGame rule {%0} in level {%1} was changed to {%2}.'
+...

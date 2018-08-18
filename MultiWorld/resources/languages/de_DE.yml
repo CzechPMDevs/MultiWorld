@@ -1,0 +1,79 @@
+---
+### deutsche Sprachdatei von GoogleTranslator, muss behoben werden
+### German language file by GoogleTranslator, need fix
+## Commands:
+
+not-perms: '§cSie haben keine Berechtigungen, diesen Befehl zu benutzen!'
+default-usage: '§cUsage: §7/mw help'
+
+# Hilfe Befehl:
+help: '§2--- §fMultiWorld help page ({%0}/{%1}) §2---'
+help-1: '§2/mw create §fGenerate level'
+help-2: '§2/mw teleport §fTeleport zur Ebene'
+help-3: '§2/mw list §fDisplays Liste aller Ebenen'
+help-4: '§2/mw <load | unload> §fLoad | Unload Level '
+help-5: '§2/mw update §fSet Lobby, Spawn oder Default-Ebene'
+
+help-6: '§2/mw delete §fEbene entfernen'
+help-7: '§2/mw info §fDisplays information about world' # needs translate
+help-8: '§2/mw gamerule §fManage with level game rules' # needs translate
+
+# Befehl erstellen:
+create-usage: '§cUsage: §7/mw create <name> [seed] [generator]'
+create-gennotexists: 'Generator {%0} not found, aborting.' # needs translate
+create-generating: '§aGenerating level {%0}...'
+create-done: 'Level {%0} wird mit Samen erzeugt: {%1} und Generator: {%2}.'
+
+# Teleport Befehl:
+teleport-usage: '§cUsage: §7/mw teleport <level> [spieler]'
+teleport-levelnotexists: '§cLevel {%0} ist noch nicht generiert! Versuche /mw create generiere Ebene erstellen. '
+teleport-load: 'Lade level {%0} ...'
+teleport-done-1: '§aSie werden auf Level {%0} teleportiert.'
+teleport-done-2: '§aPlayer {%1} wird auf Level {%0} teleportiert!'
+teleport-playernotexisten: '§cPlayer {%0} existiert nicht!'
+
+# Liste Befehl:
+list-done: '§aLevels ({%0}):'
+
+# Befehl laden:
+load-usage: '§cUsage: §7/mw load <level>'
+load-levelnotexists: '§cLevel {%0} existiert nicht!'
+load-loaded: '§cUnable zum Laden geladener Ebene!'
+load-done: '§aLevel geladen!'
+
+# Befehl entladen:
+unload-usage: '§cUsage: §7/mw unload <level>'
+unload-levelnotexists: '§cLevel {%0} existiert nicht!'
+unload-unloaded: '§cUnable, um unbeladene Ebene zu entladen!'
+unload-done: '§aLevel entladen!'
+
+# Befehl löschen:
+delete-use: '§cUsage: §7/mw delete <level>'
+delete-levelnotexists: '§cLevel {%0} existiert nicht!'
+delete-done: '§aLevel gelöscht!'
+
+# Update Befehl:
+update-usage: '§cUsage: §7/mw update <mod: spawn|Lobby|default> [Optionen: (x) (y) (z) (Level)]'
+update-levelnotexists: '§cLevel {%0} existiert nicht!'
+update-spawn-done: '§aSpawn in Level {%0} wurde geändert.'
+update-lobby-done: '§aLobby in Level {%0} wurde geändert.'
+update-default-done: '§aDefault-Ebene wurde auf {%0} geändert.'
+update-default-usage: '§cUsage: §7/mw update default <level>'
+update-notsupported: '§cDieser Befehl wird in der Konsole nicht unterstützt.'
+
+# Info Command:
+info: '§a--- {%0} ---'
+info-name: '§7Name: {%0}'
+info-folderName: '§7Folder name: {%0}'
+info-players: '§7Player count: {%0}'
+info-generator: '§7Generator: {%0}'
+info-seed: '§7Seed: {%0}'
+info-time: '§7Time: {%0}'
+
+# Gamerule Command:
+gamerule.usage: '§cUsage: §7/mw gamerule <list|gamerule> [true|false] [level]' # needs translate
+gamerule.list: '§aEditable GameRules: {%0}' # needs translate
+gamerule.levelnotfound: '§cLevel {%0} not found.' # needs translate
+gamerule.notexists: '§cGame rule {%0} not exists.' # needs translate
+gamerule.done: '§aGame rule {%0} in level {%1} was changed to {%2}.' # needs translate
+...

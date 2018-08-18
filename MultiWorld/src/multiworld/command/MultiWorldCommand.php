@@ -24,6 +24,7 @@ namespace multiworld\command;
 
 use multiworld\command\subcommand\CreateSubcommand;
 use multiworld\command\subcommand\DeleteSubcommand;
+use multiworld\command\subcommand\GameruleSubcommand;
 use multiworld\command\subcommand\HelpSubcommand;
 use multiworld\command\subcommand\InfoSubcommand;
 use multiworld\command\subcommand\ListSubcommand;
@@ -37,12 +38,6 @@ use multiworld\util\LanguageManager;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\PluginIdentifiableCommand;
-use pocketmine\level\generator\Generator;
-use pocketmine\math\Vector3;
-use pocketmine\network\mcpe\protocol\AvailableCommandsPacket;
-use pocketmine\network\mcpe\protocol\types\CommandData;
-use pocketmine\network\mcpe\protocol\types\CommandEnum;
-use pocketmine\network\mcpe\protocol\types\CommandParameter;
 use pocketmine\Player;
 use pocketmine\plugin\Plugin;
 use pocketmine\Server;
@@ -56,7 +51,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
     /** @var  MultiWorld $plugin */
     public $plugin;
 
-    /** @var array $subcommands */
+    /** @var SubCommand[] $subcommands */
     public $subcommands = [];
 
     /**
@@ -78,25 +73,33 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
         $this->subcommands["delete"] = new DeleteSubcommand;
         $this->subcommands["update"] = new UpdateSubcommand;
         $this->subcommands["info"] = new InfoSubcommand;
+        $this->subcommands["gamerule"] = new GameruleSubcommand;
     }
 
+    /**
+     * @param CommandSender $sender
+     * @param string $commandLabel
+     * @param array $args
+     *
+     * @return mixed|void
+     */
     public function execute(CommandSender $sender, string $commandLabel, array $args) {
         if(empty($args[0])) {
             if($sender->hasPermission("mw.cmd")) {
-                $sender->sendMessage(LanguageManager::translateMessage("default-usage"));
+                $sender->sendMessage(LanguageManager::getMsg($sender, "default-usage"));
                 return;
             }
-            $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
+            $sender->sendMessage(LanguageManager::getMsg($sender, "not-perms"));
             return;
         }
 
         if($this->getSubcommand($args[0]) === null) {
-            $sender->sendMessage(LanguageManager::translateMessage("default-usage"));
+            $sender->sendMessage(LanguageManager::getMsg($sender, "default-usage"));
             return;
         }
 
         if(!$this->checkPerms($sender, $args[0])) {
-            $sender->sendMessage("not-perms");
+            $sender->sendMessage(LanguageManager::getMsg($sender, "not-perms"));
             return;
         }
 
@@ -106,12 +109,12 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
 
         /** @var SubCommand $subCommand */
         $subCommand = $this->subcommands[$this->getSubcommand($name)];
-
         $subCommand->executeSub($sender, $args, $this->getSubcommand($name));
     }
 
     /**
      * @param string $name
+     *
      * @return string|null $name
      */
     public function getSubcommand(string $name) {
@@ -148,6 +151,11 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
             case "info":
             case "i":
                 return "info";
+            case "gamerule":
+            case "gr":
+            case "gamer":
+            case "grule":
+                return "gamerule";
         }
         return null;
     }
@@ -160,7 +168,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
     public function checkPerms(CommandSender $sender, string $command):bool {
         if($sender instanceof Player) {
             if(!$sender->hasPermission("mw.cmd.{$command}")) {
-                $sender->sendMessage(LanguageManager::translateMessage("not-perms"));
+                $sender->sendMessage(LanguageManager::getMsg($sender, "not-perms"));
                 return false;
             } else {
                 return true;
@@ -170,32 +178,11 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
         }
     }
 
-    public function sendCommandParameters(Player $player) {
-        $pk = new AvailableCommandsPacket;
-
-        $data = new CommandData;
-        $data->commandName = $this->getName();
-        $data->commandDescription = $this->getDescription();
-
-        $data->aliases = new CommandEnum;
-        $data->aliases->enumName = "MultiWorld Aliases";
-        $data->aliases->enumValues = $this->getAliases();
-
-        $parameter = new CommandParameter;
-        $parameter->paramName = "subcommand";
-        $parameter->paramType = $pk::ARG_TYPE_STRING;
-        $parameter->isOptional = true;
-
-        $data->overloads[0][0] = $parameter;
-
-        $pk->commandData[$this->getName()] = $data;
-        $player->dataPacket($pk);
-    }
 
     /**
      * @return Server
      */
-    public function getServer():Server {
+    public function getServer(): Server {
         return Server::getInstance();
     }
 

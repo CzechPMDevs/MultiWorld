@@ -22,24 +22,24 @@ declare(strict_types=1);
 
 namespace multiworld;
 
+use multiworld\command\GameruleCommand;
 use multiworld\command\MultiWorldCommand;
 use multiworld\generator\ender\EnderGenerator;
+use multiworld\generator\nether\NetherGenerator;
 use multiworld\generator\skyblock\SkyBlockGenerator;
 use multiworld\generator\void\VoidGenerator;
 use multiworld\util\ConfigManager;
 use multiworld\util\LanguageManager;
-use pocketmine\level\generator\Generator;
+use pocketmine\command\Command;
 use pocketmine\level\generator\GeneratorManager;
 use pocketmine\plugin\PluginBase;
+use pocketmine\plugin\PluginException;
 
 /**
  * Class MultiWorld
  * @package multiworld
  */
 class MultiWorld extends PluginBase {
-
-    /** @var string EOL */
-    public const EOL = "\n";
 
     /** @var  MultiWorld $instance */
     private static $instance;
@@ -50,40 +50,47 @@ class MultiWorld extends PluginBase {
     /** @var ConfigManager $configManager */
     public $configManager;
 
+    /** @var Command[] $commands */
+    public $commands = [];
+
+
+    /**
+     * @throws PluginException
+     */
     public function onEnable() {
         $start = (bool) !(self::$instance instanceof $this);
         self::$instance = $this;
 
         if($start) {
-            if(!class_exists(GeneratorManager::class)) {
-                Generator::addGenerator(EnderGenerator::class, "ender");
-                Generator::addGenerator(VoidGenerator::class, "void");
-                Generator::addGenerator(SkyBlockGenerator::class, "skyblock");
+            if($this->getServer()->getName() !== "PocketMine-MP") {
+                throw new PluginException("Could not load MultiWorld because {$this->getServer()->getName()} spoon is not supported. If you want to use MultiWorld, run server on PocketMine (pmmp.io) instead of {$this->getServer()->getName()}");
             }
-            else {
-                GeneratorManager::addGenerator(EnderGenerator::class, "ender");
-                GeneratorManager::addGenerator(VoidGenerator::class, "void");
-                GeneratorManager::addGenerator(SkyBlockGenerator::class, "skyblock");
+
+            $generators = [
+                "ender" => EnderGenerator::class,
+                "void" => VoidGenerator::class,
+                "skyblock" => SkyBlockGenerator::class,
+                "nether" => NetherGenerator::class
+            ];
+
+            foreach ($generators as $name => $class) {
+                GeneratorManager::addGenerator($class, $name, true);
             }
         }
-        
-
-        $this->getServer()->getCommandMap()->register("MultiWorld", new MultiWorldCommand);
 
         $this->configManager = new ConfigManager($this);
         $this->languageManager = new LanguageManager($this);
 
-        if($this->isEnabled()) {
-            $phar = null;
-            $this->isPhar() ? $phar = "Phar" : $phar = "src";
-            if(!in_array(LanguageManager::getLang(), ["Czech", "English", "Japanese"])) {
-                $this->getLogger()->notice("Language ".LanguageManager::getLang(). " is not 100% supported. You can fix it on https://github.com/MultiWorld/pulls");
-            }
-        }
-        else {
-            $this->getLogger()->critical("Submit issue to https://github.com/CzechPMDevs/MultiWorld/issues");
+        $this->commands = [
+            "multiworld" => $cmd = new MultiWorldCommand(),
+            "gamerule" => new GameruleCommand()
+        ];
+
+        foreach ($this->commands as $command) {
+            $this->getServer()->getCommandMap()->register("MultiWorld", $command);
         }
 
+        $this->getServer()->getPluginManager()->registerEvents(new EventListener($this, $cmd), $this);
     }
 
     /**

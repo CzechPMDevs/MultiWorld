@@ -22,21 +22,16 @@ declare(strict_types=1);
 
 namespace multiworld\command\subcommand;
 
-use multiworld\command\MultiWorldCommand;
 use multiworld\MultiWorld;
 use multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
+use pocketmine\Server;
 
 /**
  * Class LoadSubcommand
  * @package multiworld\command\subcommand
  */
-class LoadSubcommand extends MultiWorldCommand implements SubCommand {
-
-    /**
-     * LoadSubcommand constructor.
-     */
-    public function __construct() {}
+class LoadSubcommand implements SubCommand {
 
     /**
      * @param CommandSender $sender
@@ -46,22 +41,29 @@ class LoadSubcommand extends MultiWorldCommand implements SubCommand {
      */
     public function executeSub(CommandSender $sender, array $args, string $name) {
         if (empty($args[0])) {
-            $sender->sendMessage(LanguageManager::translateMessage("load-usage"));
+            $sender->sendMessage(LanguageManager::getMsg($sender, "load-usage"));
             return;
         }
 
         if(!$this->getServer()->isLevelGenerated($args[0])) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("load-levelnotexists"));
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "load-levelnotexists", [$args[0]]));
             return;
         }
 
         if($this->getServer()->isLevelLoaded($args[0])) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("load-loaded"));
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "load-loaded"));
             return;
         }
 
         $this->getServer()->loadLevel($args[0]);
-        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage("load-done"));
+        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "load-done"));
         return;
+    }
+
+    /**
+     * @return Server $server
+     */
+    private function getServer(): Server {
+        return Server::getInstance();
     }
 }
