@@ -7,59 +7,59 @@ not-perms: '§cYou do not have permission to use this command'
 default-usage: '§cUsage: §7/mw help'
 
 # Help Command:
-help: '§2--- §fMultilevel Help page ({%0}/{%1}) §2---'
+help: '§2--- §fMultiWorld Help page ({%0}/{%1}) §2---'
 help-1: '§2/mw create §fGenerate level'
 help-2: '§2/mw teleport §fTeleport to level'
 help-3: '§2/mw list §f Displays a list of all levels'
 help-4: '§2/mw <load|unload> §fLoad or unload a level'
 help-5: '§2/mw update §fUpdate lobby, spawn or default level'
 
-help-6: '§2/mw delete §fRemove level'
-help-7: '§2/mw info §fList information about level'
+help-6: '§2/mw delete §fRemove a world'
+help-7: '§2/mw info §fDisplays information about level'
 help-8: '§2/mw gamerule §fManage a level's gamerules'
 
 # Create Command:
 create-usage: '§cUsage: §7/mw create <name> [seed] [generator]'
 create-gennotexists: '§cGenerator {%0} not found.'
 create-generating: '§aGenerating level {%0}'
-create-done: 'level {%0} was generated using seed: {%1} and generator: {%2}.'
+create-done: 'Level {%0} was generated using seed: {%1} and generator: {%2}.'
 
 # Teleport Command:
 teleport-usage: '§cUsage: §7/mw teleport <level> [player]'
-teleport-levellevel: '§clevel {%0} has not been created yet. Try /mw create to create a level.'
+teleport-levelnotexists: '§cLevel {%0} has not been generated yet. Try /mw create to create a level.'
 teleport-load: 'Loading level {%0}...'
-teleport-done-1: '§aYou were teleported to level {%0}.'
-teleport-done-2: '§aPlayer {%1} was teleported to level {%0}.'
-teleport-playerlevel: '§cPlayer {%0} does not exist.'
+teleport-done-1: '§aYou were teleported to {%0}.'
+teleport-done-2: '§aPlayer {%1} was teleported to {%0}.'
+teleport-playernotexists: '§cPlayer {%0} does not exist.'
 
 # List Command:
-list-done: '§alevels ({%0}):'
+list-done: '§aLevels ({%0}):'
 
 # Load Command:
 load-usage: '§cUsage: §7/mw load <level>'
-load-levellevel: '§clevel {%0} does not exist.'
+load-levelnotexists: '§cLevel {%0} does not exist.'
 load-loaded: '§cUnable to load the level.'
-load-done: '§alevel loaded.'
+load-done: '§aLevel loaded.'
 
 # Unload Command:
 unload-usage: '§cUsage: §7/mw unload <level>'
-unload-levellevel: '§clevel {%0} does not exist.'
+unload-levelnotexists: '§cLevel {%0} does not exist.'
 unload-unloaded: '§cUnable to unload the level.'
-unload-done: '§alevel unloaded.'
+unload-done: '§aLevel unloaded.'
 
 # Delete Command:
 delete-usage: '§cUsage: §7/mw delete <level>'
-delete-levellevel: '§clevel {%0} does not exist.'
-delete-done: '§alevel deleted. ({%0} files removed.)'
+delete-levelnotexists: '§cLevel {%0} does not exist.'
+delete-done: '§aLevel deleted. ({%0} files removed.)'
 
 # Update Command:
 update-usage: '§cUsage: §7/mw update <mod: spawn|lobby|default> [options: (level) (x) (y) (z)]'
-update-levellevel: '§clevel {%0} does not exist.'
+update-levelnotexists: '§cLevel {%0} does not exist.'
 update-spawn-done: '§aSpawn in level {%0} was changed.'
 update-lobby-done: '§aLobby in level {%0} was changed.'
 update-default-usage: '§cUsage: §7/mw update default <level>'
 update-default-done: '§aDefault level was changed to {%0}.'
-update-notsupported: '§cPlease run this command in-game.'
+update-notsupported: '§cPlease run this command in-game'
 
 # Info Command:
 info: '§a--- {%0} ---'
@@ -73,7 +73,7 @@ info-time: '§7Time: {%0}'
 # Gamerule Command:
 gamerule.usage: '§cUsage: §7/mw gamerule <list|gamerule> [true|false] [level]'
 gamerule.list: '§aEditable GameRules: {%0}'
-gamerule.levellevel: '§clevel {%0} not found.'
-gamerule.level: '§cGame rule {%0} does not exist.'
+gamerule.levelnotfound: '§cLevel {%0} not found.'
+gamerule.notexists: '§cGame rule {%0} does not exist.'
 gamerule.done: '§aGame rule {%0} in level {%1} was changed to {%2}.'
 ...
