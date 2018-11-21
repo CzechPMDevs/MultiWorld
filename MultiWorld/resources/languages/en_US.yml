@@ -16,7 +16,7 @@ help-5: '§2/mw update §fUpdate lobby, spawn or default level'
 
 help-6: '§2/mw delete §fRemove a world'
 help-7: '§2/mw info §fDisplays information about level'
-help-8: '§2/mw gamerule §fManage a level's gamerules'
+help-8: '§2/mw gamerule §fManage a levels gamerules'
 
 # Create Command:
 create-usage: '§cUsage: §7/mw create <name> [seed] [generator]'
