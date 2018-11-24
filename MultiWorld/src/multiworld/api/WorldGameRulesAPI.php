@@ -24,6 +24,7 @@ namespace multiworld\api;
 
 use pocketmine\level\format\io\BaseLevelProvider;
 use pocketmine\level\Level;
+use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\network\mcpe\protocol\GameRulesChangedPacket;
 use pocketmine\Player;
 
@@ -47,6 +48,15 @@ class WorldGameRulesAPI {
         }
 
         $compound = $levelProvider->getLevelData()->getCompoundTag("GameRules");
+
+        if(!$compound instanceof CompoundTag) {
+            $levelProvider->getLevelData()->setTag(new CompoundTag("GameRules", []));
+            $rules = $levelProvider->getLevelData()->getCompoundTag("GameRules");
+            foreach (self::getDefaultGameRules() as $rule => [$type, $value]) {
+                $rules->offsetSet($rule, $value);
+            }
+        }
+
         $gameRules = [];
 
         foreach (self::getAllGameRules() as $rule) {
