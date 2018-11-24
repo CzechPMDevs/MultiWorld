@@ -60,8 +60,29 @@ class NetherGenerator extends Generator {
     /** @var Simplex $noiseBase */
     private $noiseBase;
 
-    public function __construct(array $options = []){
+    /** @var array $options */
+    protected $options = [];
 
+    /**
+     * NetherGenerator constructor.
+     *
+     * @param ChunkManager $level
+     * @param int $seed
+     * @param array $settings
+     */
+    public function __construct(ChunkManager $level, int $seed, array $settings = []){
+        parent::__construct($level, $seed, $settings);
+
+        $this->noiseBase = new Simplex($this->random, 4, 1 / 4, 1 / 64);
+
+        require "populator\Ore.php";
+        $ores = new Ore();
+        $ores->setOreTypes([
+            new OreType(new NetherQuartzOre(), 50, 14, 0, 128)
+        ]);
+
+        $this->populators[] = $ores;
+        $this->populators[] = new GlowstoneSphere();
     }
 
     /**
@@ -83,17 +104,8 @@ class NetherGenerator extends Generator {
      * @param Random $random
      */
     public function init(ChunkManager $level, Random $random) : void{
-        parent::init($level, $random);
-        $this->random->setSeed($this->level->getSeed());
-        $this->noiseBase = new Simplex($this->random, 4, 1 / 4, 1 / 64);
-        $this->random->setSeed($this->level->getSeed());
 
-        $ores = new Ore();
-        $ores->setOreTypes([
-            new OreType(new NetherQuartzOre(), 50, 14, 0, 128)
-        ]);
-        $this->populators[] = $ores;
-        $this->populators[] = new GlowstoneSphere();
+
     }
 
     /**
@@ -101,7 +113,7 @@ class NetherGenerator extends Generator {
      * @param int $chunkZ
      */
     public function generateChunk(int $chunkX, int $chunkZ) : void{
-        $this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
+        $this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->seed);
 
         $noise = $this->noiseBase->getFastNoise3D(16, 128, 16, 4, 8, 4, $chunkX * 16, 0, $chunkZ * 16);
         $chunk = $this->level->getChunk($chunkX, $chunkZ);
@@ -139,7 +151,7 @@ class NetherGenerator extends Generator {
      * @param int $chunkZ
      */
     public function populateChunk(int $chunkX, int $chunkZ) : void{
-        $this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
+        $this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->seed);
         foreach($this->populators as $populator){
             $populator->populate($this->level, $chunkX, $chunkZ, $this->random);
         }

@@ -60,7 +60,7 @@ class EnderPilar extends Populator {
      * @param Random $random
      * @return void
      */
-    public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random) {
+    public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random): void {
         if (mt_rand(0, 100) < 10) {
             $this->level = $level;
             $amount = $random->nextRange(0, $this->randomAmount + 1) + $this->baseAmount;

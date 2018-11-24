@@ -44,7 +44,7 @@ class GlowstoneSphere extends Populator {
      *
      * @return mixed|void
      */
-    public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random) {
+    public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random): void {
         $chunk = $level->getChunk($chunkX, $chunkZ);
         if($random->nextRange(0, 10) !== 0) return;
 

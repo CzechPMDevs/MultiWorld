@@ -48,7 +48,7 @@ class Island extends Populator {
      *
      * @return mixed|void
      */
-    public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random) {
+    public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random): void {
         $center = new Vector3(256, 68, 256);
 
         for($x = -1; $x <= 1; $x++) {

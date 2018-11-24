@@ -2,7 +2,7 @@
 ## Main configuration file for MultiWorld
 
 # Do not change this!
-config-version: '1.5.0'
+config-version: '1.5'
 
 ## Supported languages (English (en_US), Czech (cs_CZ), German (de_DE), Japanese (ja_JP), Russian (ru_RU))
 # You can add your language by creating PullRequest at github (github.com/CzechPMDevs/MultiWorld/pulls)

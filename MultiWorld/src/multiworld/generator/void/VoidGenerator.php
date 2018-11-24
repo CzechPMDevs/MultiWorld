@@ -34,16 +34,6 @@ use pocketmine\utils\Random;
  */
 class VoidGenerator extends Generator {
 
-    /** @var ChunkManager $level */
-    protected $level;
-
-    /** @var Random $random */
-    protected $random;
-
-    /** @var array $options */
-    private $options;
-
-
     /**
      * @return array
      */
@@ -61,21 +51,12 @@ class VoidGenerator extends Generator {
     /**
      * VoidGenerator constructor.
      *
+     * @param ChunkManager $level
+     * @param int $seed
      * @param array $settings
      */
-    public function __construct(array $settings = []){
-        $this->options = $settings;
-    }
-
-    /**
-     * @param ChunkManager $level
-     * @param Random       $random
-     *
-     * @return mixed|void
-     */
-    public function init(ChunkManager $level, Random $random): void {
-        $this->level = $level;
-        $this->random = $random;
+    public function __construct(ChunkManager $level, int $seed, array $settings = []){
+        parent::__construct($level, $seed, $settings);
     }
 
     /**
