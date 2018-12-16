@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace multiworld;
+namespace czechpmdevs\multiworld;
 
 use czechpmdevs\multiworld\command\GameruleCommand;
 use czechpmdevs\multiworld\command\MultiWorldCommand;

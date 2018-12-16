@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\util;
 
-use MultiWorld\MultiWorld;
+use czechpmdevs\multiworld\MultiWorld;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
 
