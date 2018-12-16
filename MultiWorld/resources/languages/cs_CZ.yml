@@ -7,7 +7,7 @@ not-perms: '§cNemáš povolení použít tento příkaz!'
 default-usage: '§cPoužij: §7/mw help'
 
 # Help Command:
-help: '§2--- §fMultiWorld help page ({%0}/{%1}) §2---'
+help: '§2--- Zobrazuji MultiWorld pomocnou stránku {%0} z {%1} (/mw help <page>) ---'
 help-1: '§2/mw create §fVytvoří nový svět'
 help-2: '§2/mw teleport §fTeleportuje na svět'
 help-3: '§2/mw list §fZobrazí list všech světů'

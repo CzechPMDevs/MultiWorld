@@ -29,6 +29,7 @@ use czechpmdevs\multiworld\command\subcommand\HelpSubcommand;
 use czechpmdevs\multiworld\command\subcommand\InfoSubcommand;
 use czechpmdevs\multiworld\command\subcommand\ListSubcommand;
 use czechpmdevs\multiworld\command\subcommand\LoadSubcommand;
+use czechpmdevs\multiworld\command\subcommand\ManageSubcommand;
 use czechpmdevs\multiworld\command\subcommand\SubCommand;
 use czechpmdevs\multiworld\command\subcommand\TeleportSubcommand;
 use czechpmdevs\multiworld\command\subcommand\UnloadSubcommand;
@@ -58,7 +59,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
      * MultiWorldCommand constructor.
      */
     public function __construct() {
-        parent::__construct("czechpmdevs\multiworld", "MultiWorld commands", null, ["mw"]);
+        parent::__construct("multiworld", "MultiWorld commands", null, ["mw"]);
         $this->plugin = MultiWorld::getInstance();
         $this->registerSubcommands();
     }
@@ -74,6 +75,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
         $this->subcommands["update"] = new UpdateSubcommand;
         $this->subcommands["info"] = new InfoSubcommand;
         $this->subcommands["gamerule"] = new GameruleSubcommand;
+        $this->subcommands["manage"] = new ManageSubcommand;
     }
 
     /**
@@ -84,7 +86,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
      * @return mixed|void
      */
     public function execute(CommandSender $sender, string $commandLabel, array $args) {
-        if(empty($args[0])) {
+        if(!isset($args[0])) {
             if($sender->hasPermission("mw.cmd")) {
                 $sender->sendMessage(LanguageManager::getMsg($sender, "default-usage"));
                 return;
@@ -156,6 +158,10 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
             case "gamer":
             case "grule":
                 return "gamerule";
+            case "manage":
+            case "mng":
+            case "mg":
+                return "manage";
         }
         return null;
     }
@@ -167,7 +173,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
      */
     public function checkPerms(CommandSender $sender, string $command):bool {
         if($sender instanceof Player) {
-            if(!$sender->hasPermission("mw.cmd.{$command}")) {
+            if(!$sender->hasPermission("mw.cmd." . $this->getSubcommand($command))) {
                 $sender->sendMessage(LanguageManager::getMsg($sender, "not-perms"));
                 return false;
             } else {

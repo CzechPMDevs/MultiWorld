@@ -2,7 +2,7 @@ name: MultiWorld
 author: CzechPMDevs
 authors: [VixikCZ, fuyutsuki, kaliiks]
 api: 3.0.0
-version: 1.5.1
+version: 1.5.1-beta1
 main: czechpmdevs\multiworld\MultiWorld
 description: Plugin that manage with worlds
 website: https://github.com/CzechPMDevs/MultiWorld
@@ -41,4 +41,7 @@ permissions:
         default: op
       mw.cmd.gamerule:
         description: Permission for /mw gamerule
+        default: op
+      mw.cmd.manage:
+        description: Permission for /mw manage
         default: op

@@ -7,7 +7,7 @@ not-perms: '§cYou do not have permission to use this command'
 default-usage: '§cUsage: §7/mw help'
 
 # Help Command:
-help: '§2--- §fMultiWorld Help page ({%0}/{%1}) §2---'
+help: '§2--- Showing MultiWorld help page {%0} of {%1} (/mw help <page>) ---'
 help-1: '§2/mw create §fCreate a world'
 help-2: '§2/mw teleport §fTeleport to a world'
 help-3: '§2/mw list §f Displays a list of all worlds'

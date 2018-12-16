@@ -26,7 +26,7 @@ use czechpmdevs\multiworld\MultiWorld;
 
 /**
  * Class ConfigManager
- * @package czechpmdevs\multiworld\Util
+ * @package multiworld\Util
  */
 class ConfigManager {
 
@@ -55,9 +55,10 @@ class ConfigManager {
 
             $currentVersion = "1.5";
 
-            if(isset($data["config-version"])) {
-                $configVersion = $data["config-version"];
-            } else $configVersion = "1.4";
+            if(isset($data["config-version"])) $configVersion = $data["config-version"];
+            else $configVersion = "1.4";
+
+            if($data["config-version"] == "1.5.0") $data["config-version"] = "1.5";
 
             if($configVersion !== $currentVersion) {
                 $this->plugin->getLogger()->notice("Old config found, updating config...");
@@ -65,6 +66,11 @@ class ConfigManager {
                     @rename(self::getDataFolder() . "/config.yml", $old = self::getDataFolder() . "/config.{$configVersion}.yml");
                     $this->plugin->saveResource("/config.yml");
                     $this->plugin->getLogger()->notice("Config updated! Old config can be found at $old.");
+                }
+                else {
+                    @unlink(self::getDataFolder() . "/config.yml");
+                    $this->plugin->saveResource("/config.yml");
+                    $this->plugin->getLogger()->notice("Config updated!");
                 }
             }
         }

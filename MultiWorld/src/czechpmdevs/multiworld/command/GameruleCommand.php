@@ -52,7 +52,7 @@ class GameruleCommand extends Command implements PluginIdentifiableCommand {
     public function execute(CommandSender $sender, string $commandLabel, array $args) {
         if($sender->hasPermission("mw.cmd.gamerule")) {
             /** @var MultiWorldCommand $mwCmd */
-            $mwCmd = $this->getPlugin()->commands["czechpmdevs\multiworld"];
+            $mwCmd = $this->getPlugin()->commands["MultiWorld"];
             $mwCmd->subcommands["gamerule"]->executeSub($sender, $args, "gamerule");
         }
         else {

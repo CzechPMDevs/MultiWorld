@@ -29,6 +29,7 @@ use czechpmdevs\multiworld\generator\nether\NetherGenerator;
 use czechpmdevs\multiworld\generator\skyblock\SkyBlockGenerator;
 use czechpmdevs\multiworld\generator\void\VoidGenerator;
 use czechpmdevs\multiworld\util\ConfigManager;
+use czechpmdevs\multiworld\util\FormManager;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\Command;
 use pocketmine\level\generator\GeneratorManager;
@@ -49,6 +50,9 @@ class MultiWorld extends PluginBase {
 
     /** @var ConfigManager $configManager */
     public $configManager;
+
+    /** @var FormManager $formManager */
+    public $formManager;
 
     /** @var Command[] $commands */
     public $commands = [];
@@ -80,6 +84,7 @@ class MultiWorld extends PluginBase {
 
         $this->configManager = new ConfigManager($this);
         $this->languageManager = new LanguageManager($this);
+        $this->formManager = new FormManager($this);
 
         $this->commands = [
             "multiworld" => $cmd = new MultiWorldCommand(),
