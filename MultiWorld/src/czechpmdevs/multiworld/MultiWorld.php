@@ -22,14 +22,14 @@ declare(strict_types=1);
 
 namespace multiworld;
 
-use multiworld\command\GameruleCommand;
-use multiworld\command\MultiWorldCommand;
-use multiworld\generator\ender\EnderGenerator;
-use multiworld\generator\nether\NetherGenerator;
-use multiworld\generator\skyblock\SkyBlockGenerator;
-use multiworld\generator\void\VoidGenerator;
-use multiworld\util\ConfigManager;
-use multiworld\util\LanguageManager;
+use czechpmdevs\multiworld\command\GameruleCommand;
+use czechpmdevs\multiworld\command\MultiWorldCommand;
+use czechpmdevs\multiworld\generator\ender\EnderGenerator;
+use czechpmdevs\multiworld\generator\nether\NetherGenerator;
+use czechpmdevs\multiworld\generator\skyblock\SkyBlockGenerator;
+use czechpmdevs\multiworld\generator\void\VoidGenerator;
+use czechpmdevs\multiworld\util\ConfigManager;
+use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\Command;
 use pocketmine\level\generator\GeneratorManager;
 use pocketmine\plugin\PluginBase;

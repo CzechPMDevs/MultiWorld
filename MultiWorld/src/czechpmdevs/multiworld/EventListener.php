@@ -23,8 +23,8 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld;
 
 use czechpmdevs\multiworld\api\WorldGameRulesAPI;
-use multiworld\command\MultiWorldCommand;
-use multiworld\util\LanguageManager;
+use czechpmdevs\multiworld\command\MultiWorldCommand;
+use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\entity\Effect;
 use pocketmine\entity\Living;
 use pocketmine\event\block\BlockBreakEvent;
