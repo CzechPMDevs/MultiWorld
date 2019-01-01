@@ -13,6 +13,8 @@ use pocketmine\Player;
  */
 class CustomForm implements \pocketmine\form\Form {
 
+    public const FORM_CREATE = 1;
+
     /** @var array $data */
     public $data = [];
 

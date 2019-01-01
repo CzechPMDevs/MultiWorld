@@ -2,7 +2,7 @@
 
 /**
  * MultiWorld - PocketMine plugin that manages worlds.
- * Copyright (C) 2018  CzechPMDevs
+ * Copyright (C) 2018 - 2019  CzechPMDevs
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@ namespace czechpmdevs\multiworld\generator\nether;
 
 use czechpmdevs\multiworld\generator\nether\populator\GlowstoneSphere;
 use czechpmdevs\multiworld\generator\nether\populator\Ore;
+use czechpmdevs\multiworld\generator\nether\populator\SoulSand;
 use pocketmine\block\Block;
 use pocketmine\block\NetherQuartzOre;
 use pocketmine\level\biome\Biome;
@@ -38,6 +39,12 @@ use pocketmine\utils\Random;
 
 /**
  * Edited PocketMine-MP generator (https://github.com/pmmp/PocketMine-MP/blob/master/src/pocketmine/level/generator/hell/Nether.php) for MultiWorld
+ *
+ * Features:
+ *  - Glowstone populator
+ *  - Soulsand with netherwarts generator
+ *  - Quartz ore generator
+ *  - Nether base - TODO
  *
  * Class NetherGenerator
  * @package czechpmdevs\multiworld\generator\nether
@@ -94,6 +101,7 @@ class NetherGenerator extends Generator {
         ]);
         $this->populators[] = $ores;
         $this->populators[] = new GlowstoneSphere();
+        $this->populators[] = new SoulSand();
     }
 
     /**
@@ -115,6 +123,10 @@ class NetherGenerator extends Generator {
                 for($y = 0; $y < 128; ++$y){
                     if($y === 0 or $y === 127){
                         $chunk->setBlockId($x, $y, $z, Block::BEDROCK);
+                        continue;
+                    }
+                    if($y === 126) {
+                        $chunk->setBlockId($x, $y, $z, Block::NETHERRACK);
                         continue;
                     }
                     $noiseValue = (\abs($this->emptyHeight - $y) / $this->emptyHeight) * $this->emptyAmplitude - $noise[$x][$z][$y];

@@ -10,5 +10,5 @@ config-version: '1.5'
 lang: 'en_US'
 
 ## If you want to disable prefix, set prefix to ' '
-prefix: '§3[MultiWorld]'
+prefix: '§7[MultiWorld]'
 ...

@@ -2,7 +2,7 @@
 
 /**
  * MultiWorld - PocketMine plugin that manages worlds.
- * Copyright (C) 2018  CzechPMDevs
+ * Copyright (C) 2018 - 2019  CzechPMDevs
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@ class GameruleCommand extends Command implements PluginIdentifiableCommand {
     public function execute(CommandSender $sender, string $commandLabel, array $args) {
         if($sender->hasPermission("mw.cmd.gamerule")) {
             /** @var MultiWorldCommand $mwCmd */
-            $mwCmd = $this->getPlugin()->commands["MultiWorld"];
+            $mwCmd = $this->getPlugin()->commands["multiworld"];
             $mwCmd->subcommands["gamerule"]->executeSub($sender, $args, "gamerule");
         }
         else {

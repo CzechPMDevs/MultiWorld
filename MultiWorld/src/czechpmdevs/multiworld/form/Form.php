@@ -6,7 +6,6 @@ namespace czechpmdevs\multiworld\form;
 
 use czechpmdevs\multiworld\MultiWorld;
 use pocketmine\Player;
-use pocketmine\Server;
 
 /**
  * Class Form
@@ -14,11 +13,13 @@ use pocketmine\Server;
  */
 class Form implements \pocketmine\form\Form {
 
+    public const FORM_MENU = 0;
+
     /** @var array $formData */
     public $data = [];
 
-    /** @var mixed $responseData */
-    public $responseData;
+    /** @var int $mwId */
+    public $mwId;
 
     /**
      * Form constructor.
@@ -65,13 +66,6 @@ class Form implements \pocketmine\form\Form {
      * @return array
      */
     public function jsonSerialize() {
-        return $this->data;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getResponse() {
         return $this->data;
     }
 }

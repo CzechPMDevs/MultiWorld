@@ -2,7 +2,7 @@
 
 /**
  * MultiWorld - PocketMine plugin that manages worlds.
- * Copyright (C) 2018  CzechPMDevs
+ * Copyright (C) 2018 - 2019  CzechPMDevs
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ class DeleteSubcommand implements SubCommand {
      * @return mixed|void
      */
     public function executeSub(CommandSender $sender, array $args, string $name) {
-        if (empty($args[0])) {
+        if (!isset($args[0])) {
             $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "delete-usage"));
             return;
         }

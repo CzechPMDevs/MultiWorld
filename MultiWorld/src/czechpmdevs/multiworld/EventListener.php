@@ -2,7 +2,7 @@
 
 /**
  * MultiWorld - PocketMine plugin that manages worlds.
- * Copyright (C) 2018  CzechPMDevs
+ * Copyright (C) 2018 - 2019  CzechPMDevs
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,6 +41,7 @@ use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerRespawnEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\item\Item;
+use pocketmine\level\Level;
 use pocketmine\network\mcpe\protocol\ChangeDimensionPacket;
 use pocketmine\network\mcpe\protocol\LoginPacket;
 use pocketmine\Player;
@@ -190,9 +191,11 @@ class EventListener implements Listener {
 
         if(!$event instanceof EntityDamageByEntityEvent) return;
 
-        $levelGameRules = WorldGameRulesAPI::getLevelGameRules($entity->getLevel());
-        if(isset($levelGameRules["pvp"]) && !$levelGameRules["pvp"][1]) {
-            $event->setCancelled(true);
+        if($event->getEntity()->getLevel() instanceof Level) {
+            $levelGameRules = WorldGameRulesAPI::getLevelGameRules($entity->getLevel());
+            if(isset($levelGameRules["pvp"]) && !$levelGameRules["pvp"][1]) {
+                $event->setCancelled(true);
+            }
         }
     }
 

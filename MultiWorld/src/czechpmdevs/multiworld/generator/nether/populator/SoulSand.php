@@ -29,12 +29,12 @@ use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
 
 /**
- * Class GlowstoneSphere
+ * Class SoulSand
  * @package czechpmdevs\multiworld\generator\nether\populator
  */
-class GlowstoneSphere extends Populator {
+class SoulSand extends Populator {
 
-    public const SPHERE_RADIUS = 3;
+    public const MAX_Y = 40;
 
     /**
      * @param ChunkManager $level
@@ -46,24 +46,28 @@ class GlowstoneSphere extends Populator {
      */
     public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random) {
         $chunk = $level->getChunk($chunkX, $chunkZ);
-        if($random->nextRange(0, 10) !== 0) return;
+        if($random->nextRange(0, 6) !== 0) return;
 
         $x = $random->nextRange($chunkX << 4 , ($chunkX << 4) + 15);
         $z = $random->nextRange($chunkZ << 4, ($chunkZ << 4) + 15);
 
         $sphereY = 0;
 
-        for($y = 0; $y < 127; $y++) {
+        for($y = 45; $y > 0; $y--) {
             if($level->getBlockIdAt($x, $y, $z) == 0) {
                 $sphereY = $y;
             }
         }
 
-        if($sphereY < 80) {
+        if($sphereY-3 < 2) {
             return;
         }
 
-        $this->placeGlowstoneSphere($level, $random, new Vector3($x, $sphereY - $random->nextRange(2, 4), $z));
+        if($level->getBlockIdAt($x, $sphereY-3, $z) != Block::NETHERRACK) {
+            return;
+        }
+
+        $this->placeSoulsandSphere($level, $random, new Vector3($x, $sphereY - $random->nextRange(2, 4), $z));
     }
 
     /**
@@ -71,30 +75,27 @@ class GlowstoneSphere extends Populator {
      * @param Random $random
      * @param Vector3 $position
      */
-    public function placeGlowstoneSphere(ChunkManager $level, Random $random, Vector3 $position) {
-        for($x = $position->getX() - $this->getRandomRadius($random); $x < $position->getX() + $this->getRandomRadius($random); $x++) {
+    public function placeSoulsandSphere(ChunkManager $level, Random $random, Vector3 $position) {
+        $radiusX = $random->nextRange(8, 15);
+        $radiusZ = $random->nextRange(8, 15);
+        $radiusY = $random->nextRange(5, 8);
+        for($x = $position->getX() - $radiusX; $x < $position->getX() + $radiusX; $x++) {
             $xsqr = ($position->getX()-$x) * ($position->getX()-$x);
-            for($y = $position->getY() - $this->getRandomRadius($random); $y < $position->getY() + $this->getRandomRadius($random); $y++) {
+            for($y = $position->getY() - $radiusY; $y < $position->getY() + $radiusY; $y++) {
                 $ysqr = ($position->getY()-$y) * ($position->getY()-$y);
-                for($z = $position->getZ() - $this->getRandomRadius($random); $z < $position->getZ() + $this->getRandomRadius($random); $z++) {
+                for($z = $position->getZ() - $radiusZ; $z < $position->getZ() + $radiusZ; $z++) {
                     $zsqr = ($position->getZ()-$z) * ($position->getZ()-$z);
-                    if(($xsqr + $ysqr + $zsqr) < (pow(2, $this->getRandomRadius($random)))) {
-                        if($random->nextRange(0, 4) !== 0) {
-                            $level->setBlockIdAt($x, $y, $z, Block::GLOWSTONE);
+                    if(($xsqr + $ysqr + $zsqr) < (pow(2, $random->nextRange(3, 6)))) {
+                        if($level->getBlockIdAt($x, $y, $z) == Block::NETHERRACK) {
+                            $level->setBlockIdAt($x, $y, $z, Block::SOUL_SAND);
+                            if($random->nextRange(0, 3) == 3 && $level->getBlockIdAt($x, $y+1, $z) == Block::AIR) {
+                                $level->setBlockIdAt($x, $y+1, $z, Block::NETHER_WART_PLANT);
+                            }
                         }
                     }
                 }
             }
         }
-    }
-
-    /**
-     * @param Random $random
-     *
-     * @return int
-     */
-    public function getRandomRadius(Random $random): int {
-        return $random->nextRange(self::SPHERE_RADIUS, self::SPHERE_RADIUS+2);
     }
 
 }

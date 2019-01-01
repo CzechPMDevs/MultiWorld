@@ -2,7 +2,7 @@
 
 /**
  * MultiWorld - PocketMine plugin that manages worlds.
- * Copyright (C) 2018  CzechPMDevs
+ * Copyright (C) 2018 - 2019  CzechPMDevs
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -106,7 +106,7 @@ class ConfigManager {
         }
 
         // load prefix
-        self::$prefix = MultiWorld::getInstance()->getConfig()->get("prefix")." §7";
+        self::$prefix = MultiWorld::getInstance()->getConfig()->get("prefix")." §a";
     }
 
     /**

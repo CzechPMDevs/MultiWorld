@@ -2,7 +2,7 @@
 
 /**
  * MultiWorld - PocketMine plugin that manages worlds.
- * Copyright (C) 2018  CzechPMDevs
+ * Copyright (C) 2018 - 2019  CzechPMDevs
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,45 +41,50 @@ class TeleportSubcommand implements SubCommand {
      * @return mixed|void
      */
     public function executeSub(CommandSender $sender, array $args, string $name) {
-        if(!isset($args[0])) {
-            LanguageManager::getMsg($sender, "teleport-usage");
-            return;
-        }
-
-        if(!$this->getServer()->isLevelGenerated($args[0])) {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "teleport-levelnotexists", [$args[0]]));
-            return;
-        }
-
-        if(!$this->getServer()->isLevelLoaded($args[0])) {
-            $this->getServer()->loadLevel($args[0]);
-        }
-
-        $level = $this->getServer()->getLevelByName($args[0]);
-
-        if(!isset($args[1])) {
-            if(!$sender instanceof Player) {
-                $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::getMsg($sender, "teleport-usage"));
+        try {
+            if(!isset($args[0])) {
+                LanguageManager::getMsg($sender, "teleport-usage");
                 return;
             }
 
-            $sender->teleport($level->getSafeSpawn());
-            $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::getMsg($sender, "teleport-done-1", [$level->getName()]));
+            if(!$this->getServer()->isLevelGenerated($args[0])) {
+                $sender->sendMessage(LanguageManager::getMsg($sender, "teleport-levelnotexists", [$args[0]]));
+                return;
+            }
+
+            if(!$this->getServer()->isLevelLoaded($args[0])) {
+                $this->getServer()->loadLevel($args[0]);
+            }
+
+            $level = $this->getServer()->getLevelByName($args[0]);
+
+            if(!isset($args[1])) {
+                if(!$sender instanceof Player) {
+                    $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::getMsg($sender, "teleport-usage"));
+                    return;
+                }
+
+                $sender->teleport($level->getSafeSpawn());
+                $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::getMsg($sender, "teleport-done-1", [$level->getName()]));
+                return;
+            }
+
+            $player = $this->getServer()->getPlayer($args[1]);
+
+            if((!$player instanceof Player) || !$player->isOnline()) {
+                $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::getMsg($sender, "teleport-playernotexists", [$player->getName()]));
+                return;
+            }
+
+            $player->teleport($level->getSafeSpawn());
+
+            $player->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "teleport-done-1", [$level->getName()]));
+            $sender->sendMessage(LanguageManager::getMsg($sender, "teleport-done-2", [$level->getName(), $player->getName()]));
             return;
         }
-
-        $player = $this->getServer()->getPlayer($args[1]);
-
-        if((!$player instanceof Player) || !$player->isOnline()) {
-            $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::getMsg($sender, "teleport-playernotexists", [$player->getName()]));
-            return;
+        catch (\Exception $exception) {
+            MultiWorld::getInstance()->getLogger()->error("An error occurred while teleporting player between worlds: " . $exception->getMessage() . " (at line: " . $exception->getLine() . " , file: ". $exception->getFile() .")");
         }
-
-        $player->teleport($level->getSafeSpawn());
-
-        $player->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "teleport-done-1", [$level->getName()]));
-        $sender->sendMessage(LanguageManager::getMsg($sender, "teleport-done-2", [$level->getName(), $player->getName()]));
-        return;
     }
 
     /**

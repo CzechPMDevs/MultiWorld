@@ -21,6 +21,7 @@ class ManageSubcommand implements SubCommand {
         }
 
         $form = new Form("World Manager", "Select action");
+        $form->mwId = 0;
         $form->addButton("Create world");
         $form->addButton("Delete world");
         $form->addButton("Load or unload world");

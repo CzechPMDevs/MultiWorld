@@ -2,7 +2,7 @@
 
 /**
  * MultiWorld - PocketMine plugin that manages worlds.
- * Copyright (C) 2018  CzechPMDevs
+ * Copyright (C) 2018 - 2019  CzechPMDevs
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -64,21 +64,25 @@ class LanguageManager {
      * @return string $message
      */
     public static function getMsg(CommandSender $sender, string $msg, array $params = []): string {
-        $lang = self::$defaultLang;
-        if($sender instanceof Player && isset(self::$players[$sender->getName()])) {
-            $lang = self::$players[$sender->getName()];
-        }
-
-        if(empty(self::$languages[$lang])) {
+        try {
             $lang = self::$defaultLang;
+            if($sender instanceof Player && isset(self::$players[$sender->getName()])) {
+                $lang = self::$players[$sender->getName()];
+            }
+
+            if(empty(self::$languages[$lang])) {
+                $lang = self::$defaultLang;
+            }
+
+            $message = self::$languages[$lang][$msg];
+
+            foreach ($params as $index => $param) {
+                $message = str_replace("{%$index}", $param, $message);
+            }
         }
-
-        $message = self::$languages[$lang][$msg];
-
-        foreach ($params as $index => $param) {
-            $message = str_replace("{%$index}", $param, $message);
+        catch (\Exception $exception) {
+            return "";
         }
-
         return $message;
     }
 }

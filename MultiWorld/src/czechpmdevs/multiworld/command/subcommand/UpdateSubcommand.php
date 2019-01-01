@@ -2,7 +2,7 @@
 
 /**
  * MultiWorld - PocketMine plugin that manages worlds.
- * Copyright (C) 2018  CzechPMDevs
+ * Copyright (C) 2018 - 2019  CzechPMDevs
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,14 +44,14 @@ class UpdateSubcommand implements SubCommand {
      * @return mixed|void
      */
     public function executeSub(CommandSender $sender, array $args, string $name) {
-        if(empty($args[0])) {
+        if(!isset($args[0])) {
             $sender->sendMessage(LanguageManager::getMsg($sender, "update-usage"));
             return;
         }
 
         switch (strtolower($args[0])) {
             case "spawn":
-                if(empty($args[1]) && ($sender instanceof Player)) {
+                if(!isset($args[1]) && ($sender instanceof Player)) {
                     $this->setSpawn($sender->getLevel(), $sender->asVector3());
                     $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "update-spawn-done", $sender->getLevel()->getName()));
                     break;
@@ -81,7 +81,7 @@ class UpdateSubcommand implements SubCommand {
                 break;
             case "default":
             case "defaultlevel":
-                if(empty($args[1])) {
+                if(!isset($args[1])) {
                     $sender->sendMessage(LanguageManager::getMsg($sender, "update-usage"));
                     break;
                 }
