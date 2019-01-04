@@ -37,7 +37,7 @@ list-done: '§aWorlds ({%0}):'
 
 # Load Command:
 load-usage: '§cUsage: §7/mw load <world>'
-load-levelnotexists: '§cWorld {%0} does not exist.'
+load-notexists: '§cWorld {%0} does not exist.'
 load-loaded: '§cUnable to load the world.'
 load-done: '§aWorld loaded.'
 
