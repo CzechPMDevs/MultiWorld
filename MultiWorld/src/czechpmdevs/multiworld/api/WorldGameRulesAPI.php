@@ -189,7 +189,7 @@ class WorldGameRulesAPI {
                 case "doDaylightCycle":
                     $level->setTime(0);
                     $level->stopTime = !$value;
-                    continue;
+                    break;
             }
         }
     }
