@@ -2,19 +2,19 @@
 
 <p align="center">
 	<a href="https://poggit.pmmp.io/p/MultiWorld">
-		<img src="https://poggit.pmmp.io/shield.state/MultiWorld">
+		<img src="https://poggit.pmmp.io/shield.state/MultiWorld?style=flat-square">
 	</a>
 	<a href="https://poggit.pmmp.io/p/MultiWorld">
-		<img src="https://poggit.pmmp.io/shield.api/MultiWorld">
+		<img src="https://poggit.pmmp.io/shield.api/MultiWorld?style=flat-square">
 	</a> 
 	<a href="https://poggit.pmmp.io/p/MultiWorld">
-		<img src="https://poggit.pmmp.io/shield.dl.total/MultiWorld">
+		<img src="https://poggit.pmmp.io/shield.dl.total/MultiWorld?style=flat-square">
 	</a> 
 	<a href="https://poggit.pmmp.io/p/MultiWorld">
-		<img src="https://poggit.pmmp.io/shield.dl/MultiWorld">
+		<img src="https://poggit.pmmp.io/shield.dl/MultiWorld?style=flat-square">
 	</a> 
 	<a href="https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld">
-		<img src="https://poggit.pmmp.io/ci.shield/CzechPMDevs/MultiWorld/MultiWorld">
+		<img src="https://poggit.pmmp.io/ci.shield/CzechPMDevs/MultiWorld/MultiWorld?style=flat-square">
 	</a>
 <br><br>
     ✔️ Simple world management commands
