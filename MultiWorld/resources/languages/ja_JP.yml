@@ -77,4 +77,7 @@ gamerule.list: '§a変更可能なゲームルール: {%0}'
 gamerule.levelnotfound: '§cワールド {%0} は存在しません'
 gamerule.notexists: '§cゲームルール {%0} は存在しません'
 gamerule.done: '§aワールド {%1} のゲームルール {%0} を {%2} に変更しました'
+
+# Forms
+forms.invalid: '§cInvalid result.'
 ...

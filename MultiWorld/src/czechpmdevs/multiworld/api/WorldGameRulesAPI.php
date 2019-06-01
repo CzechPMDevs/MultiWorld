@@ -53,7 +53,13 @@ class WorldGameRulesAPI {
             $levelProvider->getLevelData()->setTag(new CompoundTag("GameRules", []));
             $rules = $levelProvider->getLevelData()->getCompoundTag("GameRules");
             foreach (self::getDefaultGameRules() as $rule => [$type, $value]) {
-                $rules->offsetSet($rule, $value);
+                $rules->setString($rule, self::getStringFromValue($value));
+            }
+        }
+
+        if($compound->count() == 0) { // pmmp now generates worlds with empty gamerules :O
+            foreach (self::getDefaultGameRules() as $rule => [$type, $value]) {
+                $compound->setString($rule, self::getStringFromValue($value));
             }
         }
 

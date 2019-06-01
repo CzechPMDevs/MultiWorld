@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\form;
 
 use czechpmdevs\multiworld\MultiWorld;
+use pocketmine\form\Form;
 use pocketmine\Player;
 
 /**
  * Class Form
  * @package czechpmdevs\multiworld\form
  */
-class Form implements \pocketmine\form\Form {
+class SimpleForm implements Form {
 
     public const FORM_MENU = 0;
 

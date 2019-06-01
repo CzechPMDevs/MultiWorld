@@ -77,4 +77,7 @@ gamerule.list: '§aVerfügbare gamerules: {%0}'
 gamerule.levelnotfound: '§cWelt {%0} nicht gefunden.'
 gamerule.notexists: '§cGame rule {%0} existiert nicht.'
 gamerule.done: '§aGame rule {%0} in Welt {%1} wurde geändert auf {%2}.'
+
+# Forms
+forms.invalid: '§cInvalid result.'
 ...

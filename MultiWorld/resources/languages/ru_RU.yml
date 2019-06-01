@@ -77,4 +77,7 @@ gamerule.list: '§aИзменяемые настройки мира: {%0}'
 gamerule.levelnotfound: '§cМир {%0} не найден.'
 gamerule.notexists: '§cНастройка {%0} не найдена.'
 gamerule.done: '§aНастройка {%0} в мире {%1} была изменена на {%2}.'
+
+# Forms
+forms.invalid: '§cInvalid result.'
 ...

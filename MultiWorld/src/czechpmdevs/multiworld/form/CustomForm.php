@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\form;
 
 use czechpmdevs\multiworld\MultiWorld;
+use pocketmine\form\Form;
 use pocketmine\Player;
 
 /**
  * Class CustomForm
  * @package czechpmdevs\multiworld\form
  */
-class CustomForm implements \pocketmine\form\Form {
+class CustomForm implements Form {
 
     public const FORM_CREATE = 1;
 
@@ -47,8 +48,13 @@ class CustomForm implements \pocketmine\form\Form {
 
     /**
      * @param string $text
+     * @param string|null $default
      */
-    public function addToggle(string $text) {
+    public function addToggle(string $text, ?bool $default = null) {
+        if($default!== null) {
+            $this->data["content"][] = ["type" => "toggle", "text" => $text, "default" => $default];
+            return;
+        }
         $this->data["content"][] = ["type" => "toggle", "text" => $text];
     }
 

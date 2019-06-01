@@ -45,7 +45,7 @@ class CreateSubcommand implements SubCommand {
             return;
         }
 
-        if(!MultiWorld::getInstance()->getServer()->isLevelGenerated($args[0])) {
+        if(MultiWorld::getInstance()->getServer()->isLevelGenerated($args[0])) {
             $sender->sendMessage(LanguageManager::getMsg($sender, "create-exists", [$args[0]]));
             return;
         }
