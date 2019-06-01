@@ -87,7 +87,7 @@ class GameruleSubcommand implements SubCommand {
             }
         }
 
-        if(!WorldManagementAPI::isLevelGenerated($args[2])) {
+        if(!WorldManagementAPI::isLevelGenerated($args[2]) || WorldManagementAPI::getLevel($args[1]) === null) {
             $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule.levelnotfound", [$args[1]]));
             return;
         }

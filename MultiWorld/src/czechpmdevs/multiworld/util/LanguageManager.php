@@ -74,6 +74,10 @@ class LanguageManager {
                 $lang = self::$defaultLang;
             }
 
+            if(empty(self::$languages[$lang])) {
+                $lang = "en_US";
+            }
+
             $message = self::$languages[$lang][$msg];
 
             foreach ($params as $index => $param) {

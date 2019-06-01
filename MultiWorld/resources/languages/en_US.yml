@@ -20,6 +20,7 @@ help-8: '§2/mw gamerule §fManage the gamerules of a level'
 
 # Create Command:
 create-usage: '§cUsage: §7/mw create <name> [seed] [generator]'
+create-exists: '§cLevel {%0} is already generated!'
 create-gennotexists: '§cGenerator {%0} not found.'
 create-generating: '§aGenerating world {%0}'
 create-done: 'worlds {%0} was generated using seed: {%1} and generator: {%2}.'
@@ -30,7 +31,7 @@ teleport-levelnotexists: '§cWorld {%0} has not been created yet. Try /mw create
 teleport-load: 'Loading world {%0}...'
 teleport-done-1: '§aYou were teleported to {%0}.'
 teleport-done-2: '§aPlayer {%1} was teleported to {%0}.'
-teleport-playernotexists: '§cPlayer {%0} does not exist.'
+teleport-playernotexists: '§cPlayer does not exist.'
 
 # List Command:
 list-done: '§aWorlds ({%0}):'

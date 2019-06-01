@@ -72,7 +72,7 @@ class TeleportSubcommand implements SubCommand {
             $player = $this->getServer()->getPlayer($args[1]);
 
             if((!$player instanceof Player) || !$player->isOnline()) {
-                $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::getMsg($sender, "teleport-playernotexists", [$player->getName()]));
+                $sender->sendMessage(MultiWorld::getPrefix().LanguageManager::getMsg($sender, "teleport-playernotexists"));
                 return;
             }
 

@@ -20,6 +20,7 @@ help-8: '§2/mw gamerule §fSpravuje pravidla světa'
 
 # Create Command:
 create-usage: '§cPoužij: §7/mw create <jméno> [seed] [generátor]'
+create-exists: '§cSvět {%0} je již vygenerovaný!'
 create-gennotexists: '§cGenerátor {%0} neexistuje! Nastavuji základní generátor...'
 create-generating: '§aGeneruji svět...'
 create-done: 'Svět {%0} je vytvořen se seedem: {%1} a generátorem: {%2}.'
@@ -30,7 +31,7 @@ teleport-levelnotexists: '§cSvět {%0} nebyl nalezen! Použij /mw create pro vy
 teleport-load: 'Načítám svět {%0}...'
 teleport-done-1: '§aByl jsi úspěšně teleportován do světa {%0}.'
 teleport-done-2: '§aHráč {%1} byl teleportován do světa {%0}!'
-teleport-playernotexists: '§cHráč {%0} nebyl nalezen!'
+teleport-playernotexists: '§cHráč nebyl nalezen!'
 
 # List Command:
 list-done: '§aSvěty ({%0}):'

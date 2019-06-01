@@ -20,6 +20,7 @@ help-8: '§2/mw gamerule §fワールドのゲームルールを変更'
 
 # Create Command:
 create-usage: '§c使用方法: §7/mw create <ワールド名> [シード値] [ジェネレータ名]'
+create-exists: '§cLevel {%0} is already generated!'
 create-gennotexists: '§c%1 という名前のジェネレータは存在しません'
 create-generating: '§aワールド {%0} を生成中です'
 create-done: 'ワールド {%0} はシード値 {%1} , ジェネレータ名 {%2} によって生成されました'

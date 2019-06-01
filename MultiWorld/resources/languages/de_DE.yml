@@ -20,6 +20,7 @@ help-8: '§2/mw gamerule §fstelle den Weltgamemode ein'
 
 # Befehl erstellen:
 create-usage: '§cUsage: §7/mw create <name> [seed] [generator]'
+create-exists: '§cLevel {%0} is already generated!'
 create-gennotexists: 'Generator {%0} nicht gefunden. Abbruch'
 create-generating: '§aGeneriere Welt{%0}...'
 create-done: 'Level {%0} wird mit Samen erzeugt: {%1} und Generator: {%2}.'
@@ -30,7 +31,7 @@ teleport-levelnotexists: '§cWelt {%0} ist noch nicht erstellt! Versuche /mw cre
 teleport-load: 'Lade level {%0} ...'
 teleport-done-1: '§aDu wirst in die Welt {%0} teleportiert.'
 teleport-done-2: '§aSpieler {%1} wird in Welt {%0} teleportiert!'
-teleport-playernotexisten: '§cSpieler {%0} existiert nicht!'
+teleport-playernotexisten: '§cSpieler existiert nicht!'
 
 # Liste Befehl:
 list-done: '§aWelten ({%0}):'
