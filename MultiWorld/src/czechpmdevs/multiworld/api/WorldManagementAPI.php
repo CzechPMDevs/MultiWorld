@@ -150,6 +150,19 @@ class WorldManagementAPI {
     }
 
     /**
+     * @return string[] $levels
+     */
+    public static function getAllLevels(): array {
+        $levels = [];
+        foreach (glob(Server::getInstance()->getDataPath() . "/worlds/*") as $world) {
+            if(count(scandir($world)) >= 4) { // don't forget to .. & .
+                $levels[] = basename($world);
+            }
+        }
+        return $levels;
+    }
+
+    /**
      * @param string $path
      * @return int
      */

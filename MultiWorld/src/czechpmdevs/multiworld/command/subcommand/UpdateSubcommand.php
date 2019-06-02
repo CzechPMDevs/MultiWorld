@@ -53,7 +53,7 @@ class UpdateSubcommand implements SubCommand {
             case "spawn":
                 if(!isset($args[1]) && ($sender instanceof Player)) {
                     $this->setSpawn($sender->getLevel(), $sender->asVector3());
-                    $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "update-spawn-done", $sender->getLevel()->getName()));
+                    $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "update-spawn-done", [$sender->getLevel()->getName()]));
                     break;
                 }
 
@@ -77,7 +77,7 @@ class UpdateSubcommand implements SubCommand {
                     break;
                 }
                 $this->setLobby($sender->asPosition());
-                $sender->sendMessage(LanguageManager::getMsg($sender, "update-lobby-done"));
+                $sender->sendMessage(MultiWorld::getPrefix()  . LanguageManager::getMsg($sender, "update-lobby-done", [$sender->getLevel()->getFolderName()]));
                 break;
             case "default":
             case "defaultlevel":

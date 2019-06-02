@@ -66,10 +66,6 @@ class MultiWorld extends PluginBase {
         self::$instance = $this;
 
         if($start) {
-            if($this->getServer()->getName() !== "PocketMine-MP") {
-                throw new PluginException("Could not load MultiWorld because {$this->getServer()->getName()} spoon is not supported. If you want to use MultiWorld, run server on PocketMine (pmmp.io) instead of {$this->getServer()->getName()}");
-            }
-
             $generators = [
                 "ender" => EnderGenerator::class,
                 "void" => VoidGenerator::class,

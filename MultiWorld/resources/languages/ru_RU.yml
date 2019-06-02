@@ -17,6 +17,7 @@ help-5: '§2/mw update §fУстановить спавн, лобби или с�
 help-6: '§2/mw delete §fУдалить мир'
 help-7: '§2/mw info §fУзнать информацию о мире'
 help-8: '§2/mw gamerule §fНастроить мир'
+help-9: '§2/mw manage §fDisplays form for managing with worlds'
 
 # Create Command:
 create-usage: '§cИспользование: §7/mw create <имя> [сид] [генерация]'
@@ -63,6 +64,7 @@ update-default-usage: '§cИспользуйте: §7/mw update default <мир>
 update-notsupported: '§cИспользуйте комманду в игре!'
 
 # Info Command:
+info-levelnotexists: '§cМир {%0} не существует!'
 info: '§a--- {%0} ---' # needs translate | Sorry, I can`t :c
 info-name: '§7Название: {%0}'
 info-folderName: '§7Название папки: {%0}'

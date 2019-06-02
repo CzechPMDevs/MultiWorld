@@ -85,7 +85,7 @@ class LanguageManager {
             }
         }
         catch (\Exception $exception) {
-            MultiWorld::getInstance()->getLogger()->error("LanguageManager error: " . $exception->getMessage());
+            MultiWorld::getInstance()->getLogger()->error("LanguageManager error: " . $exception->getMessage() . " Try remove language resources and restart the server.");
             return "";
         }
         return $message;

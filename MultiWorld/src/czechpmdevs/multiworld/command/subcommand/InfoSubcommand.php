@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
+use czechpmdevs\multiworld\api\WorldManagementAPI;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
 use pocketmine\level\Level;
@@ -33,14 +34,36 @@ use pocketmine\Player;
  */
 class InfoSubcommand implements SubCommand {
 
+    /**
+     * @param CommandSender $sender
+     * @param array $args
+     * @param string $name
+     * @return mixed|void
+     */
     public function executeSub(CommandSender $sender, array $args, string $name) {
         if(!$sender instanceof Player) {
             $sender->sendMessage("§cThis command can be used only in-game!");
             return;
         }
+        if(isset($args[0])) {
+            if(!WorldManagementAPI::isLevelGenerated($args[0])) {
+                $sender->sendMessage(LanguageManager::getMsg($sender, "info.levelnotexists", [$args[0]]));
+                return;
+            }
+            if(!WorldManagementAPI::isLevelLoaded($args[0])) {
+                WorldManagementAPI::loadLevel($args[0]);
+            }
+            $sender->sendMessage($this->getInfoMsg($sender, WorldManagementAPI::getLevel($args[0])));
+            return;
+        }
         $sender->sendMessage($this->getInfoMsg($sender, $sender->getLevel()));
     }
 
+    /**
+     * @param CommandSender $sender
+     * @param Level $level
+     * @return string
+     */
     public function getInfoMsg(CommandSender $sender, Level $level): string {
         $name = $level->getName();
         $folderName = $level->getFolderName();

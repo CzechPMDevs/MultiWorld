@@ -17,6 +17,7 @@ help-5: '§2/mw update §fSetze als Spawn, Lobby oder Standard Welt'
 help-6: '§2/mw delete §fWelt vernichten'
 help-7: '§2/mw info §fZeigt die Weltdaten an'
 help-8: '§2/mw gamerule §fstelle den Weltgamemode ein'
+help-9: '§2/mw manage §fDisplays form for managing with worlds'
 
 # Befehl erstellen:
 create-usage: '§cUsage: §7/mw create <name> [seed] [generator]'
@@ -63,6 +64,7 @@ update-default-usage: '§cUsage: §7/mw update default <level>'
 update-notsupported: '§cDieser Befehl wird in der Konsole nicht unterstützt.'
 
 # Info Command:
+info-levelnotexists: '§cWelt {%0} existiert nicht!'
 info: '§a--- {%0} ---'
 info-name: '§7Name: {%0}'
 info-folderName: '§7Ordnername: {%0}'

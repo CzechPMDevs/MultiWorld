@@ -17,6 +17,7 @@ help-5: '§2/mw update §fNastaví spawn, lobby nebo základní svět'
 help-6: '§2/mw delete §fOdstraní svět'
 help-7: '§2/mw info §fZobrazí informace o světě'
 help-8: '§2/mw gamerule §fSpravuje pravidla světa'
+help-9: '§2/mw manage §fZapne správce světů'
 
 # Create Command:
 create-usage: '§cPoužij: §7/mw create <jméno> [seed] [generátor]'
@@ -63,6 +64,7 @@ update-default-done: '§aHlavní svět byl změněn.'
 update-notsupported: '§cTento příkaz není v konzoli podporován.'
 
 # Info Command:
+info-levelnotexists: 'Svět {%0} nebyl nalezen'
 info: '§a--- {%0} ---'
 info-name: '§7Název: {%0}'
 info-folderName: '§7Název složky: {%0}'

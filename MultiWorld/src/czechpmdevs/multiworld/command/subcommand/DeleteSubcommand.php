@@ -54,7 +54,7 @@ class DeleteSubcommand implements SubCommand {
 
         if(!$this->getServer()->isLevelLoaded($args[0])) $this->getServer()->loadLevel($args[0]);
 
-        if (!$this->getServer()->getDefaultLevel()->getFolderName() == $this->getServer()->getLevelByName($args[0])->getFolderName()) {
+        if ($this->getServer()->getDefaultLevel()->getFolderName() == $this->getServer()->getLevelByName($args[0])->getFolderName()) {
             $sender->sendMessage("§cCould not remove default level!");
             return;
         }

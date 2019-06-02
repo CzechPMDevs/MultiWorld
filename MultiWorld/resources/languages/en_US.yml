@@ -17,6 +17,7 @@ help-5: '§2/mw update §fUpdate lobby, spawn in a world or change the default w
 help-6: '§2/mw delete §fRemove a world'
 help-7: '§2/mw info §fDisplays information about a world'
 help-8: '§2/mw gamerule §fManage the gamerules of a level'
+help-9: '§2/mw manage §fDisplays form for managing with worlds'
 
 # Create Command:
 create-usage: '§cUsage: §7/mw create <name> [seed] [generator]'
@@ -63,6 +64,7 @@ update-default-done: '§aDefault world was changed to {%0}.'
 update-notsupported: '§4Please run this command in-game'
 
 # Info Command:
+info-levelnotexists: '§c{%0} does not exist.'
 info: '§a--- {%0} ---'
 info-name: '§7Name: {%0}'
 info-folderName: '§7Folder name: {%0}'

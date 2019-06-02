@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld;
 
 use czechpmdevs\multiworld\api\WorldGameRulesAPI;
+use czechpmdevs\multiworld\api\WorldManagementAPI;
 use czechpmdevs\multiworld\command\MultiWorldCommand;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\entity\Effect;
@@ -40,11 +41,13 @@ use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerRespawnEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
+use pocketmine\item\Bread;
 use pocketmine\item\Item;
 use pocketmine\level\Level;
 use pocketmine\network\mcpe\protocol\ChangeDimensionPacket;
 use pocketmine\network\mcpe\protocol\LoginPacket;
 use pocketmine\Player;
+use pocketmine\scheduler\Task;
 
 /**
  * Class EventListener
@@ -60,6 +63,9 @@ class EventListener implements Listener {
 
     /** @var Item[][][] $inventories */
     private $inventories = [];
+
+    /** @var array $deathLevels */
+    private $deathLevels = [];
 
     /**
      * EventListener constructor.
@@ -138,10 +144,31 @@ class EventListener implements Listener {
      */
     public function onPlayerDeath(PlayerDeathEvent $event) {
         $player = $event->getPlayer();
+
         $levelGameRules = WorldGameRulesAPI::getLevelGameRules($player->getLevel());
         if(isset($levelGameRules["keepInventory"]) && $levelGameRules["keepInventory"][1]) {
             $this->inventories[$player->getName()] = [$player->getInventory()->getContents(), $player->getArmorInventory()->getContents(), $player->getCursorInventory()->getContents()];
             $event->setDrops([]);
+        }
+
+        $getDimension = function ($generator): int {
+            switch ($generator) {
+                case "normal":
+                case "skyblock":
+                case "void":
+                    return 0;
+                case "nether":
+                    return 1;
+                case "ender":
+                    return 2;
+                default:
+                    return 0;
+            }
+        };
+
+        if($getDimension($player->getLevel()->getProvider()->getGenerator()) !== 0) {
+            $player->teleport($this->plugin->getServer()->getDefaultLevel()->getSafeSpawn());
+            return;
         }
     }
 
