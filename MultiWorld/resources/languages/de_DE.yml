@@ -18,6 +18,8 @@ help-6: '§2/mw delete §fWelt vernichten'
 help-7: '§2/mw info §fZeigt die Weltdaten an'
 help-8: '§2/mw gamerule §fstelle den Weltgamemode ein'
 help-9: '§2/mw manage §fDisplays form for managing with worlds'
+help-10: '§2/mw rename §fRenames the world'
+
 
 # Befehl erstellen:
 create-usage: '§cUsage: §7/mw create <name> [seed] [generator]'
@@ -74,12 +76,18 @@ info-seed: '§7Seed: {%0}'
 info-time: '§7Zeit: {%0}'
 
 # Gamerule Command:
-gamerule.usage: '§cHow-to: §7/mw gamerule <list|gamerule> [true|false] [level]'
-gamerule.list: '§aVerfügbare gamerules: {%0}'
-gamerule.levelnotfound: '§cWelt {%0} nicht gefunden.'
-gamerule.notexists: '§cGame rule {%0} existiert nicht.'
-gamerule.done: '§aGame rule {%0} in Welt {%1} wurde geändert auf {%2}.'
+gamerule-usage: '§cHow-to: §7/mw gamerule <list|gamerule> [true|false] [level]'
+gamerule-list: '§aVerfügbare gamerules: {%0}'
+gamerule-levelnotfound: '§cWelt {%0} nicht gefunden.'
+gamerule-notexists: '§cGame rule {%0} existiert nicht.'
+gamerule-done: '§aGame rule {%0} in Welt {%1} wurde geändert auf {%2}.'
+
+# Rename Command
+rename-usage: '§cUsage: §7/mw rename <from> <to>'
+rename-exists: '§cLevel with name {%0} already exists.'
+rename-levelnotfound: '§cLevel {%0} does not exists.'
+rename-done: '§aName of level {%0} was changed to {%1}.'
 
 # Forms
-forms.invalid: '§cInvalid result.'
+forms-invalid: '§cInvalid result.'
 ...

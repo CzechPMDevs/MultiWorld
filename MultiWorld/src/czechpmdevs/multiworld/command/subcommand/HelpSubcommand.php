@@ -77,6 +77,7 @@ class HelpSubcommand implements SubCommand {
                 $text .= "\n" . LanguageManager::getMsg($sender, "help-7");
                 $text .= "\n" . LanguageManager::getMsg($sender, "help-8");
                 $text .= "\n" . LanguageManager::getMsg($sender, "help-9");
+                $text .= "\n" . LanguageManager::getMsg($sender, "help-10");
                 break;
         }
         return $text;

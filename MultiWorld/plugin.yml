@@ -45,3 +45,6 @@ permissions:
       mw.cmd.manage:
         description: Permission for /mw manage
         default: op
+      mw.cmd.rename:
+        description: Permission for /mw rename
+        default: op

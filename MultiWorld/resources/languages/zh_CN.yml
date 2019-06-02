@@ -1,0 +1,92 @@
+---
+### 中文（简体）翻译由蛋黄酱（abc1460132901）制作 内容较为粗糙需要修改和更新。
+### Chinese language by abc1460132901
+## Commands:
+
+not-perms: '§c你没有使用这个命令的相应权限!'
+default-usage: '§c输入: §7/mw help'
+
+# Help Command:
+help: '§2--- §fMultiWorld 帮助页码 ({%0}/{%1}) §2---'
+help-1: '§2/mw create §f新建一个世界'
+help-2: '§2/mw teleport §f传送到指定世界'
+help-3: '§2/mw list §f 列出所有世界清单'
+help-4: '§2/mw <load|unload> §f加载 | 卸载 世界'
+help-5: '§2/mw update §f更新 lobby, spawn or default 世界'
+
+help-6: '§2/mw delete §f删除一个世界'
+help-7: '§2/mw info §fDisplays 关于世界的信息'
+help-8: '§2/mw gamerule §f管理世界的模式'
+help-9: '§2/mw manage §fDisplays form for managing with worlds'
+help-10: '§2/mw rename §fRenames the world'
+
+# Create Command:
+create-usage: '§c输入: §7/mw create <世界名> [种子] [生成器]'
+create-exists: '§cLevel {%0} is already generated!'
+create-gennotexists: '§c世界生成器 {%0} 不存在.'
+create-generating: '§a正在生成世界 {%0}'
+create-done: '世界 {%0} 被使用种子: {%1} 和相应世界生成器: {%2}.'
+
+# Teleport Command:
+teleport-usage: '§c输入: §7/mw teleport <世界名> [玩家ID]'
+teleport-levelnotexists: '§c这个世界 {%0} 不存在! 尝试 /mw create 命令来生成新的世界.'
+teleport-load: '正在加载世界 {%0}...'
+teleport-done-1: '§a你被传送到这个世界 {%0}.'
+teleport-done-2: '§a玩家 {%1} 被传送到世界 {%0}!'
+teleport-playernotexists: '§c玩家 {%0} 不存在!'
+
+# List Command:
+list-done: '§a世界 ({%0}):'
+
+# Load Command:
+load-usage: '§c输入: §7/mw load <世界名>'
+load-levelnotexists: '§c世界 {%0} 不存在!'
+load-loaded: '§c不能加载这个世界!'
+load-done: '§a该世界被成功加载!'
+
+# Unload Command:
+unload-usage: '§c输入: §7/mw unload <世界名>'
+unload-levelnotexists: '§c世界 {%0} 不存在!'
+unload-unloaded: '§c不能卸载这个世界!'
+unload-done: '§a该世界被卸载成功!'
+
+# Delete Command:
+delete-usage: '§c输入: §7/mw delete <世界名>'
+delete-levelnotexists: '§c世界 {%0} 不存在!'
+delete-done: '§a世界已经被删除! ({%0} 文件已经被删除.)'
+
+# Update Command:
+update-usage: '§c输入: §7/mw update <mod: spawn|lobby|default> [options: (世界名) (x) (y) (z)]'
+update-levelnotexists: '§c世界 {%0} 不存在!'
+update-spawn-done: '§aSpawn 在如下世界 {%0} 被更改.'
+update-lobby-done: '§aLobby 在如下世界 {%0} 被更改.'
+update-default-usage: '§c输入: §7/mw update default <level>'
+update-default-done: '§a默认世界被更改为 {%0}.'
+update-notsupported: '§c这个命令不支持控制台'
+
+# Info Command:
+info-levelnotexists: '§c{%0} does not exist.'
+info: '§a--- {%0} ---'
+info-name: '§7名字: {%0}'
+info-folderName: '§7Folder 名字: {%0}'
+info-players: '§7玩家 count: {%0}'
+info-generator: '§7世界生成器: {%0}'
+info-seed: '§7种子: {%0}'
+info-time: '§7时间: {%0}'
+
+# Rename Command
+rename-usage: '§cUsage: §7/mw rename <from> <to>'
+rename-exists: '§cLevel with name {%0} already exists.'
+rename-levelnotfound: '§cLevel {%0} does not exists.'
+rename-done: '§aName of level {%0} was changed to {%1}.'
+
+# Gamerule Command:
+gamerule-usage: '§c输入: §7/mw gamerule <list|gamerule> [true|false] [世界名]'
+gamerule-list: '§a可编辑的 游戏模式: {%0}'
+gamerule-levelnotfound: '§c世界 {%0} 不存在.'
+gamerule-notexists: '§此游戏模式 {%0} 不存在.'
+gamerule-done: '§游戏模式 {%0} 在如下世界 {%1} 被更改为 {%2}.'
+
+# Forms
+forms-invalid: '§cInvalid result.'
+...

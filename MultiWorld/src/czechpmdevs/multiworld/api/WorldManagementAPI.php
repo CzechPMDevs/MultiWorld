@@ -26,6 +26,7 @@ use czechpmdevs\multiworld\generator\ender\EnderGenerator;
 use czechpmdevs\multiworld\generator\nether\NetherGenerator;
 use czechpmdevs\multiworld\generator\skyblock\SkyBlockGenerator;
 use czechpmdevs\multiworld\generator\void\VoidGenerator;
+use pocketmine\level\format\io\BaseLevelProvider;
 use pocketmine\level\generator\Flat;
 use pocketmine\level\generator\hell\Nether;
 use pocketmine\level\generator\normal\Normal;
@@ -147,6 +148,26 @@ class WorldManagementAPI {
         }
 
         return self::removeDir(Server::getInstance()->getDataPath()."/worlds/" . $name);
+    }
+
+    /**
+     * @param string $oldName
+     * @param string $newName
+     */
+    public static function renameLevel(string $oldName, string $newName) {
+        if(self::isLevelLoaded($oldName)) self::unloadLevel(self::getLevel($oldName));
+
+        $from = Server::getInstance()->getDataPath() . "/worlds/" . $oldName;
+        $to = Server::getInstance()->getDataPath() . "/worlds/" . $newName;
+
+        rename($from, $to);
+
+        self::loadLevel($newName);
+        $provider = self::getLevel($newName)->getProvider();
+
+        if(!$provider instanceof BaseLevelProvider) return;
+        $provider->getLevelData()->setString("LevelName", $newName);
+        $provider->saveLevelData();
     }
 
     /**

@@ -18,6 +18,8 @@ help-6: '§2/mw delete §fOdstraní svět'
 help-7: '§2/mw info §fZobrazí informace o světě'
 help-8: '§2/mw gamerule §fSpravuje pravidla světa'
 help-9: '§2/mw manage §fZapne správce světů'
+help-10: '§2/mw rename §fPřejmenuje svět'
+
 
 # Create Command:
 create-usage: '§cPoužij: §7/mw create <jméno> [seed] [generátor]'
@@ -74,13 +76,18 @@ info-seed: '§7Seed: {%0}'
 info-time: '§7Čas: {%0}'
 
 # Gamerule Command:
-gamerule.usage: '§cPoužij: §7/mw gamerule <list|gamerule> [true|false] [level]'
-gamerule.list: '§aUpravitelné GameRules: {%0}'
-gamerule.levelnotfound: '§cSvět {%0} nebyl nalezen.'
-gamerule.notexists: '§cGame rule {%0} neexistuje'
-gamerule.done: '§aGame rule {%0} ve světě {%1} bylo změněno na {%2}.'
+gamerule-usage: '§cPoužij: §7/mw gamerule <list|gamerule> [true|false] [level]'
+gamerule-list: '§aUpravitelné GameRules: {%0}'
+gamerule-levelnotfound: '§cSvět {%0} nebyl nalezen.'
+gamerule-notexists: '§cGame rule {%0} neexistuje'
+gamerule-done: '§aGame rule {%0} ve světě {%1} bylo změněno na {%2}.'
 
+# Rename Command
+rename-usage: '§cPoužij: §7/mw rename <svět> <novýNázev>'
+rename-exists: '§cSvět se jménem {%0} již existuje.'
+rename-levelnotfound: '§cSvět {%0} nebyl nalezen.'
+rename-done: '§aJméno bylo změněno z {%0} na {%1}!'
 
 # Forms
-forms.invalid: '§cPlugin nedostal správnou odpověď.'
+forms-invalid: '§cPlugin nedostal správnou odpověď.'
 ...

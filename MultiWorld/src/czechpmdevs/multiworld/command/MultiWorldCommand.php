@@ -30,6 +30,7 @@ use czechpmdevs\multiworld\command\subcommand\InfoSubcommand;
 use czechpmdevs\multiworld\command\subcommand\ListSubcommand;
 use czechpmdevs\multiworld\command\subcommand\LoadSubcommand;
 use czechpmdevs\multiworld\command\subcommand\ManageSubcommand;
+use czechpmdevs\multiworld\command\subcommand\RenameSubcommand;
 use czechpmdevs\multiworld\command\subcommand\SubCommand;
 use czechpmdevs\multiworld\command\subcommand\TeleportSubcommand;
 use czechpmdevs\multiworld\command\subcommand\UnloadSubcommand;
@@ -76,6 +77,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
         $this->subcommands["info"] = new InfoSubcommand;
         $this->subcommands["gamerule"] = new GameruleSubcommand;
         $this->subcommands["manage"] = new ManageSubcommand;
+        $this->subcommands["rename"] = new RenameSubcommand;
     }
 
     /**
@@ -162,6 +164,10 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
             case "mng":
             case "mg":
                 return "manage";
+            case "rename":
+            case "rnm":
+            case "re":
+                return "rename";
         }
         return null;
     }

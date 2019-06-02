@@ -18,6 +18,7 @@ help-6: '§2/mw delete §fУдалить мир'
 help-7: '§2/mw info §fУзнать информацию о мире'
 help-8: '§2/mw gamerule §fНастроить мир'
 help-9: '§2/mw manage §fDisplays form for managing with worlds'
+help-10: '§2/mw rename §fRenames the world'
 
 # Create Command:
 create-usage: '§cИспользование: §7/mw create <имя> [сид] [генерация]'
@@ -74,12 +75,18 @@ info-seed: '§7Сид: {%0}'
 info-time: '§7Время: {%0}'
 
 # Gamerule Command:
-gamerule.usage: '§cИспользование: §7/mw gamerule <list|gamerule> [true|false] [мир]'
-gamerule.list: '§aИзменяемые настройки мира: {%0}'
-gamerule.levelnotfound: '§cМир {%0} не найден.'
-gamerule.notexists: '§cНастройка {%0} не найдена.'
-gamerule.done: '§aНастройка {%0} в мире {%1} была изменена на {%2}.'
+gamerule-usage: '§cИспользование: §7/mw gamerule <list|gamerule> [true|false] [мир]'
+gamerule-list: '§aИзменяемые настройки мира: {%0}'
+gamerule-levelnotfound: '§cМир {%0} не найден.'
+gamerule-notexists: '§cНастройка {%0} не найдена.'
+gamerule-done: '§aНастройка {%0} в мире {%1} была изменена на {%2}.'
+
+# Rename Command
+rename-usage: '§cUsage: §7/mw rename <from> <to>'
+rename-exists: '§cLevel with name {%0} already exists.'
+rename-levelnotfound: '§cLevel {%0} does not exists.'
+rename-done: '§aName of level {%0} was changed to {%1}.'
 
 # Forms
-forms.invalid: '§cInvalid result.'
+forms-invalid: '§cInvalid result.'
 ...

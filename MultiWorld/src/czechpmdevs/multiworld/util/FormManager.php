@@ -113,7 +113,7 @@ class FormManager {
         switch ($form->mwId) {
             case self::FORM_CREATE:
                 if($data[1] === "" || (strlen($data[2]) > 2 && !is_numeric($data[2]))) {
-                    LanguageManager::getMsg($player, "forms.invalid");
+                    LanguageManager::getMsg($player, "forms-invalid");
                     break;
                 }
                 $name = (string)$data[1];
