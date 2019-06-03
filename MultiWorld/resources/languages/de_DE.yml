@@ -1,68 +1,68 @@
 ---
-### Deutsche Sprachdatei von Tobikiss!!
-### German language file by Tobikiss!!
+### Deutsche Sprachdatei von Tobikiss
+### German language file by Tobikiss
 ## Commands:
 
-not-perms: '§cSie haben keine Berechtigungen, diesen Befehl zu benutzen!'
-default-usage: '§cUsage: §7/mw hilfe'
+not-perms: '§cSie haben keine Berechtigung, diesen Befehl auszuführen!'
+default-usage: '§cVerwende: §7/mw help'
 
 # Hilfs Befehl:
-help: '§2--- §fMultiWorld help page ({%0}/{%1}) §2---'
-help-1: '§2/mw create §fWelt generieren'
-help-2: '§2/mw teleport §fTeleportieren zur Welt'
-help-3: '§2/mw list §fDisplays Liste aller Welten'
+help: '§2--- §fMultiWorld Hilfsseite ({%0}/{%1}) §2---'
+help-1: '§2/mw create §fGeneriere eine Welt'
+help-2: '§2/mw teleport §fTeleportiere dichzur Welt'
+help-3: '§2/mw list §fZeige alle Welten'
 help-4: '§2/mw <load | unload> §fLoad | Welt entladen'
 help-5: '§2/mw update §fSetze als Spawn, Lobby oder Standard Welt'
 
-help-6: '§2/mw delete §fWelt vernichten'
+help-6: '§2/mw delete §fWelt löschen'
 help-7: '§2/mw info §fZeigt die Weltdaten an'
-help-8: '§2/mw gamerule §fstelle den Weltgamemode ein'
-help-9: '§2/mw manage §fDisplays form for managing with worlds'
-help-10: '§2/mw rename §fRenames the world'
+help-8: '§2/mw gamerule §fStelle den Weltgamemode ein'
+help-9: '§2/mw manage §fZeige das Interface um Welten zu bearbeiten an'
+help-10: '§2/mw rename §fBennene die Welt um'
 
 
 # Befehl erstellen:
-create-usage: '§cUsage: §7/mw create <name> [seed] [generator]'
-create-exists: '§cLevel {%0} is already generated!'
+create-usage: '§cVerwende: §7/mw create <name> [seed] [generator]'
+create-exists: '§cWelt {%0} ist bereits generiert!'
 create-gennotexists: 'Generator {%0} nicht gefunden. Abbruch'
 create-generating: '§aGeneriere Welt{%0}...'
 create-done: 'Level {%0} wird mit Samen erzeugt: {%1} und Generator: {%2}.'
 
 # Teleport Befehl:
-teleport-usage: '§cUsage: §7/mw teleport <level> [spieler]'
+teleport-usage: '§cVerwende: §7/mw teleport <level> [spieler]'
 teleport-levelnotexists: '§cWelt {%0} ist noch nicht erstellt! Versuche /mw create um eine Welt zu erstellen. '
-teleport-load: 'Lade level {%0} ...'
+teleport-load: 'Lade Welt {%0} ...'
 teleport-done-1: '§aDu wirst in die Welt {%0} teleportiert.'
-teleport-done-2: '§aSpieler {%1} wird in Welt {%0} teleportiert!'
+teleport-done-2: '§aSpieler {%1} wird in die Welt {%0} teleportiert!'
 teleport-playernotexisten: '§cSpieler existiert nicht!'
 
 # Liste Befehl:
 list-done: '§aWelten ({%0}):'
 
 # Befehl laden:
-load-usage: '§cUsage: §7/mw load <level>'
+load-usage: '§cVerwende: §7/mw load <level>'
 load-levelnotexists: '§cWelt {%0} existiert nicht!'
 load-loaded: '§cWelt bereits geladen!'
 load-done: '§aWelt geladen!'
 
 # Befehl entladen:
-unload-usage: '§cUsage: §7/mw unload <level>'
+unload-usage: '§cVerwende: §7/mw unload <level>'
 unload-levelnotexists: '§cWelt {%0} existiert nicht!'
 unload-unloaded: '§cWelt ist bereits nicht geladen!'
 unload-done: '§aWelt entladen!'
 
 # Befehl löschen:
-delete-use: '§cUsage: §7/mw delete <level>'
+delete-use: '§cVerwende: §7/mw delete <Welt>'
 delete-levelnotexists: '§cWelt {%0} existiert nicht!'
 delete-done: '§aWelt gelöscht!'
 
 # Update Befehl:
-update-usage: '§cUsage: §7/mw update <mod: spawn|Lobby|default> [Optionen: (x) (y) (z) (Level)]'
+update-usage: '§cVerwende: §7/mw update <mod: spawn|Lobby|default> [Optionen: (x) (y) (z) (Level)]'
 update-levelnotexists: '§cWelt {%0} existiert nicht!'
-update-spawn-done: '§aSpawn in Welt {%0} wurde geändert.'
-update-lobby-done: '§aLobby in Welt {%0} wurde geändert.'
-update-default-done: '§aStandardwelt wurde auf {%0} geändert.'
-update-default-usage: '§cUsage: §7/mw update default <level>'
+update-spawn-done: '§aSpawn wurde in Welt {%0} gesetzt.'
+update-lobby-done: '§aLobby wurde in Welt {%0} gesetzt.'
+update-default-done: '§aStandardwelt wurde auf {%0} gesetzt.'
+update-default-usage: '§cVerwende: §7/mw update default <level>'
 update-notsupported: '§cDieser Befehl wird in der Konsole nicht unterstützt.'
 
 # Info Command:
@@ -70,24 +70,23 @@ info-levelnotexists: '§cWelt {%0} existiert nicht!'
 info: '§a--- {%0} ---'
 info-name: '§7Name: {%0}'
 info-folderName: '§7Ordnername: {%0}'
-info-players: '§7Spielercount: {%0}'
+info-players: '§7Spielerzahl: {%0}'
 info-generator: '§7Generator: {%0}'
 info-seed: '§7Seed: {%0}'
 info-time: '§7Zeit: {%0}'
 
 # Gamerule Command:
-gamerule-usage: '§cHow-to: §7/mw gamerule <list|gamerule> [true|false] [level]'
+gamerule-usage: '§cVerwende: §7/mw gamerule <list|gamerule> [true|false] [level]'
 gamerule-list: '§aVerfügbare gamerules: {%0}'
 gamerule-levelnotfound: '§cWelt {%0} nicht gefunden.'
 gamerule-notexists: '§cGame rule {%0} existiert nicht.'
 gamerule-done: '§aGame rule {%0} in Welt {%1} wurde geändert auf {%2}.'
 
 # Rename Command
-rename-usage: '§cUsage: §7/mw rename <from> <to>'
-rename-exists: '§cLevel with name {%0} already exists.'
-rename-levelnotfound: '§cLevel {%0} does not exists.'
-rename-done: '§aName of level {%0} was changed to {%1}.'
+rename-usage: '§cVerwende: §7/mw rename <from> <to>'
+rename-exists: '§cWelt namens {%0} exisitert bereits.'
+rename-levelnotfound: '§cWelt namens {%0} existiert nicht.'
+rename-done: '§aName der Welt {%0} wurde geändert zu{%1}.'
 
 # Forms
-forms-invalid: '§cInvalid result.'
-...
+forms-invalid: '§cNicht mögliches Ergebnis. Alter, was hast du angestellt... xD'
