@@ -34,26 +34,20 @@
 </p>
 
 
-## 👍 1.5 Update:
+## 👍 1.5.1 Update:
 
 > - Plugin cleanup
-> - New **Nether** generator, old renamed to `nether_old`
-> - New Multi language system
-> - New API for plugin developers
-> - New Config Updater
-> - Implemented some game rules
-> - Plugin now supports only 3.0.0+ api versions
-
-> - Bug fixes:
-	> 	- Fixed `/mw tp` command (now can be used from console)
-	>	- Fixed #15 (unloaded level can be removed)
-
+> - Bug fixes
+> - New `/mw rename` command
+> - New `/mw manage` command with form world manager
+> - New API methods
+> - New Chinese language
 
 ## ⬇️ Downloads:
 
 | Version | Phar Download | Zip Download | API | Stable | Pre release |
 | --- | --- | --- | --- | --- | --- |
-| 1.5.0 | Waiting for approve | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.5.0) | 3.0.0, 3.1.0 | ✔️ | ❌
+| 1.5.0 | [Poggit](https://poggit.pmmp.io/p/MultiWorld/) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.5.0) | 3.0.0, 3.1.0 | ✔️ | ❌
 | 1.5.0-beta2 | [GitHub](https://github.com/CzechPMDevs/MultiWorld/releases/download/1.5.0-beta1/MultiWorld_v1.5.0-beta1.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.5.0-beta1.zip) | 3.0.0, 3.1.0 | ✔️ |✔️ |
 | 1.5.0-beta1 | [GitHub](https://github.com/CzechPMDevs/MultiWorld/releases/download/1.5.0-beta1/MultiWorld_v1.5.0-beta1.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.5.0-beta1.zip) | 3.0.0, 3.1.0 | ❌ |✔️ |
 | 1.4.3 | [Poggit Releases](https://poggit.pmmp.io/r/34104/MultiWorld.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/ef6f73109c0438ab2a5c404ccdd288e2d73b5002.zip) | 3.0.0-ALPHA7 - 3.0.0 | ✔️ | ❌ |
@@ -106,7 +100,9 @@
 | **/mw update** | **Change spawn, lobby or default level** <br><br> Aliases: `/mw ue` <br> Usage: `/mw update <spawn|lobby|default> [x] [y] [z] [world]` <br><br> In game enough type `/mw update <...>` without `[x] [y] [z] [world]`, subcommand `lobby` can be used only in game |
 | **/mw load** | **Loads level** <br><br> Aliases: `/mw ld` <br> Usage: `/mw load <level>` |
 | **/mw unload** | **Unloads level** <br><br> Aliases: `/mw unld` <br> Usage: `/mw unload <level>` |
-| **/mw gamerule** | **Manage with level game rules** <br><br>Aliases: `/gamerule`, `/mw gr`, `/mw gamer`, `/mw grule` <br> Usage: `/gamerule <list|gamerule> [bool|false]` <br><br> Level game rules can be changed in server settings, implemented game rules: `doDaylightCycle`, `doMobLoot`, `doTileDrops`, `keepInventory`, `naturalRegeneration`, `pvp`, `showcoordinates` and `tntexplodes` more informations can be found on [WorldGameRulesAPI documentation]() |
+| **/mw gamerule** | **Manages with level game rules** <br><br>Aliases: `/gamerule`, `/mw gr`, `/mw gamer`, `/mw grule` <br> Usage: `/gamerule <list|gamerule> [bool|false]` <br><br> Level game rules can be changed in server settings, implemented game rules: `doDaylightCycle`, `doMobLoot`, `doTileDrops`, `keepInventory`, `naturalRegeneration`, `pvp`, `showcoordinates` and `tntexplodes` more informations can be found on [WorldGameRulesAPI documentation]() |
+| **/mw manage** | **Opens form world manager** <br><br>Aliases: `/mw mg`, `/mw mng`,<br> Usage: `/mw manage <list|gamerule>` <br><br>Forms just executes the command as player so players needs to have permissions for /mw manage and other command too. |
+| **/mw rename** | **Renames world** <br><br>Aliases:`/mw rnm`, `/mw re`<br>Usage:`/mw rename <oldName> <newName>` |
 
 ## 📃  Premissions:
 
@@ -127,6 +123,8 @@
 | mw.cmd.load | `/mw load` | ✔️ |
 | mw.cmd.unload | `/mw unload` | ✔️ |
 | mw.cmd.gamerule | `/mw gamerule` | ✔️ |
+| mw.cmd.manage | `/mw manage` | ✔️ |
+| mw.cmd.rename | `/mw rename` | ✔️ |
 
 ##  🗺️ World Management API
 
