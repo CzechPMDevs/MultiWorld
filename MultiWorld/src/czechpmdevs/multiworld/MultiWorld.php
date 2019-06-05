@@ -22,10 +22,13 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld;
 
+use czechpmdevs\multiworld\api\WorldManagementAPI;
 use czechpmdevs\multiworld\command\GameruleCommand;
 use czechpmdevs\multiworld\command\MultiWorldCommand;
 use czechpmdevs\multiworld\generator\ender\EnderGenerator;
 use czechpmdevs\multiworld\generator\nether\NetherGenerator;
+use czechpmdevs\multiworld\generator\normal\BiomeManager;
+use czechpmdevs\multiworld\generator\normal\NormalGenerator;
 use czechpmdevs\multiworld\generator\skyblock\SkyBlockGenerator;
 use czechpmdevs\multiworld\generator\void\VoidGenerator;
 use czechpmdevs\multiworld\util\ConfigManager;
@@ -33,8 +36,10 @@ use czechpmdevs\multiworld\util\FormManager;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\Command;
 use pocketmine\level\generator\GeneratorManager;
+use pocketmine\level\generator\noise\Simplex;
 use pocketmine\plugin\PluginBase;
 use pocketmine\plugin\PluginException;
+use pocketmine\utils\Random;
 
 /**
  * Class MultiWorld
@@ -57,9 +62,8 @@ class MultiWorld extends PluginBase {
     /** @var Command[] $commands */
     public $commands = [];
 
-
     /**
-     * @throws PluginException
+     * @throws \ReflectionException
      */
     public function onEnable() {
         $start = (bool) !(self::$instance instanceof $this);
@@ -70,7 +74,8 @@ class MultiWorld extends PluginBase {
                 "ender" => EnderGenerator::class,
                 "void" => VoidGenerator::class,
                 "skyblock" => SkyBlockGenerator::class,
-                "nether" => NetherGenerator::class
+                "nether" => NetherGenerator::class,
+                "normal_mw" => NormalGenerator::class
             ];
 
             foreach ($generators as $name => $class) {
@@ -92,6 +97,14 @@ class MultiWorld extends PluginBase {
         }
 
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this, $cmd), $this);
+        //$this->test();
+    }
+
+    private function test() {
+        if(WorldManagementAPI::isLevelGenerated("Test")) {
+            WorldManagementAPI::removeLevel("Test");
+        }
+        WorldManagementAPI::generateLevel("Test", rand(0, 100), WorldManagementAPI::GENERATOR_NORMAL_CUSTOM);
     }
 
     /**

@@ -24,6 +24,7 @@ namespace czechpmdevs\multiworld\api;
 
 use czechpmdevs\multiworld\generator\ender\EnderGenerator;
 use czechpmdevs\multiworld\generator\nether\NetherGenerator;
+use czechpmdevs\multiworld\generator\normal\NormalGenerator;
 use czechpmdevs\multiworld\generator\skyblock\SkyBlockGenerator;
 use czechpmdevs\multiworld\generator\void\VoidGenerator;
 use pocketmine\level\format\io\BaseLevelProvider;
@@ -39,6 +40,7 @@ use pocketmine\Server;
  */
 class WorldManagementAPI {
 
+    public const GENERATOR_NORMAL_CUSTOM = -1;
     public const GENERATOR_NORMAL = 0;
     public const GENERATOR_HELL = 1;
     public const GENERATOR_ENDER = 2;
@@ -124,6 +126,9 @@ class WorldManagementAPI {
                 break;
             case self::GENERATOR_SKYBLOCK:
                 $generatorClass = SkyBlockGenerator::class;
+                break;
+            case self::GENERATOR_NORMAL_CUSTOM:
+                $generatorClass = NormalGenerator::class;
         }
 
         return Server::getInstance()->generateLevel($levelName, $seed, $generatorClass);
@@ -168,6 +173,9 @@ class WorldManagementAPI {
         if(!$provider instanceof BaseLevelProvider) return;
         $provider->getLevelData()->setString("LevelName", $newName);
         $provider->saveLevelData();
+
+        self::unloadLevel(self::getLevel($newName));
+        self::loadLevel($newName); // reloading the level
     }
 
     /**

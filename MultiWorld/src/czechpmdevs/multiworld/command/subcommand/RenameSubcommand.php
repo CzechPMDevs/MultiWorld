@@ -57,7 +57,7 @@ class RenameSubcommand implements SubCommand {
             return;
         }
 
-        if(WorldManagementAPI::isLevelLoaded($args[0])) WorldManagementAPI::unloadLevel($args[0]);
+        if(WorldManagementAPI::isLevelLoaded($args[0])) WorldManagementAPI::unloadLevel(WorldManagementAPI::getLevel($args[0]));
 
         if ($this->getServer()->getDefaultLevel()->getFolderName() == $args[0]) {
             $sender->sendMessage("§cCould not rename default level!");

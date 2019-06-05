@@ -69,6 +69,10 @@ class CreateSubcommand implements SubCommand {
                 $generator = WorldManagementAPI::GENERATOR_NORMAL;
                 $generatorName = "Normal";
                 break;
+            case "custom": // todo rename that to normal
+                $generator = WorldManagementAPI::GENERATOR_NORMAL_CUSTOM;
+                $generatorName = "Custom";
+                break;
             case "flat":
             case "superflat":
                 $generator = WorldManagementAPI::GENERATOR_FLAT;

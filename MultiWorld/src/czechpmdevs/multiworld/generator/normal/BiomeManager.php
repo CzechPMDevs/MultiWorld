@@ -1,0 +1,106 @@
+<?php
+
+/**
+ * MultiWorld - PocketMine plugin that manages worlds.
+ * Copyright (C) 2018 - 2019  CzechPMDevs
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+declare(strict_types=1);
+
+namespace czechpmdevs\multiworld\generator\normal;
+
+use czechpmdevs\multiworld\generator\normal\biome\Desert;
+use czechpmdevs\multiworld\generator\normal\biome\Ocean;
+use czechpmdevs\multiworld\generator\normal\biome\Plains;
+use pocketmine\level\biome\Biome;
+
+/**
+ * Class BiomeManager
+ */
+class BiomeManager {
+
+    const OCEAN = 0;
+    const PLAINS = 1;
+    const DESERT = 2;
+    //const MOUNTAINS = 3;
+    //const FOREST = 4;
+    //const TAIGA = 5;
+    //const SWAMP = 6;
+    //const RIVER = 7;
+    //const HELL = 8; const NETHERRACK = 8;
+    //const END = 9;
+    //const FROZEN_OCEAN = 10;
+    //const FROZEN_RIVER = 11;
+    //const ICE_PLAINS = 12;
+    //const ICE_MOUNTAINS = 13;
+    //const MUSHROOM_ISLAND = 14;
+    //const MUSHROOM_ISLAND_SHORE = 15;
+    //const BEACH = 16;
+    //const DESERT_HILLS = 17;
+    //const FOREST_HILLS = 18;
+    //const TAIGA_HILLS = 19;
+    //const SMALL_MOUNTAINS = 20;
+    //const JUNGLE = 21;
+    //const JUNGLE_HILLS = 22;
+    //const JUNGLE_EDGE = 23;
+    //const DEEP_OCEAN = 24;
+    //const STONE_BEACH = 25;
+    //const COLD_BEACH = 26;
+    //const BIRCH_FOREST = 27;
+    //const BIRCH_FOREST_HILLS = 28;
+    //const ROOFED_FOREST = 29;
+    //const COLD_TAIGA = 30;
+    //const COLD_TAIGA_HILLS = 31;
+    //const MEGA_TAIGA = 32;
+    //const MEGA_TAIGA_HILLS = 33;
+    //const EXTREME_HILLS_PLUS = 34;
+    //const SAVANNA = 35;
+    //const SAVANNA_PLATEAU = 36;
+    //const MESA = 37;
+    //const MESA_PLATEAU_F = 38;
+    //const MESA_PLATEAU = 39;
+
+    /**
+     * @throws \ReflectionException
+     *
+     * Don't forget to implement this on all the threads
+     */
+    public static function registerBiomes() {
+        $biomeClass = new \ReflectionClass(Biome::class);
+
+        $biomes = $biomeClass->getProperty("biomes");
+        $biomes->setAccessible(true);
+        $biomes->setValue(new \SplFixedArray(Biome::MAX_BIOMES)); // TODO: add all the MultiWorld biomes :D
+
+        $register = $biomeClass->getMethod("register");
+        $register->setAccessible(true);
+        foreach (static::getBiomes() as $id => $biome) {
+            $register->invokeArgs(null, [$id, $biome]);
+        }
+
+    }
+
+    /**
+     * @return array
+     */
+    private static function getBiomes(): array {
+        return [
+            0 => new Ocean(),
+            1 => new Plains(),
+            2 => new Desert()
+        ];
+    }
+}
