@@ -26,7 +26,7 @@ create-usage: '§cBenutzung: §7/mw create <name> [seed] [generator]'
 create-exists: '§cEbene {%0} wurde bereits generiert!'
 create-gennotexists: 'Generator {%0} nicht gefunden.'
 create-generating: '§aGeneriere Welt {%0}...'
-create-done: 'Ebene {%0} wird mit dem Seed {%1} erzeugt und mit dem Generator: {%2}.'
+create-done: 'Ebene {%0} wird mit dem Seed {%1} erzeugt und dem Generator {%2}.'
 
 # Teleport Befehl:
 teleport-usage: '§cBenutzung: §7/mw teleport <ebene> [spieler]'
