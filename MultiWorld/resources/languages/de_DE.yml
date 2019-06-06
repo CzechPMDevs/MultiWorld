@@ -1,9 +1,9 @@
 ---
-### Deutsche Sprachdatei von Tobikiss!! und SchdowNVIDIA
-### German language file by Tobikiss!! and SchdowNVIDIA
+### Deutsche Sprachdatei von Tobikiss und SchdowNVIDIA
+### German language file by Tobikiss and SchdowNVIDIA
 ## Commands:
 
-not-perms: '§cSie haben nicht die benötigten Berechtigungen, diesen Befehl zu auszuführen!'
+not-perms: '§cSie haben nicht die benötigten Berechtigungen, diesen Befehl auszuführen!'
 default-usage: '§cBenutzung: §7/mw hilfe'
 
 # Hilfs Befehl:
