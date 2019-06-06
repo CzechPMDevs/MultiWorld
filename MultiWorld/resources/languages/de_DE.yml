@@ -10,7 +10,7 @@ default-usage: '§cBenutzung: §7/mw hilfe'
 help: '§2--- §fMultiWorld help page ({%0}/{%1}) §2---'
 help-1: '§2/mw create §fEine Welt generieren'
 help-2: '§2/mw teleport §fTeleportieren zu einer Welt'
-help-3: '§2/mw list §fZeigt eine Liste aller Welten'
+help-3: '§2/mw list §fZeigt eine Liste aller Welten an'
 help-4: '§2/mw <load | unload> §fWelt laden oder entladen'
 help-5: '§2/mw update §fÄndere die Lobby, den Spawn in einer Welt oder die Standard Welt'
 
