@@ -101,6 +101,6 @@ class PlantPopulator extends Populator {
 
     private function canPlantStay(int $x, int $y, int $z) : bool{
         $b = $this->level->getBlockIdAt($x, $y, $z);
-        return ($b === Block::AIR or $b === Block::SNOW_LAYER) and in_array($this->level->getBlockIdAt($x, $y - 1, $z), array_merge([Block::GRASS], $this->alowedBlocks)) ;
+        return ($b === Block::AIR or $b === Block::SNOW_LAYER) and in_array($this->level->getBlockIdAt($x, $y - 1, $z), array_merge([Block::GRASS], $this->allowedBlocks)) ;
     }
 }

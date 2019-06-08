@@ -22,11 +22,14 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
-use czechpmdevs\multiworld\generator\normal\BiomeManager;
 use czechpmdevs\multiworld\generator\normal\populator\LakePopulator;
+use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
+use czechpmdevs\multiworld\generator\normal\populator\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\TallGrass;
 use czechpmdevs\multiworld\generator\normal\populator\Tree;
-use pocketmine\block\Sapling;
+use pocketmine\block\Block;
+use pocketmine\block\Dandelion;
+use pocketmine\block\Flower;
 use pocketmine\level\biome\GrassyBiome;
 
 /**
@@ -38,17 +41,53 @@ class Plains extends GrassyBiome {
     public function __construct() {
         $this->setElevation(64, 67);
 
+        $flowers = new PlantPopulator();
+        $flowers->setBaseAmount(6);
+        $flowers->setRandomAmount(7);
+        $flowers->addPlant(new Plant(new Dandelion()));
+        $flowers->addPlant(new Plant(new Flower()));
+        $flowers->setSpawnPercentage(80);
+
+        $daisy = new PlantPopulator();
+        $daisy->setBaseAmount(6);
+        $daisy->setRandomAmount(7);
+        $daisy->addPlant(new Plant(new Flower(8)));
+        $daisy->setSpawnPercentage(80);
+
+        $daisy = new PlantPopulator();
+        $daisy->setBaseAmount(6);
+        $daisy->setRandomAmount(7);
+        $daisy->addPlant(new Plant(new Flower(8)));
+        $daisy->setSpawnPercentage(80);
+
+        $bluet = new PlantPopulator();
+        $bluet->setBaseAmount(6);
+        $bluet->setRandomAmount(7);
+        $bluet->addPlant(new Plant(new Flower(3)));
+        $bluet->setSpawnPercentage(80);
+
+        $tulips = new PlantPopulator();
+        $tulips->setBaseAmount(6);
+        $tulips->setRandomAmount(7);
+        $tulips->addPlant(new Plant(new Flower(4)));
+        $tulips->addPlant(new Plant(new Flower(5)));
+        $tulips->setSpawnPercentage(80);
+
         $tree = new Tree();
         $tree->setBaseAmount(1);
         $tree->setRandomAmount(1);
-        $tree->setSpawnPercentage(87);
+        $tree->setSpawnPercentage(80);
 
         $this->addPopulator(new LakePopulator());
         $this->addPopulator($tree);
+        $this->addPopulator($flowers);
+        $this->addPopulator($daisy);
+        $this->addPopulator($bluet);
+        $this->addPopulator($tulips);
 
         $tallGrass = new TallGrass();
-        $tallGrass->setBaseAmount(56);
-        $tallGrass->setRandomAmount(12);
+        $tallGrass->setBaseAmount(89);
+        $tallGrass->setRandomAmount(26);
 
         $this->addPopulator($tallGrass);
 

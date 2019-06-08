@@ -86,14 +86,14 @@ class BiomeSelector {
             return BiomeManager::getBiome(BiomeManager::OCEAN);
         }
 
-        if($rainfall < 0) {
+        if($rainfall < -0.2) {
             if($hills > 0.7) {
                 return BiomeManager::getBiome(BiomeManager::DESERT_HILLS);
             }
             return BiomeManager::getBiome(BiomeManager::DESERT);
         }
 
-        if($temperature > -0.1) {
+        if($temperature > 0) {
             return BiomeManager::getBiome(BiomeManager::FOREST);
         }
 

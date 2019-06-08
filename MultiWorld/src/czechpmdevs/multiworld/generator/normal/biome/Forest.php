@@ -43,8 +43,8 @@ class Forest extends GrassyBiome {
         parent::__construct();
 
         $flowers = new PlantPopulator();
-        $flowers->setBaseAmount(3);
-        $flowers->setRandomAmount(4);
+        $flowers->setBaseAmount(6);
+        $flowers->setRandomAmount(7);
         $flowers->addPlant(new Plant(new Dandelion()));
         $flowers->addPlant(new Plant(new Flower()));
         $flowers->setSpawnPercentage(75);
