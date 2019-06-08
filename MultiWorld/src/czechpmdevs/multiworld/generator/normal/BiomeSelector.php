@@ -93,11 +93,11 @@ class BiomeSelector {
             return BiomeManager::getBiome(BiomeManager::DESERT);
         }
 
-        if($temperature > -0.3) {
+        if($temperature > -0.1) {
             return BiomeManager::getBiome(BiomeManager::FOREST);
         }
 
-        if($hills > 0) {
+        if($hills > 0.1) {
             return BiomeManager::getBiome(BiomeManager::MOUNTAINS);
         }
         return BiomeManager::getBiome(BiomeManager::PLAINS);

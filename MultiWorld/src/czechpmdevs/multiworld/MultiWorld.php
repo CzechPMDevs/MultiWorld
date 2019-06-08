@@ -97,7 +97,7 @@ class MultiWorld extends PluginBase {
         }
 
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this, $cmd), $this);
-        //$this->test();
+        $this->test();
     }
 
     private function test() {

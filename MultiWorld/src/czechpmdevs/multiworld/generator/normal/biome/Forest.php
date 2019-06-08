@@ -22,8 +22,14 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
+use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
+use czechpmdevs\multiworld\generator\normal\populator\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\TallGrass;
 use czechpmdevs\multiworld\generator\normal\populator\Tree;
+use pocketmine\block\Block;
+use pocketmine\block\Dandelion;
+use pocketmine\block\DoublePlant;
+use pocketmine\block\Flower;
 use pocketmine\block\Sapling;
 use pocketmine\level\biome\GrassyBiome;
 
@@ -36,6 +42,26 @@ class Forest extends GrassyBiome {
     public function __construct() {
         parent::__construct();
 
+        $flowers = new PlantPopulator();
+        $flowers->setBaseAmount(3);
+        $flowers->setRandomAmount(4);
+        $flowers->addPlant(new Plant(new Dandelion()));
+        $flowers->addPlant(new Plant(new Flower()));
+        $flowers->setSpawnPercentage(75);
+
+        $roses = new PlantPopulator();
+        $roses->setBaseAmount(5);
+        $roses->setRandomAmount(4);
+        $roses->addPlant(new Plant(new DoublePlant(4), new DoublePlant(12)));
+        $roses->setSpawnPercentage(50);
+
+        $peonys = new PlantPopulator();
+        $peonys->setBaseAmount(5);
+        $peonys->setRandomAmount(4);
+        $peonys->addPlant(new Plant(new DoublePlant(1), new DoublePlant(9)));
+        $peonys->setSpawnPercentage(50);
+
+
         $oak = new Tree();
         $oak->setBaseAmount(3);
         $oak->setRandomAmount(3);
@@ -46,6 +72,9 @@ class Forest extends GrassyBiome {
 
         $this->addPopulator($oak);
         $this->addPopulator($birch);
+        $this->addPopulator($flowers);
+        $this->addPopulator($peonys);
+        $this->addPopulator($roses);
 
         $this->setElevation(66, 79);
 

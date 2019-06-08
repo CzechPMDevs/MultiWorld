@@ -23,11 +23,22 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal;
 
 use pocketmine\block\Block;
+use pocketmine\block\CoalOre;
+use pocketmine\block\DiamondOre;
+use pocketmine\block\Dirt;
+use pocketmine\block\GoldOre;
+use pocketmine\block\Gravel;
+use pocketmine\block\IronOre;
+use pocketmine\block\LapisOre;
+use pocketmine\block\RedstoneOre;
+use pocketmine\block\Stone;
 use pocketmine\level\biome\Biome;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\Generator;
 use pocketmine\level\generator\noise\Simplex;
+use pocketmine\level\generator\object\OreType;
 use pocketmine\level\generator\populator\GroundCover;
+use pocketmine\level\generator\populator\Ore;
 use pocketmine\level\generator\populator\Populator;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
@@ -117,6 +128,23 @@ class NormalGenerator extends Generator {
 
         $cover = new GroundCover();
         $this->generationPopulators[] = $cover;
+
+        $ores = new Ore();
+        $ores->setOreTypes([
+            new OreType(new CoalOre(), 20, 16, 0, 128),
+            new OreType(new IronOre(), 20, 8, 0, 64),
+            new OreType(new RedstoneOre(), 8, 7, 0, 16),
+            new OreType(new LapisOre(), 1, 6, 0, 32),
+            new OreType(new GoldOre(), 2, 8, 0, 32),
+            new OreType(new DiamondOre(), 1, 7, 0, 16),
+            new OreType(new Dirt(), 20, 32, 0, 128),
+            new OreType(new Gravel(), 10, 16, 0, 128),
+            new OreType(new Stone(1), 10, 16, 0, 128),
+            new OreType(new Stone(3), 10, 16, 0, 128),
+            new OreType(new Stone(5), 10, 16, 0, 128),
+
+        ]);
+        $this->populators[] = $ores;
     }
 
     public function generateChunk(int $chunkX, int $chunkZ) : void{
