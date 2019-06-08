@@ -23,6 +23,9 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal;
 
 use czechpmdevs\multiworld\generator\normal\biome\Desert;
+use czechpmdevs\multiworld\generator\normal\biome\DesertHills;
+use czechpmdevs\multiworld\generator\normal\biome\Forest;
+use czechpmdevs\multiworld\generator\normal\biome\Mountains;
 use czechpmdevs\multiworld\generator\normal\biome\Ocean;
 use czechpmdevs\multiworld\generator\normal\biome\Plains;
 use pocketmine\level\biome\Biome;
@@ -32,11 +35,16 @@ use pocketmine\level\biome\Biome;
  */
 class BiomeManager {
 
+    /** @var array $hillBiomes */
+    protected static $hillBiomes = [];
+    /** @var array $biomes */
+    protected static $biomes = [];
+
     const OCEAN = 0;
     const PLAINS = 1;
     const DESERT = 2;
-    //const MOUNTAINS = 3;
-    //const FOREST = 4;
+    const MOUNTAINS = 3;
+    const FOREST = 4;
     //const TAIGA = 5;
     //const SWAMP = 6;
     //const RIVER = 7;
@@ -49,7 +57,7 @@ class BiomeManager {
     //const MUSHROOM_ISLAND = 14;
     //const MUSHROOM_ISLAND_SHORE = 15;
     //const BEACH = 16;
-    //const DESERT_HILLS = 17;
+    const DESERT_HILLS = 17;
     //const FOREST_HILLS = 18;
     //const TAIGA_HILLS = 19;
     //const SMALL_MOUNTAINS = 20;
@@ -90,17 +98,29 @@ class BiomeManager {
         foreach (static::getBiomes() as $id => $biome) {
             $register->invokeArgs(null, [$id, $biome]);
         }
-
     }
 
     /**
+     * @param int $id
+     * @param bool $hills
+     * @return mixed|null
+     */
+    public static function getBiome(int $id) {
+        return Biome::getBiome($id);
+    }
+
+    /**
+     * @param bool $hills
      * @return array
      */
     private static function getBiomes(): array {
         return [
             0 => new Ocean(),
             1 => new Plains(),
-            2 => new Desert()
+            2 => new Desert(),
+            3 => new Mountains(),
+            4 => new Forest(),
+            17 => new DesertHills(),
         ];
     }
 }

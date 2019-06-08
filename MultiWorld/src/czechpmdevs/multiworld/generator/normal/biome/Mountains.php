@@ -22,25 +22,34 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
-use czechpmdevs\multiworld\generator\normal\BiomeManager;
-use czechpmdevs\multiworld\generator\normal\populator\CactusPopulator;
-use pocketmine\level\biome\SandyBiome;
+use czechpmdevs\multiworld\generator\normal\populator\TallGrass;
+use czechpmdevs\multiworld\generator\normal\populator\Tree;
+use pocketmine\block\Sapling;
+use pocketmine\level\biome\GrassyBiome;
 
 /**
- * Class Desert
+ * Class Mountains
  * @package czechpmdevs\multiworld\generator\normal\biome
  */
-class Desert extends SandyBiome {
+class Mountains extends GrassyBiome {
 
-    /**
-     * Desert constructor.
-     */
     public function __construct() {
-        $this->setElevation(63, 69);
-        $cactus = new CactusPopulator();
-        $cactus->setRandomAmount(4);
-        $cactus->setBaseAmount(3);
-        $this->addPopulator($cactus);
+        $this->setElevation(66, 120);
+
+        $tallGrass = new TallGrass();
+        $tallGrass->setBaseAmount(10);
+        $tallGrass->setRandomAmount(5);
+
+        $spruce = new Tree(Sapling::SPRUCE);
+        $spruce->setSpawnPercentage(79);
+        $spruce->setRandomAmount(2);
+        $spruce->setBaseAmount(1);
+
+        $this->addPopulator($spruce);
+        $this->addPopulator($tallGrass);
+
+        $this->temperature = 0.8;
+        $this->rainfall = 0.4;
         parent::__construct();
     }
 
@@ -48,6 +57,6 @@ class Desert extends SandyBiome {
      * @return string
      */
     public function getName(): string {
-        return "Desert";
+        return "Mountains";
     }
 }

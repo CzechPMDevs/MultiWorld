@@ -41,15 +41,14 @@ class BiomeSelector {
     /** @var Simplex $ocean */
     public $ocean;
 
-
-    /** @var Biome[]|\SplFixedArray */
-    public $map = null;
-
+    /** @var Simplex $hills */
+    public $hills;
 
     public function __construct(Random $random) {
         $this->temperature = new Simplex($random, 2, 1 / 8, 1 / 2048);
         $this->rainfall = new Simplex($random, 2, 1 / 8, 1 / 2048);
         $this->ocean = new Simplex($random, 6, 1 / 2, 1 / 2048);
+        $this->hills = new Simplex($random, 6, 1 / 2, 1 / 2048);
     }
 
 
@@ -65,6 +64,11 @@ class BiomeSelector {
         return $this->ocean->noise2D($x, $z, true);
     }
 
+    public function getHills($x, $z) {
+        return $this->hills->noise2D($x, $z, true);
+    }
+
+
     /**
      * TODO: not sure on types here
      * @param int|float $x
@@ -76,12 +80,26 @@ class BiomeSelector {
         $temperature = $this->getTemperature($x, $z);
         $rainfall = $this->getRainfall($x, $z);
         $ocean = $this->getOcean($x, $z);
+        $hills = $this->getHills($x, $z);
+
         if($ocean < -0.25) {
-            return Biome::getBiome(BiomeManager::OCEAN);
+            return BiomeManager::getBiome(BiomeManager::OCEAN);
         }
+
         if($rainfall < 0) {
-            return Biome::getBiome(BiomeManager::DESERT);
+            if($hills > 0.7) {
+                return BiomeManager::getBiome(BiomeManager::DESERT_HILLS);
+            }
+            return BiomeManager::getBiome(BiomeManager::DESERT);
         }
-        return Biome::getBiome(BiomeManager::PLAINS);
+
+        if($temperature > -0.3) {
+            return BiomeManager::getBiome(BiomeManager::FOREST);
+        }
+
+        if($hills > 0) {
+            return BiomeManager::getBiome(BiomeManager::MOUNTAINS);
+        }
+        return BiomeManager::getBiome(BiomeManager::PLAINS);
     }
 }

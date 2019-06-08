@@ -70,6 +70,9 @@ class CactusPopulator extends Populator {
 
     private function canCactusStay(int $x, int $y, int $z) : bool{
         $b = $this->level->getBlockIdAt($x, $y, $z);
+        if($this->level->getBlockIdAt($x+1, $y, $z) != 0 || $this->level->getBlockIdAt($x-1, $y, $z) != 0 || $this->level->getBlockIdAt($x, $y, $z+1) != 0 || $this->level->getBlockIdAt($x, $y, $z-1) != 0) {
+            return false;
+        }
         return ($b === Block::AIR) and $this->level->getBlockIdAt($x, $y - 1, $z) === Block::SAND;
     }
 }

@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal;
 
-use czechpmdevs\multiworld\generator\normal\BiomeSelector;
 use pocketmine\block\Block;
 use pocketmine\level\biome\Biome;
 use pocketmine\level\ChunkManager;
@@ -61,7 +60,6 @@ class NormalGenerator extends Generator {
         if(self::$GAUSSIAN_KERNEL === null){
             self::generateKernel();
         }
-        BiomeManager::registerBiomes();
     }
 
     private static function generateKernel() : void{
@@ -82,7 +80,7 @@ class NormalGenerator extends Generator {
     }
 
     public function getName() : string{
-        return "normal";
+        return "custom";
     }
 
     public function getSettings() : array{
@@ -104,8 +102,14 @@ class NormalGenerator extends Generator {
         return $this->selector->pickBiome($x + $xNoise - 1, $z + $zNoise - 1);
     }
 
+    /**
+     * @param ChunkManager $level
+     * @param Random $random
+     * @throws \ReflectionException
+     */
     public function init(ChunkManager $level, Random $random) : void{
         parent::init($level, $random);
+        BiomeManager::registerBiomes();
         $this->random->setSeed($this->level->getSeed());
         $this->noiseBase = new Simplex($this->random, 4, 1 / 4, 1 / 32);
         $this->random->setSeed($this->level->getSeed());
@@ -171,7 +175,7 @@ class NormalGenerator extends Generator {
                     if($noiseValue > 0){
                         $chunk->setBlockId($x, $y, $z, Block::STONE);
                     }
-                    elseif($y <= 63) {
+                    elseif($y < 63) {
                         $chunk->setBlockId($x, $y, $z, Block::WATER);
                     }
                 }
@@ -190,7 +194,7 @@ class NormalGenerator extends Generator {
         }
 
         $chunk = $this->level->getChunk($chunkX, $chunkZ);
-        $biome = Biome::getBiome($chunk->getBiomeId(7, 7));
+        $biome = BiomeManager::getBiome($chunk->getBiomeId(7, 7));
         $biome->populateChunk($this->level, $chunkX, $chunkZ, $this->random);
     }
 

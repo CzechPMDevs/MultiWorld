@@ -22,10 +22,12 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
+use czechpmdevs\multiworld\generator\normal\BiomeManager;
 use czechpmdevs\multiworld\generator\normal\populator\LakePopulator;
-use czechpmdevs\multiworld\generator\normal\populator\PopulatorTrait;
+use czechpmdevs\multiworld\generator\normal\populator\TallGrass;
+use czechpmdevs\multiworld\generator\normal\populator\Tree;
+use pocketmine\block\Sapling;
 use pocketmine\level\biome\GrassyBiome;
-use pocketmine\level\generator\populator\TallGrass;
 
 /**
  * Class Plains
@@ -34,18 +36,25 @@ use pocketmine\level\generator\populator\TallGrass;
 class Plains extends GrassyBiome {
 
     public function __construct() {
-        parent::__construct();
+        $this->setElevation(64, 67);
+
+        $tree = new Tree();
+        $tree->setBaseAmount(1);
+        $tree->setRandomAmount(1);
+        $tree->setSpawnPercentage(87);
+
+        $this->addPopulator(new LakePopulator());
+        $this->addPopulator($tree);
+
         $tallGrass = new TallGrass();
         $tallGrass->setBaseAmount(56);
         $tallGrass->setRandomAmount(12);
 
-        $this->addPopulator(new LakePopulator());
         $this->addPopulator($tallGrass);
-
-        $this->setElevation(64, 67);
 
         $this->temperature = 0.8;
         $this->rainfall = 0.4;
+        parent::__construct();
     }
 
     /**

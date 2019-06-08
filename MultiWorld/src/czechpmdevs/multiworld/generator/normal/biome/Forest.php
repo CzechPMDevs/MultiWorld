@@ -22,32 +22,47 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
-use czechpmdevs\multiworld\generator\normal\BiomeManager;
-use czechpmdevs\multiworld\generator\normal\populator\CactusPopulator;
-use pocketmine\level\biome\SandyBiome;
+use czechpmdevs\multiworld\generator\normal\populator\TallGrass;
+use czechpmdevs\multiworld\generator\normal\populator\Tree;
+use pocketmine\block\Sapling;
+use pocketmine\level\biome\GrassyBiome;
 
 /**
- * Class Desert
+ * Class Plains
  * @package czechpmdevs\multiworld\generator\normal\biome
  */
-class Desert extends SandyBiome {
+class Forest extends GrassyBiome {
 
-    /**
-     * Desert constructor.
-     */
     public function __construct() {
-        $this->setElevation(63, 69);
-        $cactus = new CactusPopulator();
-        $cactus->setRandomAmount(4);
-        $cactus->setBaseAmount(3);
-        $this->addPopulator($cactus);
         parent::__construct();
+
+        $oak = new Tree();
+        $oak->setBaseAmount(3);
+        $oak->setRandomAmount(3);
+
+        $birch = new Tree(Sapling::BIRCH);
+        $birch->setBaseAmount(3);
+        $birch->setRandomAmount(3);
+
+        $this->addPopulator($oak);
+        $this->addPopulator($birch);
+
+        $this->setElevation(66, 79);
+
+        $tallGrass = new TallGrass();
+        $tallGrass->setBaseAmount(56);
+        $tallGrass->setRandomAmount(12);
+
+        $this->addPopulator($tallGrass);
+
+        $this->temperature = 0.8;
+        $this->rainfall = 0.4;
     }
 
     /**
      * @return string
      */
     public function getName(): string {
-        return "Desert";
+        return "Forest";
     }
 }
