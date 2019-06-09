@@ -22,12 +22,15 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal;
 
+use czechpmdevs\multiworld\generator\normal\biome\BirchForest;
 use czechpmdevs\multiworld\generator\normal\biome\Desert;
 use czechpmdevs\multiworld\generator\normal\biome\DesertHills;
 use czechpmdevs\multiworld\generator\normal\biome\Forest;
+use czechpmdevs\multiworld\generator\normal\biome\ForestHills;
 use czechpmdevs\multiworld\generator\normal\biome\Mountains;
 use czechpmdevs\multiworld\generator\normal\biome\Ocean;
 use czechpmdevs\multiworld\generator\normal\biome\Plains;
+use czechpmdevs\multiworld\generator\normal\biome\Taiga;
 use pocketmine\level\biome\Biome;
 
 /**
@@ -45,11 +48,9 @@ class BiomeManager {
     const DESERT = 2;
     const MOUNTAINS = 3;
     const FOREST = 4;
-    //const TAIGA = 5;
+    const TAIGA = 5;
     //const SWAMP = 6;
     //const RIVER = 7;
-    //const HELL = 8; const NETHERRACK = 8;
-    //const END = 9;
     //const FROZEN_OCEAN = 10;
     //const FROZEN_RIVER = 11;
     //const ICE_PLAINS = 12;
@@ -58,7 +59,7 @@ class BiomeManager {
     //const MUSHROOM_ISLAND_SHORE = 15;
     //const BEACH = 16;
     const DESERT_HILLS = 17;
-    //const FOREST_HILLS = 18;
+    const FOREST_HILLS = 18;
     //const TAIGA_HILLS = 19;
     //const SMALL_MOUNTAINS = 20;
     //const JUNGLE = 21;
@@ -67,7 +68,7 @@ class BiomeManager {
     //const DEEP_OCEAN = 24;
     //const STONE_BEACH = 25;
     //const COLD_BEACH = 26;
-    //const BIRCH_FOREST = 27;
+    const BIRCH_FOREST = 27;
     //const BIRCH_FOREST_HILLS = 28;
     //const ROOFED_FOREST = 29;
     //const COLD_TAIGA = 30;
@@ -120,7 +121,10 @@ class BiomeManager {
             2 => new Desert(),
             3 => new Mountains(),
             4 => new Forest(),
+            5 => new Taiga(),
             17 => new DesertHills(),
+            18 => new ForestHills(),
+            27 => new BirchForest()
         ];
     }
 }

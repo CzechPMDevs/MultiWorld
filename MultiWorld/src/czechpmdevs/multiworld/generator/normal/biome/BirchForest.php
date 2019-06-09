@@ -36,10 +36,10 @@ use pocketmine\block\Sapling;
 use pocketmine\level\biome\GrassyBiome;
 
 /**
- * Class Plains
+ * Class BirchForest
  * @package czechpmdevs\multiworld\generator\normal\biome
  */
-class Forest extends GrassyBiome {
+class BirchForest extends GrassyBiome {
 
     public function __construct() {
         parent::__construct();
@@ -70,16 +70,10 @@ class Forest extends GrassyBiome {
         $peonys->addPlant(new Plant(new DoublePlant(1), new DoublePlant(9)));
         $peonys->setSpawnPercentage(50);
 
-
-        $oak = new Tree();
-        $oak->setBaseAmount(3);
-        $oak->setRandomAmount(3);
-
         $birch = new Tree(Sapling::BIRCH);
-        $birch->setBaseAmount(3);
-        $birch->setRandomAmount(3);
+        $birch->setBaseAmount(5);
+        $birch->setRandomAmount(4);
 
-        $this->addPopulator($oak);
         $this->addPopulator($birch);
         $this->addPopulator($flowers);
         $this->addPopulator($peonys);
@@ -102,6 +96,6 @@ class Forest extends GrassyBiome {
      * @return string
      */
     public function getName(): string {
-        return "Forest";
+        return "Birch Forest";
     }
 }

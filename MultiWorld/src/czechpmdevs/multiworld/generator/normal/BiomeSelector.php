@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal;
 
+use czechpmdevs\multiworld\generator\normal\biome\BirchForest;
+use const pocketmine\BUILD_NUMBER;
 use pocketmine\level\biome\Biome;
 use pocketmine\level\generator\noise\Simplex;
 use pocketmine\utils\Random;
@@ -86,14 +88,24 @@ class BiomeSelector {
             return BiomeManager::getBiome(BiomeManager::OCEAN);
         }
 
-        if($rainfall < -0.2) {
+        if($rainfall < -0.4) {
             if($hills > 0.7) {
                 return BiomeManager::getBiome(BiomeManager::DESERT_HILLS);
             }
             return BiomeManager::getBiome(BiomeManager::DESERT);
         }
 
-        if($temperature > 0) {
+        if($temperature < -0.5) {
+            return BiomeManager::getBiome(BiomeManager::TAIGA);
+        }
+
+        if($temperature > -0.2) {
+            if($hills > 0.7) {
+                return BiomeManager::getBiome(BiomeManager::FOREST_HILLS);
+            }
+            if($temperature > 0.4) {
+                return BiomeManager::getBiome(BiomeManager::BIRCH_FOREST);
+            }
             return BiomeManager::getBiome(BiomeManager::FOREST);
         }
 

@@ -36,10 +36,10 @@ use pocketmine\block\Sapling;
 use pocketmine\level\biome\GrassyBiome;
 
 /**
- * Class Plains
+ * Class ForestHills
  * @package czechpmdevs\multiworld\generator\normal\biome
  */
-class Forest extends GrassyBiome {
+class ForestHills extends GrassyBiome {
 
     public function __construct() {
         parent::__construct();
@@ -86,7 +86,7 @@ class Forest extends GrassyBiome {
         $this->addPopulator($roses);
         $this->addPopulator($mushrooms);
 
-        $this->setElevation(66, 79);
+        $this->setElevation(66, 89);
 
         $tallGrass = new TallGrass();
         $tallGrass->setBaseAmount(56);
@@ -102,6 +102,6 @@ class Forest extends GrassyBiome {
      * @return string
      */
     public function getName(): string {
-        return "Forest";
+        return "Forest Hills";
     }
 }
