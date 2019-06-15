@@ -35,6 +35,8 @@ abstract class Tree extends TreeObject {
                 $tree = new JungleTree();
                 break;
             case Sapling::ACACIA:
+                $tree = new AcaciaTree();
+                break;
             case Sapling::DARK_OAK:
                 return; //TODO
             default:

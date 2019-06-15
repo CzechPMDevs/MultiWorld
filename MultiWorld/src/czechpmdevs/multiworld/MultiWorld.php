@@ -61,11 +61,8 @@ class MultiWorld extends PluginBase {
 
     /** @var Command[] $commands */
     public $commands = [];
-
-    /**
-     * @throws \ReflectionException
-     */
-    public function onEnable() {
+    
+    public function onLoad() {
         $start = (bool) !(self::$instance instanceof $this);
         self::$instance = $this;
 
@@ -82,7 +79,12 @@ class MultiWorld extends PluginBase {
                 GeneratorManager::addGenerator($class, $name, true);
             }
         }
+    }
 
+    /**
+     * @throws \ReflectionException
+     */
+    public function onEnable() {
         $this->configManager = new ConfigManager($this);
         $this->languageManager = new LanguageManager($this);
         $this->formManager = new FormManager($this);

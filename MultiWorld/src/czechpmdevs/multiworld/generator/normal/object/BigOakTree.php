@@ -45,7 +45,6 @@ class BigOakTree extends Tree {
     }
 
     public function placeObject(ChunkManager $level, int $x, int $y, int $z, Random $random) {
-        echo "placed at $x $y $z\n";
         $this->generate($level, $random, $x, $y, $z);
     }
 
@@ -178,26 +177,26 @@ class LeafNode {
      * @param $branchY
      */
     public function __construct($x, $y, $z, $branchY) {
-        $this->x = $x;
-        $this->y = $y;
-        $this->z = $z;
-        $this->branchY = $branchY;
+        $$this->x = $x;
+        $$this->y = $y;
+        $$this->z = $z;
+        $$this->branchY = $branchY;
     }
 
     public function getX() {
-        return $this->x;
+        return $$this->x;
     }
 
     public function getY() {
-        return $this->y;
+        return $$this->y;
     }
 
     public function getZ() {
-        return $this->z;
+        return $$this->z;
     }
 
     public function getBranchY() {
-        return $this->branchY;
+        return $$this->branchY;
     }
 }
 
