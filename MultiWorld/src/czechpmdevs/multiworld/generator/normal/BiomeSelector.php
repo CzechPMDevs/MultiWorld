@@ -89,7 +89,7 @@ class BiomeSelector {
         }
 
         if($rainfall < -0.4) {
-            if($hills > 0.7) {
+            if($hills > 0.6) {
                 return BiomeManager::getBiome(BiomeManager::DESERT_HILLS);
             }
             return BiomeManager::getBiome(BiomeManager::DESERT);
@@ -99,14 +99,16 @@ class BiomeSelector {
             return BiomeManager::getBiome(BiomeManager::TAIGA);
         }
 
-        if($temperature > -0.2) {
-            if($hills > 0.7) {
+        if($temperature > -0.4) {
+            if($hills > 0.9) {
                 return BiomeManager::getBiome(BiomeManager::FOREST_HILLS);
             }
-            if($temperature > 0.4) {
+            if($temperature > 0.7) {
                 return BiomeManager::getBiome(BiomeManager::BIRCH_FOREST);
             }
-            return BiomeManager::getBiome(BiomeManager::FOREST);
+            if($temperature < 0.1)
+                return BiomeManager::getBiome(BiomeManager::FOREST);
+            return BiomeManager::getBiome(BiomeManager::SAVANNA);
         }
 
         if($hills > 0.1) {

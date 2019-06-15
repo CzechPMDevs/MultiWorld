@@ -26,11 +26,8 @@ use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
 use czechpmdevs\multiworld\generator\normal\populator\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\TallGrass;
 use czechpmdevs\multiworld\generator\normal\populator\Tree;
-use pocketmine\block\BrownMushroom;
 use pocketmine\block\Dandelion;
-use pocketmine\block\DoublePlant;
 use pocketmine\block\Flower;
-use pocketmine\block\RedMushroom;
 use pocketmine\block\Sapling;
 use pocketmine\level\biome\GrassyBiome;
 
@@ -51,16 +48,11 @@ class Savanna extends GrassyBiome {
         $flowers->addPlant(new Plant(new Flower()));
         $flowers->setSpawnPercentage(75);
 
-        $oak = new Tree();
-        $oak->setBaseAmount(3);
-        $oak->setRandomAmount(3);
+        $acacia = new Tree(Sapling::ACACIA);
+        $acacia->setBaseAmount(1);
+        $acacia->setRandomAmount(1);
 
-        $birch = new Tree(Sapling::ACACIA);
-        $birch->setBaseAmount(1);
-        $birch->setRandomAmount(1);
-
-        $this->addPopulator($oak);
-        $this->addPopulator($birch);
+        $this->addPopulator($acacia);
         $this->addPopulator($flowers);
 
         $this->setElevation(95, 100);

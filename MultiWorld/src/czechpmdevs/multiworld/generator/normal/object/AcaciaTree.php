@@ -176,14 +176,14 @@ class AcaciaTree extends Tree {
     }
 
     private function placeLogAt(ChunkManager $worldIn, Vector3 $pos) {
-        $worldIn->setBlockIdAt($pos->getX(), $pos->getY(), $pos->getZ(), Block::WOOD2);
+        $worldIn->setBlockIdAt((int)$pos->getX(), (int)$pos->getY(), (int)$pos->getZ(), Block::WOOD2);
     }
 
     private function placeLeafAt(ChunkManager $worldIn, Vector3 $pos) {
-        $material = $worldIn->getBlockIdAt($pos->getFloorX(), $pos->getFloorY(), $pos->getFloorZ());
+        $material = $worldIn->getBlockIdAt((int)$pos->getFloorX(), (int)$pos->getFloorY(), (int)$pos->getFloorZ());
 
         if ($material == Block::AIR || $material == Block::LEAVES) {
-            $worldIn->setBlockIdAt($pos->getX(), $pos->getY(), $pos->getZ(), Block::LEAVES2);
+            $worldIn->setBlockIdAt((int)$pos->getX(), (int)$pos->getY(), (int)$pos->getZ(), Block::LEAVES2);
         }
     }
 }

@@ -27,7 +27,6 @@ use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
 use czechpmdevs\multiworld\generator\normal\populator\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\TallGrass;
 use czechpmdevs\multiworld\generator\normal\populator\Tree;
-use pocketmine\block\Block;
 use pocketmine\block\Dandelion;
 use pocketmine\block\Flower;
 use pocketmine\level\biome\GrassyBiome;

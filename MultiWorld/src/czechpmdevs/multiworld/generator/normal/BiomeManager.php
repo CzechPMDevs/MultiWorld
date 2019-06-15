@@ -30,6 +30,7 @@ use czechpmdevs\multiworld\generator\normal\biome\ForestHills;
 use czechpmdevs\multiworld\generator\normal\biome\Mountains;
 use czechpmdevs\multiworld\generator\normal\biome\Ocean;
 use czechpmdevs\multiworld\generator\normal\biome\Plains;
+use czechpmdevs\multiworld\generator\normal\biome\Savanna;
 use czechpmdevs\multiworld\generator\normal\biome\Taiga;
 use pocketmine\level\biome\Biome;
 
@@ -76,7 +77,7 @@ class BiomeManager {
     //const MEGA_TAIGA = 32;
     //const MEGA_TAIGA_HILLS = 33;
     //const EXTREME_HILLS_PLUS = 34;
-    //const SAVANNA = 35;
+    const SAVANNA = 35;
     //const SAVANNA_PLATEAU = 36;
     //const MESA = 37;
     //const MESA_PLATEAU_F = 38;
@@ -124,7 +125,8 @@ class BiomeManager {
             5 => new Taiga(),
             17 => new DesertHills(),
             18 => new ForestHills(),
-            27 => new BirchForest()
+            27 => new BirchForest(),
+            35 => new Savanna()
         ];
     }
 }
