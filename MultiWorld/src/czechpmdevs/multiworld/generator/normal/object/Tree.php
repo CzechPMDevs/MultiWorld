@@ -19,7 +19,7 @@ use pocketmine\utils\Random;
  */
 abstract class Tree extends TreeObject {
 
-    public static function growTree(ChunkManager $level, int $x, int $y, int $z, Random $random, int $type = 0) {
+    public static function growTree(ChunkManager $level, int $x, int $y, int $z, Random $random, int $type = 0, bool $vines = false) {
         switch($type){
             case Sapling::SPRUCE:
                 $tree = new SpruceTree();
@@ -40,12 +40,17 @@ abstract class Tree extends TreeObject {
             case Sapling::DARK_OAK:
                 return; //TODO
             default:
+                if($vines) {
+                    $tree = new SwampTree();
+                    goto place;
+                }
                 $tree = new OakTree();
                 if($random->nextRange(0, 9) === 0){
                     $tree = new BigOakTree($random, $level);
                 }
                 break;
         }
+        place:
         if($tree->canPlaceObject($level, $x, $y, $z, $random)){
             $tree->placeObject($level, $x, $y, $z, $random);
         }

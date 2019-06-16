@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal;
 
 use czechpmdevs\multiworld\generator\normal\biome\BirchForest;
+use czechpmdevs\multiworld\generator\normal\biome\DeepOcean;
 use czechpmdevs\multiworld\generator\normal\biome\Desert;
 use czechpmdevs\multiworld\generator\normal\biome\DesertHills;
 use czechpmdevs\multiworld\generator\normal\biome\Forest;
@@ -30,7 +31,9 @@ use czechpmdevs\multiworld\generator\normal\biome\ForestHills;
 use czechpmdevs\multiworld\generator\normal\biome\Mountains;
 use czechpmdevs\multiworld\generator\normal\biome\Ocean;
 use czechpmdevs\multiworld\generator\normal\biome\Plains;
+use czechpmdevs\multiworld\generator\normal\biome\River;
 use czechpmdevs\multiworld\generator\normal\biome\Savanna;
+use czechpmdevs\multiworld\generator\normal\biome\Swamp;
 use czechpmdevs\multiworld\generator\normal\biome\Taiga;
 use pocketmine\level\biome\Biome;
 
@@ -50,8 +53,8 @@ class BiomeManager {
     const MOUNTAINS = 3;
     const FOREST = 4;
     const TAIGA = 5;
-    //const SWAMP = 6;
-    //const RIVER = 7;
+    const SWAMP = 6;
+    const RIVER = 7;
     //const FROZEN_OCEAN = 10;
     //const FROZEN_RIVER = 11;
     //const ICE_PLAINS = 12;
@@ -66,7 +69,7 @@ class BiomeManager {
     //const JUNGLE = 21;
     //const JUNGLE_HILLS = 22;
     //const JUNGLE_EDGE = 23;
-    //const DEEP_OCEAN = 24;
+    const DEEP_OCEAN = 24;
     //const STONE_BEACH = 25;
     //const COLD_BEACH = 26;
     const BIRCH_FOREST = 27;
@@ -86,7 +89,7 @@ class BiomeManager {
     /**
      * @throws \ReflectionException
      *
-     * Don't forget to implement this on all the threads
+     * Implement this just to threads with MultiWorld generator
      */
     public static function registerBiomes() {
         $biomeClass = new \ReflectionClass(Biome::class);
@@ -123,8 +126,11 @@ class BiomeManager {
             3 => new Mountains(),
             4 => new Forest(),
             5 => new Taiga(),
+            6 => new Swamp(),
+            7 => new River(),
             17 => new DesertHills(),
             18 => new ForestHills(),
+            24 => new DeepOcean(),
             27 => new BirchForest(),
             35 => new Savanna()
         ];

@@ -46,11 +46,15 @@ class BiomeSelector {
     /** @var Simplex $hills */
     public $hills;
 
+    /** @var Simplex $river */
+    public $river;
+
     public function __construct(Random $random) {
         $this->temperature = new Simplex($random, 2, 1 / 8, 1 / 2048);
         $this->rainfall = new Simplex($random, 2, 1 / 8, 1 / 2048);
         $this->ocean = new Simplex($random, 6, 1 / 2, 1 / 2048);
         $this->hills = new Simplex($random, 6, 1 / 2, 1 / 2048);
+        $this->river = new Simplex($random, 6, 1 / 2, 1 / 1024);
     }
 
 
@@ -70,6 +74,10 @@ class BiomeSelector {
         return $this->hills->noise2D($x, $z, true);
     }
 
+    public function getRiver($x, $z) {
+        return $this->river->noise2D($x, $z, true);
+    }
+
 
     /**
      * TODO: not sure on types here
@@ -83,17 +91,30 @@ class BiomeSelector {
         $rainfall = $this->getRainfall($x, $z);
         $ocean = $this->getOcean($x, $z);
         $hills = $this->getHills($x, $z);
+        $river = $this->getRiver($x, $z);
 
         if($ocean < -0.25) {
+            if($ocean < 0.6)
+                return BiomeManager::getBiome(BiomeManager::DEEP_OCEAN);
             return BiomeManager::getBiome(BiomeManager::OCEAN);
         }
 
-        if($rainfall < -0.4) {
-            if($hills > 0.6) {
+        if(abs($river) < 0.04) {
+            return BiomeManager::getBiome(BiomeManager::RIVER);
+        }
+
+        if($ocean < 0 && $temperature > 0.1) {
+            return BiomeManager::getBiome(BiomeManager::SWAMP);
+        }
+
+        if($rainfall < -0.3) {
+            if($hills > 0.4) {
                 return BiomeManager::getBiome(BiomeManager::DESERT_HILLS);
             }
             return BiomeManager::getBiome(BiomeManager::DESERT);
         }
+
+
 
         if($temperature < -0.5) {
             return BiomeManager::getBiome(BiomeManager::TAIGA);
@@ -103,7 +124,7 @@ class BiomeSelector {
             if($hills > 0.9) {
                 return BiomeManager::getBiome(BiomeManager::FOREST_HILLS);
             }
-            if($temperature > 0.7) {
+            if($temperature > 0.65) {
                 return BiomeManager::getBiome(BiomeManager::BIRCH_FOREST);
             }
             if($temperature < 0.1)

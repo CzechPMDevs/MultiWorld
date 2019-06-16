@@ -21,9 +21,11 @@ class Tree extends Populator {
 	private $spawnPercentage = 100;
 
 	private $type;
+	private $vines = false;
 
-	public function __construct($type = Sapling::OAK){
+	public function __construct($type = Sapling::OAK, bool $vines = false){
 		$this->type = $type;
+		$this->vines = $vines;
 	}
 
     /**
@@ -57,7 +59,7 @@ class Tree extends Populator {
 			if($level->getBlockIdAt($x, $y-1, $z) !== Block::GRASS) {
 			    continue;
             }
-			ObjectTree::growTree($this->level, $x, $y, $z, $random, $this->type);
+			ObjectTree::growTree($this->level, $x, $y, $z, $random, $this->type, $this->vines);
 		}
 	}
 }

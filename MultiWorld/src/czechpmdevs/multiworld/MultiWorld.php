@@ -27,7 +27,6 @@ use czechpmdevs\multiworld\command\GameruleCommand;
 use czechpmdevs\multiworld\command\MultiWorldCommand;
 use czechpmdevs\multiworld\generator\ender\EnderGenerator;
 use czechpmdevs\multiworld\generator\nether\NetherGenerator;
-use czechpmdevs\multiworld\generator\normal\BiomeManager;
 use czechpmdevs\multiworld\generator\normal\NormalGenerator;
 use czechpmdevs\multiworld\generator\skyblock\SkyBlockGenerator;
 use czechpmdevs\multiworld\generator\void\VoidGenerator;
@@ -36,10 +35,7 @@ use czechpmdevs\multiworld\util\FormManager;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\Command;
 use pocketmine\level\generator\GeneratorManager;
-use pocketmine\level\generator\noise\Simplex;
 use pocketmine\plugin\PluginBase;
-use pocketmine\plugin\PluginException;
-use pocketmine\utils\Random;
 
 /**
  * Class MultiWorld
