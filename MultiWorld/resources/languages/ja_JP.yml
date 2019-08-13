@@ -17,13 +17,12 @@ help-5: '§2/mw update §fワールドのロビー、スポーン、デフォル
 help-6: '§2/mw delete §fワールドを削除'
 help-7: '§2/mw info §fワールドの情報を表示'
 help-8: '§2/mw gamerule §fワールドのゲームルールを変更'
-help-9: '§2/mw manage §fDisplays form for managing with worlds'
-help-10: '§2/mw rename §fRenames the world'
-
+help-9: '§2/mw manage §fワールド管理用のフォームを表示'
+help-10: '§2/mw rename §fワールド名を変更'
 
 # Create Command:
 create-usage: '§c使用方法: §7/mw create <ワールド名> [シード値] [ジェネレータ名]'
-create-exists: '§cLevel {%0} is already generated!'
+create-exists: '§cワールド {%0} は既に存在します!'
 create-gennotexists: '§c%1 という名前のジェネレータは存在しません'
 create-generating: '§aワールド {%0} を生成中です'
 create-done: 'ワールド {%0} はシード値 {%1} , ジェネレータ名 {%2} によって生成されました'
@@ -83,11 +82,11 @@ gamerule-notexists: '§cゲームルール {%0} は存在しません'
 gamerule-done: '§aワールド {%1} のゲームルール {%0} を {%2} に変更しました'
 
 # Rename Command
-rename-usage: '§cUsage: §7/mw rename <from> <to>'
-rename-exists: '§cLevel with name {%0} already exists.'
-rename-levelnotfound: '§cLevel {%0} does not exists.'
-rename-done: '§aName of level {%0} was changed to {%1}.'
+rename-usage: '§c使用方法: §7/mw rename <元のワールド名> <変更先ワールド名>'
+rename-exists: '§c{%0} という名前のワールドは既に存在します'
+rename-levelnotfound: '§cワールド {%0} は存在しません!'
+rename-done: '§aワールド名 {%0} を {%1} に変更しました'
 
 # Forms
-forms-invalid: '§cInvalid result.'
+forms-invalid: '§cフォームに入力した値が異常です'
 ...
