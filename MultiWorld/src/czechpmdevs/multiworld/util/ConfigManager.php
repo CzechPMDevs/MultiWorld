@@ -104,6 +104,12 @@ class ConfigManager {
         if(!is_file(self::getDataFolder()."languages/ru_RU.yml")) {
             MultiWorld::getInstance()->saveResource("languages/ru_RU.yml");
         }
+        if(!is_file(self::getDataFolder()."languages/zh_CN.yml")) {
+            MultiWorld::getInstance()->saveResource("languages/zh_CN.yml");
+        }
+        if(!is_file(self::getDataFolder()."languages/ru_RU.yml")) {
+            MultiWorld::getInstance()->saveResource("languages/ina_IND.yml");
+        }
 
         // load prefix
         self::$prefix = MultiWorld::getInstance()->getConfig()->get("prefix")." §a";

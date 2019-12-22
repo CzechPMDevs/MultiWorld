@@ -37,6 +37,9 @@ class LanguageManager {
     /** @var MultiWorld $plugin */
     public $plugin;
 
+    /** @var bool $forceDefaultLang */
+    private static $forceDefaultLang = false;
+
     /** @var string $defaultLang */
     public static $defaultLang;
 
@@ -52,13 +55,19 @@ class LanguageManager {
     }
 
     public function loadLang() {
-        self::$defaultLang = $this->plugin->getConfig()->get("lang");
+        $config = $this->plugin->getConfig()->getAll();
+
+        self::$defaultLang = $config["lang"];
         foreach (glob(ConfigManager::getDataFolder() . "/languages/*.yml") as $langResource) {
             self::$languages[basename($langResource, ".yml")] = yaml_parse_file($langResource);
         }
 
         if(!isset(self::$languages[self::$defaultLang])) {
             self::$languages[self::$defaultLang] = json_decode(base64_decode(self::DEFAULT_LANGUAGE), true); // it should fix bug
+        }
+
+        if(isset($config["forceDefaultLang"])) {
+            self::$forceDefaultLang = (bool)$config["forceDefaultLang"];
         }
     }
 
@@ -76,7 +85,7 @@ class LanguageManager {
                 $lang = self::$players[$sender->getName()];
             }
 
-            if(empty(self::$languages[$lang])) {
+            if(empty(self::$languages[$lang]) || self::$forceDefaultLang) {
                 $lang = self::$defaultLang;
             }
 
