@@ -103,38 +103,58 @@ class BiomeSelector {
             return BiomeManager::getBiome(BiomeManager::RIVER);
         }
 
-        if($ocean < 0 && $temperature > 0.1) {
-            return BiomeManager::getBiome(BiomeManager::SWAMP);
+        if($ocean > 0 && $temperature > 0.45) {
+            if($temperature < 0.55) {
+                return BiomeManager::getBiome(BiomeManager::SUNFLOWER_PLAINS);
+            }
+            return BiomeManager::getBiome(BiomeManager::PLAINS);
         }
 
-        if($rainfall < -0.3) {
+
+        if($ocean < -0.2) {
+            if($temperature > 0.8) {
+                return BiomeManager::getBiome(BiomeManager::SWAMP);
+            }
+            elseif($temperature < 0.4 && $ocean < - 0.22) {
+                return BiomeManager::getBiome(BiomeManager::BEACH);
+            }
+        }
+
+        if($rainfall < -0.4) {
             if($hills > 0.4) {
                 return BiomeManager::getBiome(BiomeManager::DESERT_HILLS);
             }
             return BiomeManager::getBiome(BiomeManager::DESERT);
         }
 
-
-
         if($temperature < -0.5) {
             return BiomeManager::getBiome(BiomeManager::TAIGA);
         }
 
         if($temperature > -0.4) {
-            if($hills > 0.9) {
+            if($hills > 0.8) {
                 return BiomeManager::getBiome(BiomeManager::FOREST_HILLS);
             }
-            if($temperature > 0.65) {
-                return BiomeManager::getBiome(BiomeManager::BIRCH_FOREST);
+            if($temperature > 0.4) {
+                if($hills < 0.4) {
+                    return BiomeManager::getBiome(BiomeManager::BIRCH_FOREST);
+                }
+                else {
+                    return BiomeManager::getBiome(BiomeManager::TALL_BIRCH_FOREST);
+                }
             }
-            if($temperature < 0.1)
+
+            if($temperature < 0.2) {
                 return BiomeManager::getBiome(BiomeManager::FOREST);
+            }
+
             return BiomeManager::getBiome(BiomeManager::SAVANNA);
         }
 
         if($hills > 0.1) {
             return BiomeManager::getBiome(BiomeManager::MOUNTAINS);
         }
-        return BiomeManager::getBiome(BiomeManager::PLAINS);
+
+        return BiomeManager::getBiome(BiomeManager::GRAVELLY_MOUNTAINS);
     }
 }

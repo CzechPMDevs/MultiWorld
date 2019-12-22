@@ -86,7 +86,7 @@ class Forest extends GrassyBiome {
         $this->addPopulator($roses);
         $this->addPopulator($mushrooms);
 
-        $this->setElevation(66, 79);
+        $this->setElevation(64, 74);
 
         $tallGrass = new TallGrass();
         $tallGrass->setBaseAmount(56);

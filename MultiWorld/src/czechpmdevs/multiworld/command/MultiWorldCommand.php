@@ -97,6 +97,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
             return;
         }
 
+
         if($this->getSubcommand($args[0]) === null) {
             $sender->sendMessage(LanguageManager::getMsg($sender, "default-usage"));
             return;

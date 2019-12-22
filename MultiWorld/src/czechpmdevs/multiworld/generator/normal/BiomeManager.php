@@ -22,19 +22,23 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal;
 
+use czechpmdevs\multiworld\generator\normal\biome\Beach;
 use czechpmdevs\multiworld\generator\normal\biome\BirchForest;
 use czechpmdevs\multiworld\generator\normal\biome\DeepOcean;
 use czechpmdevs\multiworld\generator\normal\biome\Desert;
 use czechpmdevs\multiworld\generator\normal\biome\DesertHills;
 use czechpmdevs\multiworld\generator\normal\biome\Forest;
 use czechpmdevs\multiworld\generator\normal\biome\ForestHills;
+use czechpmdevs\multiworld\generator\normal\biome\GravellyMountains;
 use czechpmdevs\multiworld\generator\normal\biome\Mountains;
 use czechpmdevs\multiworld\generator\normal\biome\Ocean;
 use czechpmdevs\multiworld\generator\normal\biome\Plains;
 use czechpmdevs\multiworld\generator\normal\biome\River;
 use czechpmdevs\multiworld\generator\normal\biome\Savanna;
+use czechpmdevs\multiworld\generator\normal\biome\SunflowerPlains;
 use czechpmdevs\multiworld\generator\normal\biome\Swamp;
 use czechpmdevs\multiworld\generator\normal\biome\Taiga;
+use czechpmdevs\multiworld\generator\normal\biome\TallBirchForest;
 use pocketmine\level\biome\Biome;
 
 /**
@@ -61,7 +65,7 @@ class BiomeManager {
     //const ICE_MOUNTAINS = 13;
     //const MUSHROOM_ISLAND = 14;
     //const MUSHROOM_ISLAND_SHORE = 15;
-    //const BEACH = 16;
+    const BEACH = 16;
     const DESERT_HILLS = 17;
     const FOREST_HILLS = 18;
     //const TAIGA_HILLS = 19;
@@ -85,6 +89,9 @@ class BiomeManager {
     //const MESA = 37;
     //const MESA_PLATEAU_F = 38;
     //const MESA_PLATEAU = 39;
+    const SUNFLOWER_PLAINS = 129;
+    const GRAVELLY_MOUNTAINS = 131;
+    const TALL_BIRCH_FOREST = 155;
 
     /**
      * @throws \ReflectionException
@@ -128,11 +135,15 @@ class BiomeManager {
             5 => new Taiga(),
             6 => new Swamp(),
             7 => new River(),
+            16 => new Beach(),
             17 => new DesertHills(),
             18 => new ForestHills(),
             24 => new DeepOcean(),
             27 => new BirchForest(),
-            35 => new Savanna()
+            35 => new Savanna(),
+            129 => new SunflowerPlains(),
+            131 => new GravellyMountains(),
+            155 => new TallBirchForest()
         ];
     }
 }

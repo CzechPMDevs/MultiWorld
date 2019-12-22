@@ -40,15 +40,15 @@ use pocketmine\Server;
  */
 class WorldManagementAPI {
 
-    public const GENERATOR_NORMAL_CUSTOM = -1;
     public const GENERATOR_NORMAL = 0;
-    public const GENERATOR_HELL = 1;
-    public const GENERATOR_ENDER = 2;
-    public const GENERATOR_FLAT = 3;
-    public const GENERATOR_VOID = 4;
-    public const GENERATOR_SKYBLOCK = 5;
+    public const GENERATOR_NORMAL_CUSTOM = 1;
+    public const GENERATOR_HELL = 2;
+    public const GENERATOR_ENDER = 3;
+    public const GENERATOR_FLAT = 4;
+    public const GENERATOR_VOID = 5;
+    public const GENERATOR_SKYBLOCK = 6;
 
-    public const GENERATOR_HELL_OLD = 6;
+    public const GENERATOR_HELL_OLD = 7;
 
     /**
      * @param string $levelName

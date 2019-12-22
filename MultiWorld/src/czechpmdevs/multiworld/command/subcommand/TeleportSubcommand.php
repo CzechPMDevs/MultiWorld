@@ -43,7 +43,7 @@ class TeleportSubcommand implements SubCommand {
     public function executeSub(CommandSender $sender, array $args, string $name) {
         try {
             if(!isset($args[0])) {
-                LanguageManager::getMsg($sender, "teleport-usage");
+                $sender->sendMessage(LanguageManager::getMsg($sender, "teleport-usage"));
                 return;
             }
 

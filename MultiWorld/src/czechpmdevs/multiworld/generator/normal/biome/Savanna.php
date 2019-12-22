@@ -40,7 +40,6 @@ class Savanna extends GrassyBiome {
     public function __construct() {
         parent::__construct();
 
-
         $flowers = new PlantPopulator();
         $flowers->setBaseAmount(6);
         $flowers->setRandomAmount(7);

@@ -51,9 +51,9 @@ class WorldGameRulesAPI {
 
         if(!$compound instanceof CompoundTag) {
             $levelProvider->getLevelData()->setTag(new CompoundTag("GameRules", []));
-            $rules = $levelProvider->getLevelData()->getCompoundTag("GameRules");
+            $compound = $levelProvider->getLevelData()->getCompoundTag("GameRules");
             foreach (self::getDefaultGameRules() as $rule => [$type, $value]) {
-                $rules->setString($rule, self::getStringFromValue($value));
+                $compound->setString($rule, self::getStringFromValue($value));
             }
         }
 

@@ -19,25 +19,36 @@ use pocketmine\utils\Random;
  */
 abstract class Tree extends TreeObject {
 
+    public const OAK = 0;
+    public const SPRUCE = 1;
+    public const BIRCH = 2;
+    public const JUNGLE = 3;
+    public const ACACIA = 4;
+    public const DARK_OAK = 5;
+    public const BIG_BIRCH = 6;
+
     public static function growTree(ChunkManager $level, int $x, int $y, int $z, Random $random, int $type = 0, bool $vines = false) {
         switch($type){
-            case Sapling::SPRUCE:
+            case self::SPRUCE:
                 $tree = new SpruceTree();
                 break;
-            case Sapling::BIRCH:
+            case self::BIRCH:
                 if($random->nextBoundedInt(39) === 0){
                     $tree = new BirchTree(true);
                 }else{
                     $tree = new BirchTree();
                 }
                 break;
-            case Sapling::JUNGLE:
+            case self::BIG_BIRCH:
+                $tree = new BirchTree(true);
+                break;
+            case self::JUNGLE:
                 $tree = new JungleTree();
                 break;
-            case Sapling::ACACIA:
+            case self::ACACIA:
                 $tree = new AcaciaTree();
                 break;
-            case Sapling::DARK_OAK:
+            case self::DARK_OAK:
                 return; //TODO
             default:
                 if($vines) {

@@ -52,7 +52,7 @@ class FormManager {
                 $customForm->addLabel("Create world");
                 $customForm->addInput("Level name");
                 $customForm->addInput("Level seed");
-                $customForm->addDropdown("Generator", ["Normal", "Nether", "End", "Flat", "Void", "SkyBlock"]);
+                $customForm->addDropdown("Generator", ["Normal", "Custom", "Nether", "End", "Flat", "Void", "SkyBlock"]);
                 $player->sendForm($customForm);
                 break;
             case self::FORM_DELETE:
@@ -139,6 +139,8 @@ class FormManager {
                     case WorldManagementAPI::GENERATOR_HELL_OLD:
                         $genName = "Nether_Old";
                         break;
+                    case WorldManagementAPI::GENERATOR_NORMAL_CUSTOM:
+                        $genName = "Custom";
                 }
                 $this->plugin->getServer()->dispatchCommand($player, "mw create $name $seed $genName");
                 break;

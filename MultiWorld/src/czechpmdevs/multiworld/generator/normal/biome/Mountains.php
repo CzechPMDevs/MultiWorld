@@ -34,6 +34,7 @@ use pocketmine\level\biome\GrassyBiome;
 class Mountains extends GrassyBiome {
 
     public function __construct() {
+        parent::__construct();
         $this->setElevation(66, 120);
 
         $tallGrass = new TallGrass();
@@ -50,7 +51,6 @@ class Mountains extends GrassyBiome {
 
         $this->temperature = 0.8;
         $this->rainfall = 0.4;
-        parent::__construct();
     }
 
     /**
