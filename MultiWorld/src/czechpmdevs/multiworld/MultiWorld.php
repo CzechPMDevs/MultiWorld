@@ -95,14 +95,6 @@ class MultiWorld extends PluginBase {
         }
 
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this, $cmd), $this);
-        $this->test();
-    }
-
-    private function test() {
-        if(WorldManagementAPI::isLevelGenerated("Test")) {
-            WorldManagementAPI::removeLevel("Test");
-        }
-        WorldManagementAPI::generateLevel("Test", rand(0, 100), WorldManagementAPI::GENERATOR_NORMAL_CUSTOM);
     }
 
     /**
