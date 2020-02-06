@@ -36,7 +36,7 @@ use pocketmine\block\Sapling;
 use pocketmine\level\biome\GrassyBiome;
 
 /**
- * Class Plains
+ * Class Forest
  * @package czechpmdevs\multiworld\generator\normal\biome
  */
 class Forest extends GrassyBiome {

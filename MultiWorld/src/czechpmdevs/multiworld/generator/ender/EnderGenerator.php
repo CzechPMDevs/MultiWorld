@@ -62,32 +62,11 @@ class EnderGenerator extends Generator {
     /** @var Simplex */
     private $noiseBase;
 
-    private static $GAUSSIAN_KERNEL = null;
-    private static $SMOOTH_SIZE = 2;
-
     /**
      * EnderGenerator constructor.
      * @param array $options
      */
-    public function __construct(array $options = []) {
-        if (self::$GAUSSIAN_KERNEL === null) {
-            self::generateKernel();
-        }
-    }
-
-    private static function generateKernel() {
-        self::$GAUSSIAN_KERNEL = [];
-        $bellSize = 1 / self::$SMOOTH_SIZE;
-        $bellHeight = 2 * self::$SMOOTH_SIZE;
-        for ($sx = -self::$SMOOTH_SIZE; $sx <= self::$SMOOTH_SIZE; ++$sx) {
-            self::$GAUSSIAN_KERNEL[$sx + self::$SMOOTH_SIZE] = [];
-            for ($sz = -self::$SMOOTH_SIZE; $sz <= self::$SMOOTH_SIZE; ++$sz) {
-                $bx = $bellSize * $sx;
-                $bz = $bellSize * $sz;
-                self::$GAUSSIAN_KERNEL[$sx + self::$SMOOTH_SIZE][$sz + self::$SMOOTH_SIZE] = $bellHeight * exp(-($bx * $bx + $bz * $bz) / 2);
-            }
-        }
-    }
+    public function __construct(array $options = []) {}
 
     /**
      * @return string
@@ -106,7 +85,7 @@ class EnderGenerator extends Generator {
     /**
      * @return array
      */
-    public function getSettings() : array {
+    public function getSettings(): array {
         return [];
     }
 
@@ -132,12 +111,7 @@ class EnderGenerator extends Generator {
      */
     public function generateChunk(int $chunkX, int $chunkZ): void {
         $this->random->setSeed(0xa6fe78dc ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
-        if(class_exists(GeneratorManager::class)) {
-            $noise = $this->noiseBase->getFastNoise3D(16, 128, 16, 4, 8, 4, $chunkX * 16, 0, $chunkZ * 16);
-        }
-        else {
-            $noise = Generator::getFastNoise3D($this->noiseBase, 16, 128, 16, 4, 8, 4, $chunkX * 16, 0, $chunkZ * 16);
-        }
+        $noise = $this->noiseBase->getFastNoise3D(16, 128, 16, 4, 8, 4, $chunkX * 16, 0, $chunkZ * 16);
 
         $chunk = $this->level->getChunk($chunkX, $chunkZ);
         for ($x = 0; $x < 16; ++$x) {
@@ -169,7 +143,6 @@ class EnderGenerator extends Generator {
         foreach ($this->populators as $populator) {
             $populator->populate($this->level, $chunkX, $chunkZ, $this->random);
         }
-        $chunk = $this->level->getChunk($chunkX, $chunkZ);
     }
 
     /**

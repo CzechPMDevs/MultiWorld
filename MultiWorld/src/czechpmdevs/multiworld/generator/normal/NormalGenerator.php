@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal;
 
-use czechpmdevs\multiworld\generator\normal\populator\CavePopulator;
 use pocketmine\block\Block;
 use pocketmine\block\CoalOre;
 use pocketmine\block\DiamondOre;
@@ -58,8 +57,10 @@ class NormalGenerator extends Generator {
     /** @var BiomeSelector */
     private $selector;
 
+    /** @var float[][] $GAUSSIAN_KERNEL */
     private static $GAUSSIAN_KERNEL = null;
-    private static $SMOOTH_SIZE = 2;
+    /** @var int $SMOOTH_SIZE */
+    private static $SMOOTH_SIZE = 8; // TODO - Make it different for each biome
 
     /**
      * NormalGenerator constructor.
@@ -122,6 +123,7 @@ class NormalGenerator extends Generator {
     public function init(ChunkManager $level, Random $random) : void{
         parent::init($level, $random);
         BiomeManager::registerBiomes();
+
         $this->random->setSeed($this->level->getSeed());
         $this->noiseBase = new Simplex($this->random, 4, 1 / 4, 1 / 32);
         $this->random->setSeed($this->level->getSeed());
@@ -129,9 +131,6 @@ class NormalGenerator extends Generator {
 
         $cover = new GroundCover();
         $this->generationPopulators[] = $cover;
-
-        //$cave = new CavePopulator();
-        //$this->generationPopulators[] = $cave;
 
         $ores = new Ore();
         $ores->setOreTypes([
@@ -155,7 +154,6 @@ class NormalGenerator extends Generator {
         $this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
 
         $noise = $this->noiseBase->getFastNoise3D(16, 128, 16, 4, 8, 4, $chunkX * 16, 0, $chunkZ * 16);
-
         $chunk = $this->level->getChunk($chunkX, $chunkZ);
 
         $biomeCache = [];
@@ -202,6 +200,7 @@ class NormalGenerator extends Generator {
                         $chunk->setBlockId($x, $y, $z, Block::BEDROCK);
                         continue;
                     }
+
                     $noiseValue = $noise[$x][$z][$y] - 1 / $smoothHeight * ($y - $smoothHeight - $minSum);
 
                     if($noiseValue > 0){

@@ -25,6 +25,7 @@ namespace czechpmdevs\multiworld\generator\normal\biome;
 use czechpmdevs\multiworld\generator\normal\populator\LakePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
 use czechpmdevs\multiworld\generator\normal\populator\PlantPopulator;
+use czechpmdevs\multiworld\generator\normal\populator\StructurePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\TallGrass;
 use czechpmdevs\multiworld\generator\normal\populator\Tree;
 use pocketmine\block\Dandelion;
@@ -89,6 +90,8 @@ class Plains extends GrassyBiome {
         $tallGrass->setRandomAmount(26);
 
         $this->addPopulator($tallGrass);
+
+        $this->addPopulator(new StructurePopulator());
 
         $this->temperature = 0.8;
         $this->rainfall = 0.4;

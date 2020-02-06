@@ -1,23 +1,5 @@
 <?php
 
-/**
- * MultiWorld - PocketMine plugin that manages worlds.
- * Copyright (C) 2018 - 2020  CzechPMDevs
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\object;
@@ -45,6 +27,11 @@ abstract class Tree extends TreeObject {
     public const DARK_OAK = 5;
     public const BIG_BIRCH = 6;
 
+    public const SMALL_OAK = 10;
+    public const BIG_OAK = 11;
+
+    public const MUSHROOM = 20;
+
     public static function growTree(ChunkManager $level, int $x, int $y, int $z, Random $random, int $type = 0, bool $vines = false) {
         switch($type){
             case self::SPRUCE:
@@ -67,15 +54,22 @@ abstract class Tree extends TreeObject {
                 $tree = new AcaciaTree();
                 break;
             case self::DARK_OAK:
-                return; //TODO
+                $tree = new DarkOakTree();
+                break;
+            case self::MUSHROOM:
+                $tree = new HugeMushroom();
+                break;
             default:
                 if($vines) {
                     $tree = new SwampTree();
                     goto place;
                 }
-                $tree = new OakTree();
-                if($random->nextRange(0, 9) === 0){
+
+                if($type !== self::SMALL_OAK && $random->nextRange(0, 9) === 0){
                     $tree = new BigOakTree($random, $level);
+                }
+                else {
+                    $tree = new OakTree();
                 }
                 break;
         }

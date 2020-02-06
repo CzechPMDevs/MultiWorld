@@ -46,6 +46,9 @@ class BiomeSelector {
     /** @var Simplex $hills */
     public $hills;
 
+    /** @var Simplex $smallHills */
+    public $smallHills;
+
     /** @var Simplex $river */
     public $river;
 
@@ -54,6 +57,7 @@ class BiomeSelector {
         $this->rainfall = new Simplex($random, 2, 1 / 8, 1 / 2048);
         $this->ocean = new Simplex($random, 6, 1 / 2, 1 / 2048);
         $this->hills = new Simplex($random, 6, 1 / 2, 1 / 2048);
+        $this->smallHills = new Simplex($random, 2, 1 / 32, 1 / 256);
         $this->river = new Simplex($random, 6, 1 / 2, 1 / 1024);
     }
 
@@ -72,6 +76,10 @@ class BiomeSelector {
 
     public function getHills($x, $z) {
         return $this->hills->noise2D($x, $z, true);
+    }
+
+    public function getSmallHills($x, $z) {
+        return $this->smallHills->noise2D($x, $z, true);
     }
 
     public function getRiver($x, $z) {
@@ -94,7 +102,7 @@ class BiomeSelector {
         $river = $this->getRiver($x, $z);
 
         if($ocean < -0.25) {
-            if($ocean < 0.6)
+            if($ocean < -0.6)
                 return BiomeManager::getBiome(BiomeManager::DEEP_OCEAN);
             return BiomeManager::getBiome(BiomeManager::OCEAN);
         }
@@ -112,15 +120,20 @@ class BiomeSelector {
 
 
         if($ocean < -0.2) {
-            if($temperature > 0.8) {
+            if($temperature > 0.7) {
                 return BiomeManager::getBiome(BiomeManager::SWAMP);
             }
-            elseif($temperature < 0.4 && $ocean < - 0.22) {
+            elseif($temperature > 0.4 && $temperature < 0.45 && $ocean < -0.22) {
                 return BiomeManager::getBiome(BiomeManager::BEACH);
             }
         }
 
-        if($rainfall < -0.4) {
+        if($rainfall < -0.2) {
+            if($rainfall > -0.3) {
+                if($this->getSmallHills($x, $z) > 0)
+                    return Biome::getBiome(BiomeManager::MESA);
+                return BiomeManager::getBiome(BiomeManager::MESA_PLATEAU);
+            }
             if($hills > 0.4) {
                 return BiomeManager::getBiome(BiomeManager::DESERT_HILLS);
             }
@@ -132,9 +145,6 @@ class BiomeSelector {
         }
 
         if($temperature > -0.4) {
-            if($hills > 0.8) {
-                return BiomeManager::getBiome(BiomeManager::FOREST_HILLS);
-            }
             if($temperature > 0.4) {
                 if($hills < 0.4) {
                     return BiomeManager::getBiome(BiomeManager::BIRCH_FOREST);
@@ -145,6 +155,15 @@ class BiomeSelector {
             }
 
             if($temperature < 0.2) {
+                if($temperature > 0) {
+                    if($this->getSmallHills($x, $z) > 0.4) {
+                        return BiomeManager::getBiome(BiomeManager::DARK_FOREST_HILLS);
+                    }
+                    return BiomeManager::getBiome(BiomeManager::DARK_FOREST);
+                }
+                if($this->getSmallHills($x, $z) > 0.4) {
+                    return BiomeManager::getBiome(BiomeManager::FOREST_HILLS);
+                }
                 return BiomeManager::getBiome(BiomeManager::FOREST);
             }
 

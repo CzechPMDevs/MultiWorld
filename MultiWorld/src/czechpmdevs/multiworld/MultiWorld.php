@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld;
 
+use czechpmdevs\multiworld\api\FileBrowsingApi;
 use czechpmdevs\multiworld\api\WorldManagementAPI;
 use czechpmdevs\multiworld\command\GameruleCommand;
 use czechpmdevs\multiworld\command\MultiWorldCommand;
@@ -30,11 +31,13 @@ use czechpmdevs\multiworld\generator\nether\NetherGenerator;
 use czechpmdevs\multiworld\generator\normal\NormalGenerator;
 use czechpmdevs\multiworld\generator\skyblock\SkyBlockGenerator;
 use czechpmdevs\multiworld\generator\void\VoidGenerator;
+use czechpmdevs\multiworld\structure\StructureManager;
 use czechpmdevs\multiworld\util\ConfigManager;
 use czechpmdevs\multiworld\util\FormManager;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\Command;
 use pocketmine\level\generator\GeneratorManager;
+use pocketmine\network\mcpe\protocol\types\RuntimeBlockMapping;
 use pocketmine\plugin\PluginBase;
 
 /**
@@ -74,6 +77,8 @@ class MultiWorld extends PluginBase {
             foreach ($generators as $name => $class) {
                 GeneratorManager::addGenerator($class, $name, true);
             }
+
+            StructureManager::saveResources($this->getResources());
         }
     }
 
@@ -95,6 +100,43 @@ class MultiWorld extends PluginBase {
         }
 
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this, $cmd), $this);
+        $this->buildBlockIdTable();
+        $this->test();
+    }
+
+    public function buildBlockIdTable() {
+        if(file_exists($this->getDataFolder() . "data/block_id_map.json")) {
+        //    return;
+        }
+        if(!is_dir($this->getDataFolder() . "data")) {
+            @mkdir($this->getDataFolder() . "data");
+        }
+
+        RuntimeBlockMapping::toStaticRuntimeId(0); // HACK - inits block mapping
+
+        $table = [];
+        foreach (RuntimeBlockMapping::getBedrockKnownStates() as $state) {
+            $table[str_replace("minecraft:", "", $state->getCompoundTag("block")->getString("name"))] = $state->getShort("id");
+        }
+
+        asort($table);
+
+        file_put_contents($this->getDataFolder() . "data/block_id_map.json", json_encode($table, JSON_PRETTY_PRINT));
+    }
+
+    private function test() {
+        if(WorldManagementAPI::isLevelGenerated("Test")) {
+            WorldManagementAPI::removeLevel("Test");
+        }
+        WorldManagementAPI::generateLevel("Test", rand(0, 100), WorldManagementAPI::GENERATOR_NORMAL_CUSTOM);
+
+        foreach (FileBrowsingApi::getAllSubdirectories($this->getServer()->getDataPath() . "/plugins/MultiWorld/resources/") as $dir) {
+            @mkdir($this->getDataFolder() . FileBrowsingApi::removePathFromRoot($dir, "resources"));
+        }
+
+        foreach ($this->getResources() as $resource) {
+            $this->saveResource($resource->getFilename());
+        }
     }
 
     /**
