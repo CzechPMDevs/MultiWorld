@@ -22,15 +22,15 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
-use czechpmdevs\multiworld\generator\normal\populator\LakePopulator;
+use czechpmdevs\multiworld\generator\normal\biome\types\GrassyBiome;
+use czechpmdevs\multiworld\generator\normal\populator\impl\LakePopulator;
+use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
+use czechpmdevs\multiworld\generator\normal\populator\impl\StructurePopulator;
+use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
+use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
-use czechpmdevs\multiworld\generator\normal\populator\PlantPopulator;
-use czechpmdevs\multiworld\generator\normal\populator\StructurePopulator;
-use czechpmdevs\multiworld\generator\normal\populator\TallGrass;
-use czechpmdevs\multiworld\generator\normal\populator\Tree;
 use pocketmine\block\Dandelion;
 use pocketmine\block\Flower;
-use pocketmine\level\biome\GrassyBiome;
 
 /**
  * Class Plains
@@ -38,64 +38,33 @@ use pocketmine\level\biome\GrassyBiome;
  */
 class Plains extends GrassyBiome {
 
+    /**
+     * Plains constructor.
+     */
     public function __construct() {
-        $this->setElevation(64, 67);
+        parent::__construct(0.8, 0.4);
 
-        $flowers = new PlantPopulator();
-        $flowers->setBaseAmount(6);
-        $flowers->setRandomAmount(7);
+        $flowers = new PlantPopulator(9, 7, 85);
         $flowers->addPlant(new Plant(new Dandelion()));
         $flowers->addPlant(new Plant(new Flower()));
-        $flowers->setSpawnPercentage(80);
 
-        $daisy = new PlantPopulator();
-        $daisy->setBaseAmount(6);
-        $daisy->setRandomAmount(7);
+        $daisy = new PlantPopulator(9, 7, 85);
         $daisy->addPlant(new Plant(new Flower(8)));
-        $daisy->setSpawnPercentage(80);
 
-        $daisy = new PlantPopulator();
-        $daisy->setBaseAmount(6);
-        $daisy->setRandomAmount(7);
-        $daisy->addPlant(new Plant(new Flower(8)));
-        $daisy->setSpawnPercentage(80);
-
-        $bluet = new PlantPopulator();
-        $bluet->setBaseAmount(6);
-        $bluet->setRandomAmount(7);
+        $bluet = new PlantPopulator(9,7, 85);
         $bluet->addPlant(new Plant(new Flower(3)));
-        $bluet->setSpawnPercentage(80);
 
-        $tulips = new PlantPopulator();
-        $tulips->setBaseAmount(6);
-        $tulips->setRandomAmount(7);
+        $tulips = new PlantPopulator(9, 7, 85);
         $tulips->addPlant(new Plant(new Flower(4)));
         $tulips->addPlant(new Plant(new Flower(5)));
-        $tulips->setSpawnPercentage(80);
 
-        $tree = new Tree();
-        $tree->setBaseAmount(1);
-        $tree->setRandomAmount(1);
-        $tree->setSpawnPercentage(80);
+        $tree = new TreePopulator(2, 1, 85);
+        $lake = new LakePopulator();
+        $tallGrass = new TallGrassPopulator(89, 26);
 
-        $this->addPopulator(new LakePopulator());
-        $this->addPopulator($tree);
-        $this->addPopulator($flowers);
-        $this->addPopulator($daisy);
-        $this->addPopulator($bluet);
-        $this->addPopulator($tulips);
+        $this->addPopulators([new StructurePopulator(), $lake, $flowers, $daisy, $bluet, $tulips, $tree, $tallGrass]);
 
-        $tallGrass = new TallGrass();
-        $tallGrass->setBaseAmount(89);
-        $tallGrass->setRandomAmount(26);
-
-        $this->addPopulator($tallGrass);
-
-        $this->addPopulator(new StructurePopulator());
-
-        $this->temperature = 0.8;
-        $this->rainfall = 0.4;
-        parent::__construct();
+        $this->setElevation(64, 68);
     }
 
     /**

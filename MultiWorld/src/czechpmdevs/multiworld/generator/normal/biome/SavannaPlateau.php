@@ -22,41 +22,25 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
-use czechpmdevs\multiworld\generator\normal\populator\TallGrass;
-use czechpmdevs\multiworld\generator\normal\populator\Tree;
-use pocketmine\block\Sapling;
-use pocketmine\level\biome\GrassyBiome;
-
 /**
- * Class Mountains
+ * Class SavannaPlateau
  * @package czechpmdevs\multiworld\generator\normal\biome
  */
-class Mountains extends GrassyBiome {
+class SavannaPlateau extends Savanna {
 
+    /**
+     * SavannaPlateau constructor.
+     */
     public function __construct() {
         parent::__construct();
-        $this->setElevation(66, 120);
 
-        $tallGrass = new TallGrass();
-        $tallGrass->setBaseAmount(10);
-        $tallGrass->setRandomAmount(5);
-
-        $spruce = new Tree(Sapling::SPRUCE);
-        $spruce->setSpawnPercentage(79);
-        $spruce->setRandomAmount(2);
-        $spruce->setBaseAmount(1);
-
-        $this->addPopulator($spruce);
-        $this->addPopulator($tallGrass);
-
-        $this->temperature = 0.8;
-        $this->rainfall = 0.4;
+        $this->setElevation(95, 100);
     }
 
     /**
      * @return string
      */
     public function getName(): string {
-        return "Mountains";
+        return "Savanna Plateau";
     }
 }

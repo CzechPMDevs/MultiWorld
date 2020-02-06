@@ -22,18 +22,17 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
+use czechpmdevs\multiworld\generator\normal\biome\types\GrassyBiome;
+use czechpmdevs\multiworld\generator\normal\object\Tree;
+use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
+use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
+use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
-use czechpmdevs\multiworld\generator\normal\populator\PlantPopulator;
-use czechpmdevs\multiworld\generator\normal\populator\TallGrass;
-use czechpmdevs\multiworld\generator\normal\populator\Tree;
-use pocketmine\block\Block;
 use pocketmine\block\BrownMushroom;
 use pocketmine\block\Dandelion;
 use pocketmine\block\DoublePlant;
 use pocketmine\block\Flower;
 use pocketmine\block\RedMushroom;
-use pocketmine\block\Sapling;
-use pocketmine\level\biome\GrassyBiome;
 
 /**
  * Class Forest
@@ -41,61 +40,35 @@ use pocketmine\level\biome\GrassyBiome;
  */
 class Forest extends GrassyBiome {
 
+    /**
+     * Forest constructor.
+     */
     public function __construct() {
-        parent::__construct();
+        parent::__construct(0.7, 0.8);
 
-        $mushrooms = new PlantPopulator();
-        $mushrooms->setBaseAmount(2);
-        $mushrooms->setRandomAmount(2);
+        $mushrooms = new PlantPopulator(4, 3, 95);
         $mushrooms->addPlant(new Plant(new BrownMushroom()));
         $mushrooms->addPlant(new Plant(new RedMushroom()));
-        $mushrooms->setSpawnPercentage(95);
 
-        $flowers = new PlantPopulator();
-        $flowers->setBaseAmount(6);
-        $flowers->setRandomAmount(7);
+        $flowers = new PlantPopulator(6, 7, 80);
         $flowers->addPlant(new Plant(new Dandelion()));
         $flowers->addPlant(new Plant(new Flower()));
-        $flowers->setSpawnPercentage(75);
 
-        $roses = new PlantPopulator();
-        $roses->setBaseAmount(5);
-        $roses->setRandomAmount(4);
+        $roses = new PlantPopulator(5, 4, 75);
         $roses->addPlant(new Plant(new DoublePlant(4), new DoublePlant(12)));
-        $roses->setSpawnPercentage(50);
 
-        $peonys = new PlantPopulator();
-        $peonys->setBaseAmount(5);
-        $peonys->setRandomAmount(4);
+        $peonys = new PlantPopulator(5, 4, 75);
         $peonys->addPlant(new Plant(new DoublePlant(1), new DoublePlant(9)));
-        $peonys->setSpawnPercentage(50);
 
 
-        $oak = new Tree();
-        $oak->setBaseAmount(3);
-        $oak->setRandomAmount(3);
+        $oak = new TreePopulator(3, 3);
+        $birch = new TreePopulator(3, 3, 100, Tree::BIRCH);
 
-        $birch = new Tree(Sapling::BIRCH);
-        $birch->setBaseAmount(3);
-        $birch->setRandomAmount(3);
+        $grass = new TallGrassPopulator(56, 30);
 
-        $this->addPopulator($oak);
-        $this->addPopulator($birch);
-        $this->addPopulator($flowers);
-        $this->addPopulator($peonys);
-        $this->addPopulator($roses);
-        $this->addPopulator($mushrooms);
+        $this->addPopulators([$oak, $birch, $flowers, $peonys, $roses, $mushrooms, $grass]);
 
         $this->setElevation(64, 74);
-
-        $tallGrass = new TallGrass();
-        $tallGrass->setBaseAmount(56);
-        $tallGrass->setRandomAmount(12);
-
-        $this->addPopulator($tallGrass);
-
-        $this->temperature = 0.8;
-        $this->rainfall = 0.4;
     }
 
     /**

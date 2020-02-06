@@ -22,33 +22,25 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
-use czechpmdevs\multiworld\generator\normal\biome\types\Biome;
-use pocketmine\block\Block;
-use pocketmine\block\Sand;
+use czechpmdevs\multiworld\generator\normal\biome\types\GrassyBiome;
 
 /**
- * Class River
+ * Class Jungle
  * @package czechpmdevs\multiworld\generator\normal\biome
  */
-class River extends Biome {
+class Jungle extends GrassyBiome {
 
     /**
-     * River constructor.
+     * Jungle constructor.
      */
     public function __construct() {
-        parent::__construct(0.5, 0.5);
-        $this->setGroundCover([
-            new Sand(),
-            new Sand()
-        ]);
-
-        $this->setElevation(54, 57);
+        parent::__construct(0.95, 0.9);
     }
 
     /**
      * @return string
      */
     public function getName(): string {
-        return "River";
+        return "Jungle";
     }
 }

@@ -1,10 +1,27 @@
 <?php
 
+/**
+ * MultiWorld - PocketMine plugin that manages worlds.
+ * Copyright (C) 2018 - 2020  CzechPMDevs
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\object;
 
-use pocketmine\block\Block;
 use pocketmine\block\BlockIds;
 use pocketmine\level\ChunkManager;
 use pocketmine\utils\Random;
@@ -15,6 +32,20 @@ use pocketmine\utils\Random;
  */
 class HugeMushroom extends Tree {
 
+    /**
+     * HugeMushroom constructor.
+     */
+    public function __construct() {
+        $this->overridable[BlockIds::MYCELIUM] = true;
+    }
+
+    /**
+     * @param ChunkManager $level
+     * @param int $x
+     * @param int $y
+     * @param int $z
+     * @param Random $random
+     */
     public function placeObject(ChunkManager $level, int $x, int $y, int $z, Random $random) {
         $block = $random->nextBoolean() ? BlockIds::BROWN_MUSHROOM_BLOCK : BlockIds::RED_MUSHROOM_BLOCK;
         $maxY = 3 + $random->nextBoundedInt(1);

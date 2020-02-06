@@ -22,33 +22,31 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
-use czechpmdevs\multiworld\generator\normal\biome\types\Biome;
-use pocketmine\block\Block;
-use pocketmine\block\Sand;
+use czechpmdevs\multiworld\generator\normal\biome\types\GrassyBiome;
+use czechpmdevs\multiworld\generator\normal\biome\types\SnowyBiome;
+use czechpmdevs\multiworld\generator\normal\object\Tree;
+use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 
 /**
- * Class River
+ * Class IcePlains
  * @package czechpmdevs\multiworld\generator\normal\biome
  */
-class River extends Biome {
+class IcePlains extends GrassyBiome implements SnowyBiome {
 
     /**
-     * River constructor.
+     * IcePlains constructor.
      */
     public function __construct() {
-        parent::__construct(0.5, 0.5);
-        $this->setGroundCover([
-            new Sand(),
-            new Sand()
-        ]);
-
-        $this->setElevation(54, 57);
+        parent::__construct(0, 0.5);
+        $this->addPopulator(new TreePopulator(2, 2, 90, Tree::SPRUCE));
+        $this->setElevation(100, 106);
     }
+
 
     /**
      * @return string
      */
     public function getName(): string {
-        return "River";
+        return "Ice Plains";
     }
 }

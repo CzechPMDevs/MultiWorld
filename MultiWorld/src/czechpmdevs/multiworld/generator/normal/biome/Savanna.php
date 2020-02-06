@@ -22,14 +22,15 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
+use czechpmdevs\multiworld\generator\normal\biome\types\GrassyBiome;
+use czechpmdevs\multiworld\generator\normal\object\Tree;
+use czechpmdevs\multiworld\generator\normal\populator\impl\LakePopulator;
+use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
+use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
+use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
-use czechpmdevs\multiworld\generator\normal\populator\PlantPopulator;
-use czechpmdevs\multiworld\generator\normal\populator\TallGrass;
-use czechpmdevs\multiworld\generator\normal\populator\Tree;
 use pocketmine\block\Dandelion;
 use pocketmine\block\Flower;
-use pocketmine\block\Sapling;
-use pocketmine\level\biome\GrassyBiome;
 
 /**
  * Class Savanna
@@ -37,33 +38,22 @@ use pocketmine\level\biome\GrassyBiome;
  */
 class Savanna extends GrassyBiome {
 
+    /**
+     * Savanna constructor.
+     */
     public function __construct() {
-        parent::__construct();
+        parent::__construct(1.2, 0);
 
-        $flowers = new PlantPopulator();
-        $flowers->setBaseAmount(6);
-        $flowers->setRandomAmount(7);
+        $flowers = new PlantPopulator(6, 7, 80);
         $flowers->addPlant(new Plant(new Dandelion()));
         $flowers->addPlant(new Plant(new Flower()));
-        $flowers->setSpawnPercentage(75);
 
-        $acacia = new Tree(Sapling::ACACIA);
-        $acacia->setBaseAmount(1);
-        $acacia->setRandomAmount(1);
+        $acacia = new TreePopulator(1, 1, 100, Tree::ACACIA);
+        $tallGrass = new TallGrassPopulator(56, 12);
 
-        $this->addPopulator($acacia);
-        $this->addPopulator($flowers);
+        $this->addPopulators([new LakePopulator(), $flowers, $acacia, $tallGrass]);
 
-        $this->setElevation(95, 100);
-
-        $tallGrass = new TallGrass();
-        $tallGrass->setBaseAmount(56);
-        $tallGrass->setRandomAmount(12);
-
-        $this->addPopulator($tallGrass);
-
-        $this->temperature = 0.8;
-        $this->rainfall = 0.4;
+        $this->setElevation(67, 70);
     }
 
     /**

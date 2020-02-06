@@ -24,31 +24,32 @@ namespace czechpmdevs\multiworld\generator\normal\biome;
 
 use czechpmdevs\multiworld\generator\normal\biome\types\Biome;
 use pocketmine\block\Block;
-use pocketmine\block\Sand;
 
 /**
- * Class River
+ * Class FrozenOcean
  * @package czechpmdevs\multiworld\generator\normal\biome
  */
-class River extends Biome {
+class FrozenOcean extends Biome {
 
-    /**
-     * River constructor.
-     */
     public function __construct() {
-        parent::__construct(0.5, 0.5);
+        parent::__construct(0, 0.5);
+
         $this->setGroundCover([
-            new Sand(),
-            new Sand()
+            Block::get(Block::GRAVEL),
+            Block::get(Block::GRAVEL)
         ]);
 
-        $this->setElevation(54, 57);
+        $this->setElevation(55, 57);
+    }
+
+    public function isFrozen(): bool {
+        return true;
     }
 
     /**
      * @return string
      */
     public function getName(): string {
-        return "River";
+        return "Frozen Ocean";
     }
 }

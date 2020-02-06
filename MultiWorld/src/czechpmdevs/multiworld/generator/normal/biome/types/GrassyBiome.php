@@ -20,25 +20,25 @@
 
 declare(strict_types=1);
 
-namespace czechpmdevs\multiworld\generator\normal\populator;
+namespace czechpmdevs\multiworld\generator\normal\biome\types;
 
-use pocketmine\block\Block;
-use pocketmine\level\ChunkManager;
+use pocketmine\block\Dirt;
+use pocketmine\block\Grass;
 
 /**
- * Trait PopulatorTrait
- * @package czechpmdevs\multiworld\generator\normal\populator
+ * Class GrassyBiome
+ * @package czechpmdevs\multiworld\generator\normal\biome\types
  */
-trait PopulatorTrait {
+abstract class GrassyBiome extends Biome {
 
-    public function getHighestWorkableBlock(ChunkManager $level, int $x, int $z) : int{
-        for($y = 127; $y >= 0; --$y){
-            $b = $level->getBlockIdAt($x, $y, $z);
-            if($b !== Block::AIR and $b !== Block::LEAVES and $b !== Block::LEAVES2 and $b !== Block::SNOW_LAYER){
-                break;
-            }
-        }
-
-        return $y === 0 ? -1 : ++$y;
+    public function __construct(float $temperature, float $rainfall) {
+        $this->setGroundCover([
+            new Grass(),
+            new Dirt(),
+            new Dirt(),
+            new Dirt(),
+            new Dirt()
+        ]);
+        parent::__construct($temperature, $rainfall);
     }
 }

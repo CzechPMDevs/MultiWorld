@@ -22,67 +22,49 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
-use czechpmdevs\multiworld\generator\normal\object\SwampTree;
+use czechpmdevs\multiworld\generator\normal\biome\types\GrassyBiome;
+use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
+use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
+use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
-use czechpmdevs\multiworld\generator\normal\populator\PlantPopulator;
-use czechpmdevs\multiworld\generator\normal\populator\TallGrass;
-use czechpmdevs\multiworld\generator\normal\populator\Tree;
-use pocketmine\block\Block;
 use pocketmine\block\BrownMushroom;
 use pocketmine\block\Dandelion;
-use pocketmine\block\DoublePlant;
 use pocketmine\block\Flower;
 use pocketmine\block\RedMushroom;
 use pocketmine\block\Sapling;
-use pocketmine\level\biome\GrassyBiome;
 
 /**
  * Class Plains
  * @package czechpmdevs\multiworld\generator\normal\biome
  */
-class Swamp extends GrassyBiome {
+class Swampland extends GrassyBiome {
 
+    /**
+     * Swampland constructor.
+     */
     public function __construct() {
-        parent::__construct();
+        parent::__construct(0.8, 0.5);
 
-        $mushrooms = new PlantPopulator();
-        $mushrooms->setBaseAmount(2);
-        $mushrooms->setRandomAmount(2);
+        $mushrooms = new PlantPopulator(4, 2, 95);
         $mushrooms->addPlant(new Plant(new BrownMushroom()));
         $mushrooms->addPlant(new Plant(new RedMushroom()));
-        $mushrooms->setSpawnPercentage(95);
 
-        $flowers = new PlantPopulator();
-        $flowers->setBaseAmount(6);
-        $flowers->setRandomAmount(7);
+        $flowers = new PlantPopulator(6, 7, 80);
         $flowers->addPlant(new Plant(new Dandelion()));
         $flowers->addPlant(new Plant(new Flower()));
-        $flowers->setSpawnPercentage(75);
 
-        $oak = new Tree(Sapling::OAK, true);
-        $oak->setBaseAmount(2);
-        $oak->setRandomAmount(2);
+        $oak = new TreePopulator(2, 2, 100, Sapling::OAK, true);
+        $tallGrass = new TallGrassPopulator(56, 12);
 
-        $this->addPopulator($oak);
-        $this->addPopulator($flowers);
-        $this->addPopulator($mushrooms);
+        $this->addPopulators([$mushrooms, $flowers, $oak, $tallGrass]);
 
         $this->setElevation(60, 65);
-
-        $tallGrass = new TallGrass();
-        $tallGrass->setBaseAmount(56);
-        $tallGrass->setRandomAmount(12);
-
-        $this->addPopulator($tallGrass);
-
-        $this->temperature = 0.8;
-        $this->rainfall = 0.4;
     }
 
     /**
      * @return string
      */
     public function getName(): string {
-        return "Forest";
+        return "Swampland";
     }
 }

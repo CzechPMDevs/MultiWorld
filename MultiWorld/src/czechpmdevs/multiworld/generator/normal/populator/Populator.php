@@ -20,35 +20,14 @@
 
 declare(strict_types=1);
 
-namespace czechpmdevs\multiworld\generator\normal\biome;
+namespace czechpmdevs\multiworld\generator\normal\populator;
 
-use czechpmdevs\multiworld\generator\normal\biome\types\Biome;
-use pocketmine\block\Block;
-use pocketmine\block\Sand;
+use czechpmdevs\multiworld\util\PositionCalc;
 
 /**
- * Class River
- * @package czechpmdevs\multiworld\generator\normal\biome
+ * Class Populator
+ * @package czechpmdevs\multiworld\generator\normal\populator
  */
-class River extends Biome {
-
-    /**
-     * River constructor.
-     */
-    public function __construct() {
-        parent::__construct(0.5, 0.5);
-        $this->setGroundCover([
-            new Sand(),
-            new Sand()
-        ]);
-
-        $this->setElevation(54, 57);
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string {
-        return "River";
-    }
+abstract class Populator extends \pocketmine\level\generator\populator\Populator {
+    use PositionCalc;
 }

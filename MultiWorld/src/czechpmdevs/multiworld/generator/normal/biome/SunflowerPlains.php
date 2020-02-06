@@ -18,12 +18,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-
 declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
-use czechpmdevs\multiworld\generator\normal\populator\PlantPopulator;
+use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
+use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
+use pocketmine\block\DoublePlant;
 
 /**
  * Class SunflowerPlains
@@ -37,10 +38,8 @@ class SunflowerPlains extends Plains {
     public function __construct() {
         parent::__construct();
 
-        $sunflowers = new PlantPopulator();
-        $sunflowers->setBaseAmount(12);
-        $sunflowers->setRandomAmount(6);
-        $sunflowers->setSpawnPercentage(98);
+        $sunflowers = new PlantPopulator(12, 6, 98);
+        $sunflowers->addPlant(new Plant(new DoublePlant(0), new DoublePlant(8)));
 
         $this->addPopulator($sunflowers);
     }
@@ -49,6 +48,6 @@ class SunflowerPlains extends Plains {
      * @return string
      */
     public function getName(): string {
-        return "SunflowerPlains";
+        return "Sunflower Plains";
     }
 }

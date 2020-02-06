@@ -23,17 +23,16 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
 use czechpmdevs\multiworld\generator\normal\biome\types\Biome;
-use pocketmine\block\Block;
 use pocketmine\block\Sand;
 
 /**
- * Class River
+ * Class FrozenRiver
  * @package czechpmdevs\multiworld\generator\normal\biome
  */
-class River extends Biome {
+class FrozenRiver extends Biome {
 
     /**
-     * River constructor.
+     * FrozenRiver constructor.
      */
     public function __construct() {
         parent::__construct(0.5, 0.5);
@@ -49,6 +48,6 @@ class River extends Biome {
      * @return string
      */
     public function getName(): string {
-        return "River";
+        return "Frozen River";
     }
 }

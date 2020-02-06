@@ -22,33 +22,25 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
-use czechpmdevs\multiworld\generator\normal\biome\types\Biome;
-use pocketmine\block\Block;
-use pocketmine\block\Sand;
-
 /**
- * Class River
+ * Class MushroomIslandShore
  * @package czechpmdevs\multiworld\generator\normal\biome
  */
-class River extends Biome {
+class MushroomIslandShore extends MushroomIsland {
 
     /**
-     * River constructor.
+     * MushroomIslandShore constructor.
      */
     public function __construct() {
-        parent::__construct(0.5, 0.5);
-        $this->setGroundCover([
-            new Sand(),
-            new Sand()
-        ]);
+        parent::__construct();
 
-        $this->setElevation(54, 57);
+        $this->setElevation(63, 65);
     }
 
     /**
      * @return string
      */
     public function getName(): string {
-        return "River";
+        return "Mushroom Island Shore";
     }
 }

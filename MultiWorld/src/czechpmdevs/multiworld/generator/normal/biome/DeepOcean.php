@@ -18,15 +18,22 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-
 declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
+/**
+ * Class DeepOcean
+ * @package czechpmdevs\multiworld\generator\normal\biome
+ */
 class DeepOcean extends Ocean {
 
+    /**
+     * DeepOcean constructor.
+     */
     public function __construct() {
         parent::__construct();
+
         $this->setElevation(40, 56);
     }
 

@@ -60,7 +60,7 @@ class NormalGenerator extends Generator {
     /** @var float[][] $GAUSSIAN_KERNEL */
     private static $GAUSSIAN_KERNEL = null;
     /** @var int $SMOOTH_SIZE */
-    private static $SMOOTH_SIZE = 8; // TODO - Make it different for each biome
+    private static $SMOOTH_SIZE = 6; // TODO - Make it different for each biome
 
     /**
      * NormalGenerator constructor.

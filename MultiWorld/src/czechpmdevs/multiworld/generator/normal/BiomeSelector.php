@@ -22,8 +22,6 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal;
 
-use czechpmdevs\multiworld\generator\normal\biome\BirchForest;
-use const pocketmine\BUILD_NUMBER;
 use pocketmine\level\biome\Biome;
 use pocketmine\level\generator\noise\Simplex;
 use pocketmine\utils\Random;
@@ -52,6 +50,7 @@ class BiomeSelector {
     /** @var Simplex $river */
     public $river;
 
+
     public function __construct(Random $random) {
         $this->temperature = new Simplex($random, 2, 1 / 8, 1 / 2048);
         $this->rainfall = new Simplex($random, 2, 1 / 8, 1 / 2048);
@@ -59,29 +58,46 @@ class BiomeSelector {
         $this->hills = new Simplex($random, 6, 1 / 2, 1 / 2048);
         $this->smallHills = new Simplex($random, 2, 1 / 32, 1 / 256);
         $this->river = new Simplex($random, 6, 1 / 2, 1 / 1024);
+
+
     }
 
-
+    /**
+     * @param $x
+     * @param $z
+     *
+     * @return float|int
+     */
     public function getTemperature($x, $z){
-        return $this->temperature->noise2D($x, $z, true);
+        return abs(round($this->temperature->noise2D($x, $z, true) * M_PI / 3 * 2, 1));
     }
 
-    public function getRainfall($x, $z){
-        return $this->rainfall->noise2D($x, $z, true);
+    /**
+     * @param $x
+     * @param $z
+     *
+     * @return float|int
+     */
+    public function getRainfall($x, $z) {
+        return abs(round($this->rainfall->noise2D($x, $z, true) * M_PI / 3 * 2, 1));
     }
 
-    public function getOcean($x, $z) {
-        return $this->ocean->noise2D($x, $z, true);
-    }
-
-    public function getHills($x, $z) {
-        return $this->hills->noise2D($x, $z, true);
-    }
-
+    /**
+     * @param $x
+     * @param $z
+     *
+     * @return float|int
+     */
     public function getSmallHills($x, $z) {
         return $this->smallHills->noise2D($x, $z, true);
     }
 
+    /**
+     * @param $x
+     * @param $z
+     *
+     * @return float|int
+     */
     public function getRiver($x, $z) {
         return $this->river->noise2D($x, $z, true);
     }
@@ -94,86 +110,23 @@ class BiomeSelector {
      *
      * @return Biome
      */
-    public function pickBiome($x, $z) : Biome{
-        $temperature = $this->getTemperature($x, $z);
-        $rainfall = $this->getRainfall($x, $z);
-        $ocean = $this->getOcean($x, $z);
-        $hills = $this->getHills($x, $z);
-        $river = $this->getRiver($x, $z);
-
-        if($ocean < -0.25) {
-            if($ocean < -0.6)
-                return BiomeManager::getBiome(BiomeManager::DEEP_OCEAN);
-            return BiomeManager::getBiome(BiomeManager::OCEAN);
-        }
-
-        if(abs($river) < 0.04) {
+    public function pickBiome($x, $z): Biome {
+        if(abs($this->getRiver($x, $z)) < 0.04) {
             return BiomeManager::getBiome(BiomeManager::RIVER);
         }
 
-        if($ocean > 0 && $temperature > 0.45) {
-            if($temperature < 0.55) {
-                return BiomeManager::getBiome(BiomeManager::SUNFLOWER_PLAINS);
-            }
-            return BiomeManager::getBiome(BiomeManager::PLAINS);
+        $temperature = $this->getTemperature($x, $z);
+        $rainfall = $this->getRainfall($x, $z);
+        $hills = $this->getSmallHills($x, $z);
+
+        $biomes = BiomeManager::lookupForBiome($temperature, $rainfall);
+
+        if($hills < -0.1 || !isset($biomes[1])) {
+            return $biomes[0];
         }
-
-
-        if($ocean < -0.2) {
-            if($temperature > 0.7) {
-                return BiomeManager::getBiome(BiomeManager::SWAMP);
-            }
-            elseif($temperature > 0.4 && $temperature < 0.45 && $ocean < -0.22) {
-                return BiomeManager::getBiome(BiomeManager::BEACH);
-            }
+        elseif($hills < 0.1 || !isset($biomes[2])) {
+            return $biomes[1];
         }
-
-        if($rainfall < -0.2) {
-            if($rainfall > -0.3) {
-                if($this->getSmallHills($x, $z) > 0)
-                    return Biome::getBiome(BiomeManager::MESA);
-                return BiomeManager::getBiome(BiomeManager::MESA_PLATEAU);
-            }
-            if($hills > 0.4) {
-                return BiomeManager::getBiome(BiomeManager::DESERT_HILLS);
-            }
-            return BiomeManager::getBiome(BiomeManager::DESERT);
-        }
-
-        if($temperature < -0.5) {
-            return BiomeManager::getBiome(BiomeManager::TAIGA);
-        }
-
-        if($temperature > -0.4) {
-            if($temperature > 0.4) {
-                if($hills < 0.4) {
-                    return BiomeManager::getBiome(BiomeManager::BIRCH_FOREST);
-                }
-                else {
-                    return BiomeManager::getBiome(BiomeManager::TALL_BIRCH_FOREST);
-                }
-            }
-
-            if($temperature < 0.2) {
-                if($temperature > 0) {
-                    if($this->getSmallHills($x, $z) > 0.4) {
-                        return BiomeManager::getBiome(BiomeManager::DARK_FOREST_HILLS);
-                    }
-                    return BiomeManager::getBiome(BiomeManager::DARK_FOREST);
-                }
-                if($this->getSmallHills($x, $z) > 0.4) {
-                    return BiomeManager::getBiome(BiomeManager::FOREST_HILLS);
-                }
-                return BiomeManager::getBiome(BiomeManager::FOREST);
-            }
-
-            return BiomeManager::getBiome(BiomeManager::SAVANNA);
-        }
-
-        if($hills > 0.1) {
-            return BiomeManager::getBiome(BiomeManager::MOUNTAINS);
-        }
-
-        return BiomeManager::getBiome(BiomeManager::GRAVELLY_MOUNTAINS);
+        return $biomes[2];
     }
 }

@@ -1,10 +1,27 @@
 <?php
 
+/**
+ * MultiWorld - PocketMine plugin that manages worlds.
+ * Copyright (C) 2018 - 2020  CzechPMDevs
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\object;
 
-use pocketmine\block\Sapling;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\object\BirchTree;
 use pocketmine\level\generator\object\JungleTree;
@@ -14,7 +31,7 @@ use pocketmine\level\generator\object\Tree as TreeObject;
 use pocketmine\utils\Random;
 
 /**
- * Class Tree
+ * Class TreePopulator
  * @package czechpmdevs\multiworld\generator\normal\object
  */
 abstract class Tree extends TreeObject {
@@ -32,6 +49,15 @@ abstract class Tree extends TreeObject {
 
     public const MUSHROOM = 20;
 
+    /**
+     * @param ChunkManager $level
+     * @param int $x
+     * @param int $y
+     * @param int $z
+     * @param Random $random
+     * @param int $type
+     * @param bool $vines
+     */
     public static function growTree(ChunkManager $level, int $x, int $y, int $z, Random $random, int $type = 0, bool $vines = false) {
         switch($type){
             case self::SPRUCE:
@@ -73,6 +99,7 @@ abstract class Tree extends TreeObject {
                 }
                 break;
         }
+
         place:
         if($tree->canPlaceObject($level, $x, $y, $z, $random)){
             $tree->placeObject($level, $x, $y, $z, $random);

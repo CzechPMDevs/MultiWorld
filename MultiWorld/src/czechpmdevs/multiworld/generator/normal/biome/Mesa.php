@@ -18,36 +18,35 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-
 declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
 use czechpmdevs\multiworld\generator\nether\populator\Ore;
-use czechpmdevs\multiworld\generator\normal\populator\CactusPopulator;
-use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
-use czechpmdevs\multiworld\generator\normal\populator\PlantPopulator;
-use czechpmdevs\multiworld\generator\normal\populator\Tree;
+use czechpmdevs\multiworld\generator\normal\biome\types\CoveredBiome;
+use czechpmdevs\multiworld\generator\normal\populator\impl\CactusPopulator;
+use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
 use pocketmine\block\BlockIds;
-use pocketmine\block\DeadBush;
 use pocketmine\block\GoldOre;
-use pocketmine\block\Grass;
 use pocketmine\block\HardenedClay;
 use pocketmine\block\Sand;
-use pocketmine\block\Sapling;
 use pocketmine\block\StainedClay;
-use pocketmine\level\biome\Biome;
 use pocketmine\level\generator\object\OreType;
 
 /**
  * Class Mesa
  * @package czechpmdevs\multiworld\generator\normal\biome
  */
-class Mesa extends Biome {
+class Mesa extends CoveredBiome {
 
+    /**
+     * Mesa constructor.
+     */
     public function __construct() {
+        parent::__construct(2, 0);
+
         $this->setGroundCover([
-            new Grass(),
+            new Sand(1),
             new HardenedClay(),
             new StainedClay(7),
             new StainedClay(0),
@@ -66,21 +65,16 @@ class Mesa extends Biome {
             new HardenedClay()
         ]);
 
-
-        $this->setElevation(84, 86);
-
-        $tree = new Tree(Sapling::OAK);
-        $tree->setBaseAmount(3);
-        $tree->setRandomAmount(2);
-        $tree->setSpawnPercentage(100);
-        $this->addPopulator($tree);
+        $cactus = new CactusPopulator(3, 2);
+        $deadBush = new PlantPopulator(3, 2);
+        $deadBush->allowBlockToStayAt(BlockIds::SAND);
 
         $ore = new Ore();
-        $ore->setOreTypes([
-            new OreType(new GoldOre(), 20, 12, 0, 128)
-        ]);
+        $ore->setOreTypes([new OreType(new GoldOre(), 20, 12, 0, 128)]);
 
-        $this->addPopulator($ore);
+        $this->addPopulators([$cactus, $deadBush, $ore]);
+
+        $this->setElevation(63, 67);
     }
 
     public function getName(): string {

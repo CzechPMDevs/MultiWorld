@@ -22,12 +22,12 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
-use czechpmdevs\multiworld\generator\normal\populator\CactusPopulator;
+use czechpmdevs\multiworld\generator\normal\biome\types\SandyBiome;
+use czechpmdevs\multiworld\generator\normal\populator\impl\CactusPopulator;
+use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
-use czechpmdevs\multiworld\generator\normal\populator\PlantPopulator;
 use pocketmine\block\Block;
 use pocketmine\block\DeadBush;
-use pocketmine\level\biome\SandyBiome;
 
 /**
  * Class Desert
@@ -39,19 +39,17 @@ class Desert extends SandyBiome {
      * Desert constructor.
      */
     public function __construct() {
-        $this->setElevation(63, 69);
-        $cactus = new CactusPopulator();
-        $cactus->setRandomAmount(4);
-        $cactus->setBaseAmount(3);
-        $this->addPopulator($cactus);
+        parent::__construct(2.0, 0.0);
 
-        $deadBush = new PlantPopulator();
-        $deadBush->setRandomAmount(4);
-        $deadBush->setBaseAmount(2);
+        $cactus = new CactusPopulator(4, 3);
+
+        $deadBush = new PlantPopulator(4, 2);
         $deadBush->addPlant(new Plant(new DeadBush()));
         $deadBush->allowBlockToStayAt(Block::SAND);
-        $this->addPopulator($deadBush);
-        parent::__construct();
+
+        $this->addPopulators([$cactus, $deadBush]);
+
+        $this->setElevation(63, 69);
     }
 
     /**

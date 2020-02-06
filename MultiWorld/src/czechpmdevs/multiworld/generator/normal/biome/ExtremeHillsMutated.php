@@ -18,7 +18,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-
 declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
@@ -26,15 +25,19 @@ namespace czechpmdevs\multiworld\generator\normal\biome;
 use pocketmine\block\Block;
 
 /**
- * Class GravellyMountains
+ * Class ExtremeHillsMutated
  * @package czechpmdevs\multiworld\generator\normal\biome
  */
-class GravellyMountains extends Mountains {
+class ExtremeHillsMutated extends ExtremeHills {
 
+    /**
+     * ExtremeHillsMutated constructor.
+     */
     public function __construct() {
         parent::__construct();
 
         $this->setElevation(75, 120);
+
         $this->setGroundCover([
             Block::get(Block::GRAVEL),
             Block::get(Block::GRAVEL),
@@ -43,7 +46,10 @@ class GravellyMountains extends Mountains {
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string {
-        return "Gravelly Mountains";
+        return "Extreme Hills Mutated";
     }
 }

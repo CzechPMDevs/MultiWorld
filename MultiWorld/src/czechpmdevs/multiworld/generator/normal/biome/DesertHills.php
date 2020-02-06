@@ -22,27 +22,19 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
-use czechpmdevs\multiworld\generator\normal\BiomeManager;
-use czechpmdevs\multiworld\generator\normal\populator\CactusPopulator;
-use pocketmine\level\biome\SandyBiome;
-
 /**
  * Class DesertHills
  * @package czechpmdevs\multiworld\generator\normal\biome
  */
-class DesertHills extends SandyBiome {
+class DesertHills extends Desert {
 
     /**
      * Desert constructor.
      */
     public function __construct() {
-        $this->setId(BiomeManager::DESERT_HILLS);
-        $this->setElevation(64, 85);
-        $cactus = new CactusPopulator();
-        $cactus->setRandomAmount(4);
-        $cactus->setBaseAmount(2);
-        $this->addPopulator($cactus);
         parent::__construct();
+
+        $this->setElevation(63, 85);
     }
 
     /**

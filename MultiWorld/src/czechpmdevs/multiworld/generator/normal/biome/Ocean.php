@@ -22,9 +22,8 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
-use czechpmdevs\multiworld\generator\normal\BiomeManager;
+use czechpmdevs\multiworld\generator\normal\biome\types\Biome;
 use pocketmine\block\Block;
-use pocketmine\level\biome\Biome;
 
 /**
  * Class Ocean
@@ -32,12 +31,18 @@ use pocketmine\level\biome\Biome;
  */
 class Ocean extends Biome {
 
+    /**
+     * Ocean constructor.
+     */
     public function __construct() {
-        $this->setElevation(55, 57);
+        parent::__construct(0.5, 0.5);
+
         $this->setGroundCover([
-            Block::get(Block::SAND),
-            Block::get(Block::SAND)
+            Block::get(Block::GRAVEL),
+            Block::get(Block::GRAVEL)
         ]);
+
+        $this->setElevation(55, 57);
     }
 
     /**

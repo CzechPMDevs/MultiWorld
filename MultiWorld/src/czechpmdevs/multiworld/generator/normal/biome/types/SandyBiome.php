@@ -20,35 +20,35 @@
 
 declare(strict_types=1);
 
-namespace czechpmdevs\multiworld\generator\normal\biome;
+namespace czechpmdevs\multiworld\generator\normal\biome\types;
 
-use czechpmdevs\multiworld\generator\normal\biome\types\Biome;
-use pocketmine\block\Block;
 use pocketmine\block\Sand;
+use pocketmine\block\Sandstone;
 
 /**
- * Class River
- * @package czechpmdevs\multiworld\generator\normal\biome
+ * Class SandyBiome
+ * @package czechpmdevs\multiworld\generator\normal\biome\types
  */
-class River extends Biome {
+abstract class SandyBiome extends Biome {
 
     /**
-     * River constructor.
+     * SandyBiome constructor.
+     *
+     * @param float $temperature
+     * @param float $rainfall
      */
-    public function __construct() {
-        parent::__construct(0.5, 0.5);
+    public function __construct(float $temperature, float $rainfall) {
         $this->setGroundCover([
             new Sand(),
-            new Sand()
+            new Sand(),
+            new Sand(),
+            new Sand(),
+            new Sandstone(),
+            new Sandstone(),
+            new Sandstone(),
+            new Sandstone()
         ]);
 
-        $this->setElevation(54, 57);
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string {
-        return "River";
+        parent::__construct($temperature, $rainfall);
     }
 }

@@ -39,6 +39,7 @@ use pocketmine\command\Command;
 use pocketmine\level\generator\GeneratorManager;
 use pocketmine\network\mcpe\protocol\types\RuntimeBlockMapping;
 use pocketmine\plugin\PluginBase;
+use const pocketmine\RESOURCE_PATH;
 
 /**
  * Class MultiWorld
@@ -105,23 +106,6 @@ class MultiWorld extends PluginBase {
     }
 
     public function buildBlockIdTable() {
-        if(file_exists($this->getDataFolder() . "data/block_id_map.json")) {
-        //    return;
-        }
-        if(!is_dir($this->getDataFolder() . "data")) {
-            @mkdir($this->getDataFolder() . "data");
-        }
-
-        RuntimeBlockMapping::toStaticRuntimeId(0); // HACK - inits block mapping
-
-        $table = [];
-        foreach (RuntimeBlockMapping::getBedrockKnownStates() as $state) {
-            $table[str_replace("minecraft:", "", $state->getCompoundTag("block")->getString("name"))] = $state->getShort("id");
-        }
-
-        asort($table);
-
-        file_put_contents($this->getDataFolder() . "data/block_id_map.json", json_encode($table, JSON_PRETTY_PRINT));
     }
 
     private function test() {

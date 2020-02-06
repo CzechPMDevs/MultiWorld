@@ -23,52 +23,53 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
 use czechpmdevs\multiworld\generator\normal\biome\types\GrassyBiome;
+use czechpmdevs\multiworld\generator\normal\object\Tree;
 use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
 use pocketmine\block\BrownMushroom;
-use pocketmine\block\Dandelion;
-use pocketmine\block\Flower;
+use pocketmine\block\DoublePlant;
 use pocketmine\block\RedMushroom;
 use pocketmine\block\Sapling;
 
 /**
- * Class Taiga
+ * Class RoofedForest
  * @package czechpmdevs\multiworld\generator\normal\biome
  */
-class Taiga extends GrassyBiome {
+class RoofedForest extends GrassyBiome {
 
     /**
-     * Taiga constructor.
+     * RoofedForest constructor.
      */
     public function __construct() {
-        parent::__construct(0.25, 0.8);
+        parent::__construct(0.7, 0.8);
 
-        $mushrooms = new PlantPopulator(4, 5, 95);
+        $mushrooms = new PlantPopulator(4, 2, 95);
         $mushrooms->addPlant(new Plant(new BrownMushroom()));
         $mushrooms->addPlant(new Plant(new RedMushroom()));
 
-        $flowers = new PlantPopulator(6, 7, 80);
-        $flowers->addPlant(new Plant(new Dandelion()));
-        $flowers->addPlant(new Plant(new Flower()));
+        $roses = new PlantPopulator(5, 4, 80);
+        $roses->addPlant(new Plant(new DoublePlant(4), new DoublePlant(12)));
 
-        $spruce = new TreePopulator(3, 2, 100, Sapling::SPRUCE);
+        $peonys = new PlantPopulator(5, 4, 80);
+        $peonys->addPlant(new Plant(new DoublePlant(1), new DoublePlant(9)));
 
-        $tallGrass = new TallGrassPopulator(56, 12);
+        $tree = new TreePopulator(4,2, 100, Tree::DARK_OAK);
+        $mushroom = new TreePopulator(1,  1, 95, Tree::MUSHROOM);
+        $birch = new TreePopulator(1, 2, 100, Sapling::BIRCH);
+        $oak = new TreePopulator(1, 2, 100,Sapling::OAK);
 
-        $this->addPopulators([$mushrooms, $flowers, $spruce, $tallGrass]);
-        $this->addPopulator($spruce);
-        $this->addPopulator($flowers);
-        $this->addPopulator($mushrooms);
+        $grass = new TallGrassPopulator(56, 20);
 
-        $this->setElevation(70, 79);
+        $this->addPopulators([$tree, $peonys, $roses, $mushrooms, $mushroom, $birch, $oak, $grass]);
+        $this->setElevation(64, 74);
     }
 
     /**
      * @return string
      */
     public function getName(): string {
-        return "Taiga";
+        return "Roofed Forest";
     }
 }
