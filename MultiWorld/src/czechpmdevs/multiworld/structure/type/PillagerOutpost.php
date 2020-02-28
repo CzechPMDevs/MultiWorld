@@ -18,7 +18,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-
 declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\structure\type;
@@ -69,34 +68,7 @@ class PillagerOutpost extends Structure {
      * @param Random $random
      */
     public function placeAt(ChunkManager $level, int $x, int $y, int $z, Random $random): void {
-        // main building
-        $air = 0;
 
-        for($xx = 0; $xx < 13; $xx++) {
-            for($zz = 0; $zz < 13; $zz++) {
-                if($level->getBlockIdAt($x+$xx, $y-1, $z + $zz) == BlockIds::AIR) {
-                    $air++;
-                }
-            }
-        }
-
-        if($air > 1) {
-            $this->placeAt($level, $x, $y-1, $z, $random);
-            return;
-        }
-
-        for($xx = 0; $xx < 13; $xx++) {
-            for($zz = 0; $zz < 13; $zz++) {
-                $level->setBlockIdAt($x+$xx, $y-1, $z + $zz, BlockIds::GRASS);
-            }
-        }
-
-        $targetObject = $random->nextBoolean() ? self::WATCHTOWER_FILENAME : self::WATCHTOWER_OVERGROWN_FILENAME;
-
-        foreach ($this->getObject($targetObject)->getBlocks() as [$xx, $yy, $zz, $id, $data]) {
-            $level->setBlockIdAt($x + $xx, $y + $yy, $z + $zz, $id);
-            $level->setBlockDataAt($x + $xx, $y + $yy, $z + $zz, $data);
-        }
 
         // other features
 
@@ -158,5 +130,40 @@ class PillagerOutpost extends Structure {
                 $level->setBlockDataAt($x + $xx, $y + $yy, $z + $zz, $data);
             }
         }
+    }
+
+    private function placeMainBuilding(ChunkManager $level, int $x, int $y, int $z, Random $random) {
+        // main building
+        $air = 0;
+
+        for($xx = 0; $xx < 13; $xx++) {
+            for($zz = 0; $zz < 13; $zz++) {
+                if($level->getBlockIdAt($x+$xx, $y-1, $z + $zz) == BlockIds::AIR) {
+                    $air++;
+                }
+            }
+        }
+
+        if($air > 1) {
+            $this->placeAt($level, $x, $y-1, $z, $random);
+            return;
+        }
+
+        for($xx = 0; $xx < 13; $xx++) {
+            for($zz = 0; $zz < 13; $zz++) {
+                $level->setBlockIdAt($x+$xx, $y-1, $z + $zz, BlockIds::GRASS);
+            }
+        }
+
+        $targetObject = $random->nextBoolean() ? self::WATCHTOWER_FILENAME : self::WATCHTOWER_OVERGROWN_FILENAME;
+
+        foreach ($this->getObject($targetObject)->getBlocks() as [$xx, $yy, $zz, $id, $data]) {
+            $level->setBlockIdAt($x + $xx, $y + $yy, $z + $zz, $id);
+            $level->setBlockDataAt($x + $xx, $y + $yy, $z + $zz, $data);
+        }
+    }
+
+    private function placeFeatures() {
+
     }
 }

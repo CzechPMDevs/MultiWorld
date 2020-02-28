@@ -37,7 +37,7 @@ class StructurePopulator extends Populator {
      * @inheritDoc
      */
     public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random) {
-        if($random->nextBoundedInt(100) !== 0) {
+        if($random->nextBoundedInt(200) !== 0) {
             return;
         }
 
