@@ -47,9 +47,10 @@ class StructureManager {
         $saved = 0;
         $startTime = microtime(true);
 
+        /** @var \SplFileInfo $resource */
         foreach ($resources as $resource) {
             if($resource->getExtension() === "nbt") {
-                if(FileBrowsingApi::saveResource($resource->getLinkTarget(), MultiWorld::getInstance()->getDataFolder() . FileBrowsingApi::removePathFromRoot($resource->getLinkTarget(), "resources"))) {
+                if(MultiWorld::getInstance()->saveResource(FileBrowsingApi::removePathFromRoot($resource->getPathname(), "resources"))) {
                     $saved++;
                 }
             }
