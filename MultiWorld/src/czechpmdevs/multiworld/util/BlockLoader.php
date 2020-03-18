@@ -74,7 +74,6 @@ class BlockLoader {
         $data = self::BLOCK_MAP[$state->getString("Name")] ?? 0;
 
         if($data === 0) {
-            var_dump($state->getString("Name"));
             return new SimpleBlockData(0, 0);
         }
 

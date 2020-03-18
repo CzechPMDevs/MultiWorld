@@ -37,6 +37,10 @@ use czechpmdevs\multiworld\util\FormManager;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\Command;
 use pocketmine\level\generator\GeneratorManager;
+use pocketmine\nbt\BigEndianNBTStream;
+use pocketmine\nbt\NetworkLittleEndianNBTStream;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\ListTag;
 use pocketmine\network\mcpe\protocol\types\RuntimeBlockMapping;
 use pocketmine\plugin\PluginBase;
 use const pocketmine\RESOURCE_PATH;
@@ -106,6 +110,12 @@ class MultiWorld extends PluginBase {
     }
 
     public function buildBlockIdTable() {
+        $stream = new NetworkLittleEndianNBTStream();
+        $values = $stream->read(file_get_contents(RESOURCE_PATH . "/vanilla/required_block_states.nbt"));
+
+        $outputStream = new BigEndianNBTStream();
+        $compound = new CompoundTag("Data", [$values]);
+        file_put_contents("states.dat", $outputStream->write($compound));
     }
 
     private function test() {

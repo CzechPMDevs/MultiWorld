@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\structure\object;
 
-use pocketmine\block\Block;
+use czechpmdevs\multiworld\util\SimpleBlockData;
 use pocketmine\utils\Random;
 
 /**
@@ -13,8 +13,34 @@ use pocketmine\utils\Random;
  */
 class StructureBlock {
 
+    /** @var SimpleBlockData[] $blocks */
+    public $blocks = [];
 
-    public function getBlock(Random $random): Block {
+    /**
+     * @param SimpleBlockData $block
+     */
+    public function addBlock(SimpleBlockData $block) {
+        $this->blocks[] = $block;
+    }
 
+    /**
+     * @param Random $random
+     * @return SimpleBlockData|null
+     */
+    public function getBlock(Random $random): ?SimpleBlockData {
+        if(count($this->blocks) === 0) {
+            return null;
+        }
+        return $this->blocks[$random->nextBoundedInt(count($this->blocks))];
+    }
+
+    /**
+     * @param Random $random
+     * @return array
+     */
+    public function toArray(Random $random) {
+        $targetBlock = $this->getBlock($random);
+
+        return [$targetBlock->getId(), $targetBlock->getMeta()];
     }
 }

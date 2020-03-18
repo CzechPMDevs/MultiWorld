@@ -18,7 +18,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-
 declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\structure;
@@ -33,6 +32,8 @@ use pocketmine\utils\Random;
  */
 abstract class Structure {
 
+    /** @var string $dir */
+    private $dir;
     /** @var array $modules */
     private $objects = [];
 
@@ -41,9 +42,7 @@ abstract class Structure {
      * @param string $dir
      */
     public function __construct(string $dir) {
-        foreach (glob($dir . "/*.nbt") as $file) {
-            $this->objects[basename($file, ".nbt")] = new StructureObject($file);
-        }
+        $this->dir = $dir;
     }
 
     /**
@@ -56,6 +55,22 @@ abstract class Structure {
      * @return void
      */
     abstract public function placeAt(ChunkManager $level, int $x, int $y, int $z, Random $random): void;
+
+    /**
+     * @return \Generator
+     */
+    public function getTargetFiles(): \Generator {
+        foreach (glob($this->dir . "/*.nbt") as $file) {
+            yield $file;
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getDirectory(): string {
+        return $this->dir;
+    }
 
     /**
      * @return StructureObject[]

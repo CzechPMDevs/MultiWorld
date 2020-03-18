@@ -25,9 +25,7 @@ namespace czechpmdevs\multiworld\structure;
 
 use czechpmdevs\multiworld\api\FileBrowsingApi;
 use czechpmdevs\multiworld\MultiWorld;
-use czechpmdevs\multiworld\structure\type\Igloo;
 use czechpmdevs\multiworld\structure\type\PillagerOutpost;
-use czechpmdevs\multiworld\structure\type\Village;
 
 /**
  * Class StructureManager
@@ -35,18 +33,12 @@ use czechpmdevs\multiworld\structure\type\Village;
  */
 class StructureManager {
 
-    private const VILLAGES_PATH = "structures/village/";
-    private const IGLOO_PATH = "structures/igloo/";
-    private const PILLEGEROUTPOST_PATH = "structures/pillageroutpost/";
+    public const PILLEGEROUTPOST_PATH = "structures/pillageroutpost/";
 
-    public const VILLAGE_TYPES = [Village::PLAINS_VILLAGE, Village::DESERT_VILLAGE, Village::DESERT_VILLAGE];
-
-    /** @var Village[] $villages */
-    public static $villages = [];
-    /** @var PillagerOutpost $pillagerOutpost */
-    public static $pillagerOutpost;
-    /** @var Igloo $igloo */
-    public static $igloo;
+    /** @var string[] $classPaths */
+    protected static $classPaths = [];
+    /** @var Structure[] $structures */
+    protected static $structures = [];
 
     /**
      * @param array $resources
@@ -68,76 +60,46 @@ class StructureManager {
         }
     }
 
-    /**
-     * @return string
-     */
-    private static function getDataFolder(): string {
-        return getcwd() . DIRECTORY_SEPARATOR . "plugin_data" . DIRECTORY_SEPARATOR . "MultiWorld" . DIRECTORY_SEPARATOR;
-    }
-
-    /**
-     * @api
-     *
-     * @return void
-     */
-    public static function loadVillages(): void {
-        foreach (self::VILLAGE_TYPES as $type) {
-            self::$villages[$type] = new Village(self::getDataFolder() . self::VILLAGES_PATH . $type . "/", $type);
+    public static function lazyInit() {
+        if(count(self::$classPaths) === 0) {
+            self::init();
         }
     }
 
-    /**
-     * @api
-     *
-     * @return Village[]
-     */
-    public static function getVillages(): array {
-        return self::$villages ?? null;
+    public static function init() {
+        $dataFolder = getcwd() . DIRECTORY_SEPARATOR . "plugin_data" . DIRECTORY_SEPARATOR . "MultiWorld" . DIRECTORY_SEPARATOR;
+
+        self::$classPaths[PillagerOutpost::class] = $dataFolder . self::PILLEGEROUTPOST_PATH;
     }
 
     /**
      * @api
      *
-     * @param string $type
-     * @return Village|null
+     * @param string $path
+     * @param Structure $structure
      */
-    public static function getVillage(string $type): ?Village {
-        return self::$villages[$type] ?? null;
+    public static function registerStructure(string $path, Structure $structure) {
+        if(isset(self::$structures[$path])) {
+            return;
+        }
+
+        self::$structures[$path] = $structure;
     }
 
     /**
      * @api
      *
-     * @return void
+     * @param string $class
+     * @return Structure|null
      */
-    public static function loadPillagerOutpost(): void {
-        self::$pillagerOutpost = new PillagerOutpost(self::getDataFolder() . self::PILLEGEROUTPOST_PATH);
-    }
+    public static function getStructure(string $class): ?Structure {
+        self::lazyInit();
+        $path = self::$classPaths[$class];
 
-    /**
-     * @api
-     *
-     * @return PillagerOutpost|null
-     */
-    public static function getPillagerOutpost(): ?PillagerOutpost {
-        return self::$pillagerOutpost;
-    }
+        if(!isset(self::$structures[$path])) {
+            self::registerStructure($path, new $class($path));
+        }
 
-    /**
-     * @api
-     *
-     * @return void
-     */
-    public static function loadIgloo(): void {
-        self::$igloo = new Igloo(self::getDataFolder() . self::IGLOO_PATH);
-    }
-
-    /**
-     * @api
-     *
-     * @return Igloo|null
-     */
-    public static function getIgloo(): ?Igloo {
-        return self::$igloo;
+        return self::$structures[self::$classPaths[$class]] ?? null;
     }
 }

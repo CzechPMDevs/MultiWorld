@@ -24,6 +24,7 @@ namespace czechpmdevs\multiworld\generator\normal\populator\impl;
 
 use czechpmdevs\multiworld\generator\normal\populator\Populator;
 use czechpmdevs\multiworld\structure\StructureManager;
+use czechpmdevs\multiworld\structure\type\PillagerOutpost;
 use pocketmine\level\ChunkManager;
 use pocketmine\utils\Random;
 
@@ -43,11 +44,7 @@ class StructurePopulator extends Populator {
 
         $this->getRandomSpawnPosition($level, $chunkX, $chunkZ, $random, $x, $y, $z);
 
-        if(is_null(StructureManager::getPillagerOutpost())) {
-            StructureManager::loadPillagerOutpost();
-        }
-
-        $pillagerOutpost = StructureManager::getPillagerOutpost();
+        $pillagerOutpost = StructureManager::getStructure(PillagerOutpost::class);
         $pillagerOutpost->placeAt($level, $x, $y, $z, $random);
     }
 }

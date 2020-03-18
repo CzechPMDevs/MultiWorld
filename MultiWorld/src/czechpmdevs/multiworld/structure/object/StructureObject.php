@@ -29,14 +29,12 @@ use pocketmine\math\Vector3;
 use pocketmine\nbt\BigEndianNBTStream;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\ListTag;
+use pocketmine\utils\Random;
 
 class StructureObject {
 
     /** @var StructureBlock[][][] $blockMap */
-    private static $blockMap = [];
-
-    /** @var string $path */
-    public $path;
+    protected $blockMap = [];
 
     /** @var array $data */
     public $data;
@@ -44,13 +42,8 @@ class StructureObject {
     /** @var Vector3 $axisVector */
     public $axisVector;
 
-    public function __construct(string $path) {
-        $this->path = $path;
-        $this->load();
-    }
-
-    private function load() {
-        $data = (new BigEndianNBTStream())->readCompressed(file_get_contents($this->path));
+    public function load(string $path) {
+        $data = (new BigEndianNBTStream())->readCompressed(file_get_contents($path));
 
         /** @var CompoundTag $compound */
         $compound = $data->getValue();
@@ -67,13 +60,21 @@ class StructureObject {
             $pos = $blockData->getListTag("pos");
             $state = $blockData->getInt("state");
 
-            $this->data[] = [$pos->offsetGet(0), $pos->offsetGet(1), $pos->offsetGet(2), $palette[$state][0], $palette[$state][1]];
+            $x = (int) $pos->offsetGet(0);
+            $y = (int) $pos->offsetGet(1);
+            $z = (int) $pos->offsetGet(2);
+
+            $this->getBlockAt($x, $y, $z)->addBlock($palette->getBlock($state));
         }
 
         if(isset($compound["size"])) {
             /** @var ListTag $list */
             $list = $compound["size"];
-            $this->axisVector = new Vector3($list->offsetGet(0), $list->offsetGet(1), $list->offsetGet(2));
+            $axis = new Vector3($list->offsetGet(0), $list->offsetGet(1), $list->offsetGet(2));
+
+            if(is_null($this->axisVector) || ($axis->getX() + $axis->getY() + $axis->getZ()) > ($this->axisVector->getX() + $this->axisVector->getY() + $this->axisVector->getZ())) {
+                $this->axisVector = $axis;
+            }
         }
     }
 
@@ -83,14 +84,34 @@ class StructureObject {
      * @param int $z
      */
     public function registerBlock(int $x, int $y, int $z) {
-        self::$blockMap[$x][$y][$z] = new StructureBlock();
+        if(!isset($this->blockMap[$x][$y][$z]))
+            $this->blockMap[$x][$y][$z] = new StructureBlock();
     }
 
     /**
+     * @param int $x
+     * @param int $y
+     * @param int $z
+     * @return StructureBlock
+     */
+    public function getBlockAt(int $x, int $y, int $z): StructureBlock {
+        self::registerBlock($x, $y, $z);
+
+        return $this->blockMap[$x][$y][$z];
+    }
+
+    /**
+     * @param Random $random
      * @return \Generator
      */
-    public function getBlocks(): \Generator {
-        return $this->data;
+    public function getBlocks(Random $random): \Generator {
+        foreach ($this->blockMap as $x => $yz) {
+            foreach ($yz as $y => $zBlock) {
+                foreach ($zBlock as $z => $block) {
+                    yield [$x, $y, $z, $block->getBlock($random)];
+                }
+            }
+        }
     }
 
     /**

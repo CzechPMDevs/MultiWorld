@@ -18,24 +18,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-
 declare(strict_types=1);
 
-namespace czechpmdevs\multiworld\structure\type;
-
-use czechpmdevs\multiworld\structure\Structure;
-use pocketmine\level\ChunkManager;
-use pocketmine\utils\Random;
+namespace czechpmdevs\multiworld\structure\object;
 
 /**
- * Class Igloo
- * @package czechpmdevs\multiworld\structure
+ * Class StructureFeature
+ * @package czechpmdevs\multiworld\structure\object
  */
-class Igloo extends Structure {
+class StructureFeature extends StructureObject {
+
+    /** @var string $path */
+    public $path;
+
     /**
-     * @inheritDoc
+     * StructureFeature constructor.
+     * @param string $path
      */
-    public function placeAt(ChunkManager $level, int $x, int $y, int $z, Random $random): void
-    {
+    public function __construct(string $path) {
+        $this->path = $path;
+        $this->load($path);
     }
 }

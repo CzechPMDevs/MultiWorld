@@ -136,21 +136,6 @@ class BiomeManager {
     }
 
     /**
-     * @param float $temperature
-     * @param float $rainfall
-     *
-     * @return Biome
-     */
-    public static function lookupForBiome(float $temperature, float $rainfall): array {
-        if(!isset(self::$map[$temperature][$rainfall])) var_dump("$temperature:$rainfall");
-        return self::$map[$temperature][$rainfall] ?? [
-            self::getBiome(self::OCEAN),
-            self::getBiome(self::DEEP_OCEAN),
-            self::getBiome(self::FROZEN_OCEAN)
-        ];
-    }
-
-    /**
      * @return Biome[]
      */
     private static function getBiomes(): array {
