@@ -100,7 +100,7 @@ class NormalGenerator extends Generator {
         return [];
     }
 
-    private function pickBiome(int $x, int $z) : Biome{
+    private function pickBiome(int $x, int $z): Biome {
         $hash = $x * 2345803 ^ $z * 9236449 ^ $this->level->getSeed();
         $hash *= $hash + 223;
         $xNoise = $hash >> 20 & 3;
@@ -183,10 +183,18 @@ class NormalGenerator extends Generator {
                             }
                         }
 
-                        $minSum += ($adjacent->getMinElevation() - 1) * $weight;
-                        $maxSum += $adjacent->getMaxElevation() * $weight;
+                        try {
+                            $minSum += ($adjacent->getMinElevation() - 1) * $weight;
+                            $maxSum += $adjacent->getMaxElevation() * $weight;
 
-                        $weightSum += $weight;
+                            $weightSum += $weight;
+                        }
+                        catch (\Exception $e) {
+                            echo "[MultiWorld/Debug] Error appeared, maybe will cause generation bug\n";
+                            echo "[MultiWorld/Debug] class: " . get_class($adjacent) . "; index: " . $index ."\n";
+                            echo "[MultiWorld/Debug] Please, submit this to https://github.com/CzechPMDevs/MultiWorld/issues.\n";
+                        }
+
                     }
                 }
 
