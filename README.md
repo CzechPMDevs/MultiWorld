@@ -193,7 +193,7 @@
 - World game rules api was added in MultiWorld v1.5.0, you can download stubs on [release page](), there are all WorldGameRulesAPI methods
 
 - **All implemented GameRules:  `doDaylightCycle`, `doMobLoot`, `doTileDrops`, `keepInventory`, `naturalRegeneration`, `pvp`, `showcoordinates`and `tntexplodes`**
-- **GameRules are stored in level.dat in CompoundTag `GameRules`, you can look at it using [NBTEditor](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-tools/1262665-nbtexplorer-nbt-editor-for-windows-and-mac).**
+- **GameRules are stored in level.dat in CompoundTag `GameRules`, you can look at it using [NBTExplorer](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-tools/1262665-nbtexplorer-nbt-editor-for-windows-and-mac) or [UniversalMinecraftEditor](https://www.universalminecrafteditor.com/).**
 
 **Some example:**
 
@@ -266,7 +266,7 @@ class XYZPlugin extends PluginBase implements Listener {
 
 1) Open [lanuage resource file](https://github.com/CzechPMDevs/MultiWorld/tree/PocketMine-MP/MultiWorld/resources/languages)
 2) Click create new file
-3) Transalte e.g. language from English file https://github.com/CzechPMDevs/MultiWorld/blob/PocketMine-MP/MultiWorld/resources/languages/en_US.yml
+3) Translate e.g. language from English file https://github.com/CzechPMDevs/MultiWorld/blob/PocketMine-MP/MultiWorld/resources/languages/en_US.yml
 4) Click Propose new file
 
 
