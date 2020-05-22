@@ -117,7 +117,7 @@
 
 **All MultiWorlds Permissions:**
 
-| Permission | Command | Opertor |
+| Permission | Command | Operator |
 | --- | --- | --- | 
 | mw.cmd.help | `/mw help` | ✔️ |
 | mw.cmd.create | `/mw create` | ✔️ |
@@ -163,7 +163,7 @@
 
 - World management api was added in MultiWorld v1.5.0, you can download stubs on [release page](), there are all WorldManagementAPI methods
 
-**Some example:**
+**Examples:**
 
 ```php
 /**  
@@ -195,7 +195,7 @@
 - **All implemented GameRules:  `doDaylightCycle`, `doMobLoot`, `doTileDrops`, `keepInventory`, `naturalRegeneration`, `pvp`, `showcoordinates`and `tntexplodes`**
 - **GameRules are stored in level.dat in CompoundTag `GameRules`, you can look at it using [NBTExplorer](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-tools/1262665-nbtexplorer-nbt-editor-for-windows-and-mac) or [UniversalMinecraftEditor](https://www.universalminecrafteditor.com/).**
 
-**Some example:**
+**Examples**
 
 ```php
 <?php  
