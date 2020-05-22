@@ -190,12 +190,12 @@
 ## 🖊️  World Game Rules API
 
 
-- World game rules api was added in MultiWorld v1.5.0, you can download stubs on [release page](), there are all WorldGameRulesAPI methods
+- The World game rules API was added in MultiWorld v1.5.0, you can download stubs on [release page](), there are all WorldGameRulesAPI methods
 
 - **All implemented GameRules:  `doDaylightCycle`, `doMobLoot`, `doTileDrops`, `keepInventory`, `naturalRegeneration`, `pvp`, `showcoordinates`and `tntexplodes`**
 - **GameRules are stored in level.dat in CompoundTag `GameRules`, you can look at it using [NBTExplorer](https://www.minecraftforum.net/forums/mapping-and-modding-java-edition/minecraft-tools/1262665-nbtexplorer-nbt-editor-for-windows-and-mac) or [UniversalMinecraftEditor](https://www.universalminecrafteditor.com/).**
 
-**Examples**
+**Examples:**
 
 ```php
 <?php  
