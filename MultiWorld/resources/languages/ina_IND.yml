@@ -10,7 +10,7 @@ help: '§2--- Menampilkan halaman bantuan MultiWorld {%0} dari {%1} (/ mw help <
 help-1: '§2/mw create §fCiptakan dunia'
 help-2: '§2/mw teleport §fTeleport ke dunia'
 help-3: '§2/mw list §f Menampilkan daftar semua dunia'
-help-4: '§2/mw <load | unload> §f load atau bongkar dunia'
+help-4: '§2/mw <load | unload> §fload atau bongkar dunia'
 help-5: '§2/mw update §fPerbaharui lobi, muncul di dunia atau ubah dunia default'
 
 help-6: '§2/mw remove §fMenghapus sebuah dunia'
