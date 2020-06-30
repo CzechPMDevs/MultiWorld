@@ -3,21 +3,21 @@
 
 ## Perintah:
 not-perms: '§cAnda tidak memiliki izin untuk menggunakan perintah ini'
-default-usage: '§cpenggunaan: §7/mw bantuan'
+default-usage: '§cpenggunaan: §7/mw help'
 
 # Perintah Bantuan:
 help: '§2--- Menampilkan halaman bantuan MultiWorld {%0} dari {%1} (/ mw help <page>) ---'
-help-1: '§2/mw help §fCiptakan dunia'
+help-1: '§2/mw create §fCiptakan dunia'
 help-2: '§2/mw teleport §fTeleport ke dunia'
 help-3: '§2/mw list §f Menampilkan daftar semua dunia'
-help-4: '§2/mw <load | unload> §foad atau bongkar dunia'
+help-4: '§2/mw <load | unload> §f load atau bongkar dunia'
 help-5: '§2/mw update §fPerbaharui lobi, muncul di dunia atau ubah dunia default'
 
-help-6: '§2/mw remove §fRemove a world'
+help-6: '§2/mw remove §fMenghapus sebuah dunia'
 help-7: '§2/mw info §fMenampilkan informasi tentang dunia'
 help-8: '§2/mw gamerule §mengelola gamerules dari level'
 help-9: '§2/mw manage §fDisplays form untuk mengelola dengan dunia'
-help-10: '§2/mw rename §fRename the world'
+help-10: '§2/mw rename §fMengganti nama dunia'
 
 # Buat Perintah:
 create-usage: '§cpenggunaan: §7/mw create <nama> [seed] [generator]'
@@ -28,7 +28,7 @@ create-done: 'worlds {%0} dihasilkan menggunakan seed: {%1} dan generator: {%2}.
 
 # Perintah Teleport:
 teleport-usage: '§cpenggunaan: §7/mw teleport <world> [pemain]'
-teleport-levelnotexists: '§cWorld {%0} belum dibuat. Coba / ciptakan untuk menciptakan dunia. '
+teleport-levelnotexists: '§cWorld {%0} belum dibuat. Coba /mw create untuk menciptakan dunia. '
 teleport-load: 'Memuat dunia {%0} ...'
 teleport-done-1: '§aAnda diteleportasi ke {%0}.'
 teleport-done-2: '§aPlayer {%1} diteleportasikan ke {%0}.'
@@ -58,7 +58,7 @@ delete-done: '§aWorld dihapus. ({%0} file dihapus.) '
 update-usage: '§cpenggunaan: §7 /mw <mod: spawn | lobby | default> [opsi: (dunia) (x) (y) (z)]'
 update-levelnotexists: '§cWorld {%0} tidak ada.'
 update-spawn-done: '§aSpawn in world {%0} telah diubah.'
-update-lobby-done: '§aobob di dunia {%0} telah diubah.'
+update-lobby-done: '§alobby di dunia {%0} telah diubah.'
 update-default-usage: '§penggunaan: §7 /mw update default <level>'
 update-default-done: '§aDefault dunia diubah menjadi {%0}.'
 update-notsupported: '§4Silakan jalankan perintah ini dalam game'
