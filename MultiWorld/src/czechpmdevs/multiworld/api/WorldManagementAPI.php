@@ -205,7 +205,7 @@ class WorldManagementAPI {
      */
     private static function removeDir(string $dirPath): int {
         $files = 1;
-        if(basename($dirPath) == "." || basename($dirPath) == "..") {
+        if(basename($dirPath) == "." || basename($dirPath) == ".." || !is_dir($dirPath)) {
             return 0;
         }
         foreach (scandir($dirPath) as $item) {
