@@ -196,7 +196,8 @@ class BigOakTree extends Tree {
         for ($l = --$y - $blockY; $l >= 0; $l--, $y--) {
             $h = $this->height / 2.0;
             $v = $h - $l;
-            $f = $l < (float)$this->height * 0.3 ? -1.0 : $v == $h ? $h * 0.5 : $h <= abs($v) ? 0.0 : (sqrt($h * $h - $v * $v) * 0.5);
+            $f = (($l < (float)$this->height * 0.3) ? -1.0 : (($v == $h) ? $h * 0.5 : (($h <= abs($v)) ? 0.0 : (sqrt($h * $h - $v * $v) * 0.5))));
+
 
             if ($f >= 0.0) {
                 for ($i = 0; $i < $nodeCount; $i++) {
@@ -221,4 +222,3 @@ class BigOakTree extends Tree {
         return $leafNodes;
     }
 }
-
