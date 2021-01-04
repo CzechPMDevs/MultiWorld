@@ -111,7 +111,7 @@ class MultiWorld extends PluginBase {
 
     public function buildBlockIdTable() {
         $stream = new NetworkLittleEndianNBTStream();
-        $values = $stream->read(file_get_contents(RESOURCE_PATH . "/vanilla/required_block_states.nbt"));
+        $values = $stream->read(file_get_contents(RESOURCE_PATH . "/vanilla/canonical_block_states.nbt"));
 
         $outputStream = new BigEndianNBTStream();
         $compound = new CompoundTag("Data", [$values]);
