@@ -96,7 +96,7 @@ class LanguageManager {
             $message = self::$languages[$lang][$msg];
 
             foreach ($params as $index => $param) {
-                $message = str_replace("{%$index}", $param, $message);
+                $message = str_replace("{%$index}",(string) $param, $message);
             }
 
 
