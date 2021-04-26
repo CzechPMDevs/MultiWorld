@@ -6,6 +6,7 @@ version: 1.6.0-beta1
 main: czechpmdevs\multiworld\MultiWorld
 description: Plugin that manage with worlds
 website: https://github.com/CzechPMDevs/MultiWorld
+load: POSTWORLD
 
 permissions:
   mw.cmd:
