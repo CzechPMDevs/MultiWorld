@@ -179,9 +179,9 @@ class EventListener implements Listener {
         $player = $event->getPlayer();
         $levelGameRules = WorldGameRulesAPI::getLevelGameRules($player->getLevel());
         if(isset($levelGameRules["keepInventory"]) && $levelGameRules["keepInventory"][1] && isset($this->inventories[$player->getName()])) {
-            $player->getInventory->setContents($this->inventories[$sender->getName()]);
-            $player->getArmorInventory()->setContents($this->inventories[$sender->getName()]);
-            $player->getCursorInventory()->setContents($this->inventories[$sender->getName()]);
+            $player->getInventory->setContents($this->inventories[$player->getName()]);
+            $player->getArmorInventory()->setContents($this->inventories[$player->getName()]);
+            $player->getCursorInventory()->setContents($this->inventories[$player->getName()]);
         }
     }
 
