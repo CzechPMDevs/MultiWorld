@@ -171,6 +171,7 @@ class EventListener implements Listener {
             return;
         }
     }
+    
 
     /**
      * @param PlayerRespawnEvent $event
