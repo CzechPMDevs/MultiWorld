@@ -24,23 +24,27 @@ namespace czechpmdevs\multiworld;
 
 use czechpmdevs\multiworld\command\GameruleCommand;
 use czechpmdevs\multiworld\command\MultiWorldCommand;
+use czechpmdevs\multiworld\gamerules\GameRules;
 use czechpmdevs\multiworld\generator\ender\EnderGenerator;
 use czechpmdevs\multiworld\generator\nether\NetherGenerator;
 use czechpmdevs\multiworld\generator\normal\NormalGenerator;
 use czechpmdevs\multiworld\generator\skyblock\SkyBlockGenerator;
 use czechpmdevs\multiworld\generator\void\VoidGenerator;
-use czechpmdevs\multiworld\structure\StructureManager;
 use czechpmdevs\multiworld\util\ConfigManager;
 use czechpmdevs\multiworld\util\FormManager;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\Command;
 use pocketmine\level\generator\GeneratorManager;
+use pocketmine\level\Level;
 use pocketmine\plugin\PluginBase;
 
 class MultiWorld extends PluginBase {
 
     /** @var MultiWorld */
     private static MultiWorld $instance;
+
+    /** @var GameRules[] */
+    public static array $gameRules = [];
 
     /** @var LanguageManager */
     public LanguageManager $languageManager;
@@ -51,6 +55,25 @@ class MultiWorld extends PluginBase {
 
     /** @var Command[] */
     public array $commands = [];
+
+    public function onLoad() {
+        $start = !(MultiWorld::$instance instanceof $this);
+        MultiWorld::$instance = $this;
+
+        if ($start) {
+            $generators = [
+                "ender" => EnderGenerator::class,
+                "void" => VoidGenerator::class,
+                "skyblock" => SkyBlockGenerator::class,
+                "nether" => NetherGenerator::class,
+                "normal_mw" => NormalGenerator::class
+            ];
+
+            foreach ($generators as $name => $class) {
+                GeneratorManager::addGenerator($class, $name, true);
+            }
+        }
+    }
 
     public function onEnable() {
         $this->configManager = new ConfigManager($this);
@@ -69,25 +92,15 @@ class MultiWorld extends PluginBase {
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
     }
 
-    public function onLoad() {
-        $start = !(MultiWorld::$instance instanceof $this);
-        MultiWorld::$instance = $this;
+    /**
+     * @internal
+     */
+    static function unloadLevel(Level $level): void {
+        unset(MultiWorld::$gameRules[$level->getId()]);
+    }
 
-        if ($start) {
-            $generators = [
-                "ender" => EnderGenerator::class,
-                "void" => VoidGenerator::class,
-                "skyblock" => SkyBlockGenerator::class,
-                "nether" => NetherGenerator::class,
-                "normal_mw" => NormalGenerator::class
-            ];
-
-            foreach ($generators as $name => $class) {
-                GeneratorManager::addGenerator($class, $name, true);
-            }
-
-            StructureManager::saveResources($this->getResources());
-        }
+    public static function getGameRules(Level $level): GameRules {
+        return MultiWorld::$gameRules[$level->getId()] ?? MultiWorld::$gameRules[$level->getId()] = GameRules::loadFromLevel($level);
     }
 
     public static function getInstance(): MultiWorld {

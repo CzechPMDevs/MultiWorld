@@ -22,25 +22,24 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld;
 
-use czechpmdevs\multiworld\api\WorldGameRulesAPI;
+use czechpmdevs\multiworld\gamerules\GameRules;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\entity\Effect;
 use pocketmine\entity\Living;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\entity\EntityDeathEvent;
 use pocketmine\event\entity\EntityExplodeEvent;
 use pocketmine\event\entity\EntityLevelChangeEvent;
 use pocketmine\event\entity\EntityRegainHealthEvent;
 use pocketmine\event\level\LevelLoadEvent;
+use pocketmine\event\level\LevelUnloadEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerRespawnEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\item\Item;
-use pocketmine\level\Level;
 use pocketmine\network\mcpe\protocol\ChangeDimensionPacket;
 use pocketmine\network\mcpe\protocol\LoginPacket;
 use pocketmine\Player;
@@ -57,17 +56,21 @@ class EventListener implements Listener {
     }
 
     public function onJoin(PlayerJoinEvent $event): void {
-        WorldGameRulesAPI::updateGameRules($event->getPlayer());
+        MultiWorld::getGameRules($event->getPlayer()->getLevelNonNull())->applyToPlayer($event->getPlayer());
     }
 
     public function onLevelLoad(LevelLoadEvent $event): void {
-        WorldGameRulesAPI::handleGameRuleChange($event->getLevel(), WorldGameRulesAPI::getLevelGameRules($event->getLevel()));
+        MultiWorld::getGameRules($event->getLevel());
+    }
+
+    public function onLevelUnload(LevelUnloadEvent $event): void {
+        MultiWorld::unloadLevel($event->getLevel());
     }
 
     public function onLevelChange(EntityLevelChangeEvent $event): void {
         $entity = $event->getEntity();
         if ($entity instanceof Player) {
-            WorldGameRulesAPI::updateGameRules($entity, $event->getTarget());
+            MultiWorld::getGameRules($event->getTarget())->applyToPlayer($entity);
 
             $originGenerator = $event->getOrigin()->getProvider()->getGenerator();
             $targetGenerator = $event->getTarget()->getProvider()->getGenerator();
@@ -97,19 +100,10 @@ class EventListener implements Listener {
         }
     }
 
-    public function onEntityDeath(EntityDeathEvent $event): void {
-        $entity = $event->getEntity();
-        $levelGameRules = WorldGameRulesAPI::getLevelGameRules($entity->getLevel());
-        if (isset($levelGameRules["doMobLoot"]) && !$levelGameRules["doMobLoot"][1] && !$entity instanceof Player) {
-            $event->setDrops([]);
-        }
-    }
-
     public function onPlayerDeath(PlayerDeathEvent $event): void {
         $player = $event->getPlayer();
 
-        $levelGameRules = WorldGameRulesAPI::getLevelGameRules($player->getLevel());
-        if (isset($levelGameRules["keepInventory"]) && $levelGameRules["keepInventory"][1]) {
+        if (MultiWorld::getGameRules($player->getLevelNonNull())->getBool(GameRules::GAMERULE_KEEP_INVENTORY)) {
             $this->inventories[$player->getName()] = [$player->getInventory()->getContents(), $player->getArmorInventory()->getContents(), $player->getCursorInventory()->getContents()];
             $event->setDrops([]);
         }
@@ -136,8 +130,7 @@ class EventListener implements Listener {
 
     public function onPlayerRespawn(PlayerRespawnEvent $event): void {
         $player = $event->getPlayer();
-        $levelGameRules = WorldGameRulesAPI::getLevelGameRules($player->getLevelNonNull());
-        if (isset($levelGameRules["keepInventory"]) && $levelGameRules["keepInventory"][1] && isset($this->inventories[$player->getName()])) {
+        if (MultiWorld::getGameRules($event->getPlayer()->getLevelNonNull())->getBool(GameRules::GAMERULE_KEEP_INVENTORY) && isset($this->inventories[$player->getName()])) {
             $player->getInventory()->setContents(array_shift($this->inventories[$player->getName()]));
             $player->getArmorInventory()->setContents(array_shift($this->inventories[$player->getName()]));
             $player->getCursorInventory()->setContents(array_shift($this->inventories[$player->getName()]));
@@ -145,9 +138,7 @@ class EventListener implements Listener {
     }
 
     public function onBreak(BlockBreakEvent $event): void {
-        $player = $event->getPlayer();
-        $levelGameRules = WorldGameRulesAPI::getLevelGameRules($player->getLevelNonNull());
-        if (isset($levelGameRules["doTileDrops"]) && !$levelGameRules["doTileDrops"][1]) {
+        if (!MultiWorld::getGameRules($event->getPlayer()->getLevelNonNull())->getBool(GameRules::GAMERULE_DO_TILE_DROPS)) {
             $event->setDrops([]);
         }
     }
@@ -157,8 +148,7 @@ class EventListener implements Listener {
         if (!$entity instanceof Living) return;
         if ($entity->hasEffect(Effect::REGENERATION)) return;
 
-        $levelGameRules = WorldGameRulesAPI::getLevelGameRules($entity->getLevelNonNull());
-        if (isset($levelGameRules["naturalRegeneration"]) && !$levelGameRules["naturalRegeneration"][1]) {
+        if (!MultiWorld::getGameRules($entity->getLevelNonNull())->getBool(GameRules::GAMERULE_NATURAL_REGENERATION)) {
             $event->setCancelled(true);
         }
     }
@@ -166,22 +156,14 @@ class EventListener implements Listener {
     public function onDamage(EntityDamageEvent $event): void {
         $entity = $event->getEntity();
 
-        if (!$event instanceof EntityDamageByEntityEvent) return;
-
-        if ($event->getEntity()->getLevel() instanceof Level) {
-            $levelGameRules = WorldGameRulesAPI::getLevelGameRules($entity->getLevelNonNull());
-            if (isset($levelGameRules["pvp"]) && !$levelGameRules["pvp"][1]) {
-                $event->setCancelled(true);
-            }
+        if($entity instanceof Player && $event instanceof EntityDamageByEntityEvent && $event->getDamager() instanceof Player && !MultiWorld::getGameRules($event->getEntity()->getLevelNonNull())->getBool(GameRules::GAMERULE_PVP)) {
+            $event->setCancelled();
         }
     }
 
     public function onExplode(EntityExplodeEvent $event): void {
-        $entity = $event->getEntity();
-
-        $levelGameRules = WorldGameRulesAPI::getLevelGameRules($entity->getLevelNonNull());
-        if (isset($levelGameRules["tntexplodes"]) && !$levelGameRules["tntexplodes"][1]) {
-            $event->setCancelled(true);
+        if(!MultiWorld::getGameRules($event->getEntity()->getLevelNonNull())->getBool(GameRules::GAMERULE_TNT_EXPLODES)) {
+            $event->setCancelled();
         }
     }
 
