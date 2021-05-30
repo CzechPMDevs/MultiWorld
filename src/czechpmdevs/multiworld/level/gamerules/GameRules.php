@@ -20,7 +20,7 @@
 
 declare(strict_types=1);
 
-namespace czechpmdevs\multiworld\gamerules;
+namespace czechpmdevs\multiworld\level\gamerules;
 
 use pocketmine\level\format\io\BaseLevelProvider;
 use pocketmine\level\Level;

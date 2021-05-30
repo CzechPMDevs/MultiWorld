@@ -24,12 +24,12 @@ namespace czechpmdevs\multiworld;
 
 use czechpmdevs\multiworld\command\GameruleCommand;
 use czechpmdevs\multiworld\command\MultiWorldCommand;
-use czechpmdevs\multiworld\gamerules\GameRules;
 use czechpmdevs\multiworld\generator\ender\EnderGenerator;
 use czechpmdevs\multiworld\generator\nether\NetherGenerator;
 use czechpmdevs\multiworld\generator\normal\NormalGenerator;
 use czechpmdevs\multiworld\generator\skyblock\SkyBlockGenerator;
 use czechpmdevs\multiworld\generator\void\VoidGenerator;
+use czechpmdevs\multiworld\level\gamerules\GameRules;
 use czechpmdevs\multiworld\util\ConfigManager;
 use czechpmdevs\multiworld\util\FormManager;
 use czechpmdevs\multiworld\util\LanguageManager;

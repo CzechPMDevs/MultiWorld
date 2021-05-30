@@ -22,7 +22,9 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld;
 
-use czechpmdevs\multiworld\gamerules\GameRules;
+use czechpmdevs\multiworld\level\dimension\Dimension;
+use czechpmdevs\multiworld\level\gamerules\GameRules;
+use czechpmdevs\multiworld\session\PlayerInventorySession;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\entity\Effect;
 use pocketmine\entity\Living;
@@ -37,10 +39,9 @@ use pocketmine\event\level\LevelUnloadEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerJoinEvent;
+use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\player\PlayerRespawnEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
-use pocketmine\item\Item;
-use pocketmine\network\mcpe\protocol\ChangeDimensionPacket;
 use pocketmine\network\mcpe\protocol\LoginPacket;
 use pocketmine\Player;
 
@@ -48,101 +49,86 @@ class EventListener implements Listener {
 
     /** @var MultiWorld */
     public MultiWorld $plugin;
-    /** @var Item[][][] */
-    private array $inventories = [];
+
+    /** @var PlayerInventorySession[] $deathSessions */
+    protected array $deathSessions = [];
+    /** @var int[] */
+    protected array $dimensionData = [];
 
     public function __construct(MultiWorld $plugin) {
         $this->plugin = $plugin;
     }
 
+    /** @noinspection PhpUnused */
     public function onJoin(PlayerJoinEvent $event): void {
         MultiWorld::getGameRules($event->getPlayer()->getLevelNonNull())->applyToPlayer($event->getPlayer());
     }
 
+    /** @noinspection PhpUnused */
+    public function onQuit(PlayerQuitEvent $event): void {
+        unset($this->deathSessions[$event->getPlayer()->getName()]);
+        unset($this->dimensionData[$event->getPlayer()->getName()]);
+    }
+
+    /** @noinspection PhpUnused */
     public function onLevelLoad(LevelLoadEvent $event): void {
         MultiWorld::getGameRules($event->getLevel());
     }
 
+    /** @noinspection PhpUnused */
     public function onLevelUnload(LevelUnloadEvent $event): void {
         MultiWorld::unloadLevel($event->getLevel());
     }
 
+    /** @noinspection PhpUnused */
     public function onLevelChange(EntityLevelChangeEvent $event): void {
-        $entity = $event->getEntity();
-        if ($entity instanceof Player) {
-            MultiWorld::getGameRules($event->getTarget())->applyToPlayer($entity);
+        $player = $event->getEntity();
+        if (!$player instanceof Player) {
+            return;
+        }
 
-            $originGenerator = $event->getOrigin()->getProvider()->getGenerator();
-            $targetGenerator = $event->getTarget()->getProvider()->getGenerator();
+        MultiWorld::getGameRules($event->getTarget())->applyToPlayer($player);
 
-            $getDimension = function ($generator): int {
-                switch ($generator) {
-                    case "normal":
-                    case "skyblock":
-                    case "void":
-                        return 0;
-                    case "nether":
-                        return 1;
-                    case "ender":
-                        return 2;
-                    default:
-                        return 0;
-                }
-            };
-
-            if ($getDimension($originGenerator) == $getDimension($targetGenerator)) return;
-
-            $pk = new ChangeDimensionPacket();
-            $pk->dimension = $getDimension($targetGenerator);
-            $pk->position = $event->getTarget()->getSpawnLocation();
-
-            $entity->dataPacket($pk);
+        if(Dimension::getDimensionByLevel($event->getOrigin()) != ($targetDimension = Dimension::getDimensionByLevel($event->getTarget()))) {
+            Dimension::sendDimensionToPlayer($player, $targetDimension);
         }
     }
 
+    /** @noinspection PhpUnused */
     public function onPlayerDeath(PlayerDeathEvent $event): void {
         $player = $event->getPlayer();
 
         if (MultiWorld::getGameRules($player->getLevelNonNull())->getBool(GameRules::GAMERULE_KEEP_INVENTORY)) {
-            $this->inventories[$player->getName()] = [$player->getInventory()->getContents(), $player->getArmorInventory()->getContents(), $player->getCursorInventory()->getContents()];
+            $this->deathSessions[$player->getId()] = new PlayerInventorySession($player);
             $event->setDrops([]);
         }
 
-        $getDimension = function ($generator): int {
-            switch ($generator) {
-                case "normal":
-                case "skyblock":
-                case "void":
-                    return 0;
-                case "nether":
-                    return 1;
-                case "ender":
-                    return 2;
-                default:
-                    return 0;
-            }
-        };
-
-        if ($getDimension($player->getLevel()->getProvider()->getGenerator()) !== 0) {
-            $player->teleport($this->plugin->getServer()->getDefaultLevel()->getSafeSpawn());
-        }
+        $this->dimensionData[$player->getId()] = Dimension::getDimensionByLevel($player->getLevelNonNull());
     }
 
+    /** @noinspection PhpUnused */
     public function onPlayerRespawn(PlayerRespawnEvent $event): void {
         $player = $event->getPlayer();
-        if (MultiWorld::getGameRules($event->getPlayer()->getLevelNonNull())->getBool(GameRules::GAMERULE_KEEP_INVENTORY) && isset($this->inventories[$player->getName()])) {
-            $player->getInventory()->setContents(array_shift($this->inventories[$player->getName()]));
-            $player->getArmorInventory()->setContents(array_shift($this->inventories[$player->getName()]));
-            $player->getCursorInventory()->setContents(array_shift($this->inventories[$player->getName()]));
+
+        if($this->dimensionData[$player->getId()] != ($currentDimension = Dimension::getDimensionByLevel($player->getLevelNonNull()))) {
+            Dimension::sendDimensionToPlayer($player, $currentDimension, true);
+        }
+        unset($this->dimensionData[$player->getId()]);
+
+        if(isset($this->deathSessions[$player->getId()])) {
+            $this->deathSessions[$player->getId()]->close();
+            unset($this->deathSessions[$player->getId()]);
         }
     }
 
+    /** @noinspection PhpUnused */
     public function onBreak(BlockBreakEvent $event): void {
         if (!MultiWorld::getGameRules($event->getPlayer()->getLevelNonNull())->getBool(GameRules::GAMERULE_DO_TILE_DROPS)) {
             $event->setDrops([]);
         }
     }
 
+    /** @noinspection PhpUnused */
     public function onRegenerate(EntityRegainHealthEvent $event): void {
         $entity = $event->getEntity();
         if (!$entity instanceof Living) return;
@@ -153,6 +139,7 @@ class EventListener implements Listener {
         }
     }
 
+    /** @noinspection PhpUnused */
     public function onDamage(EntityDamageEvent $event): void {
         $entity = $event->getEntity();
 
@@ -161,12 +148,14 @@ class EventListener implements Listener {
         }
     }
 
+    /** @noinspection PhpUnused */
     public function onExplode(EntityExplodeEvent $event): void {
         if(!MultiWorld::getGameRules($event->getEntity()->getLevelNonNull())->getBool(GameRules::GAMERULE_TNT_EXPLODES)) {
             $event->setCancelled();
         }
     }
 
+    /** @noinspection PhpUnused */
     public function onDataPacketReceive(DataPacketReceiveEvent $event): void {
         $packet = $event->getPacket();
         if ($packet instanceof LoginPacket) {
