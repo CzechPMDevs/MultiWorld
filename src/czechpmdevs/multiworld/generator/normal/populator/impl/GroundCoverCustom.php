@@ -60,7 +60,7 @@ class GroundCoverCustom extends Populator{
                             break;
                         }
                         if(is_array($b)){
-                            $selected = array_rand($b);
+                            $selected = $random->nextRange(0, count($b)-1);
                             $randContent = $b[$selected];
                             $data = explode(":",(string)$randContent);
                             $id = $data[0];
