@@ -36,6 +36,7 @@ use pocketmine\block\Stone;
 use pocketmine\level\biome\Biome;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\format\Chunk;
+use czechpmdevs\multiworld\generator\normal\populator\impl\GroundCoverCustom;
 use pocketmine\level\generator\Generator;
 use pocketmine\level\generator\noise\Simplex;
 use pocketmine\level\generator\object\OreType;
