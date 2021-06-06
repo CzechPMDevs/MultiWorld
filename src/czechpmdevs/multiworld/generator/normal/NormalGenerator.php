@@ -110,7 +110,7 @@ class NormalGenerator extends Generator {
         $this->random->setSeed($this->level->getSeed());
         $this->selector = new BiomeSelector($this->random);
 
-        $cover = new GroundCover();
+        $cover = new GroundCoverCustom();
         $this->generationPopulators[] = $cover;
 
         $ores = new Ore();
