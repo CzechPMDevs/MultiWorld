@@ -66,7 +66,6 @@ class GroundCoverCustom extends Populator{
                             $id = $data[0];
                             $meta = $data[1];
                             $block = Block::get((int)$id, (int)$meta);
-                            var_dump("Set a block");
                             if($block->getDamage() === 0){
                                 $chunk->setBlockId($x, $y, $z, $block->getId());
                             }else{
