@@ -110,7 +110,9 @@ class NormalGenerator extends Generator {
         $this->noiseBase = new Simplex($this->random, 4, 1 / 4, 1 / 32);
         $this->random->setSeed($this->level->getSeed());
         $this->selector = new BiomeSelector($this->random);
-
+        
+        
+        //edit the GroundCover Populator that it be able to generate randomized terrain :)
         $cover = new GroundCoverCustom();
         $this->generationPopulators[] = $cover;
 
