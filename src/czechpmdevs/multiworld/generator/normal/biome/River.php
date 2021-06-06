@@ -29,8 +29,11 @@ class River extends Biome {
 
     public function __construct() {
         parent::__construct(0.5, 0.5);
+        $sand = Block::SAND;
+        $gravel = Block::GRAVEL;
+        //EXAMPLE POPULATION
         $this->setGroundCover([
-            new Sand(),
+            ["{$sand}:0", "{$gravel}:0"],
             new Sand()
         ]);
 
