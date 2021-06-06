@@ -4,7 +4,7 @@
 ## Commands:
 
 not-perms: '§cSie haben nicht die benötigten Berechtigungen, diesen Befehl auszuführen!'
-default-usage: '§cBenutzung: §7/mw hilfe'
+default-usage: '§cBenutzung: §7/mw help'
 
 # Hilfs Befehl:
 help: '§2--- §fMultiWorld help page ({%0}/{%1}) §2---'
