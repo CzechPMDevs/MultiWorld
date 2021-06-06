@@ -112,7 +112,7 @@ class NormalGenerator extends Generator {
         $this->selector = new BiomeSelector($this->random);
         
         
-        //edit the GroundCover Populator that it be able to generate randomized terrain :)
+        //edit the GroundCover Populator that it be able to generate randomized terrain :) (Could be useful in future)
         $cover = new GroundCoverCustom();
         $this->generationPopulators[] = $cover;
 
