@@ -97,6 +97,7 @@ class GameRules {
 
         if(!isset(GameRules::$defaultGameRules)) {
             $this->gameRules = $serializedGameRules;
+            return;
         }
 
         // Removing invalid GameRules
