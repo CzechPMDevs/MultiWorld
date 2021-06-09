@@ -37,7 +37,6 @@ use pocketmine\command\Command;
 use pocketmine\level\generator\GeneratorManager;
 use pocketmine\level\Level;
 use pocketmine\plugin\PluginBase;
-use function file_get_contents;
 
 class MultiWorld extends PluginBase {
 

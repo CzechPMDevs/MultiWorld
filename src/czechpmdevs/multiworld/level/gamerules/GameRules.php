@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\level\gamerules;
 
+use InvalidStateException;
 use pocketmine\level\format\io\BaseLevelProvider;
 use pocketmine\level\Level;
 use pocketmine\nbt\tag\CompoundTag;
@@ -31,11 +32,10 @@ use pocketmine\Player;
 use function array_key_exists;
 use function array_map;
 use function count;
-use function is_array;
 use function is_bool;
 use function is_int;
 
-class GameRules {
+final class GameRules {
 
     public const TYPE_INVALID = 0;
     public const TYPE_BOOL = 1;
@@ -70,53 +70,62 @@ class GameRules {
     public const GAMERULE_TNT_EXPLODES = "tntExplodes";
     public const GAMERULE_SHOW_TAGS = "showTags";
 
+    /**
+     * @var bool $allowPlayersEditGameRulesFromGame
+     *
+     * Enabling this options will be players with operator permissions
+     * permitted to edit game rules from Minecraft settings
+     */
+    public static bool $allowPlayersEditGameRulesFromGame = true;
+
     /** @var GameRules */
     private static GameRules $defaultGameRules;
 
     /**
-     * @var mixed[][]
-     * @phpstan-var array<string, array{0: int, 1: bool|int|float}>
+     * @var mixed[]
+     * @phpstan-var array<string, bool|int|float>
      */
     private array $gameRules = [];
 
     /**
-     * @param mixed[][] $defaultGameRules
-     * @phpstan-var array<string, array{0: int, 1: bool|int|float}>
+     * @param mixed[] $defaultGameRules
+     * @phpstan-var array<string, bool|int|float>
      */
     public static function init(array $defaultGameRules): void {
         GameRules::$defaultGameRules = new GameRules($defaultGameRules);
     }
 
     /**
-     * @param mixed[][] $serializedGameRules
-     * @phpstan-param array<string, array{0: int, 1: bool|int|float}> $serializedGameRules
+     * @param mixed[] $gameRules
+     * @phpstan-param array<string, bool|int|float> $gameRules
      */
-    public function __construct(array $serializedGameRules = []) {
-        if(!is_array($serializedGameRules)) {
+    public function __construct(array $gameRules = []) {
+        if(empty($gameRules)) {
             return;
         }
 
         if(!isset(GameRules::$defaultGameRules)) {
-            $this->gameRules = $serializedGameRules;
+            $this->gameRules = $gameRules;
+            return;
         }
 
         // Removing invalid GameRules
-        foreach ($serializedGameRules as $key => [$_, $value]) {
+        foreach ($gameRules as $key => $value) {
             if(!GameRules::$defaultGameRules->keyExists($key)) {
-                unset($serializedGameRules[$key]);
-            } elseif($this->getPropertyType($value) != $this->getGameRuleType($key)) {
-                unset($serializedGameRules[$key]);
+                unset($gameRules[$key]); // GameRule does not exist at all
+            } elseif($this->getPropertyType($value) != $this->getPropertyType(GameRules::$defaultGameRules->getGameRules()[$key])) {
+                unset($gameRules[$key]); // GameRule has invalid type
             }
         }
 
         // Adding new GameRules
         foreach (GameRules::$defaultGameRules->gameRules as $key => $gameRule) {
-            if(!array_key_exists($key, $serializedGameRules)) {
-                $serializedGameRules[$key] = $gameRule;
+            if(!array_key_exists($key, $gameRules)) {
+                $gameRules[$key] = $gameRule;
             }
         }
 
-        $this->gameRules = $serializedGameRules;
+        $this->gameRules = $gameRules;
     }
 
     /**
@@ -124,15 +133,16 @@ class GameRules {
      * To player use GameRules::applyToPlayer(Player) method
      */
     public function setBool(string $index, bool $value): void {
-        $this->gameRules[$index] = [GameRules::TYPE_BOOL, $value];
+        $this->gameRules[$index] = $value;
     }
 
     public function getBool(string $index): bool {
-        if(isset($this->gameRules[$index][1]) && is_bool($this->gameRules[$index][1])) {
-            return $this->gameRules[$index][1];
+        $value = $this->gameRules[$index] ?? null;
+        if(!is_bool($value)) {
+            throw new InvalidStateException("Received invalid type for Game Rule $index, expected bool.");
         }
 
-        return false; // TODO - Default values
+        return $value;
     }
 
     /**
@@ -140,27 +150,20 @@ class GameRules {
      * To player use GameRules::applyToPlayer(Player) method
      */
     public function setInteger(string $index, int $value): void {
-        $this->gameRules[$index] = [GameRules::TYPE_INTEGER, $value];
+        $this->gameRules[$index] = $value;
     }
 
     public function getInteger(string $index): int {
-        if(isset($this->gameRules[$index][1]) && is_int($this->gameRules[$index][1])) {
-            return $this->gameRules[$index][1];
+        $value = $this->gameRules[$index] ?? null;
+        if(!is_int($value)) {
+            throw new InvalidStateException("Received invalid type for Game Rule $index, expected integer.");
         }
 
-        return -1; // TODO - Default values
+        return $value;
     }
 
     public function keyExists(string $index): bool {
         return array_key_exists($index, $this->gameRules);
-    }
-
-    public function getGameRuleType(string $index): int {
-        if(!isset($this->gameRules[$index][1])) {
-            return GameRules::TYPE_INVALID;
-        }
-
-        return $this->getPropertyType($this->gameRules[$index][1]);
     }
 
     /**
@@ -182,7 +185,8 @@ class GameRules {
     }
 
     /**
-     * @return mixed[][]
+     * @return mixed[]
+     * @phpstan-return array<string, int|float|bool>
      */
     public function getGameRules(): array {
         return $this->gameRules;
@@ -190,13 +194,23 @@ class GameRules {
 
     public function applyToPlayer(Player $player): void {
         $pk = new GameRulesChangedPacket();
-        $pk->gameRules = $this->gameRules;
+        $pk->gameRules = array_map(fn ($gameRule) => [
+            $this->getPropertyType($gameRule),
+            $gameRule,
+            GameRules::$allowPlayersEditGameRulesFromGame
+        ], $this->gameRules);
+
         $player->dataPacket($pk);
     }
 
     public function applyToLevel(Level $level): void {
         $pk = new GameRulesChangedPacket();
-        $pk->gameRules = $this->gameRules;
+        $pk->gameRules = array_map(fn ($gameRule) => [
+            $this->getPropertyType($gameRule),
+            $gameRule,
+            GameRules::$allowPlayersEditGameRulesFromGame
+        ], $this->gameRules);
+
         $level->broadcastGlobalPacket($pk);
     }
 
@@ -221,15 +235,15 @@ class GameRules {
      * Unserializes GameRules from World Provider
      */
     public static function unserializeGameRules(CompoundTag $nbt): GameRules {
-        return new GameRules(array_map(function (StringTag $stringTag): array {
+        return new GameRules(array_map(function (StringTag $stringTag) {
             if($stringTag->getValue() == "true") {
-                return [GameRules::TYPE_BOOL, true];
+                return true;
             }
             if($stringTag->getValue() == "false") {
-                return [GameRules::TYPE_BOOL, false];
+                return false;
             }
 
-            return [GameRules::TYPE_INTEGER, (int)$stringTag->getValue()];
+            return (int)$stringTag->getValue();
         }, $nbt->getValue()));
     }
 
