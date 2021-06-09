@@ -1,0 +1,52 @@
+name: MultiWorld
+author: CzechPMDevs
+authors: [VixikCZ, fuyutsuki, kaliiks]
+api: 3.20.0
+version: 1.5.3
+main: czechpmdevs\multiworld\MultiWorld
+description: Plugin that manage with worlds
+website: https://github.com/CzechPMDevs/MultiWorld
+
+mcpe-protocol: [440]
+
+permissions:
+  mw.cmd:
+    default: op
+    description: Permission for all multiworld commands
+    children:
+      mw.cmd.help:
+        description: Permission for /mw help
+        default: op
+      mw.cmd.create:
+        description: Permission for /mw create
+        default: op
+      mw.cmd.teleport:
+        description: Permission for /mw teleport
+        default: op
+      mw.cmd.list:
+        description: Permission for /mw list
+        default: op
+      mw.cmd.load:
+        description: Permission for /mw load
+        default: op
+      mw.cmd.unload:
+        description: Permission for /mw unload
+        default: op
+      mw.cmd.delete:
+        description: Permission for /mw delete
+        default: op
+      mw.cmd.update:
+        description: Permission for /mw update
+        default: op
+      mw.cmd.info:
+        description: Permission for /mw info
+        default: op
+      mw.cmd.gamerule:
+        description: Permission for /mw gamerule
+        default: op
+      mw.cmd.manage:
+        description: Permission for /mw manage
+        default: op
+      mw.cmd.rename:
+        description: Permission for /mw rename
+        default: op

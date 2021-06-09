@@ -1,0 +1,93 @@
+---
+### Deutsche Sprachdatei von Tobikiss und SchdowNVIDIA
+### German language file by Tobikiss and SchdowNVIDIA
+## Commands:
+
+not-perms: '§cSie haben nicht die benötigten Berechtigungen, diesen Befehl auszuführen!'
+default-usage: '§cBenutzung: §7/mw hilfe'
+
+# Hilfs Befehl:
+help: '§2--- §fMultiWorld help page ({%0}/{%1}) §2---'
+help-1: '§2/mw create §fEine Welt generieren'
+help-2: '§2/mw teleport §fTeleportieren zu einer Welt'
+help-3: '§2/mw list §fZeigt eine Liste aller Welten an'
+help-4: '§2/mw <load | unload> §fWelt laden oder entladen'
+help-5: '§2/mw update §fÄndere die Lobby, den Spawn in einer Welt oder die Standard Welt'
+
+help-6: '§2/mw delete §fEine Welt entfernen'
+help-7: '§2/mw info §fZeigt Informationen über eine Welt an'
+help-8: '§2/mw gamerule §fVerwalte die Spielregeln einer Ebene'
+help-9: '§2/mw manage §fZeigt eine UI zum verwalten der Welten an'
+help-10: '§2/mw rename §fÄndert den Namen einer Welt'
+
+
+# Befehl erstellen:
+create-usage: '§cBenutzung: §7/mw create <name> [seed] [generator]'
+create-exists: '§cEbene {%0} wurde bereits generiert!'
+create-gennotexists: 'Generator {%0} nicht gefunden.'
+create-generating: '§aGeneriere Welt {%0}...'
+create-done: 'Ebene {%0} wird mit dem Seed {%1} erzeugt und dem Generator {%2}.'
+
+# Teleport Befehl:
+teleport-usage: '§cBenutzung: §7/mw teleport <ebene> [spieler]'
+teleport-levelnotexists: '§cDie Welt {%0} wurde noch nicht erstellt! Versuche /mw create um eine Welt zu erstellen. '
+teleport-load: 'Lade Ebene {%0} ...'
+teleport-done-1: '§aDu wurdest in die Welt {%0} teleportiert.'
+teleport-done-2: '§aSpieler {%1} wurde in die Welt {%0} teleportiert!'
+teleport-playernotexisten: '§cDieser Spieler existiert nicht!'
+
+# Liste Befehl:
+list-done: '§aWelten ({%0}):'
+
+# Befehl laden:
+load-usage: '§cBenutzung: §7/mw load <ebene>'
+load-levelnotexists: '§cWelt {%0} existiert nicht!'
+load-loaded: '§cLaden der Welt fehlgeschlagen!'
+load-done: '§aWelt geladen!'
+
+# Befehl entladen:
+unload-usage: '§cBenutzung: §7/mw unload <ebene>'
+unload-levelnotexists: '§cDie Welt {%0} existiert nicht!'
+unload-unloaded: '§cWelt konnte nicht entladen werden!'
+unload-done: '§aWelt entladen!'
+
+# Befehl löschen:
+delete-use: '§cBenutzung: §7/mw delete <ebene>'
+delete-levelnotexists: '§cDie Welt {%0} existiert nicht!'
+delete-done: '§aWelt wurde gelöscht! ({%0} Dateien wurden entfernt.)'
+
+# Update Befehl:
+update-usage: '§cBenutzung: §7/mw update <typ: spawn|lobby|default> [Optionen: (x) (y) (z) (Ebene)]'
+update-levelnotexists: '§cDie Welt {%0} existiert nicht!'
+update-spawn-done: '§aSpawn in der Welt {%0} wurde geändert.'
+update-lobby-done: '§aLobby in der Welt {%0} wurde geändert.'
+update-default-done: '§aStandardwelt wurde auf {%0} geändert.'
+update-default-usage: '§cBenutzung: §7/mw update default <level>'
+update-notsupported: '§cBitte führe den Command in-game aus.'
+
+# Info Command:
+info-levelnotexists: '§cDie Welt {%0} existiert nicht!'
+info: '§a--- {%0} ---'
+info-name: '§7Name: {%0}'
+info-folderName: '§7Ordnername: {%0}'
+info-players: '§7Spieleranzahl: {%0}'
+info-generator: '§7Generator: {%0}'
+info-seed: '§7Seed: {%0}'
+info-time: '§7Zeit: {%0}'
+
+# Gamerule Command:
+gamerule-usage: '§cBenutzung: §7/mw gamerule <list|gamerule> [true|false] [ebene]'
+gamerule-list: '§aVerfügbare Spielregeln: {%0}'
+gamerule-levelnotfound: '§cDie Welt {%0} nicht gefunden.'
+gamerule-notexists: '§cSpielregel {%0} existiert nicht.'
+gamerule-done: '§aSpielregel {%0} wurde in der Welt {%1} auf {%2} geändert.'
+
+# Rename Command
+rename-usage: '§cBenutzung: §7/mw rename <von> <zu>'
+rename-exists: '§cEine Ebene mit dem Namen {%0} existiert bereits.'
+rename-levelnotfound: '§cEbene {%0} existiert nicht.'
+rename-done: '§aName der Ebene{%0} wurde geändert zu {%1}.'
+
+# Forms
+forms-invalid: '§cUngültige Anfrage.'
+...

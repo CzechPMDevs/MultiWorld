@@ -1,10 +1,12 @@
 ---
 branches:
-- PocketMine-MP
-- api-4.0.0
-- Generators
+- master
+- feature/pm-3.20.0
+- feature/pm-4.0.0
+- feature/generators
+-
 projects:
   MultiWorld:
-    path: MultiWorld
-    icon: icon.png
+    path: ""
+    icon: "icon.png"
 ...

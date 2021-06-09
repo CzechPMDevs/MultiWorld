@@ -1,0 +1,19 @@
+{
+  "name": "czechpmdevs/multiworld",
+  "description": "Advanced WorldEdit plugin for PocketMine servers",
+  "minimum-stability": "dev",
+  "license": "Apache-2.0",
+  "require": {
+    "php": "^7.3 || ^8.0",
+    "ext-yaml": "*",
+    "ext-pthreads": "*",
+    "ext-json": "*",
+    "phpstan/phpstan": "0.12.83",
+    "pocketmine/pocketmine-mp": "3.20.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "": ["src"]
+    }
+  }
+}
