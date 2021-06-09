@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\util;
 
 use czechpmdevs\multiworld\api\WorldGameRulesAPI;
-use czechpmdevs\multiworld\api\WorldManagementAPI;
+use czechpmdevs\multiworld\api\WorldUtils;
 use czechpmdevs\multiworld\form\CustomForm;
 use czechpmdevs\multiworld\MultiWorld;
 use pocketmine\form\Form;
@@ -65,7 +65,7 @@ class FormManager {
                 break;
             case self::FORM_DELETE:
                 $customForm->addLabel("Remove world");
-                $customForm->addDropdown("Level name", WorldManagementAPI::getAllLevels());
+                $customForm->addDropdown("Level name", WorldUtils::getAllLevels());
                 $player->sendForm($customForm);
                 break;
             case self::FORM_GAMERULES:
@@ -78,7 +78,7 @@ class FormManager {
                 break;
             case self::FORM_INFO:
                 $customForm->addLabel("Get information about the level");
-                $customForm->addDropdown("Levels", WorldManagementAPI::getAllLevels());
+                $customForm->addDropdown("Levels", WorldUtils::getAllLevels());
                 $player->sendForm($customForm);
                 break;
             case self::FORM_LOAD_UNLOAD:
@@ -89,7 +89,7 @@ class FormManager {
                 break;
             case self::FORM_TELEPORT:
                 $customForm->addLabel("Teleport to level");
-                $customForm->addDropdown("Level", WorldManagementAPI::getAllLevels());
+                $customForm->addDropdown("Level", WorldUtils::getAllLevels());
                 $player->sendForm($customForm);
                 break;
             case self::FORM_TELEPORT_PLAYER:
@@ -99,7 +99,7 @@ class FormManager {
                     $players[] = $p->getName();
                 }
                 $customForm->addDropdown("Player", $players);
-                $customForm->addDropdown("Level", WorldManagementAPI::getAllLevels());
+                $customForm->addDropdown("Level", WorldUtils::getAllLevels());
                 $player->sendForm($customForm);
                 break;
             case self::FORM_UPDATE:
@@ -127,31 +127,31 @@ class FormManager {
                 $gen = (int)$data[3];
                 $genName = "Normal";
                 switch ($gen) {
-                    case WorldManagementAPI::GENERATOR_NORMAL:
+                    case WorldUtils::GENERATOR_NORMAL:
                         $genName = "Normal";
                         break;
-                    case WorldManagementAPI::GENERATOR_HELL:
+                    case WorldUtils::GENERATOR_HELL:
                         $genName = "Hell";
                         break;
-                    case WorldManagementAPI::GENERATOR_ENDER:
+                    case WorldUtils::GENERATOR_ENDER:
                         $genName = "End";
                         break;
-                    case WorldManagementAPI::GENERATOR_VOID:
+                    case WorldUtils::GENERATOR_VOID:
                         $genName = "Void";
                         break;
-                    case WorldManagementAPI::GENERATOR_SKYBLOCK:
+                    case WorldUtils::GENERATOR_SKYBLOCK:
                         $genName = "SkyBlock";
                         break;
-                    case WorldManagementAPI::GENERATOR_HELL_OLD:
+                    case WorldUtils::GENERATOR_HELL_OLD:
                         $genName = "Nether_Old";
                         break;
-                    case WorldManagementAPI::GENERATOR_NORMAL_CUSTOM:
+                    case WorldUtils::GENERATOR_NORMAL_CUSTOM:
                         $genName = "Custom";
                 }
                 $this->plugin->getServer()->dispatchCommand($player, "mw create $name $seed $genName");
                 break;
             case self::FORM_DELETE:
-                $this->plugin->getServer()->dispatchCommand($player, "mw delete " . WorldManagementAPI::getAllLevels()[$data[1]]);
+                $this->plugin->getServer()->dispatchCommand($player, "mw delete " . WorldUtils::getAllLevels()[$data[1]]);
                 break;
             case self::FORM_GAMERULES:
                 array_shift($data);
@@ -161,7 +161,7 @@ class FormManager {
                 }
                 break;
             case self::FORM_INFO:
-                $this->plugin->getServer()->dispatchCommand($player, "mw info " . WorldManagementAPI::getAllLevels()[(int)$data[1]]);
+                $this->plugin->getServer()->dispatchCommand($player, "mw info " . WorldUtils::getAllLevels()[(int)$data[1]]);
                 break;
             case self::FORM_LOAD_UNLOAD:
                 if ($data[1] != "") {
@@ -172,14 +172,14 @@ class FormManager {
                 }
                 break;
             case self::FORM_TELEPORT:
-                $this->plugin->getServer()->dispatchCommand($player, "mw tp " . WorldManagementAPI::getAllLevels()[$data[1]]);
+                $this->plugin->getServer()->dispatchCommand($player, "mw tp " . WorldUtils::getAllLevels()[$data[1]]);
                 break;
             case self::FORM_TELEPORT_PLAYER:
                 $players = [];
                 foreach ($this->plugin->getServer()->getOnlinePlayers() as $p) {
                     $players[] = $p->getName();
                 }
-                $this->plugin->getServer()->dispatchCommand($player, "mw tp " . WorldManagementAPI::getAllLevels()[$data[2]] . " " . $players[$data[1]]);
+                $this->plugin->getServer()->dispatchCommand($player, "mw tp " . WorldUtils::getAllLevels()[$data[2]] . " " . $players[$data[1]]);
                 break;
             case self::FORM_UPDATE:
                 array_shift($data);

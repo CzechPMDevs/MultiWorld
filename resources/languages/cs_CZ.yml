@@ -77,7 +77,6 @@ info-time: '§7Čas: {%0}'
 
 # Gamerule Command:
 gamerule-usage: '§cPoužij: §7/mw gamerule <list|gamerule> [true|false] [level]'
-gamerule-list: '§aUpravitelné GameRules: {%0}'
 gamerule-levelnotfound: '§cSvět {%0} nebyl nalezen.'
 gamerule-notexists: '§cGame rule {%0} neexistuje'
 gamerule-done: '§aGame rule {%0} ve světě {%1} bylo změněno na {%2}.'
