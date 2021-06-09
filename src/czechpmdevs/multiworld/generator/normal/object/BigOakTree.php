@@ -139,7 +139,7 @@ class BigOakTree extends Tree {
             $h = $this->height / 2.0;
             $v = $h - $l;
             $f = $l < (float)$this->height * 0.3 ? -1.0 :
-                $v == $h ? $h * 0.5 : $h <= abs($v) ? 0.0 : (sqrt($h * $h - $v * $v) * 0.5);
+                ($v == $h ? $h * 0.5 : ($h <= abs($v) ? 0.0 : (sqrt($h * $h - $v * $v) * 0.5)));
             if ($f >= 0.0) {
                 for ($i = 0; $i < $nodeCount; $i++) {
                     $d1 = $f * ($random->nextFloat() + 0.328);

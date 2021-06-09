@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal;
 
-use czechpmdevs\multiworld\generator\normal\populator\CavePopulator;
 use pocketmine\block\Block;
 use pocketmine\block\CoalOre;
 use pocketmine\block\DiamondOre;
