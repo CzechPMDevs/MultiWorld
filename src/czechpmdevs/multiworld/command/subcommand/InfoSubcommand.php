@@ -22,11 +22,12 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
-use czechpmdevs\multiworld\api\WorldUtils;
 use czechpmdevs\multiworld\util\LanguageManager;
+use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\level\Level;
 use pocketmine\Player;
+use pocketmine\Server;
 
 class InfoSubcommand implements SubCommand {
 
@@ -35,36 +36,28 @@ class InfoSubcommand implements SubCommand {
             $sender->sendMessage("§cThis command can be used only in-game!");
             return;
         }
+
         if (isset($args[0])) {
-            if (!WorldUtils::isLevelGenerated($args[0])) {
+            if (!Server::getInstance()->isLevelGenerated($args[0])) {
                 $sender->sendMessage(LanguageManager::getMsg($sender, "info.levelnotexists", [$args[0]]));
                 return;
             }
-            if (!WorldUtils::isLevelLoaded($args[0])) {
-                WorldUtils::loadLevel($args[0]);
-            }
-            $sender->sendMessage($this->getInfoMsg($sender, WorldUtils::getLevel($args[0])));
+
+            WorldUtils::lazyLoadLevel($args[0]);
+
+            $sender->sendMessage($this->getInfoMessage($sender, WorldUtils::getLevelByNameNonNull($args[0])));
             return;
         }
-        $sender->sendMessage($this->getInfoMsg($sender, $sender->getLevel()));
+        $sender->sendMessage($this->getInfoMessage($sender, $sender->getLevel()));
     }
 
-    public function getInfoMsg(CommandSender $sender, Level $level): string {
-        $name = $level->getName();
-        $folderName = $level->getFolderName();
-        $seed = $level->getSeed();
-        $players = count($level->getPlayers());
-        $generator = $level->getProvider()->getGenerator();
-        $time = $level->getTime();
-
-        $msg = LanguageManager::getMsg($sender, "info", [$name]);
-        $msg .= "\n" . LanguageManager::getMsg($sender, "info-name", [$name]);
-        $msg .= "\n" . LanguageManager::getMsg($sender, "info-folderName", [$folderName]);
-        $msg .= "\n" . LanguageManager::getMsg($sender, "info-players", [$players]);
-        $msg .= "\n" . LanguageManager::getMsg($sender, "info-generator", [$generator]);
-        $msg .= "\n" . LanguageManager::getMsg($sender, "info-seed", [$seed]);
-        $msg .= "\n" . LanguageManager::getMsg($sender, "info-time", [$time]);
-
-        return $msg;
+    private function getInfoMessage(CommandSender $sender, Level $level): string {
+        return LanguageManager::getMsg($sender, "info", [$level->getName()]) . "\n" .
+            LanguageManager::getMsg($sender, "info-name", [$level->getName()]) . "\n" .
+            LanguageManager::getMsg($sender, "info-folderName", [$level->getFolderName()]) . "\n" .
+            LanguageManager::getMsg($sender, "info-players", [(string)count($level->getPlayers())]) . "\n" .
+            LanguageManager::getMsg($sender, "info-generator", [$level->getProvider()->getGenerator()]) . "\n" .
+            LanguageManager::getMsg($sender, "info-seed", [$level->getSeed()]) . "\n" .
+            LanguageManager::getMsg($sender, "info-time", [(string)$level->getTime()]);
     }
 }

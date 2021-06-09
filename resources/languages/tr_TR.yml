@@ -20,7 +20,6 @@ help-8: '§c/mw gamerule §fBir seviye için oyunun kurallarını yönetin '
 help-9: '§c/mw manage §fDünyaları yönetmek için bir kullanıcı arayüzü gösterir '
 help-10: '§c/mw rename §fBir dünyanın adını değiştirir '
 
-
 # komut Dünya oluştur:
 create-usage: '§ckullanım : §7/mw create <İsim> [tohum] [jeneratör ]'
 create-exists: '§cSeviye {%0} zaten oluşturuldu !'

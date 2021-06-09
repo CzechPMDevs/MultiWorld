@@ -24,7 +24,6 @@ namespace czechpmdevs\multiworld\command;
 
 use czechpmdevs\multiworld\command\subcommand\CreateSubcommand;
 use czechpmdevs\multiworld\command\subcommand\DeleteSubcommand;
-use czechpmdevs\multiworld\command\subcommand\GameruleSubcommand;
 use czechpmdevs\multiworld\command\subcommand\HelpSubcommand;
 use czechpmdevs\multiworld\command\subcommand\InfoSubcommand;
 use czechpmdevs\multiworld\command\subcommand\ListSubcommand;
@@ -68,7 +67,6 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
         $this->subcommands["delete"] = new DeleteSubcommand;
         $this->subcommands["update"] = new UpdateSubcommand;
         $this->subcommands["info"] = new InfoSubcommand;
-        $this->subcommands["gamerule"] = new GameruleSubcommand;
         $this->subcommands["manage"] = new ManageSubcommand;
         $this->subcommands["rename"] = new RenameSubcommand;
     }

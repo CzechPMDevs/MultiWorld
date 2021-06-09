@@ -22,9 +22,9 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
-use czechpmdevs\multiworld\api\WorldUtils;
 use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
+use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
 
@@ -36,22 +36,22 @@ class RenameSubcommand implements SubCommand {
             return;
         }
 
-        if (WorldUtils::isLevelGenerated($args[1])) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "rename-exists", $args[1]));
+        if (Server::getInstance()->isLevelGenerated($args[1])) {
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "rename-exists", [$args[1]]));
             return;
         }
 
-        if (!WorldUtils::isLevelGenerated($args[0])) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "rename-levelnotfound", $args[0]));
+        if (!Server::getInstance()->isLevelGenerated($args[0])) {
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "rename-levelnotfound", [$args[0]]));
             return;
         }
-
-        if (WorldUtils::isLevelLoaded($args[0])) WorldUtils::unloadLevel(WorldUtils::getLevel($args[0]));
 
         if ($this->getServer()->getDefaultLevel()->getFolderName() == $args[0]) {
             $sender->sendMessage("§cCould not rename default level!");
             return;
         }
+
+        WorldUtils::lazyUnloadLevel($args[0], true);
 
         WorldUtils::renameLevel($args[0], $args[1]);
         $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "rename-done", [$args[0], $args[1]]));

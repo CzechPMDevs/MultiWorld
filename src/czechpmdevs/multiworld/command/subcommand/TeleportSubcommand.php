@@ -24,6 +24,7 @@ namespace czechpmdevs\multiworld\command\subcommand;
 
 use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
+use czechpmdevs\multiworld\util\WorldUtils;
 use Exception;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
@@ -38,16 +39,11 @@ class TeleportSubcommand implements SubCommand {
                 return;
             }
 
-            if (!$this->getServer()->isLevelGenerated($args[0])) {
+            $level = WorldUtils::getLoadedLevelByName($args[0]);
+            if($level === null) {
                 $sender->sendMessage(LanguageManager::getMsg($sender, "teleport-levelnotexists", [$args[0]]));
                 return;
             }
-
-            if (!$this->getServer()->isLevelLoaded($args[0])) {
-                $this->getServer()->loadLevel($args[0]);
-            }
-
-            $level = $this->getServer()->getLevelByName($args[0]);
 
             if (!isset($args[1])) {
                 if (!$sender instanceof Player) {
@@ -60,8 +56,7 @@ class TeleportSubcommand implements SubCommand {
                 return;
             }
 
-            $player = $this->getServer()->getPlayer($args[1]);
-
+            $player = Server::getInstance()->getPlayer($args[1]);
             if ((!$player instanceof Player) || !$player->isOnline()) {
                 $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "teleport-playernotexists"));
                 return;
@@ -73,11 +68,7 @@ class TeleportSubcommand implements SubCommand {
             $sender->sendMessage(LanguageManager::getMsg($sender, "teleport-done-2", [$level->getName(), $player->getName()]));
             return;
         } catch (Exception $exception) {
-            MultiWorld::getInstance()->getLogger()->error("An error occurred while teleporting player between worlds: " . $exception->getMessage() . " (at line: " . $exception->getLine() . " , file: " . $exception->getFile() . ")");
+            $sender->sendMessage("An error occurred while teleporting player between worlds: " . $exception->getMessage() . " (at line: " . $exception->getLine() . " , file: " . $exception->getFile() . ")");
         }
-    }
-
-    private function getServer(): Server {
-        return Server::getInstance();
     }
 }

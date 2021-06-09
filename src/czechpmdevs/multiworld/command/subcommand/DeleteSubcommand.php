@@ -24,8 +24,9 @@ namespace czechpmdevs\multiworld\command\subcommand;
 
 use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
-use czechpmdevs\multiworld\utils\WorldUtils;
+use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
+use pocketmine\level\Level;
 use pocketmine\Server;
 
 class DeleteSubcommand implements SubCommand {
@@ -36,23 +37,19 @@ class DeleteSubcommand implements SubCommand {
             return;
         }
 
-        if (!$this->getServer()->isLevelGenerated($args[0]) || !file_exists($this->getServer()->getDataPath() . "worlds/{$args[0]}")) {
+        if (!Server::getInstance()->isLevelGenerated($args[0]) || !file_exists(Server::getInstance()->getDataPath() . "worlds/$args[0]")) {
             $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[0], LanguageManager::getMsg($sender, "delete-levelnotexists")));
             return;
         }
 
-        if (!$this->getServer()->isLevelLoaded($args[0])) $this->getServer()->loadLevel($args[0]);
-
-        if ($this->getServer()->getDefaultLevel()->getFolderName() == $this->getServer()->getLevelByName($args[0])->getFolderName()) {
-            $sender->sendMessage("§cCould not remove default level!");
-            return;
+        $level = Server::getInstance()->getLevelByName($args[0]);
+        if ($level instanceof Level) { // Level is loaded
+            if (WorldUtils::getDefaultLevelNonNull()->getId() == $level->getId()) {
+                $sender->sendMessage("§cCould not remove default level!");
+                return;
+            }
         }
 
-        $files = WorldUtils::removeLevel($args[0]);
-        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "delete-done", [$files]));
-    }
-
-    private function getServer(): Server {
-        return Server::getInstance();
+        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "delete-done", [(string)WorldUtils::removeLevel($args[0])]));
     }
 }

@@ -20,7 +20,6 @@ help-8: '§2/mw gamerule §fSpravuje pravidla světa'
 help-9: '§2/mw manage §fZapne správce světů'
 help-10: '§2/mw rename §fPřejmenuje svět'
 
-
 # Create Command:
 create-usage: '§cPoužij: §7/mw create <jméno> [seed] [generátor]'
 create-exists: '§cSvět {%0} je již vygenerovaný!'

@@ -24,6 +24,7 @@ namespace czechpmdevs\multiworld\command\subcommand;
 
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
+use function is_numeric;
 
 class HelpSubcommand implements SubCommand {
 
@@ -42,7 +43,7 @@ class HelpSubcommand implements SubCommand {
     }
 
     public function getHelpPage(CommandSender $sender, int $page): string {
-        $title = LanguageManager::getMsg($sender, "help", [$page, "2"]);
+        $title = LanguageManager::getMsg($sender, "help", [(string)$page, "2"]);
 
         $text = $title;
 

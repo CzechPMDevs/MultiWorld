@@ -20,82 +20,35 @@
 
 declare(strict_types=1);
 
-namespace czechpmdevs\multiworld\utils;
+namespace czechpmdevs\multiworld\util;
 
 use czechpmdevs\multiworld\generator\ender\EnderGenerator;
 use czechpmdevs\multiworld\generator\nether\NetherGenerator;
 use czechpmdevs\multiworld\generator\normal\NormalGenerator;
 use czechpmdevs\multiworld\generator\skyblock\SkyBlockGenerator;
 use czechpmdevs\multiworld\generator\void\VoidGenerator;
+use InvalidArgumentException;
 use pocketmine\level\format\io\BaseLevelProvider;
 use pocketmine\level\generator\Flat;
+use pocketmine\level\generator\Generator;
+use pocketmine\level\generator\GeneratorManager;
 use pocketmine\level\generator\hell\Nether;
 use pocketmine\level\generator\normal\Normal;
 use pocketmine\level\Level;
 use pocketmine\Server;
+use pocketmine\utils\AssumptionFailedError;
 use function basename;
+use function count;
 use function is_dir;
 use function is_file;
+use function rename;
 use function rmdir;
 use function scandir;
+use function strtolower;
 use function unlink;
 use const DIRECTORY_SEPARATOR;
 
 class WorldUtils {
-
-    public const GENERATOR_NORMAL = 0;
-    public const GENERATOR_NORMAL_CUSTOM = 1;
-    public const GENERATOR_HELL = 2;
-    public const GENERATOR_ENDER = 3;
-    public const GENERATOR_FLAT = 4;
-    public const GENERATOR_VOID = 5;
-    public const GENERATOR_SKYBLOCK = 6;
-
-    public const GENERATOR_HELL_OLD = 7;
-
-    /**
-     * @param string $levelName
-     * @param int $seed
-     * @param int $generator
-     *
-     * @return bool $isGenerated
-     */
-    public static function generateLevel(string $levelName, int $seed = 0, int $generator = WorldUtils::GENERATOR_NORMAL): bool {
-        if (self::isLevelGenerated($levelName)) {
-            return false;
-        }
-
-        $generatorClass = Normal::class;
-
-        switch ($generator) {
-            case self::GENERATOR_HELL:
-                $generatorClass = NetherGenerator::class;
-                break;
-            case self::GENERATOR_ENDER:
-                $generatorClass = EnderGenerator::class;
-                break;
-            case self::GENERATOR_FLAT:
-                $generatorClass = Flat::class;
-                break;
-            case self::GENERATOR_VOID:
-                $generatorClass = VoidGenerator::class;
-                break;
-            case self::GENERATOR_HELL_OLD:
-                $generatorClass = Nether::class;
-                break;
-            case self::GENERATOR_SKYBLOCK:
-                $generatorClass = SkyBlockGenerator::class;
-                break;
-            case self::GENERATOR_NORMAL_CUSTOM:
-                $generatorClass = NormalGenerator::class;
-        }
-
-        return Server::getInstance()->generateLevel($levelName, $seed, $generatorClass);
-    }
-
-    public static function isLevelGenerated(string $levelName): bool {
-        return Server::getInstance()->isLevelGenerated($levelName) && !in_array($levelName, [".", ".."]);
-    }
 
     public static function removeLevel(string $name): int {
         if (Server::getInstance()->isLevelLoaded($name)) {
@@ -112,14 +65,6 @@ class WorldUtils {
         }
 
         return WorldUtils::removeDirectory(Server::getInstance()->getDataPath() . DIRECTORY_SEPARATOR . "worlds" . DIRECTORY_SEPARATOR . $name);
-    }
-
-    public static function isLevelLoaded(string $levelName): bool {
-        return Server::getInstance()->isLevelLoaded($levelName);
-    }
-
-    public static function getLevel(string $name): ?Level {
-        return Server::getInstance()->getLevelByName($name);
     }
 
     private static function removeDirectory(string $dirPath): int {
@@ -180,7 +125,90 @@ class WorldUtils {
         WorldUtils::lazyLoadLevel($newName); // reloading the level
     }
 
+    /**
+     * @return bool Returns if the level was loaded with the function.
+     * If it has already been loaded before calling this function, returns FALSE!
+     */
     public static function lazyLoadLevel(string $name): bool {
         return !Server::getInstance()->isLevelLoaded($name) && Server::getInstance()->loadLevel($name);
+    }
+
+    /**
+     * @return bool Returns if the level was unloaded with the function.
+     * If it has already been unloaded before calling this function, returns FALSE!
+     */
+    public static function lazyUnloadLevel(string $name, bool $force = false): bool {
+        if(($level = Server::getInstance()->getLevelByName($name)) !== null) {
+            return Server::getInstance()->unloadLevel($level, $force);
+        }
+        return false;
+    }
+
+    /**
+     * @return Level|null Loads and returns level, if it is generated.
+     */
+    public static function getLoadedLevelByName(string $name): ?Level {
+        WorldUtils::lazyLoadLevel($name);
+
+        return Server::getInstance()->getLevelByName($name);
+    }
+
+    /**
+     * WARNING: This method should be used only in the case, when we
+     * know, that the level is generated and loaded.
+     */
+    public static function getLevelByNameNonNull(string $name): Level {
+        $level = Server::getInstance()->getLevelByName($name);
+        if($level === null) {
+            throw new AssumptionFailedError("Required level $name is null");
+        }
+
+        return $level;
+    }
+
+    public static function getDefaultLevelNonNull(): Level {
+        $level = Server::getInstance()->getDefaultLevel();
+        if($level === null) {
+            throw new AssumptionFailedError("Default level is null");
+        }
+
+        return $level;
+    }
+
+    /**
+     * @phpstan-return class-string<Generator>|null
+     */
+    public static function getGeneratorByName(string $name): ?string {
+        switch (strtolower($name)) {
+            case "normal":
+            case "classic":
+            case "basic":
+                return Normal::class;
+            case "custom":
+                return NormalGenerator::class;
+            case "flat":
+            case "superflat":
+                return Flat::class;
+            case "nether":
+            case "hell":
+                return NetherGenerator::class;
+            case "ender":
+            case "end":
+                return EnderGenerator::class;
+            case "void":
+                return VoidGenerator::class;
+            case "skyblock":
+            case "sb":
+            case "sky":
+                return SkyBlockGenerator::class;
+            case "nether_old":
+                return Nether::class;
+        }
+
+        try {
+            return GeneratorManager::getGenerator($name, true);
+        } catch (InvalidArgumentException $e) {}
+
+        return null;
     }
 }

@@ -24,6 +24,7 @@ namespace czechpmdevs\multiworld\command\subcommand;
 
 use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
+use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
 
@@ -35,21 +36,17 @@ class UnloadSubcommand implements SubCommand {
             return;
         }
 
-        if (!$this->getServer()->isLevelGenerated($args[0])) {
+        if (!Server::getInstance()->isLevelGenerated($args[0])) {
             $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "unload-levelnotexists", [$args[0]]));
             return;
         }
 
-        if (!$this->getServer()->isLevelLoaded($args[0])) {
+        if (!Server::getInstance()->isLevelLoaded($args[0])) {
             $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "unload-unloaded"));
             return;
         }
 
-        $this->getServer()->unloadLevel($this->getServer()->getLevelByName($args[0]));
+        Server::getInstance()->unloadLevel(WorldUtils::getLevelByNameNonNull($args[0]));
         $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "unload-done"));
-    }
-
-    private function getServer(): Server {
-        return Server::getInstance();
     }
 }
