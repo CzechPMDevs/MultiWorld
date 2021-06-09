@@ -27,7 +27,6 @@ use pocketmine\level\Level;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\network\mcpe\protocol\GameRulesChangedPacket;
 use pocketmine\Player;
-use function array_map;
 
 
 /**

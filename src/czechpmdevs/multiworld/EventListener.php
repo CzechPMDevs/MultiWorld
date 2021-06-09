@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld;
 
 use czechpmdevs\multiworld\api\WorldGameRulesAPI;
-use czechpmdevs\multiworld\api\WorldManagementAPI;
 use czechpmdevs\multiworld\command\MultiWorldCommand;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\entity\Effect;
@@ -41,13 +40,11 @@ use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerRespawnEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
-use pocketmine\item\Bread;
 use pocketmine\item\Item;
 use pocketmine\level\Level;
 use pocketmine\network\mcpe\protocol\ChangeDimensionPacket;
 use pocketmine\network\mcpe\protocol\LoginPacket;
 use pocketmine\Player;
-use pocketmine\scheduler\Task;
 
 /**
  * Class EventListener

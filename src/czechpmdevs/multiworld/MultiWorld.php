@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld;
 
-use czechpmdevs\multiworld\api\WorldManagementAPI;
 use czechpmdevs\multiworld\command\GameruleCommand;
 use czechpmdevs\multiworld\command\MultiWorldCommand;
 use czechpmdevs\multiworld\generator\ender\EnderGenerator;

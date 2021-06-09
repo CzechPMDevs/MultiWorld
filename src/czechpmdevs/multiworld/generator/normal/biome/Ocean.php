@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
-use czechpmdevs\multiworld\generator\normal\BiomeManager;
 use pocketmine\block\Block;
 use pocketmine\level\biome\Biome;
 

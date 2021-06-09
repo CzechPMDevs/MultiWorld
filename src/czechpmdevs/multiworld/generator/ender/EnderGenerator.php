@@ -24,16 +24,11 @@ namespace czechpmdevs\multiworld\generator\ender;
 
 use czechpmdevs\multiworld\generator\ender\populator\EnderPilar;
 use pocketmine\block\Block;
-use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\level\ChunkManager;
-use pocketmine\level\generator\biome\Biome;
-use pocketmine\level\generator\biome\BiomeSelector;
 use pocketmine\level\generator\Generator;
-use pocketmine\level\generator\GeneratorManager;
-use pocketmine\level\generator\noise\Noise;
 use pocketmine\level\generator\noise\Simplex;
 use pocketmine\level\generator\populator\Populator;
-use pocketmine\math\Vector3 as Vector3;
+use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
 
 /**
@@ -69,7 +64,7 @@ class EnderGenerator extends Generator {
      * EnderGenerator constructor.
      * @param array $options
      */
-    public function __construct(array $options = []) {
+    public function __construct(array $options = []) { // @phpstan-ignore-line
         if (self::$GAUSSIAN_KERNEL === null) {
             self::generateKernel();
         }
@@ -132,12 +127,7 @@ class EnderGenerator extends Generator {
      */
     public function generateChunk(int $chunkX, int $chunkZ): void {
         $this->random->setSeed(0xa6fe78dc ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
-        if(class_exists(GeneratorManager::class)) {
-            $noise = $this->noiseBase->getFastNoise3D(16, 128, 16, 4, 8, 4, $chunkX * 16, 0, $chunkZ * 16);
-        }
-        else {
-            $noise = Generator::getFastNoise3D($this->noiseBase, 16, 128, 16, 4, 8, 4, $chunkX * 16, 0, $chunkZ * 16);
-        }
+        $noise = $this->noiseBase->getFastNoise3D(16, 128, 16, 4, 8, 4, $chunkX * 16, 0, $chunkZ * 16);
 
         $chunk = $this->level->getChunk($chunkX, $chunkZ);
         for ($x = 0; $x < 16; ++$x) {

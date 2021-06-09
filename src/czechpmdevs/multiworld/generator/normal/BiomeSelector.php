@@ -22,8 +22,6 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal;
 
-use czechpmdevs\multiworld\generator\normal\biome\BirchForest;
-use const pocketmine\BUILD_NUMBER;
 use pocketmine\level\biome\Biome;
 use pocketmine\level\generator\noise\Simplex;
 use pocketmine\utils\Random;

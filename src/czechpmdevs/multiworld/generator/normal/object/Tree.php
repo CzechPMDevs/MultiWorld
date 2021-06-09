@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\object;
 
-use pocketmine\block\Sapling;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\object\BirchTree;
 use pocketmine\level\generator\object\JungleTree;

@@ -68,7 +68,7 @@ class NormalGenerator extends Generator {
      *
      * @throws \ReflectionException
      */
-    public function __construct(array $options = []){
+    public function __construct(array $options = []) { // @phpstan-ignore-line
         if(self::$GAUSSIAN_KERNEL === null){
             self::generateKernel();
         }

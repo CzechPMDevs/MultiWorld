@@ -23,14 +23,11 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\skyblock\populator;
 
 use pocketmine\block\Block;
-use pocketmine\event\level\LevelLoadEvent;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\object\OakTree;
 use pocketmine\level\generator\populator\Populator;
-use pocketmine\level\generator\populator\Tree;
 use pocketmine\level\Level;
 use pocketmine\math\Vector3;
-use pocketmine\tile\Chest;
 use pocketmine\tile\Tile;
 use pocketmine\utils\Random;
 

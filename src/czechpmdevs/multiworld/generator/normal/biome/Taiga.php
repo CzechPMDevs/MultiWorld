@@ -28,7 +28,6 @@ use czechpmdevs\multiworld\generator\normal\populator\TallGrass;
 use czechpmdevs\multiworld\generator\normal\populator\Tree;
 use pocketmine\block\BrownMushroom;
 use pocketmine\block\Dandelion;
-use pocketmine\block\DoublePlant;
 use pocketmine\block\Flower;
 use pocketmine\block\RedMushroom;
 use pocketmine\block\Sapling;

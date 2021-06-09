@@ -67,9 +67,7 @@ class NetherGenerator extends Generator {
     /** @var Simplex $noiseBase */
     private $noiseBase;
 
-    public function __construct(array $options = []){
-
-    }
+    public function __construct(array $options = []) {} // @phpstan-ignore-line
 
     /**
      * @return string
