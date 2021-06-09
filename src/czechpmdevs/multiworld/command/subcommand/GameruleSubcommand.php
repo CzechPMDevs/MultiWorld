@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\command\subcommand;
 
 use czechpmdevs\multiworld\api\WorldGameRulesAPI;
-use czechpmdevs\multiworld\api\WorldManagementAPI;
+use czechpmdevs\multiworld\api\WorldUtils;
 use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
@@ -32,55 +32,6 @@ use pocketmine\Player;
 class GameruleSubcommand implements SubCommand {
 
     public function executeSub(CommandSender $sender, array $args, string $name): void {
-        if (!isset($args[0])) {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule-usage"));
-            return;
-        }
 
-        $all = WorldGameRulesAPI::getAllGameRules();
-
-
-        if ($args[0] == "list") {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule-list", [implode(", ", $all)]));
-            return;
-        }
-
-        foreach ($all as $index => $string) {
-            $all[$index] = strtolower($string);
-        }
-
-        if (!isset($args[1])) {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule-usage"));
-            return;
-        }
-
-        if (!in_array(strtolower($args[0]), $all)) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule-notexists", [$args[0]]));
-            return;
-        }
-
-        if (!in_array($args[1], ["true", "false"])) {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule-usage"));
-            return;
-        }
-
-        if (!isset($args[2])) {
-            if ($sender instanceof Player) {
-                WorldGameRulesAPI::updateLevelGameRule($sender->getLevel(), WorldGameRulesAPI::getRuleFromLowerString($args[0]), $args[1] == "true");
-                $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule-done", [$args[0], $sender->getLevel()->getFolderName(), $args[1]]));
-                return;
-            } else {
-                $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule-usage"));
-                return;
-            }
-        }
-
-        if (!WorldManagementAPI::isLevelGenerated($args[2]) || WorldManagementAPI::getLevel($args[1]) === null) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule-levelnotfound", [$args[1]]));
-            return;
-        }
-
-        WorldGameRulesAPI::updateLevelGameRule(WorldManagementAPI::getLevel($args[1]), WorldGameRulesAPI::getRuleFromLowerString($args[0]), $args[2] == "true");
-        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule-done", [$args[0], $args[1], $args[2]]));
     }
 }

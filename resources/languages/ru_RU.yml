@@ -76,7 +76,6 @@ info-time: '§7Время: {%0}'
 
 # Gamerule Command:
 gamerule-usage: '§cИспользование: §7/mw gamerule <list|gamerule> [true|false] [мир]'
-gamerule-list: '§aИзменяемые настройки мира: {%0}'
 gamerule-levelnotfound: '§cМир {%0} не найден.'
 gamerule-notexists: '§cНастройка {%0} не найдена.'
 gamerule-done: '§aНастройка {%0} в мире {%1} была изменена на {%2}.'

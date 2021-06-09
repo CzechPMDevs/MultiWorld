@@ -8,43 +8,43 @@ description: Plugin that manage with worlds
 website: https://github.com/CzechPMDevs/MultiWorld
 
 permissions:
-  mw.cmd:
+  multiworld.command:
     default: op
     description: Permission for all multiworld commands
     children:
-      mw.cmd.help:
-        description: Permission for /mw help
+      multiworld.command.help:
+        description: Permission for /multiworld help
         default: op
-      mw.cmd.create:
-        description: Permission for /mw create
+      multiworld.command.create:
+        description: Permission for /multiworld create
         default: op
-      mw.cmd.teleport:
-        description: Permission for /mw teleport
+      multiworld.command.teleport:
+        description: Permission for /multiworld teleport
         default: op
-      mw.cmd.list:
-        description: Permission for /mw list
+      multiworld.command.list:
+        description: Permission for /multiworld list
         default: op
-      mw.cmd.load:
-        description: Permission for /mw load
+      multiworld.command.load:
+        description: Permission for /multiworld load
         default: op
-      mw.cmd.unload:
-        description: Permission for /mw unload
+      multiworld.command.unload:
+        description: Permission for /multiworld unload
         default: op
-      mw.cmd.delete:
-        description: Permission for /mw delete
+      multiworld.command.delete:
+        description: Permission for /multiworld delete
         default: op
-      mw.cmd.update:
-        description: Permission for /mw update
+      multiworld.command.update:
+        description: Permission for /multiworld update
         default: op
-      mw.cmd.info:
-        description: Permission for /mw info
+      multiworld.command.info:
+        description: Permission for /multiworld info
         default: op
-      mw.cmd.gamerule:
-        description: Permission for /mw gamerule
+      multiworld.command.gamerule:
+        description: Permission for /multiworld gamerule
         default: op
-      mw.cmd.manage:
-        description: Permission for /mw manage
+      multiworld.command.manage:
+        description: Permission for /multiworld manage
         default: op
-      mw.cmd.rename:
-        description: Permission for /mw rename
+      multiworld.command.rename:
+        description: Permission for /multiworld rename
         default: op

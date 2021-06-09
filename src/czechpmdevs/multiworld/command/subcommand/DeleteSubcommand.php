@@ -22,9 +22,9 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
-use czechpmdevs\multiworld\api\WorldManagementAPI;
 use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
+use czechpmdevs\multiworld\utils\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
 
@@ -48,7 +48,7 @@ class DeleteSubcommand implements SubCommand {
             return;
         }
 
-        $files = WorldManagementAPI::removeLevel($args[0]);
+        $files = WorldUtils::removeLevel($args[0]);
         $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "delete-done", [$files]));
     }
 

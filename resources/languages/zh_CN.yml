@@ -82,7 +82,6 @@ rename-done: '§aName of level {%0} was changed to {%1}.'
 
 # Gamerule Command:
 gamerule-usage: '§c输入: §7/mw gamerule <list|gamerule> [true|false] [世界名]'
-gamerule-list: '§a可编辑的 游戏模式: {%0}'
 gamerule-levelnotfound: '§c世界 {%0} 不存在.'
 gamerule-notexists: '§此游戏模式 {%0} 不存在.'
 gamerule-done: '§游戏模式 {%0} 在如下世界 {%1} 被更改为 {%2}.'

@@ -28,27 +28,71 @@ use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\command\PluginIdentifiableCommand;
+use pocketmine\Player;
 use pocketmine\plugin\Plugin;
+use function implode;
+use function in_array;
+use function strtolower;
 
 class GameruleCommand extends Command implements PluginIdentifiableCommand {
 
     public function __construct() {
         parent::__construct("gamerule", "Edit level gamerules", null, []);
+        $this->setPermission("multiworld.command.gamerule");
     }
 
     public function execute(CommandSender $sender, string $commandLabel, array $args) {
-        if ($sender->hasPermission("mw.cmd.gamerule")) {
-            /** @var MultiWorldCommand $mwCmd */
-            $mwCmd = $this->getPlugin()->commands["multiworld"];
-
-            /** @var GameruleSubcommand $subCommand */
-            $subCommand = $mwCmd->subcommands["gamerule"];
-            $subCommand->executeSub($sender, $args, "gamerule");
-        } else {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "not-perms"));
+        if(!$this->testPermission($sender)) {
+            return;
         }
+
+        if (!isset($args[0])) {
+            $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule-usage"));
+            return;
+        }
+
+        foreach ($all as $index => $string) {
+            $all[$index] = strtolower($string);
+        }
+
+        if (!isset($args[1])) {
+            $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule-usage"));
+            return;
+        }
+
+        if (!in_array(strtolower($args[0]), $all)) {
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule-notexists", [$args[0]]));
+            return;
+        }
+
+        if (!in_array($args[1], ["true", "false"])) {
+            $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule-usage"));
+            return;
+        }
+
+        if (!isset($args[2])) {
+            if ($sender instanceof Player) {
+                WorldGameRulesAPI::updateLevelGameRule($sender->getLevel(), WorldGameRulesAPI::getRuleFromLowerString($args[0]), $args[1] == "true");
+                $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule-done", [$args[0], $sender->getLevel()->getFolderName(), $args[1]]));
+                return;
+            } else {
+                $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule-usage"));
+                return;
+            }
+        }
+
+        if (!WorldUtils::isLevelGenerated($args[2]) || WorldUtils::getLevel($args[1]) === null) {
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule-levelnotfound", [$args[1]]));
+            return;
+        }
+
+        WorldGameRulesAPI::updateLevelGameRule(WorldUtils::getLevel($args[1]), WorldGameRulesAPI::getRuleFromLowerString($args[0]), $args[2] == "true");
+        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule-done", [$args[0], $args[1], $args[2]]));
     }
 
+    /**
+     * @return MultiWorld
+     */
     public function getPlugin(): Plugin {
         return MultiWorld::getInstance();
     }

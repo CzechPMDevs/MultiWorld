@@ -77,7 +77,6 @@ info-time: '§7Zeit: {%0}'
 
 # Gamerule Command:
 gamerule-usage: '§cBenutzung: §7/mw gamerule <list|gamerule> [true|false] [ebene]'
-gamerule-list: '§aVerfügbare Spielregeln: {%0}'
 gamerule-levelnotfound: '§cDie Welt {%0} nicht gefunden.'
 gamerule-notexists: '§cSpielregel {%0} existiert nicht.'
 gamerule-done: '§aSpielregel {%0} wurde in der Welt {%1} auf {%2} geändert.'

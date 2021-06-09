@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
-use czechpmdevs\multiworld\api\WorldManagementAPI;
+use czechpmdevs\multiworld\api\WorldUtils;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
 use pocketmine\level\Level;
@@ -36,14 +36,14 @@ class InfoSubcommand implements SubCommand {
             return;
         }
         if (isset($args[0])) {
-            if (!WorldManagementAPI::isLevelGenerated($args[0])) {
+            if (!WorldUtils::isLevelGenerated($args[0])) {
                 $sender->sendMessage(LanguageManager::getMsg($sender, "info.levelnotexists", [$args[0]]));
                 return;
             }
-            if (!WorldManagementAPI::isLevelLoaded($args[0])) {
-                WorldManagementAPI::loadLevel($args[0]);
+            if (!WorldUtils::isLevelLoaded($args[0])) {
+                WorldUtils::loadLevel($args[0]);
             }
-            $sender->sendMessage($this->getInfoMsg($sender, WorldManagementAPI::getLevel($args[0])));
+            $sender->sendMessage($this->getInfoMsg($sender, WorldUtils::getLevel($args[0])));
             return;
         }
         $sender->sendMessage($this->getInfoMsg($sender, $sender->getLevel()));

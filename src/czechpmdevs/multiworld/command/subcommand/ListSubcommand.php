@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
-use czechpmdevs\multiworld\api\WorldManagementAPI;
+use czechpmdevs\multiworld\api\WorldUtils;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
@@ -33,8 +33,8 @@ class ListSubcommand implements SubCommand {
         $levels = [];
 
         foreach (scandir($this->getServer()->getDataPath() . "worlds") as $file) {
-            if (WorldManagementAPI::isLevelGenerated($file)) {
-                $isLoaded = WorldManagementAPI::isLevelLoaded($file);
+            if (WorldUtils::isLevelGenerated($file)) {
+                $isLoaded = WorldUtils::isLevelLoaded($file);
                 $players = 0;
 
                 if ($isLoaded) {

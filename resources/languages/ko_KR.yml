@@ -76,7 +76,6 @@ info-time: '§7시간: {%0}'
 
 # Gamerule Command:
 gamerule-usage: '§c사용법: §7/mw gamerule <list|gamerule> [true|false] [level]'
-gamerule-list: '§a게임룰을 수정합니다: {%0}'
 gamerule-levelnotfound: '§c월드 {%0} 를 찾을 수 없습니다.'
 gamerule-notexists: '§c게임룰 {%0} 을 찾을 수 없습니다.'
 gamerule-done: '§a게임룰 {%0} 이 {%1} 월드에서 {%2} 로 바뀌었습니다.'

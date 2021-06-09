@@ -77,7 +77,6 @@ info-time: '§7Tempo/Horário: {%0}'
 
 # Gamerule Command:
 gamerule-usage: '§cUse: §7/mw gamerule <list|gamerule> [true|false] [mundo]'
-gamerule-list: '§aRegras editáveis: {%0}'
 gamerule-levelnotfound: '§cMundo {%0} não encontrado.'
 gamerule-notexists: '§cRegra {%0} não existe.'
 gamerule-done: '§aA regra {%0} no mundo {%1} foi alterada para {%2}.'

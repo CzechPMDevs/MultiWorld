@@ -81,6 +81,7 @@ class GameRules {
 
     /**
      * @param mixed[][] $defaultGameRules
+     * @phpstan-var array<string, array{0: int, 1: bool|int|float}>
      */
     public static function init(array $defaultGameRules): void {
         GameRules::$defaultGameRules = new GameRules($defaultGameRules);
