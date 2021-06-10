@@ -33,6 +33,9 @@ use czechpmdevs\multiworld\level\gamerules\GameRules;
 use czechpmdevs\multiworld\util\ConfigManager;
 use czechpmdevs\multiworld\util\FormManager;
 use czechpmdevs\multiworld\util\LanguageManager;
+use czechpmdevs\multiworld\util\Utils;
+use Hoa\Math\Util;
+use InvalidStateException;
 use pocketmine\command\Command;
 use pocketmine\level\generator\GeneratorManager;
 use pocketmine\level\Level;
@@ -57,6 +60,10 @@ class MultiWorld extends PluginBase {
     public array $commands = [];
 
     public function onLoad() {
+        if(!Utils::isProtocolCompatible()) {
+            throw new InvalidStateException("MultiWorld is not compatible with current server version");
+        }
+
         $start = !isset(MultiWorld::$instance);
         MultiWorld::$instance = $this;
 
