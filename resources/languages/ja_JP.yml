@@ -76,6 +76,7 @@ info-time: '§7ワールド内時間: {%0}'
 
 # Gamerule Command:
 gamerule-usage: '§c使用方法: §7/mw gamerule <list|gamerule> [true|false] [ワールド名]'
+gamerule-list: '§aAvailable game rules: {%0}'
 gamerule-levelnotfound: '§cワールド {%0} は存在しません'
 gamerule-notexists: '§cゲームルール {%0} は存在しません'
 gamerule-done: '§aワールド {%1} のゲームルール {%0} を {%2} に変更しました'

@@ -46,7 +46,7 @@ class RenameSubcommand implements SubCommand {
             return;
         }
 
-        if ($this->getServer()->getDefaultLevel()->getFolderName() == $args[0]) {
+        if (WorldUtils::getDefaultLevelNonNull()->getFolderName() == $args[0]) {
             $sender->sendMessage("§cCould not rename default level!");
             return;
         }

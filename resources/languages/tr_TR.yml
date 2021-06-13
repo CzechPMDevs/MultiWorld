@@ -76,6 +76,7 @@ info-time: '§7Saat: {%0}'
 
 # Gamerule Command:
 gamerule-usage: '§ckullanım §7/mw gamerule <list|gamerule> [true|false] [seviye]'
+gamerule-list: '§aAvailable game rules: {%0}'
 gamerule-levelnotfound: '§cDünya {%0} bulunamadı .'
 gamerule-notexists: '§cOyunun kuralları  {%0} mevcut değil .'
 gamerule-done: '§aOyunun kuralları  {%0} dünyada oldu {%1} açık  {%2} değişti .'

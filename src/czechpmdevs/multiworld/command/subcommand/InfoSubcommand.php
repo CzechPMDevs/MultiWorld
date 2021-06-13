@@ -28,6 +28,7 @@ use pocketmine\command\CommandSender;
 use pocketmine\level\Level;
 use pocketmine\Player;
 use pocketmine\Server;
+use function count;
 
 class InfoSubcommand implements SubCommand {
 

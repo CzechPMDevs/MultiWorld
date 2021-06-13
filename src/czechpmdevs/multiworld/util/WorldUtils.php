@@ -37,70 +37,54 @@ use pocketmine\level\generator\normal\Normal;
 use pocketmine\level\Level;
 use pocketmine\Server;
 use pocketmine\utils\AssumptionFailedError;
-use function basename;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use SplFileInfo;
+use function array_filter;
+use function array_values;
 use function count;
-use function is_dir;
-use function is_file;
 use function rename;
 use function rmdir;
 use function scandir;
 use function strtolower;
 use function unlink;
-use const DIRECTORY_SEPARATOR;
 
 class WorldUtils {
 
     public static function removeLevel(string $name): int {
         if (Server::getInstance()->isLevelLoaded($name)) {
-            /** @phpstan-var Level $level */
-            $level = Server::getInstance()->getLevelByName($name);
+            $level = WorldUtils::getLevelByNameNonNull($name);
             if (count($level->getPlayers()) > 0) {
                 foreach ($level->getPlayers() as $player) {
-                    /** @phpstan-ignore-next-line */
-                    $player->teleport(Server::getInstance()->getDefaultLevel()->getSpawnLocation());
+                    $player->teleport(WorldUtils::getDefaultLevelNonNull()->getSpawnLocation());
                 }
             }
 
             Server::getInstance()->unloadLevel($level);
         }
 
-        return WorldUtils::removeDirectory(Server::getInstance()->getDataPath() . DIRECTORY_SEPARATOR . "worlds" . DIRECTORY_SEPARATOR . $name);
-    }
+        $removedFiles = 1;
 
-    private static function removeDirectory(string $dirPath): int {
-        $removedFolders = 1;
-        if (basename($dirPath) == "." || basename($dirPath) == ".." || !is_dir($dirPath)) {
-            return 0;
-        }
-
-        if(!($files = scandir($dirPath))) {
-            return 0;
-        }
-
-        foreach ($files as $file) {
-            if ($file != "." || $file != "..") {
-                if (is_dir($dirPath . DIRECTORY_SEPARATOR . $file)) {
-                    $removedFolders += WorldUtils::removeDirectory($dirPath . DIRECTORY_SEPARATOR . $file);
-                    continue;
+        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($worldPath = Server::getInstance()->getDataPath() . "/worlds/$name", RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
+        /** @var SplFileInfo $fileInfo */
+        foreach ($files as $fileInfo) {
+            if($filePath = $fileInfo->getRealPath()) {
+                if($fileInfo->isFile()) {
+                    unlink($filePath);
+                } else {
+                    rmdir($filePath);
                 }
 
-                if (is_file($dirPath . DIRECTORY_SEPARATOR . $file)) {
-                    unlink($dirPath . DIRECTORY_SEPARATOR . $file);
-                    $removedFolders++;
-                }
+                $removedFiles++;
             }
-
         }
 
-        rmdir($dirPath);
-        return $removedFolders;
+        rmdir($worldPath);
+        return $removedFiles;
     }
 
     public static function renameLevel(string $oldName, string $newName): void {
-        if (Server::getInstance()->isLevelLoaded($oldName)) {
-            /** @phpstan-ignore-next-line */
-            Server::getInstance()->unloadLevel(Server::getInstance()->getLevelByName($oldName));
-        }
+        WorldUtils::lazyUnloadLevel($oldName);
 
         $from = Server::getInstance()->getDataPath() . "/worlds/" . $oldName;
         $to = Server::getInstance()->getDataPath() . "/worlds/" . $newName;
@@ -142,6 +126,21 @@ class WorldUtils {
             return Server::getInstance()->unloadLevel($level, $force);
         }
         return false;
+    }
+
+    /**
+     * @return string[] Returns all the levels on the server including
+     * unloaded ones
+     */
+    public static function getAllLevels(): array {
+        $files = scandir(Server::getInstance()->getDataPath() . "/worlds/");
+        if(!$files) {
+            return [];
+        }
+
+        return array_values(array_filter($files, function (string $fileName): bool {
+            return Server::getInstance()->isLevelGenerated($fileName);
+        }));
     }
 
     /**

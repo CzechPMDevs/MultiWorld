@@ -74,17 +74,18 @@ info-generator: '§7世界生成器: {%0}'
 info-seed: '§7种子: {%0}'
 info-time: '§7时间: {%0}'
 
+# Gamerule Command:
+gamerule-usage: '§c输入: §7/mw gamerule <list|gamerule> [true|false] [世界名]'
+gamerule-list: '§aAvailable game rules: {%0}'
+gamerule-levelnotfound: '§c世界 {%0} 不存在.'
+gamerule-notexists: '§此游戏模式 {%0} 不存在.'
+gamerule-done: '§游戏模式 {%0} 在如下世界 {%1} 被更改为 {%2}.'
+
 # Rename Command
 rename-usage: '§cUsage: §7/mw rename <from> <to>'
 rename-exists: '§cLevel with name {%0} already exists.'
 rename-levelnotfound: '§cLevel {%0} does not exists.'
 rename-done: '§aName of level {%0} was changed to {%1}.'
-
-# Gamerule Command:
-gamerule-usage: '§c输入: §7/mw gamerule <list|gamerule> [true|false] [世界名]'
-gamerule-levelnotfound: '§c世界 {%0} 不存在.'
-gamerule-notexists: '§此游戏模式 {%0} 不存在.'
-gamerule-done: '§游戏模式 {%0} 在如下世界 {%1} 被更改为 {%2}.'
 
 # Forms
 forms-invalid: '§cInvalid result.'

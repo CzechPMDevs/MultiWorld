@@ -76,6 +76,7 @@ info-time: '§7Waktu: {%0}'
 
 # Perintah Gamerule:
 gamerule-usage: '§cPenggunaan: §7/mw gamerule <list|gamerule> [true|false] [nama dunia]'
+gamerule-list: '§aAvailable game rules: {%0}'
 gamerule-levelnotfound: '§cDunia {%0} tidak ditemukan.'
 gamerule-notexists: '§cGamerule {%0} tidak ada.'
 gamerule-done: '§aGamerule {%0} di dunia {%1} diubah menjadi {%2}.'

@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld;
 
-use czechpmdevs\multiworld\command\GameruleCommand;
+use czechpmdevs\multiworld\command\GameRuleCommand;
 use czechpmdevs\multiworld\command\MultiWorldCommand;
 use czechpmdevs\multiworld\generator\ender\EnderGenerator;
 use czechpmdevs\multiworld\generator\nether\NetherGenerator;
@@ -34,7 +34,6 @@ use czechpmdevs\multiworld\util\ConfigManager;
 use czechpmdevs\multiworld\util\FormManager;
 use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\Utils;
-use Hoa\Math\Util;
 use InvalidStateException;
 use pocketmine\command\Command;
 use pocketmine\level\generator\GeneratorManager;
@@ -89,7 +88,7 @@ class MultiWorld extends PluginBase {
 
         $this->commands = [
             "multiworld" => new MultiWorldCommand(),
-            "gamerule" => new GameruleCommand()
+            "gamerule" => new GameRuleCommand()
         ];
 
         foreach ($this->commands as $command) {

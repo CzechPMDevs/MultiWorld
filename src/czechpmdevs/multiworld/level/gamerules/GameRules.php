@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 /**
  * MultiWorld - PocketMine plugin that manages worlds.
@@ -82,12 +82,16 @@ final class GameRules {
     private static GameRules $defaultGameRules;
 
     /**
+     * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
+     *
      * @var mixed[]
      * @phpstan-var array<string, bool|int|float>
      */
     private array $gameRules = [];
 
     /**
+     * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
+     *
      * @param mixed[] $defaultGameRules
      * @phpstan-var array<string, bool|int|float>
      */
@@ -96,6 +100,8 @@ final class GameRules {
     }
 
     /**
+     * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
+     *
      * @param mixed[] $gameRules
      * @phpstan-param array<string, bool|int|float> $gameRules
      */
@@ -113,7 +119,7 @@ final class GameRules {
         foreach ($gameRules as $key => $value) {
             if(!GameRules::$defaultGameRules->keyExists($key)) {
                 unset($gameRules[$key]); // GameRule does not exist at all
-            } elseif($this->getPropertyType($value) != $this->getPropertyType(GameRules::$defaultGameRules->getGameRules()[$key])) {
+            } elseif(GameRules::getPropertyType($value) != GameRules::getPropertyType(GameRules::$defaultGameRules->getGameRules()[$key])) {
                 unset($gameRules[$key]); // GameRule has invalid type
             }
         }
@@ -169,7 +175,7 @@ final class GameRules {
     /**
      * @param mixed $value
      */
-    public function getPropertyType($value): int {
+    public static function getPropertyType($value): int {
         if(is_bool($value)) {
             return GameRules::TYPE_BOOL;
         }
@@ -185,6 +191,8 @@ final class GameRules {
     }
 
     /**
+     * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
+     *
      * @return mixed[]
      * @phpstan-return array<string, int|float|bool>
      */
@@ -192,10 +200,14 @@ final class GameRules {
         return $this->gameRules;
     }
 
+    public static function getDefaultGameRules(): GameRules {
+        return clone GameRules::$defaultGameRules;
+    }
+
     public function applyToPlayer(Player $player): void {
         $pk = new GameRulesChangedPacket();
         $pk->gameRules = array_map(fn ($gameRule) => [
-            $this->getPropertyType($gameRule),
+            GameRules::getPropertyType($gameRule),
             $gameRule,
             GameRules::$allowPlayersEditGameRulesFromGame
         ], $this->gameRules);
@@ -206,7 +218,7 @@ final class GameRules {
     public function applyToLevel(Level $level): void {
         $pk = new GameRulesChangedPacket();
         $pk->gameRules = array_map(fn ($gameRule) => [
-            $this->getPropertyType($gameRule),
+            GameRules::getPropertyType($gameRule),
             $gameRule,
             GameRules::$allowPlayersEditGameRulesFromGame
         ], $this->gameRules);

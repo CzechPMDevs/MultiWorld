@@ -76,9 +76,10 @@ info-time: '§7Time: {%0}'
 
 # Gamerule Command:
 gamerule-usage: '§cUsage: §7/mw gamerule <list|gamerule> [true|false] [level]'
+gamerule-list: '§aAvailable game rules: {%0}'
 gamerule-levelnotfound: '§cWorld {%0} not found.'
-gamerule-notexists: '§cGamerule {%0} does not exist.'
-gamerule-done: '§aGamerule {%0} in world {%1} was changed to {%2}.'
+gamerule-notexists: '§cGame rule {%0} does not exist.'
+gamerule-done: '§aGame rule {%0} in world {%1} was changed to {%2}.'
 
 # Rename Command
 rename-usage: '§cUsage: §7/mw rename <from> <to>'

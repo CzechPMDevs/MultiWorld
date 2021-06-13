@@ -76,6 +76,7 @@ info-time: '§7Thời gian: {%0}'
 
 # Gamerule Command:
 gamerule-usage: '§cSử dụng: §7/mw gamerule <list|gamerule> [true|false] [Tên thế giới]'
+gamerule-list: '§aAvailable game rules: {%0}'
 gamerule-levelnotfound: '§cThế giới {%0} không tìm thấy.'
 gamerule-notexists: '§cLuật lệ {%0} không tồn tại.'
 gamerule-done: '§aLuật lệ {%0} tại thế giới {%1} được chỉnh thành {%2}.'

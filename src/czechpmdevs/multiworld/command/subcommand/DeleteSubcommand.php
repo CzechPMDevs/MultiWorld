@@ -28,6 +28,8 @@ use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\level\Level;
 use pocketmine\Server;
+use function file_exists;
+use function str_replace;
 
 class DeleteSubcommand implements SubCommand {
 

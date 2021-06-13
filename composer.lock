@@ -4,9 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1bf4a96b1d370703be077ae19fa2a02b",
-    "packages": [],
-    "packages-dev": [
+    "content-hash": "603b6a44602571f55b677a168881348e",
+    "packages": [
         {
             "name": "adhocore/json-comment",
             "version": "1.1.2",
@@ -61,6 +60,51 @@
                 }
             ],
             "time": "2021-04-09T03:06:06+00:00"
+        },
+        {
+            "name": "czechpmdevs/libpmform",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CzechPMDevs/libpmform.git",
+                "reference": "1d16ed99c2cd5e0069bcc78042e8f0805fbf4483"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CzechPMDevs/libpmform/zipball/1d16ed99c2cd5e0069bcc78042e8f0805fbf4483",
+                "reference": "1d16ed99c2cd5e0069bcc78042e8f0805fbf4483",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "0.12.82",
+                "pocketmine/pocketmine-mp": "3.18.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "czechpmdevs\\libpmform\\": [
+                        "src"
+                    ]
+                }
+            },
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "VixikHD"
+                }
+            ],
+            "description": "Simple form library",
+            "support": {
+                "source": "https://github.com/CzechPMDevs/libpmform/tree/main",
+                "issues": "https://github.com/CzechPMDevs/libpmform/issues"
+            },
+            "time": "2021-06-12T08:15:04+00:00"
         },
         {
             "name": "phpstan/phpstan",
@@ -636,9 +680,12 @@
             "time": "2021-01-15T15:15:23+00:00"
         }
     ],
+    "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "czechpmdevs/libpmform": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
