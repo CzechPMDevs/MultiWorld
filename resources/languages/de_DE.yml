@@ -22,15 +22,15 @@ help-10: '§2/mw rename §fÄndert den Namen einer Welt'
 
 # Befehl erstellen:
 create-usage: '§cBenutzung: §7/mw create <name> [seed] [generator]'
-create-exists: '§cEbene {%0} wurde bereits generiert!'
+create-exists: '§cDie Welt {%0} wurde bereits generiert!'
 create-gennotexists: 'Generator {%0} nicht gefunden.'
 create-generating: '§aGeneriere Welt {%0}...'
-create-done: 'Ebene {%0} wird mit dem Seed {%1} erzeugt und dem Generator {%2}.'
+create-done: 'Die Welt {%0} wird mit dem Seed {%1} erzeugt und dem Generator {%2}.'
 
 # Teleport Befehl:
 teleport-usage: '§cBenutzung: §7/mw teleport <ebene> [spieler]'
 teleport-levelnotexists: '§cDie Welt {%0} wurde noch nicht erstellt! Versuche /mw create um eine Welt zu erstellen. '
-teleport-load: 'Lade Ebene {%0} ...'
+teleport-load: 'Lade die Welt {%0} ...'
 teleport-done-1: '§aDu wurdest in die Welt {%0} teleportiert.'
 teleport-done-2: '§aSpieler {%1} wurde in die Welt {%0} teleportiert!'
 teleport-playernotexisten: '§cDieser Spieler existiert nicht!'
@@ -83,9 +83,9 @@ gamerule-done: '§aSpielregel {%0} wurde in der Welt {%1} auf {%2} geändert.'
 
 # Rename Command
 rename-usage: '§cBenutzung: §7/mw rename <von> <zu>'
-rename-exists: '§cEine Ebene mit dem Namen {%0} existiert bereits.'
-rename-levelnotfound: '§cEbene {%0} existiert nicht.'
-rename-done: '§aName der Ebene{%0} wurde geändert zu {%1}.'
+rename-exists: '§cEine Welt mit dem Namen {%0} existiert bereits.'
+rename-levelnotfound: '§cDie Welt {%0} existiert nicht.'
+rename-done: '§aName der Welt {%0} wurde geändert zu {%1}.'
 
 # Forms
 forms-invalid: '§cUngültige Anfrage.'
