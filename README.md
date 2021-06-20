@@ -110,7 +110,7 @@
 | **/mw manage** | **Opens world form manager** <br><br>Aliases: `/mw mng`, `/mw mg` <br> Usage: `/mw manage` <br><br> The form manager just dispatches command as a player, so player needs also permission for the command. |
 
 
-## 📃  Premissions:
+## 📃  Permissions:
 
 - You can use permission `mw.cmd` for all commands 
 <br>
