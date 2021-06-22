@@ -16,7 +16,7 @@ help-5: '§2/mw update §fÄndere die Lobby, den Spawn in einer Welt oder die St
 
 help-6: '§2/mw delete §fEine Welt entfernen'
 help-7: '§2/mw info §fZeigt Informationen über eine Welt an'
-help-8: '§2/mw gamerule §fVerwalte die Spielregeln einer Ebene'
+help-8: '§2/mw gamerule §fVerwalte die Spielregeln einer Welt'
 help-9: '§2/mw manage §fZeigt eine UI zum verwalten der Welten an'
 help-10: '§2/mw rename §fÄndert den Namen einer Welt'
 
@@ -28,7 +28,7 @@ create-generating: '§aGeneriere Welt {%0}...'
 create-done: 'Die Welt {%0} wird mit dem Seed {%1} erzeugt und dem Generator {%2}.'
 
 # Teleport Befehl:
-teleport-usage: '§cBenutzung: §7/mw teleport <ebene> [spieler]'
+teleport-usage: '§cBenutzung: §7/mw teleport <welt> [spieler]'
 teleport-levelnotexists: '§cDie Welt {%0} wurde noch nicht erstellt! Versuche /mw create um eine Welt zu erstellen. '
 teleport-load: 'Lade die Welt {%0} ...'
 teleport-done-1: '§aDu wurdest in die Welt {%0} teleportiert.'
@@ -39,24 +39,24 @@ teleport-playernotexisten: '§cDieser Spieler existiert nicht!'
 list-done: '§aWelten ({%0}):'
 
 # Befehl laden:
-load-usage: '§cBenutzung: §7/mw load <ebene>'
+load-usage: '§cBenutzung: §7/mw load <welt>'
 load-levelnotexists: '§cWelt {%0} existiert nicht!'
 load-loaded: '§cLaden der Welt fehlgeschlagen!'
 load-done: '§aWelt geladen!'
 
 # Befehl entladen:
-unload-usage: '§cBenutzung: §7/mw unload <ebene>'
+unload-usage: '§cBenutzung: §7/mw unload <welt>'
 unload-levelnotexists: '§cDie Welt {%0} existiert nicht!'
 unload-unloaded: '§cWelt konnte nicht entladen werden!'
 unload-done: '§aWelt entladen!'
 
 # Befehl löschen:
-delete-use: '§cBenutzung: §7/mw delete <ebene>'
+delete-use: '§cBenutzung: §7/mw delete <welt>'
 delete-levelnotexists: '§cDie Welt {%0} existiert nicht!'
 delete-done: '§aWelt wurde gelöscht! ({%0} Dateien wurden entfernt.)'
 
 # Update Befehl:
-update-usage: '§cBenutzung: §7/mw update <typ: spawn|lobby|default> [Optionen: (x) (y) (z) (Ebene)]'
+update-usage: '§cBenutzung: §7/mw update <typ: spawn|lobby|default> [Optionen: (x) (y) (z) (Welt)]'
 update-levelnotexists: '§cDie Welt {%0} existiert nicht!'
 update-spawn-done: '§aSpawn in der Welt {%0} wurde geändert.'
 update-lobby-done: '§aLobby in der Welt {%0} wurde geändert.'
@@ -75,7 +75,7 @@ info-seed: '§7Seed: {%0}'
 info-time: '§7Zeit: {%0}'
 
 # Gamerule Command:
-gamerule-usage: '§cBenutzung: §7/mw gamerule <list|gamerule> [true|false] [ebene]'
+gamerule-usage: '§cBenutzung: §7/mw gamerule <list|gamerule> [true|false] [welt]'
 gamerule-list: '§aVerfügbare Spielregeln: {%0}'
 gamerule-levelnotfound: '§cDie Welt {%0} nicht gefunden.'
 gamerule-notexists: '§cSpielregel {%0} existiert nicht.'
