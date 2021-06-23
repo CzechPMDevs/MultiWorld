@@ -264,9 +264,9 @@ class XYZPlugin extends PluginBase implements Listener {
 
 - Do you want to help with the development of MultiWorld? Add your native language!
 
-1) Open [lanuage resource file](https://github.com/CzechPMDevs/MultiWorld/tree/PocketMine-MP/MultiWorld/resources/languages)
+1) Open [lanuage resource file](https://github.com/CzechPMDevs/MultiWorld/tree/master/resources/languages)
 2) Click create new file
-3) Translate e.g. language from English file https://github.com/CzechPMDevs/MultiWorld/blob/PocketMine-MP/MultiWorld/resources/languages/en_US.yml
+3) Translate e.g. language from English file https://github.com/CzechPMDevs/MultiWorld/blob/master/resources/languages/en_US.yml
 4) Click Propose new file
 
 
@@ -297,4 +297,4 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 ```
 
-Full license [here](https://github.com/CzechPMDevs/MultiWorld/blob/PocketMine-MP/LICENSE).
+Full license [here](https://github.com/CzechPMDevs/MultiWorld/blob/master/LICENSE).
