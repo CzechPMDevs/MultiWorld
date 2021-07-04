@@ -145,7 +145,7 @@ final class GameRules {
     public function getBool(string $index): bool {
         $value = $this->gameRules[$index] ?? null;
         if(!is_bool($value)) {
-            if(is_int($value)) {
+            if(is_int($value)) { //Int to Bool
               switch ($value) {
                   case 0;
                   return false;
@@ -155,10 +155,11 @@ final class GameRules {
                   return true;
                   break;
               }
-                  
+           
             }
-           // throw new InvalidStateException("Received invalid type for Game Rule $index, expected bool.");
+
         }
+        //The original Code, (Only expects stringTag some Plugins change the typeTag such as VanillaX
         if ($value=="true") {
             return true;
         }
@@ -166,7 +167,7 @@ final class GameRules {
             return false;
         }
 
-        return true;;
+        return true; //If theres no value for some reason/null avoids exception, Instead sets the gamerule to True
     }
 
     /**
