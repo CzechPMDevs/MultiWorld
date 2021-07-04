@@ -145,10 +145,28 @@ final class GameRules {
     public function getBool(string $index): bool {
         $value = $this->gameRules[$index] ?? null;
         if(!is_bool($value)) {
-            throw new InvalidStateException("Received invalid type for Game Rule $index, expected bool.");
+            if(is_int($value)) {
+              switch ($value) {
+                  case 0;
+                  return false;
+                  break;
+                  
+                  case 1;
+                  return true;
+                  break;
+              }
+                  
+            }
+           // throw new InvalidStateException("Received invalid type for Game Rule $index, expected bool.");
+        }
+        if ($value=="true") {
+            return true;
+        }
+        if ($value=="false") {
+            return false;
         }
 
-        return $value;
+        return true;;
     }
 
     /**
@@ -247,7 +265,7 @@ final class GameRules {
      * Unserializes GameRules from World Provider
      */
     public static function unserializeGameRules(CompoundTag $nbt): GameRules {
-        return new GameRules(array_map(function (StringTag $stringTag) {
+        return new GameRules(array_map(function ($stringTag) {
             if($stringTag->getValue() == "true") {
                 return true;
             }
