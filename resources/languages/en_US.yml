@@ -22,10 +22,10 @@ help-10: '§2/mw rename §fRenames the world'
 
 # Create Command:
 create-usage: '§cUsage: §7/mw create <name> [seed] [generator]'
-create-exists: '§cLevel {%0} is already generated!'
+create-exists: '§cWorld {%0} is already generated!'
 create-gennotexists: '§cGenerator {%0} not found.'
 create-generating: '§aGenerating world {%0}'
-create-done: 'worlds {%0} was generated using seed: {%1} and generator: {%2}.'
+create-done: 'World {%0} was generated using seed: {%1} and generator: {%2}.'
 
 # Teleport Command:
 teleport-usage: '§cUsage: §7/mw teleport <world> [player]'

@@ -66,7 +66,7 @@ class LakePopulator extends Populator {
     }
 
     /**
-     * @return Generator<Vector3>
+     * @phpstan-return Generator<Vector3>
      */
     private function getRandomShape(Random $random): Generator {
         for ($x = -($random->nextRange(12, 20)); $x < $random->nextRange(12, 20); $x++) {

@@ -57,8 +57,8 @@ class SkyBlockGenerator extends Generator {
     }
 
     public function populateChunk(int $chunkX, int $chunkZ): void {
-        if ($chunkX === 16 && $chunkZ === 16) {
-            $island = new Island;
+        if ($chunkX == 16 && $chunkZ == 16) {
+            $island = new Island();
             $island->populate($this->level, $chunkX, $chunkZ, $this->random);
         }
     }

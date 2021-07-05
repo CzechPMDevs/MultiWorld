@@ -28,9 +28,9 @@ use pocketmine\utils\Random;
 abstract class AmountPopulator extends Populator {
 
     /** @var int */
-    private int $baseAmount = 1;
+    private int $baseAmount;
     /** @var int */
-    private int $randomAmount = 0;
+    private int $randomAmount;
     /** @var int */
     private int $spawnPercentage = 100;
 

@@ -30,10 +30,7 @@ use pocketmine\utils\Random;
 
 class SoulSand extends Populator {
 
-    public const MAX_Y = 40;
-
     public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random) {
-        $chunk = $level->getChunk($chunkX, $chunkZ);
         if ($random->nextRange(0, 6) !== 0) return;
 
         $x = $random->nextRange($chunkX << 4, ($chunkX << 4) + 15);
@@ -55,10 +52,10 @@ class SoulSand extends Populator {
             return;
         }
 
-        $this->placeSoulsandSphere($level, $random, new Vector3($x, $sphereY - $random->nextRange(2, 4), $z));
+        $this->placeSoulSand($level, $random, new Vector3($x, $sphereY - $random->nextRange(2, 4), $z));
     }
 
-    public function placeSoulsandSphere(ChunkManager $level, Random $random, Vector3 $position): void {
+    public function placeSoulSand(ChunkManager $level, Random $random, Vector3 $position): void {
         $radiusX = $random->nextRange(8, 15);
         $radiusZ = $random->nextRange(8, 15);
         $radiusY = $random->nextRange(5, 8);

@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\skyblock\populator;
 
-use pocketmine\block\Block;
+use pocketmine\block\BlockIds;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\object\OakTree;
 use pocketmine\level\generator\populator\Populator;
@@ -45,30 +45,30 @@ class Island extends Populator {
                     $centerVec = $center->add($x, $y, $z);
                     if ($centerVec->getY() == 69) {
                         /** @phpstan-ignore-next-line */
-                        $level->setBlockIdAt($centerVec->getX(), $centerVec->getY(), $centerVec->getZ(), Block::GRASS);
+                        $level->setBlockIdAt($centerVec->getX(), $centerVec->getY(), $centerVec->getZ(), BlockIds::GRASS);
                     } else {
                         /** @phpstan-ignore-next-line */
-                        $level->setBlockIdAt($centerVec->getX(), $centerVec->getY(), $centerVec->getZ(), Block::DIRT);
+                        $level->setBlockIdAt($centerVec->getX(), $centerVec->getY(), $centerVec->getZ(), BlockIds::DIRT);
                     }
 
                     // left
                     $leftVec = $center->add(3)->add($x, $y, $z);
                     if ($leftVec->getY() == 69) {
                         /** @phpstan-ignore-next-line */
-                        $level->setBlockIdAt($leftVec->getX(), $leftVec->getY(), $leftVec->getZ(), Block::GRASS);
+                        $level->setBlockIdAt($leftVec->getX(), $leftVec->getY(), $leftVec->getZ(), BlockIds::GRASS);
                     } else {
                         /** @phpstan-ignore-next-line */
-                        $level->setBlockIdAt($leftVec->getX(), $leftVec->getY(), $leftVec->getZ(), Block::DIRT);
+                        $level->setBlockIdAt($leftVec->getX(), $leftVec->getY(), $leftVec->getZ(), BlockIds::DIRT);
                     }
 
                     // down
                     $downVec = $center->subtract(0, 0, 3)->add($x, $y, $z);
                     if ($leftVec->getY() == 69) {
                         /** @phpstan-ignore-next-line */
-                        $level->setBlockIdAt($downVec->getX(), $downVec->getY(), $downVec->getZ(), Block::GRASS);
+                        $level->setBlockIdAt($downVec->getX(), $downVec->getY(), $downVec->getZ(), BlockIds::GRASS);
                     } else {
                         /** @phpstan-ignore-next-line */
-                        $level->setBlockIdAt($downVec->getX(), $downVec->getY(), $downVec->getZ(), Block::DIRT);
+                        $level->setBlockIdAt($downVec->getX(), $downVec->getY(), $downVec->getZ(), BlockIds::DIRT);
                     }
                 }
             }
@@ -77,7 +77,7 @@ class Island extends Populator {
         // chest
         $chestVec = $center->add(0, 2, -4);
         /** @phpstan-ignore-next-line */
-        $level->setBlockIdAt($chestVec->getX(), $chestVec->getY(), $chestVec->getZ(), Block::CHEST);
+        $level->setBlockIdAt($chestVec->getX(), $chestVec->getY(), $chestVec->getZ(), BlockIds::CHEST);
 
         // tree
         $treeVec = $center->add(4, 2, 1);
@@ -88,6 +88,6 @@ class Island extends Populator {
 
         // bedrock
         /** @phpstan-ignore-next-line */
-        $level->setBlockIdAt($center->getX(), $center->getY(), $center->getZ(), Block::BEDROCK);
+        $level->setBlockIdAt($center->getX(), $center->getY(), $center->getZ(), BlockIds::BEDROCK);
     }
 }

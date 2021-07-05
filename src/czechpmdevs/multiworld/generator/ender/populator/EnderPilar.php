@@ -26,6 +26,11 @@ use pocketmine\block\BlockIds;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\populator\Populator;
 use pocketmine\utils\Random;
+use function cos;
+use function deg2rad;
+use function intval;
+use function mt_rand;
+use function sin;
 
 class EnderPilar extends Populator {
 

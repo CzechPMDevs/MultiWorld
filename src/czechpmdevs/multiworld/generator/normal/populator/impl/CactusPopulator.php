@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\populator\impl;
 
 use czechpmdevs\multiworld\generator\normal\populator\AmountPopulator;
-use pocketmine\block\Block;
+use pocketmine\block\BlockIds;
 use pocketmine\level\ChunkManager;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
@@ -35,7 +35,7 @@ class CactusPopulator extends AmountPopulator {
 
         if ($y !== -1 && $this->canCactusStay($level, new Vector3($x, $y, $z))) {
             for ($aY = 0; $aY < $random->nextRange(0, 3); $aY++) {
-                $level->setBlockIdAt($x, $y + $aY, $z, Block::CACTUS);
+                $level->setBlockIdAt($x, $y + $aY, $z, BlockIds::CACTUS);
                 $level->setBlockDataAt($x, $y, $z, 1);
             }
         }
@@ -50,6 +50,6 @@ class CactusPopulator extends AmountPopulator {
         }
 
         /** @phpstan-ignore-next-line */
-        return ($b === Block::AIR) && $level->getBlockIdAt($pos->getX(), $pos->getY() - 1, $pos->getZ()) === Block::SAND;
+        return ($b === BlockIds::AIR) && $level->getBlockIdAt($pos->getX(), $pos->getY() - 1, $pos->getZ()) === BlockIds::SAND;
     }
 }

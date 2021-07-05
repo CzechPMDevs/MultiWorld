@@ -22,20 +22,18 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\object;
 
-use pocketmine\block\Block;
+use pocketmine\block\BlockIds;
 use pocketmine\level\ChunkManager;
 use pocketmine\math\Vector2;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
+use function abs;
 
 class AcaciaTree extends Tree {
 
-    /**
-     * @return void
-     */
-    public function placeObject(ChunkManager $level, int $x, int $y, int $z, Random $rand) {
+    public function placeObject(ChunkManager $level, int $x, int $y, int $z, Random $random) {
         $position = new Vector3($x, $y, $z);
-        $i = $rand->nextBoundedInt(3) + $rand->nextBoundedInt(3) + 5;
+        $i = $random->nextBoundedInt(3) + $random->nextBoundedInt(3) + 5;
         $flag = true;
 
         if ($position->getY() >= 1 && $position->getY() + $i + 1 <= 256) {
@@ -73,12 +71,12 @@ class AcaciaTree extends Tree {
                 $down = $position->down();
                 $block = $level->getBlockIdAt($down->getFloorX(), $down->getFloorY(), $down->getFloorZ());
 
-                if (($block == Block::GRASS || $block == Block::DIRT) && $position->getY() < 256 - $i - 1) {
+                if (($block == BlockIds::GRASS || $block == BlockIds::DIRT) && $position->getY() < 256 - $i - 1) {
                     /** @phpstan-ignore-next-line */
-                    $level->setBlockIdAt($position->getX(), $position->getY() - 1, $position->getZ(), Block::DIRT);
-                    $face = $rand->nextRange(0, 3);
-                    $k2 = $i - $rand->nextBoundedInt(4) - 1;
-                    $l2 = 3 - $rand->nextBoundedInt(3);
+                    $level->setBlockIdAt($position->getX(), $position->getY() - 1, $position->getZ(), BlockIds::DIRT);
+                    $face = $random->nextRange(0, 3);
+                    $k2 = $i - $random->nextBoundedInt(4) - 1;
+                    $l2 = 3 - $random->nextBoundedInt(3);
                     $i3 = $position->getFloorX();
                     $j1 = $position->getFloorZ();
                     $k1 = 0;
@@ -95,7 +93,7 @@ class AcaciaTree extends Tree {
                         $blockpos = new Vector3($i3, $i2, $j1);
                         $material = $level->getBlockIdAt($blockpos->getFloorX(), $blockpos->getFloorY(), $blockpos->getFloorZ());
 
-                        if ($material == Block::AIR || $material == Block::LEAVES) {
+                        if ($material == BlockIds::AIR || $material == BlockIds::LEAVES) {
                             $this->placeLogAt($level, $blockpos);
                             $k1 = $i2;
                         }
@@ -127,11 +125,11 @@ class AcaciaTree extends Tree {
                     $this->placeLeafAt($level, $blockpos2->north(2));
                     $i3 = $position->getFloorX();
                     $j1 = $position->getFloorZ();
-                    $face1 = $rand->nextRange(0, 3);
+                    $face1 = $random->nextRange(0, 3);
 
                     if ($face1 != $face) {
-                        $l3 = $k2 - $rand->nextBoundedInt(2) - 1;
-                        $k4 = 1 + $rand->nextBoundedInt(3);
+                        $l3 = $k2 - $random->nextBoundedInt(2) - 1;
+                        $k4 = 1 + $random->nextBoundedInt(3);
                         $k1 = 0;
 
                         for ($l4 = $l3; $l4 < $i && $k4 > 0; --$k4) {
@@ -142,7 +140,7 @@ class AcaciaTree extends Tree {
                                 $blockpos1 = new Vector3($i3, $j2, $j1);
                                 $material1 = $level->getBlockIdAt($blockpos1->getFloorX(), $blockpos1->getFloorY(), $blockpos1->getFloorZ());
 
-                                if ($material1 == Block::AIR || $material1 == Block::LEAVES) {
+                                if ($material1 == BlockIds::AIR || $material1 == BlockIds::LEAVES) {
                                     $this->placeLogAt($level, $blockpos1);
                                     $k1 = $j2;
                                 }
@@ -195,14 +193,14 @@ class AcaciaTree extends Tree {
     }
 
     private function placeLogAt(ChunkManager $worldIn, Vector3 $pos): void {
-        $worldIn->setBlockIdAt((int)$pos->getX(), (int)$pos->getY(), (int)$pos->getZ(), Block::WOOD2);
+        $worldIn->setBlockIdAt((int)$pos->getX(), (int)$pos->getY(), (int)$pos->getZ(), BlockIds::WOOD2);
     }
 
     private function placeLeafAt(ChunkManager $worldIn, Vector3 $pos): void {
         $material = $worldIn->getBlockIdAt($pos->getFloorX(), $pos->getFloorY(), $pos->getFloorZ());
 
-        if ($material == Block::AIR || $material == Block::LEAVES) {
-            $worldIn->setBlockIdAt((int)$pos->getX(), (int)$pos->getY(), (int)$pos->getZ(), Block::LEAVES2);
+        if ($material == BlockIds::AIR || $material == BlockIds::LEAVES) {
+            $worldIn->setBlockIdAt((int)$pos->getX(), (int)$pos->getY(), (int)$pos->getZ(), BlockIds::LEAVES2);
         }
     }
 }

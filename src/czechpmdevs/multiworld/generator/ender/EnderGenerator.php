@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\ender;
 
 use czechpmdevs\multiworld\generator\ender\populator\EnderPilar;
-use pocketmine\block\Block;
+use pocketmine\block\BlockIds;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\format\Chunk;
 use pocketmine\level\generator\Generator;
@@ -31,6 +31,7 @@ use pocketmine\level\generator\noise\Simplex;
 use pocketmine\level\generator\populator\Populator;
 use pocketmine\math\Vector3 as Vector3;
 use pocketmine\utils\Random;
+use function abs;
 
 class EnderGenerator extends Generator {
 
@@ -87,7 +88,7 @@ class EnderGenerator extends Generator {
                     $distance = new Vector3(0, 64, 0);
                     $distance = $distance->distance(new Vector3($chunkX * 16 + $x, ($y / 1.3), $chunkZ * 16 + $z));
                     if ($noiseValue < 0 && $distance < 100 or $noiseValue < -0.2 && $distance > 400) {
-                        $chunk->setBlockId($x, $y, $z, Block::END_STONE);
+                        $chunk->setBlockId($x, $y, $z, BlockIds::END_STONE);
                     }
                 }
             }

@@ -26,11 +26,20 @@ use czechpmdevs\libpmform\response\FormResponse;
 use czechpmdevs\libpmform\type\CustomForm;
 use czechpmdevs\libpmform\type\SimpleForm;
 use czechpmdevs\multiworld\MultiWorld;
+use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\Player;
 use pocketmine\Server;
+use function array_filter;
+use function array_key_exists;
+use function array_keys;
+use function array_map;
+use function array_values;
+use function is_array;
 use function is_bool;
+use function is_numeric;
+use function strlen;
 
 class ManageSubcommand implements SubCommand {
 
@@ -45,12 +54,12 @@ class ManageSubcommand implements SubCommand {
         $form->addButton("Delete world");
         $form->addButton("Update world game rules");
         $form->addButton("Show world info");
-        $form->addButton("Load or unload world");
+        $form->addButton("Load world");
+        $form->addButton("Unoad world");
         $form->addButton("Teleport to the world");
         $form->addButton("Teleport player to the world");
-        $form->addButton("Update spawn or lobby");
 
-        $form->setCallback(function (Player $player, FormResponse $response): void {
+        $form->setCallback(static function (Player $player, FormResponse $response): void {
             $customForm = new CustomForm("World Manager");
 
             switch ($response->getData()) {
@@ -58,13 +67,35 @@ class ManageSubcommand implements SubCommand {
                     $customForm->addLabel("Create world");
                     $customForm->addInput("Level name");
                     $customForm->addInput("Level seed");
-                    $customForm->addDropdown("Generator", ["Normal", "Custom", "Nether", "End", "Flat", "Void", "SkyBlock"]);
+                    $customForm->addDropdown("Generator", $generators = ["Normal", "Custom", "Nether", "End", "Flat", "Void", "SkyBlock"]);
+
+                    $customForm->setCallback(static function (Player $player, FormResponse $response) use ($generators): void {
+                        $data = $response->getData();
+                        if(!is_array($data) || $data[1] === "" || (strlen($data[2]) > 2 && !is_numeric($data[2])) || !isset($generators[$data[3]])) {
+                            $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
+                            return;
+                        }
+
+                        $cmd = "mw create \"$data[1]\" \"$data[2]\" \"{$generators[$data[3]]}\"";
+                        Server::getInstance()->dispatchCommand($player, $cmd);
+                    });
+
                     $player->sendForm($customForm);
                     break;
-
                 case 1:
                     $customForm->addLabel("Remove world");
-                    $customForm->addDropdown("Level name", WorldUtils::getAllLevels());
+                    $customForm->addDropdown("Level name", $worlds = WorldUtils::getAllLevels());
+
+                    $customForm->setCallback(static function (Player $player, FormResponse $response) use ($worlds): void {
+                        $data = $response->getData();
+                        if(!is_array($data) || $data[1] === "") {
+                            $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
+                            return;
+                        }
+
+                        Server::getInstance()->dispatchCommand($player, "mw delete \"{$worlds[$data[1]]}\"");
+                    });
+
                     $player->sendForm($customForm);
                     break;
 
@@ -78,43 +109,131 @@ class ManageSubcommand implements SubCommand {
                             $customForm->addInput($rule);
                         }
                     }
+
+                    $customForm->setCallback(static function (Player $player, FormResponse $response) use ($rules): void {
+                        $data = $response->getData();
+                        if(!is_array($data)) {
+                            $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
+                            return;
+                        }
+
+                        $gameRules = array_keys($rules);
+                        foreach ($data as $index => $value) {
+                            if(!array_key_exists($index, $gameRules)) {
+                                continue;
+                            }
+
+                            $value = is_bool($value) ? ($value ? "true": "false") : $value;
+                            Server::getInstance()->dispatchCommand($player, "gamerule $gameRules[$index] $value");
+                        }
+                    });
+
                     $player->sendForm($customForm);
                     break;
 
                 case 3:
                     $customForm->addLabel("Get information about the level");
-                    $customForm->addDropdown("Levels", WorldUtils::getAllLevels());
+                    $customForm->addDropdown("Levels", $worlds = WorldUtils::getAllLevels());
+
+                    $customForm->setCallback(static function (Player $player, FormResponse $response) use ($worlds): void {
+                        $data = $response->getData();
+                        if(!is_array($data) || !isset($data[1])) {
+                            $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
+                            return;
+                        }
+
+                        Server::getInstance()->dispatchCommand($player, "mw info \"{$worlds[$data[1]]}\"");
+                    });
+
                     $player->sendForm($customForm);
                     break;
 
                 case 4:
-                    $customForm->addLabel("Load/Unload world");
-                    $customForm->addInput("Level to load §o(optional)");
-                    $customForm->addInput("Level to unload §o(optional)");
+                    $customForm->addLabel("Load world");
+                    $customForm->addDropdown("Level to load", $worlds = array_values(array_filter(WorldUtils::getAllLevels(), fn(string $worldName) => !Server::getInstance()->isLevelLoaded($worldName))));
+
+                    $customForm->setCallback(static function (Player $player, FormResponse $response) use ($worlds): void {
+                        $data = $response->getData();
+                        if(!is_array($data)) {
+                            $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
+                            return;
+                        }
+
+                        if(!isset($worlds[$data[1]])) {
+                            $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
+                            return;
+                        }
+
+                        Server::getInstance()->dispatchCommand($player, "mw load \"{$worlds[$data[1]]}\"");
+                    });
+
                     $player->sendForm($customForm);
                     break;
 
                 case 5:
-                    $customForm->addLabel("Teleport to level");
-                    $customForm->addDropdown("Level", WorldUtils::getAllLevels());
+                    $customForm->addLabel("Unload world");
+                    $customForm->addDropdown("Level to unload", $worlds = array_values(array_filter(WorldUtils::getAllLevels(), fn(string $worldName) => Server::getInstance()->isLevelLoaded($worldName))));
+
+                    $customForm->setCallback(static function (Player $player, FormResponse $response) use ($worlds): void {
+                        $data = $response->getData();
+                        if(!is_array($data)) {
+                            $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
+                            return;
+                        }
+
+                        if(!isset($worlds[$data[1]])) {
+                            $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
+                            return;
+                        }
+
+                        Server::getInstance()->dispatchCommand($player, "mw unload {$worlds[$data[1]]}");
+                    });
+
                     $player->sendForm($customForm);
                     break;
 
                 case 6:
-                    $customForm->addLabel("Teleport player to level");
-                    $players = [];
-                    foreach (Server::getInstance()->getOnlinePlayers() as $p) {
-                        $players[] = $p->getName();
-                    }
-                    $customForm->addDropdown("Player", $players);
-                    $customForm->addDropdown("Level", WorldUtils::getAllLevels());
+                    $customForm->addLabel("Teleport to level");
+                    $customForm->addDropdown("Level", $worlds = WorldUtils::getAllLevels());
+
+                    $customForm->setCallback(static function (Player $player, FormResponse $response) use ($worlds): void {
+                        $data = $response->getData();
+                        if(!is_array($data)) {
+                            $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
+                            return;
+                        }
+
+                        if(!isset($worlds[$data[1]])) {
+                            $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
+                            return;
+                        }
+
+                        Server::getInstance()->dispatchCommand($player, "mw teleport \"{$worlds[$data[1]]}\"");
+                    });
+
                     $player->sendForm($customForm);
                     break;
 
                 case 7:
-                    $customForm->addLabel("Update level");
-                    $customForm->addToggle("Update world spawn", true);
-                    $customForm->addToggle("Update server lobby", false);
+                    $customForm->addLabel("Teleport player to level");
+                    $customForm->addDropdown("Player", $players = array_values(array_map(fn(Player $player) => $player->getName(), Server::getInstance()->getOnlinePlayers())));
+                    $customForm->addDropdown("Level", $worlds = WorldUtils::getAllLevels());
+
+                    $customForm->setCallback(static function (Player $player, FormResponse $response) use ($players, $worlds) {
+                        $data = $response->getData();
+                        if(!is_array($data)) {
+                            $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
+                            return;
+                        }
+
+                        if(!isset($players[$data[1]]) || !isset($worlds[$data[2]])) {
+                            $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
+                            return;
+                        }
+
+                        Server::getInstance()->dispatchCommand($player, "mw teleport \"{$worlds[$data[2]]}\" \"{$players[$data[1]]}\"");
+                    });
+
                     $player->sendForm($customForm);
                     break;
             }
@@ -122,5 +241,4 @@ class ManageSubcommand implements SubCommand {
 
         $sender->sendForm($form);
     }
-
 }

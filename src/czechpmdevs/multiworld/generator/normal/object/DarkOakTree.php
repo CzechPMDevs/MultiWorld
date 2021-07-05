@@ -22,40 +22,34 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\object;
 
-use pocketmine\block\Block;
 use pocketmine\block\BlockIds;
 use pocketmine\level\ChunkManager;
 use pocketmine\utils\Random;
 
 class DarkOakTree extends Tree {
 
-    /**
-     * @return void
-     */
-    public function placeObject(ChunkManager $level, int $x, int $y, int $z, Random $rand) {
-        $i = $rand->nextBoundedInt(3) + $rand->nextBoundedInt(2) + 6;
+    public function placeObject(ChunkManager $level, int $x, int $y, int $z, Random $random) {
+        $i = $random->nextBoundedInt(3) + $random->nextBoundedInt(2) + 6;
 
         if ($y >= 1 && $y + $i + 1 < 256) {
             $block = $level->getBlockIdAt($x, $y - 1, $z);
 
-            if ($block != Block::GRASS && $block != Block::DIRT) {
+            if ($block != BlockIds::GRASS && $block != BlockIds::DIRT) {
                 return;
             } else {
-                $level->setBlockIdAt($x, $y - 1, $z, Block::DIRT);
-                $level->setBlockIdAt($x + 1, $y - 1, $z, Block::DIRT);
-                $level->setBlockIdAt($x + 1, $y - 1, $z + 1, Block::DIRT);
-                $level->setBlockIdAt($x, $y - 1, $z + 1, Block::DIRT);
+                $level->setBlockIdAt($x, $y - 1, $z, BlockIds::DIRT);
+                $level->setBlockIdAt($x + 1, $y - 1, $z, BlockIds::DIRT);
+                $level->setBlockIdAt($x + 1, $y - 1, $z + 1, BlockIds::DIRT);
+                $level->setBlockIdAt($x, $y - 1, $z + 1, BlockIds::DIRT);
 
-                $i1 = $i - $rand->nextBoundedInt(4);
-                $j1 = 2 - $rand->nextBoundedInt(3); // x1 -> j1
+                $i1 = $i - $random->nextBoundedInt(4);
+                $j1 = 2 - $random->nextBoundedInt(3); // x1 -> j1
                 $x1 = $x; // k1 -> y1 -> x1
                 $z1 = $z;
                 $i2 = $y + $i - 1;
 
                 for ($x2 = 0; $x2 < $i; ++$x2) {
                     if ($x2 >= $i1 && $j1 > 0) {
-                        //$x1 += enumfacing->getXOffset();
-                        //$z1 += enumfacing->getZOffset();
                         --$j1;
                     }
 
@@ -103,7 +97,7 @@ class DarkOakTree extends Tree {
                     }
                 }
 
-                if ($rand->nextBoolean()) {
+                if ($random->nextBoolean()) {
                     $level->setBlockIdAt($x1, $i2 + 2, $z1, BlockIds::LEAVES2);
                     $level->setBlockDataAt($x1, $i2 + 2, $z1, 1);
 
@@ -128,8 +122,8 @@ class DarkOakTree extends Tree {
 
                 for ($k3 = -1; $k3 <= 2; ++$k3) {
                     for ($j4 = -1; $j4 <= 2; ++$j4) {
-                        if (($k3 < 0 || $k3 > 1 || $j4 < 0 || $j4 > 1) && $rand->nextBoundedInt(3) <= 0) {
-                            $l4 = $rand->nextBoundedInt(3) + 2;
+                        if (($k3 < 0 || $k3 > 1 || $j4 < 0 || $j4 > 1) && $random->nextBoundedInt(3) <= 0) {
+                            $l4 = $random->nextBoundedInt(3) + 2;
 
                             for ($i5 = 0; $i5 < $l4; ++$i5) {
                                 $level->setBlockIdAt($x + $k3, $i2 - $i5 - 1, $z + $j4, BlockIds::LEAVES2);
@@ -158,14 +152,6 @@ class DarkOakTree extends Tree {
         }
     }
 
-    /**
-     * @param ChunkManager $level
-     * @param int $x
-     * @param int $y
-     * @param int $z
-     * @param Random $random
-     * @return bool
-     */
     public function canPlaceObject(ChunkManager $level, int $x, int $y, int $z, Random $random): bool {
         return parent::canPlaceObject($level, $x, $y, $z, $random) &&
             parent::canPlaceObject($level, $x + 1, $y, $z, $random) &&

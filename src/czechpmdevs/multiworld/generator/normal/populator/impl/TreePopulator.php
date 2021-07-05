@@ -33,7 +33,7 @@ class TreePopulator extends AmountPopulator {
     /** @var int */
     private int $type;
     /** @var bool */
-    private bool $vines = false;
+    private bool $vines;
 
     public function __construct(int $baseAmount, int $randomAmount, int $spawnPercentage = 100, int $type = Tree::OAK, bool $vines = false) {
         $this->type = $type;

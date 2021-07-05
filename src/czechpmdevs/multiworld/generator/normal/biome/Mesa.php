@@ -59,13 +59,18 @@ class Mesa extends CoveredBiome {
         ]);
 
         $cactus = new CactusPopulator(3, 2);
+
         $deadBush = new PlantPopulator(3, 2);
         $deadBush->allowBlockToStayAt(BlockIds::SAND);
 
         $ore = new Ore();
         $ore->setOreTypes([new OreType(new GoldOre(), 20, 12, 0, 128)]);
 
-        $this->addPopulators([$cactus, $deadBush, $ore]);
+        $this->addPopulators([
+            $cactus,
+            $deadBush,
+            $ore
+        ]);
 
         $this->setElevation(63, 67);
     }

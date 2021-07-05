@@ -33,7 +33,7 @@ class GlowstoneSphere extends Populator {
     public const SPHERE_RADIUS = 3;
 
     public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random) {
-        $chunk = $level->getChunk($chunkX, $chunkZ);
+        $level->getChunk($chunkX, $chunkZ);
         if ($random->nextRange(0, 10) !== 0) return;
 
         $x = $random->nextRange($chunkX << 4, ($chunkX << 4) + 15);

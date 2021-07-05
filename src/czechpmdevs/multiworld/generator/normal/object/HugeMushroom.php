@@ -25,6 +25,7 @@ namespace czechpmdevs\multiworld\generator\normal\object;
 use pocketmine\block\BlockIds;
 use pocketmine\level\ChunkManager;
 use pocketmine\utils\Random;
+use function abs;
 
 class HugeMushroom extends Tree {
 

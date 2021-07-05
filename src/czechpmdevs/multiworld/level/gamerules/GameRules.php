@@ -34,6 +34,7 @@ use function array_map;
 use function count;
 use function is_bool;
 use function is_int;
+use function var_dump;
 
 final class GameRules {
 
@@ -102,16 +103,18 @@ final class GameRules {
     /**
      * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
      *
-     * @param mixed[] $gameRules
+     * @param mixed[] $gameRules If the array is empty, default GameRules will be used
      * @phpstan-param array<string, bool|int|float> $gameRules
      */
     public function __construct(array $gameRules = []) {
-        if(empty($gameRules)) {
+        // In case for default GameRules
+        if(!isset(GameRules::$defaultGameRules)) {
+            $this->gameRules = $gameRules;
             return;
         }
 
-        if(!isset(GameRules::$defaultGameRules)) {
-            $this->gameRules = $gameRules;
+        if(empty($gameRules)) {
+            $this->gameRules = GameRules::getDefaultGameRules()->getGameRules();
             return;
         }
 
@@ -145,7 +148,9 @@ final class GameRules {
     public function getBool(string $index): bool {
         $value = $this->gameRules[$index] ?? null;
         if(!is_bool($value)) {
-            throw new InvalidStateException("Received invalid type for Game Rule $index, expected bool.");
+            var_dump(self::$defaultGameRules);
+            var_dump($this->gameRules);
+            throw new InvalidStateException("Received invalid type for Game Rule $index, got '$value' expected bool.");
         }
 
         return $value;
@@ -162,7 +167,8 @@ final class GameRules {
     public function getInteger(string $index): int {
         $value = $this->gameRules[$index] ?? null;
         if(!is_int($value)) {
-            throw new InvalidStateException("Received invalid type for Game Rule $index, expected integer.");
+            var_dump($this->gameRules);
+            throw new InvalidStateException("Received invalid type for Game Rule $index, got '$value' expected integer.");
         }
 
         return $value;
@@ -267,6 +273,10 @@ final class GameRules {
 
         $nbt = $provider->getLevelData()->getCompoundTag("GameRules");
         if($nbt === null) {
+            return new GameRules();
+        }
+
+        if($nbt->count() == 0) { // PocketMine creates GameRules nbt, but without any rules
             return new GameRules();
         }
 

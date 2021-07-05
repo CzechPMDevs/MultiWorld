@@ -22,11 +22,18 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\object;
 
-use pocketmine\block\Block;
 use pocketmine\block\BlockIds;
 use pocketmine\level\ChunkManager;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
+use function abs;
+use function cos;
+use function floor;
+use function hypot;
+use function max;
+use function pow;
+use function sin;
+use function sqrt;
 
 class BigOakTree extends Tree {
 
@@ -35,11 +42,11 @@ class BigOakTree extends Tree {
     /** @var int  */
     private int $maxLeafDistance = 5;
     /** @var int */
-    private int $trunkHeight;
+    private int $trunkHeight = 0;
     /** @var int */
     private int $height;
 
-    public function __construct(Random $random, ChunkManager $level) {
+    public function __construct(Random $random) {
         $this->height = $random->nextBoundedInt(12) + 5;
     }
 
@@ -47,7 +54,7 @@ class BigOakTree extends Tree {
         $from = new Vector3($x, $y, $z);
 
         $to = new Vector3($x, $y + $this->height - 1, $z);
-        $blocks = $this->countAvailableBlocks($from, $to, $level);
+        $blocks = $this->countAvailableBlocks($from, $to);
 
         if ($blocks == -1) {
             return true;
@@ -59,7 +66,7 @@ class BigOakTree extends Tree {
         return false;
     }
 
-    private function countAvailableBlocks(Vector3 $from, Vector3 $to, ChunkManager $world): int {
+    private function countAvailableBlocks(Vector3 $from, Vector3 $to): int {
         $n = 0;
         $target = $to->subtract($from);
         $maxDistance = max(abs(floor($target->getY())), max(abs(floor($target->getX())), abs(floor($target->getZ()))));
@@ -84,7 +91,7 @@ class BigOakTree extends Tree {
             $trunkHeight = $this->height - 1;
         }
 
-        $leafNodes = $this->generateLeafNodes($x, $y, $z, $level, $random);
+        $leafNodes = $this->generateLeafNodes($x, $y, $z, $random);
 
         // generate the leaves
         /** @var Vector3 $node */
@@ -97,8 +104,10 @@ class BigOakTree extends Tree {
                         $sizeX = abs($xx) + 0.5;
                         $sizeZ = abs($zz) + 0.5;
                         if ($sizeX * $sizeX + $sizeZ * $sizeZ <= $size * $size && $node->getY() + $yy - 3 >= $y) {
-                            if ($level->getBlockIdAt($node->getX() + $xx, $node->getY() + $yy, $node->getZ() + $zz) == Block::AIR) {
-                                $level->setBlockIdAt($node->getX() + $xx, $node->getY() + $yy, $node->getZ() + $zz, Block::LEAVES);
+                            /** @phpstan-ignore-next-line */
+                            if ($level->getBlockIdAt($node->getX() + $xx, $node->getY() + $yy, $node->getZ() + $zz) == BlockIds::AIR) {
+                                /** @phpstan-ignore-next-line */
+                                $level->setBlockIdAt($node->getX() + $xx, $node->getY() + $yy, $node->getZ() + $zz, BlockIds::LEAVES);
                             }
                         }
                     }
@@ -108,7 +117,7 @@ class BigOakTree extends Tree {
 
         // generate the trunk
         for ($yy = 0; $yy < $trunkHeight; $yy++) {
-            $level->setBlockIdAt($x, $y + $yy, $z, Block::WOOD);
+            $level->setBlockIdAt($x, $y + $yy, $z, BlockIds::WOOD);
         }
 
         // generate the branches
@@ -142,9 +151,9 @@ class BigOakTree extends Tree {
     }
 
     /**
-     * @return mixed[][]
+     * @phpstan-return array<array{0: \pocketmine\math\Vector3, 1: int}>
      */
-    private function generateLeafNodes(int $blockX, int $blockY, int $blockZ, ChunkManager $world, Random $random): array {
+    private function generateLeafNodes(int $blockX, int $blockY, int $blockZ, Random $random): array {
         $leafNodes = [];
         $y = $blockY + $this->height - $this->maxLeafDistance;
         $trunkTopY = $blockY + $this->trunkHeight;
@@ -164,13 +173,13 @@ class BigOakTree extends Tree {
                     $d2 = $random->nextFloat() * M_PI * 2.0;
                     $x = (int)($d1 * sin($d2) + $blockX + 0.5);
                     $z = (int)($d1 * cos($d2) + $blockZ + 0.5);
-                    if ($this->countAvailableBlocks(new Vector3($x, $y, $z), new Vector3($x, $y + $this->maxLeafDistance, $z), $world) == -1) {
+                    if ($this->countAvailableBlocks(new Vector3($x, $y, $z), new Vector3($x, $y + $this->maxLeafDistance, $z)) == -1) {
                         $offX = $blockX - $x;
                         $offZ = $blockZ - $z;
                         $distance = 0.381 * hypot($offX, $offZ);
                         $branchBaseY = min($trunkTopY, (int)($y - $distance));
 
-                        if ($this->countAvailableBlocks(new Vector3($x, $branchBaseY, $z), new Vector3($x, $y, $z), $world) == -1) {
+                        if ($this->countAvailableBlocks(new Vector3($x, $branchBaseY, $z), new Vector3($x, $y, $z)) == -1) {
                             $leafNodes[] = [new Vector3($x, $y, $z), $branchBaseY];
                         }
                     }

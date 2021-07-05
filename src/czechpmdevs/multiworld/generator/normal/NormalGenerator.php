@@ -50,7 +50,7 @@ use function exp;
 class NormalGenerator extends Generator {
 
     /** @var float[][] */
-    private static ?array $GAUSSIAN_KERNEL = null;
+    private static array $GAUSSIAN_KERNEL;
     /** @var int */
     private static int $SMOOTH_SIZE = 5;
     
@@ -66,7 +66,7 @@ class NormalGenerator extends Generator {
 
     /** @phpstan-ignore-next-line */
     public function __construct(array $options = []) {
-        if (NormalGenerator::$GAUSSIAN_KERNEL === null) {
+        if (!isset(NormalGenerator::$GAUSSIAN_KERNEL)) {
             NormalGenerator::generateKernel();
         }
     }

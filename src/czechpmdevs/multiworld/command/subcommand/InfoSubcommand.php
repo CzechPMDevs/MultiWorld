@@ -49,7 +49,7 @@ class InfoSubcommand implements SubCommand {
             $sender->sendMessage($this->getInfoMessage($sender, WorldUtils::getLevelByNameNonNull($args[0])));
             return;
         }
-        $sender->sendMessage($this->getInfoMessage($sender, $sender->getLevel()));
+        $sender->sendMessage($this->getInfoMessage($sender, $sender->getLevelNonNull()));
     }
 
     private function getInfoMessage(CommandSender $sender, Level $level): string {
@@ -58,7 +58,7 @@ class InfoSubcommand implements SubCommand {
             LanguageManager::getMsg($sender, "info-folderName", [$level->getFolderName()]) . "\n" .
             LanguageManager::getMsg($sender, "info-players", [(string)count($level->getPlayers())]) . "\n" .
             LanguageManager::getMsg($sender, "info-generator", [$level->getProvider()->getGenerator()]) . "\n" .
-            LanguageManager::getMsg($sender, "info-seed", [$level->getSeed()]) . "\n" .
+            LanguageManager::getMsg($sender, "info-seed", [(string)$level->getSeed()]) . "\n" .
             LanguageManager::getMsg($sender, "info-time", [(string)$level->getTime()]);
     }
 }

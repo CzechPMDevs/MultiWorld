@@ -45,15 +45,6 @@ abstract class Tree extends TreeObject {
 
     public const MUSHROOM = 20;
 
-    /**
-     * @param ChunkManager $level
-     * @param int $x
-     * @param int $y
-     * @param int $z
-     * @param Random $random
-     * @param int $type
-     * @param bool $vines
-     */
     public static function growTree(ChunkManager $level, int $x, int $y, int $z, Random $random, int $type = 0, bool $vines = false) {
         switch ($type) {
             case self::SPRUCE:
@@ -84,18 +75,18 @@ abstract class Tree extends TreeObject {
             default:
                 if ($vines) {
                     $tree = new SwampTree();
-                    goto place;
+                    goto placeObject;
                 }
 
                 if ($type !== self::SMALL_OAK && $random->nextRange(0, 9) === 0) {
-                    $tree = new BigOakTree($random, $level);
+                    $tree = new BigOakTree($random);
                 } else {
                     $tree = new OakTree();
                 }
                 break;
         }
 
-        place:
+        placeObject:
         if ($tree->canPlaceObject($level, $x, $y, $z, $random)) {
             $tree->placeObject($level, $x, $y, $z, $random);
         }

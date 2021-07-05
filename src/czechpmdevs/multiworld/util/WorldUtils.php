@@ -139,7 +139,8 @@ class WorldUtils {
         }
 
         return array_values(array_filter($files, function (string $fileName): bool {
-            return Server::getInstance()->isLevelGenerated($fileName);
+            return Server::getInstance()->isLevelGenerated($fileName) &&
+                $fileName != "." && $fileName != ".."; // Server->isLevelGenerated detects '.' and '..' as world, TODO - make pull request
         }));
     }
 

@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\nether\populator;
 
+use czechpmdevs\multiworld\generator\normal\populator\Populator;
 use pocketmine\block\Block;
 use pocketmine\level\ChunkManager;
 use pocketmine\level\generator\object\OreType;
@@ -29,7 +30,7 @@ use pocketmine\math\VectorMath;
 use pocketmine\utils\Random;
 use function sin;
 
-class Ore extends \pocketmine\level\generator\populator\Ore {
+class Ore extends Populator {
 
     /** @var OreType[] */
     protected array $oreTypes = [];
@@ -102,7 +103,7 @@ class Ore extends \pocketmine\level\generator\populator\Ore {
     /**
      * @param OreType[] $types
      */
-    public function setOreTypes(array $types) {
+    public function setOreTypes(array $types): void {
         $this->oreTypes = $types;
     }
 }

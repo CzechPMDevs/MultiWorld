@@ -24,7 +24,7 @@ namespace czechpmdevs\multiworld\generator\normal\populator\impl;
 
 use czechpmdevs\multiworld\generator\normal\populator\AmountPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
-use pocketmine\block\Block;
+use pocketmine\block\BlockIds;
 use pocketmine\level\ChunkManager;
 use pocketmine\utils\Random;
 use function array_merge;
@@ -54,7 +54,7 @@ class PlantPopulator extends AmountPopulator {
         $this->getRandomSpawnPosition($level, $chunkX, $chunkZ, $random, $x, $y, $z);
 
         if ($y !== -1 and $this->canPlantStay($level, $x, $y, $z)) {
-            $plant = $random->nextRange(0, (int)(count($this->plants) - 1));
+            $plant = $random->nextRange(0, count($this->plants) - 1);
             $pY = $y;
             foreach ($this->plants[$plant]->blocks as $block) {
                 $level->setBlockIdAt($x, $pY, $z, $block->getId());
@@ -66,6 +66,6 @@ class PlantPopulator extends AmountPopulator {
 
     private function canPlantStay(ChunkManager $level, int $x, int $y, int $z): bool {
         $b = $level->getBlockIdAt($x, $y, $z);
-        return ($b === Block::AIR or $b === Block::SNOW_LAYER or $b === Block::WATER) and in_array($level->getBlockIdAt($x, $y - 1, $z), array_merge([Block::GRASS], $this->allowedBlocks));
+        return ($b === BlockIds::AIR or $b === BlockIds::SNOW_LAYER or $b === BlockIds::WATER) and in_array($level->getBlockIdAt($x, $y - 1, $z), array_merge([BlockIds::GRASS], $this->allowedBlocks));
     }
 }
