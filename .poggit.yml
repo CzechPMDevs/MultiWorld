@@ -7,5 +7,10 @@ branches:
 projects:
   MultiWorld:
     path: ""
-    icon: "icon.png"
+    icon: icon.png
+    libs:
+      libpmform:
+        src: CzechPMDevs/libpmform/libpmform
+        version: ^1.0.0
+
 ...
