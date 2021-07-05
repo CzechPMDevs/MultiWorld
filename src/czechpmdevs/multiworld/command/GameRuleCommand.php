@@ -74,7 +74,7 @@ class GameRuleCommand extends Command implements PluginIdentifiableCommand {
             array_keys($gameRules)
         );
 
-        if (!array_key_exists($gameRulesMap[strtolower($args[0])] ?? "unknownRule", $gameRules)) {
+        if (!array_key_exists($args[0] = $gameRulesMap[strtolower($args[0])] ?? "unknownRule", $gameRules)) {
             $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule-notexists", [$args[0]]));
             return;
         }

@@ -43,10 +43,15 @@ use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\player\PlayerRespawnEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\event\server\DataPacketSendEvent;
+use pocketmine\network\mcpe\protocol\GameRulesChangedPacket;
 use pocketmine\network\mcpe\protocol\LoginPacket;
+use pocketmine\network\mcpe\protocol\SettingsCommandPacket;
 use pocketmine\network\mcpe\protocol\StartGamePacket;
 use pocketmine\network\mcpe\protocol\types\SpawnSettings;
 use pocketmine\Player;
+use pocketmine\Server;
+use function substr;
+use function var_dump;
 
 class EventListener implements Listener {
 
@@ -169,8 +174,15 @@ class EventListener implements Listener {
     /** @noinspection PhpUnused */
     public function onDataPacketReceive(DataPacketReceiveEvent $event): void {
         $packet = $event->getPacket();
+
+        // Loading language
         if ($packet instanceof LoginPacket) {
             LanguageManager::$players[$packet->username] = $packet->locale;
+        }
+
+        // Changing game rules from the menu
+        if ($packet instanceof SettingsCommandPacket) {
+            Server::getInstance()->dispatchCommand($event->getPlayer(), substr($packet->getCommand(), 1));
         }
     }
 }

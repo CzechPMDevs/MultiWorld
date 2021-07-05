@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpRedundantCatchClauseInspection */
 
 /**
  * MultiWorld - PocketMine plugin that manages worlds.
@@ -23,6 +23,8 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\util;
 
 use pocketmine\network\mcpe\protocol\GameRulesChangedPacket;
+use pocketmine\network\mcpe\protocol\LoginPacket;
+use pocketmine\network\mcpe\protocol\SettingsCommandPacket;
 use pocketmine\network\mcpe\protocol\StartGamePacket;
 use ReflectionClass;
 use ReflectionException;
@@ -76,6 +78,40 @@ class Utils {
             if (strpos($doc, $requiredVarType) === false) {
                 return false;
             }
+        } catch (ReflectionException $e) {
+            return false;
+        }
+
+        // ... LoginPacket
+        try {
+            $ref = new ReflectionClass(LoginPacket::class);
+            $prop = $ref->getProperty("locale");
+
+            if(!($doc = $prop->getDocComment())) {
+                return false;
+            }
+
+            if(strpos($doc, "@var string") === false) {
+                return false;
+            }
+        } catch (ReflectionException $e) {
+            return false;
+        }
+
+        // ... SettingsCommandPacket
+        try {
+            $ref = new ReflectionClass(SettingsCommandPacket::class);
+            $prop = $ref->getProperty("command");
+
+            if(!($doc = $prop->getDocComment())) {
+                return false;
+            }
+
+            if(strpos($doc, "@var string") === false) {
+                return false;
+            }
+
+            $_ = $ref->getMethod("getCommand"); // Throws exception if the method does not exists.
         } catch (ReflectionException $e) {
             return false;
         }
