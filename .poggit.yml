@@ -11,6 +11,6 @@ projects:
     libs:
       libpmform:
         src: CzechPMDevs/libpmform/libpmform
-        version: ^1.0.0
+        version: ^1.0.1
 
 ...

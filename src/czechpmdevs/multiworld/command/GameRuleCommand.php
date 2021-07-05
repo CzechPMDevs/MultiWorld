@@ -31,8 +31,10 @@ use pocketmine\command\CommandSender;
 use pocketmine\command\PluginIdentifiableCommand;
 use pocketmine\Player;
 use pocketmine\plugin\Plugin;
+use function array_combine;
 use function array_key_exists;
 use function array_keys;
+use function array_map;
 use function implode;
 use function is_bool;
 use function is_numeric;
@@ -66,17 +68,22 @@ class GameRuleCommand extends Command implements PluginIdentifiableCommand {
             return;
         }
 
-        $args[0] = strtolower($args[0]);
-        if (!array_key_exists($args[0], $gameRules)) {
+        /** @var string[] $gameRulesMap */
+        $gameRulesMap = array_combine(
+            array_map(fn(string $rule) => strtolower($rule), array_keys($gameRules)),
+            array_keys($gameRules)
+        );
+
+        if (!array_key_exists($gameRulesMap[strtolower($args[0])] ?? "unknownRule", $gameRules)) {
             $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule-notexists", [$args[0]]));
             return;
         }
 
         /** @var bool|int|null $value */
         $value = $args[1] == "true" ? true : (
-        $args[1] == "false" ? false : (
-        is_numeric($args[1]) ? (int)$args[1] : null
-        )
+            $args[1] == "false" ? false : (
+                is_numeric($args[1]) ? (int)$args[1] : null
+            )
         );
 
         if ($value === null || GameRules::getPropertyType($value) != GameRules::getPropertyType($gameRules[$args[0]])) {

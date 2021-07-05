@@ -35,6 +35,7 @@ use function array_filter;
 use function array_key_exists;
 use function array_keys;
 use function array_map;
+use function array_shift;
 use function array_values;
 use function is_array;
 use function is_bool;
@@ -106,7 +107,7 @@ class ManageSubcommand implements SubCommand {
                         if (is_bool($value)) {
                             $customForm->addToggle($rule, $value);
                         } else {
-                            $customForm->addInput($rule);
+                            $customForm->addInput($rule, (string)$value);
                         }
                     }
 
@@ -117,9 +118,16 @@ class ManageSubcommand implements SubCommand {
                             return;
                         }
 
+                        array_shift($data); // There's only label at index 0, we need to have first rule here.
+
                         $gameRules = array_keys($rules);
                         foreach ($data as $index => $value) {
                             if (!array_key_exists($index, $gameRules)) {
+                                continue;
+                            }
+
+                            $newValue = is_bool($value) ? $value : (int)$value;
+                            if($rules[$gameRules[$index]] == $newValue) {
                                 continue;
                             }
 

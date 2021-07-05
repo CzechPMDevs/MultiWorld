@@ -67,12 +67,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CzechPMDevs/libpmform.git",
-                "reference": "1d16ed99c2cd5e0069bcc78042e8f0805fbf4483"
+                "reference": "ee672e89ba01729cb5ac9e862a487bd83e3bd26e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CzechPMDevs/libpmform/zipball/1d16ed99c2cd5e0069bcc78042e8f0805fbf4483",
-                "reference": "1d16ed99c2cd5e0069bcc78042e8f0805fbf4483",
+                "url": "https://api.github.com/repos/CzechPMDevs/libpmform/zipball/ee672e89ba01729cb5ac9e862a487bd83e3bd26e",
+                "reference": "ee672e89ba01729cb5ac9e862a487bd83e3bd26e",
                 "shasum": ""
             },
             "require": {
@@ -86,7 +86,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "czechpmdevs\\libpmform\\": [
+                    "": [
                         "src"
                     ]
                 }
@@ -104,7 +104,7 @@
                 "source": "https://github.com/CzechPMDevs/libpmform/tree/main",
                 "issues": "https://github.com/CzechPMDevs/libpmform/issues"
             },
-            "time": "2021-06-12T08:15:04+00:00"
+            "time": "2021-07-05T19:32:46+00:00"
         },
         {
             "name": "phpstan/phpstan",
