@@ -37,7 +37,8 @@ class VoidGenerator extends Generator {
     protected $random;
 
     /** @phpstan-ignore-next-line */
-    public function __construct(array $settings = []) {}
+    public function __construct(array $settings = []) {
+    }
 
     /**
      * @return string
@@ -64,7 +65,8 @@ class VoidGenerator extends Generator {
         return new Vector3(256, 65, 256);
     }
 
-    public function populateChunk(int $chunkX, int $chunkZ): void {}
+    public function populateChunk(int $chunkX, int $chunkZ): void {
+    }
 
     public function getSettings(): array {
         return [];

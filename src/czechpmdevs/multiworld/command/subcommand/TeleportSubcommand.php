@@ -31,7 +31,7 @@ use pocketmine\Player;
 use pocketmine\Server;
 
 class TeleportSubcommand implements SubCommand {
-    
+
     public function executeSub(CommandSender $sender, array $args, string $name): void {
         try {
             if (!isset($args[0])) {
@@ -40,7 +40,7 @@ class TeleportSubcommand implements SubCommand {
             }
 
             $level = WorldUtils::getLoadedLevelByName($args[0]);
-            if($level === null) {
+            if ($level === null) {
                 $sender->sendMessage(LanguageManager::getMsg($sender, "teleport-levelnotexists", [$args[0]]));
                 return;
             }

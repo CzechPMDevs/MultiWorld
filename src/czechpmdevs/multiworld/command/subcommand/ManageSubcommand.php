@@ -71,7 +71,7 @@ class ManageSubcommand implements SubCommand {
 
                     $customForm->setCallback(static function (Player $player, FormResponse $response) use ($generators): void {
                         $data = $response->getData();
-                        if(!is_array($data) || $data[1] === "" || (strlen($data[2]) > 2 && !is_numeric($data[2])) || !isset($generators[$data[3]])) {
+                        if (!is_array($data) || $data[1] === "" || (strlen($data[2]) > 2 && !is_numeric($data[2])) || !isset($generators[$data[3]])) {
                             $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
                             return;
                         }
@@ -88,7 +88,7 @@ class ManageSubcommand implements SubCommand {
 
                     $customForm->setCallback(static function (Player $player, FormResponse $response) use ($worlds): void {
                         $data = $response->getData();
-                        if(!is_array($data) || $data[1] === "") {
+                        if (!is_array($data) || $data[1] === "") {
                             $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
                             return;
                         }
@@ -103,7 +103,7 @@ class ManageSubcommand implements SubCommand {
                     $customForm->addLabel("Update level GameRules");
                     $rules = MultiWorld::getGameRules($player->getLevelNonNull())->getGameRules();
                     foreach ($rules as $rule => $value) {
-                        if(is_bool($value)) {
+                        if (is_bool($value)) {
                             $customForm->addToggle($rule, $value);
                         } else {
                             $customForm->addInput($rule);
@@ -112,18 +112,18 @@ class ManageSubcommand implements SubCommand {
 
                     $customForm->setCallback(static function (Player $player, FormResponse $response) use ($rules): void {
                         $data = $response->getData();
-                        if(!is_array($data)) {
+                        if (!is_array($data)) {
                             $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
                             return;
                         }
 
                         $gameRules = array_keys($rules);
                         foreach ($data as $index => $value) {
-                            if(!array_key_exists($index, $gameRules)) {
+                            if (!array_key_exists($index, $gameRules)) {
                                 continue;
                             }
 
-                            $value = is_bool($value) ? ($value ? "true": "false") : $value;
+                            $value = is_bool($value) ? ($value ? "true" : "false") : $value;
                             Server::getInstance()->dispatchCommand($player, "gamerule $gameRules[$index] $value");
                         }
                     });
@@ -137,7 +137,7 @@ class ManageSubcommand implements SubCommand {
 
                     $customForm->setCallback(static function (Player $player, FormResponse $response) use ($worlds): void {
                         $data = $response->getData();
-                        if(!is_array($data) || !isset($data[1])) {
+                        if (!is_array($data) || !isset($data[1])) {
                             $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
                             return;
                         }
@@ -154,12 +154,12 @@ class ManageSubcommand implements SubCommand {
 
                     $customForm->setCallback(static function (Player $player, FormResponse $response) use ($worlds): void {
                         $data = $response->getData();
-                        if(!is_array($data)) {
+                        if (!is_array($data)) {
                             $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
                             return;
                         }
 
-                        if(!isset($worlds[$data[1]])) {
+                        if (!isset($worlds[$data[1]])) {
                             $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
                             return;
                         }
@@ -176,12 +176,12 @@ class ManageSubcommand implements SubCommand {
 
                     $customForm->setCallback(static function (Player $player, FormResponse $response) use ($worlds): void {
                         $data = $response->getData();
-                        if(!is_array($data)) {
+                        if (!is_array($data)) {
                             $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
                             return;
                         }
 
-                        if(!isset($worlds[$data[1]])) {
+                        if (!isset($worlds[$data[1]])) {
                             $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
                             return;
                         }
@@ -198,12 +198,12 @@ class ManageSubcommand implements SubCommand {
 
                     $customForm->setCallback(static function (Player $player, FormResponse $response) use ($worlds): void {
                         $data = $response->getData();
-                        if(!is_array($data)) {
+                        if (!is_array($data)) {
                             $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
                             return;
                         }
 
-                        if(!isset($worlds[$data[1]])) {
+                        if (!isset($worlds[$data[1]])) {
                             $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
                             return;
                         }
@@ -221,12 +221,12 @@ class ManageSubcommand implements SubCommand {
 
                     $customForm->setCallback(static function (Player $player, FormResponse $response) use ($players, $worlds) {
                         $data = $response->getData();
-                        if(!is_array($data)) {
+                        if (!is_array($data)) {
                             $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
                             return;
                         }
 
-                        if(!isset($players[$data[1]]) || !isset($worlds[$data[2]])) {
+                        if (!isset($players[$data[1]]) || !isset($worlds[$data[2]])) {
                             $player->sendMessage(LanguageManager::getMsg($player, "forms-invalid"));
                             return;
                         }

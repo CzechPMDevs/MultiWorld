@@ -22,4 +22,5 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome\types;
 
-interface SnowyBiome {}
+interface SnowyBiome {
+}

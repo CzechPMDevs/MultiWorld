@@ -93,6 +93,75 @@ final class GameRules {
     /**
      * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
      *
+     * @param mixed[] $gameRules If the array is empty, default GameRules will be used
+     * @phpstan-param array<string, bool|int|float> $gameRules
+     */
+    public function __construct(array $gameRules = []) {
+        // In case for default GameRules
+        if (!isset(GameRules::$defaultGameRules)) {
+            $this->gameRules = $gameRules;
+            return;
+        }
+
+        if (empty($gameRules)) {
+            $this->gameRules = GameRules::getDefaultGameRules()->getGameRules();
+            return;
+        }
+
+        // Removing invalid GameRules
+        foreach ($gameRules as $key => $value) {
+            if (!GameRules::$defaultGameRules->keyExists($key)) {
+                unset($gameRules[$key]); // GameRule does not exist at all
+            } elseif (GameRules::getPropertyType($value) != GameRules::getPropertyType(GameRules::$defaultGameRules->getGameRules()[$key])) {
+                unset($gameRules[$key]); // GameRule has invalid type
+            }
+        }
+
+        // Adding new GameRules
+        foreach (GameRules::$defaultGameRules->gameRules as $key => $gameRule) {
+            if (!array_key_exists($key, $gameRules)) {
+                $gameRules[$key] = $gameRule;
+            }
+        }
+
+        $this->gameRules = $gameRules;
+    }
+
+    /**
+     * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
+     *
+     * @return mixed[]
+     * @phpstan-return array<string, int|float|bool>
+     */
+    public function getGameRules(): array {
+        return $this->gameRules;
+    }
+
+    public static function getDefaultGameRules(): GameRules {
+        return clone GameRules::$defaultGameRules;
+    }
+
+    public function keyExists(string $index): bool {
+        return array_key_exists($index, $this->gameRules);
+    }
+
+    /**
+     * @param mixed $value
+     */
+    public static function getPropertyType($value): int {
+        if (is_bool($value)) {
+            return GameRules::TYPE_BOOL;
+        }
+        if (is_int($value)) {
+            return GameRules::TYPE_INTEGER;
+        }
+
+        return GameRules::TYPE_INVALID;
+    }
+
+    /**
+     * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
+     *
      * @param mixed[] $defaultGameRules
      * @phpstan-var array<string, bool|int|float>
      */
@@ -100,41 +169,65 @@ final class GameRules {
         GameRules::$defaultGameRules = new GameRules($defaultGameRules);
     }
 
+    public static function loadFromLevel(Level $level): GameRules {
+        $provider = $level->getProvider();
+        if (!$provider instanceof BaseLevelProvider) {
+            return new GameRules();
+        }
+
+        $nbt = $provider->getLevelData()->getCompoundTag("GameRules");
+        if ($nbt === null) {
+            return new GameRules();
+        }
+
+        if ($nbt->count() == 0) { // PocketMine creates GameRules nbt, but without any rules
+            return new GameRules();
+        }
+
+        return GameRules::unserializeGameRules($nbt);
+    }
+
     /**
-     * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
-     *
-     * @param mixed[] $gameRules If the array is empty, default GameRules will be used
-     * @phpstan-param array<string, bool|int|float> $gameRules
+     * Unserializes GameRules from World Provider
      */
-    public function __construct(array $gameRules = []) {
-        // In case for default GameRules
-        if(!isset(GameRules::$defaultGameRules)) {
-            $this->gameRules = $gameRules;
-            return;
+    public static function unserializeGameRules(CompoundTag $nbt): GameRules {
+        return new GameRules(array_map(function (StringTag $stringTag) {
+            if ($stringTag->getValue() == "true") {
+                return true;
+            }
+            if ($stringTag->getValue() == "false") {
+                return false;
+            }
+
+            return (int)$stringTag->getValue();
+        }, $nbt->getValue()));
+    }
+
+    public static function saveForLevel(Level $level, GameRules $gameRules): bool {
+        $provider = $level->getProvider();
+        if (!$provider instanceof BaseLevelProvider) {
+            return false;
         }
 
-        if(empty($gameRules)) {
-            $this->gameRules = GameRules::getDefaultGameRules()->getGameRules();
-            return;
-        }
+        $provider->getLevelData()->setTag(GameRules::serializeGameRules($gameRules));
+        return true;
+    }
 
-        // Removing invalid GameRules
-        foreach ($gameRules as $key => $value) {
-            if(!GameRules::$defaultGameRules->keyExists($key)) {
-                unset($gameRules[$key]); // GameRule does not exist at all
-            } elseif(GameRules::getPropertyType($value) != GameRules::getPropertyType(GameRules::$defaultGameRules->getGameRules()[$key])) {
-                unset($gameRules[$key]); // GameRule has invalid type
+    /**
+     * Serializes GameRules for World Provider
+     */
+    public static function serializeGameRules(GameRules $gameRules): CompoundTag {
+        /** @var StringTag[] $stringTagArray */
+        $stringTagArray = [];
+        foreach ($gameRules->getGameRules() as $name => [$type, $value]) {
+            if ($type == GameRules::TYPE_BOOL) {
+                $stringTagArray[$name] = new StringTag($name, $value ? "true" : "false");
+            } elseif ($type == GameRules::TYPE_INTEGER) {
+                $stringTagArray[$name] = new StringTag($name, (string)$value);
             }
         }
 
-        // Adding new GameRules
-        foreach (GameRules::$defaultGameRules->gameRules as $key => $gameRule) {
-            if(!array_key_exists($key, $gameRules)) {
-                $gameRules[$key] = $gameRule;
-            }
-        }
-
-        $this->gameRules = $gameRules;
+        return new CompoundTag("GameRules", $stringTagArray);
     }
 
     /**
@@ -147,7 +240,7 @@ final class GameRules {
 
     public function getBool(string $index): bool {
         $value = $this->gameRules[$index] ?? null;
-        if(!is_bool($value)) {
+        if (!is_bool($value)) {
             var_dump(self::$defaultGameRules);
             var_dump($this->gameRules);
             throw new InvalidStateException("Received invalid type for Game Rule $index, got '$value' expected bool.");
@@ -166,7 +259,7 @@ final class GameRules {
 
     public function getInteger(string $index): int {
         $value = $this->gameRules[$index] ?? null;
-        if(!is_int($value)) {
+        if (!is_int($value)) {
             var_dump($this->gameRules);
             throw new InvalidStateException("Received invalid type for Game Rule $index, got '$value' expected integer.");
         }
@@ -174,45 +267,13 @@ final class GameRules {
         return $value;
     }
 
-    public function keyExists(string $index): bool {
-        return array_key_exists($index, $this->gameRules);
-    }
-
-    /**
-     * @param mixed $value
-     */
-    public static function getPropertyType($value): int {
-        if(is_bool($value)) {
-            return GameRules::TYPE_BOOL;
-        }
-        if(is_int($value)) {
-            return GameRules::TYPE_INTEGER;
-        }
-
-        return GameRules::TYPE_INVALID;
-    }
-
     public function rulesCount(): int {
         return count($this->gameRules);
     }
 
-    /**
-     * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
-     *
-     * @return mixed[]
-     * @phpstan-return array<string, int|float|bool>
-     */
-    public function getGameRules(): array {
-        return $this->gameRules;
-    }
-
-    public static function getDefaultGameRules(): GameRules {
-        return clone GameRules::$defaultGameRules;
-    }
-
     public function applyToPlayer(Player $player): void {
         $pk = new GameRulesChangedPacket();
-        $pk->gameRules = array_map(fn ($gameRule) => [
+        $pk->gameRules = array_map(fn($gameRule) => [
             GameRules::getPropertyType($gameRule),
             $gameRule,
             GameRules::$allowPlayersEditGameRulesFromGame
@@ -223,73 +284,12 @@ final class GameRules {
 
     public function applyToLevel(Level $level): void {
         $pk = new GameRulesChangedPacket();
-        $pk->gameRules = array_map(fn ($gameRule) => [
+        $pk->gameRules = array_map(fn($gameRule) => [
             GameRules::getPropertyType($gameRule),
             $gameRule,
             GameRules::$allowPlayersEditGameRulesFromGame
         ], $this->gameRules);
 
         $level->broadcastGlobalPacket($pk);
-    }
-
-    /**
-     * Serializes GameRules for World Provider
-     */
-    public static function serializeGameRules(GameRules $gameRules): CompoundTag {
-        /** @var StringTag[] $stringTagArray */
-        $stringTagArray = [];
-        foreach ($gameRules->getGameRules() as $name => [$type, $value]) {
-            if($type == GameRules::TYPE_BOOL) {
-                $stringTagArray[$name] = new StringTag($name, $value ? "true" : "false");
-            } elseif($type == GameRules::TYPE_INTEGER) {
-                $stringTagArray[$name] = new StringTag($name, (string)$value);
-            }
-        }
-
-        return new CompoundTag("GameRules", $stringTagArray);
-    }
-
-    /**
-     * Unserializes GameRules from World Provider
-     */
-    public static function unserializeGameRules(CompoundTag $nbt): GameRules {
-        return new GameRules(array_map(function (StringTag $stringTag) {
-            if($stringTag->getValue() == "true") {
-                return true;
-            }
-            if($stringTag->getValue() == "false") {
-                return false;
-            }
-
-            return (int)$stringTag->getValue();
-        }, $nbt->getValue()));
-    }
-
-    public static function loadFromLevel(Level $level): GameRules {
-        $provider = $level->getProvider();
-        if(!$provider instanceof BaseLevelProvider) {
-            return new GameRules();
-        }
-
-        $nbt = $provider->getLevelData()->getCompoundTag("GameRules");
-        if($nbt === null) {
-            return new GameRules();
-        }
-
-        if($nbt->count() == 0) { // PocketMine creates GameRules nbt, but without any rules
-            return new GameRules();
-        }
-
-        return GameRules::unserializeGameRules($nbt);
-    }
-
-    public static function saveForLevel(Level $level, GameRules $gameRules): bool {
-        $provider = $level->getProvider();
-        if(!$provider instanceof BaseLevelProvider) {
-            return false;
-        }
-
-        $provider->getLevelData()->setTag(GameRules::serializeGameRules($gameRules));
-        return true;
     }
 }

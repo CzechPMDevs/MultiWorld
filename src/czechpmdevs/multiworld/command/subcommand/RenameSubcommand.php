@@ -29,7 +29,7 @@ use pocketmine\command\CommandSender;
 use pocketmine\Server;
 
 class RenameSubcommand implements SubCommand {
-    
+
     public function executeSub(CommandSender $sender, array $args, string $name): void {
         if (!isset($args[0]) || !isset($args[1])) {
             $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "rename-usage"));

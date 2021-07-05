@@ -66,13 +66,13 @@ class SoulSand extends Populator {
                 for ($z = $position->getZ() - $radiusZ; $z < $position->getZ() + $radiusZ; $z++) {
                     $zsqr = ($position->getZ() - $z) * ($position->getZ() - $z);
                     if (($xsqr + $ysqr + $zsqr) < (pow(2, $random->nextRange(3, 6)))) {
-                        /** @phpstan-ignore-next-line  */
+                        /** @phpstan-ignore-next-line */
                         if ($level->getBlockIdAt($x, $y, $z) == Block::NETHERRACK) {
-                            /** @phpstan-ignore-next-line  */
+                            /** @phpstan-ignore-next-line */
                             $level->setBlockIdAt($x, $y, $z, Block::SOUL_SAND);
-                            /** @phpstan-ignore-next-line  */
+                            /** @phpstan-ignore-next-line */
                             if ($random->nextRange(0, 3) == 3 && $level->getBlockIdAt($x, $y + 1, $z) == Block::AIR) {
-                                /** @phpstan-ignore-next-line  */
+                                /** @phpstan-ignore-next-line */
                                 $level->setBlockIdAt($x, $y + 1, $z, Block::NETHER_WART_PLANT);
                             }
                         }

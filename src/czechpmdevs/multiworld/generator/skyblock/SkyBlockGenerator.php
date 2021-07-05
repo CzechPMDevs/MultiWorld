@@ -37,7 +37,8 @@ class SkyBlockGenerator extends Generator {
     protected $random;
 
     /** @phpstan-ignore-next-line */
-    public function __construct(array $settings = []) {}
+    public function __construct(array $settings = []) {
+    }
 
     public function init(ChunkManager $level, Random $random): void {
         $this->level = $level;
@@ -74,5 +75,4 @@ class SkyBlockGenerator extends Generator {
     public function getSettings(): array {
         return [];
     }
-
 }

@@ -92,7 +92,7 @@ class EventListener implements Listener {
 
         MultiWorld::getGameRules($event->getTarget())->applyToPlayer($player);
 
-        if(Dimension::getDimensionByLevel($event->getOrigin()) != ($targetDimension = Dimension::getDimensionByLevel($event->getTarget())) && $this->plugin->getConfig()->get("handle-dimensions")) {
+        if (Dimension::getDimensionByLevel($event->getOrigin()) != ($targetDimension = Dimension::getDimensionByLevel($event->getTarget())) && $this->plugin->getConfig()->get("handle-dimensions")) {
             Dimension::sendDimensionToPlayer($player, $targetDimension);
         }
     }
@@ -113,12 +113,12 @@ class EventListener implements Listener {
     public function onPlayerRespawn(PlayerRespawnEvent $event): void {
         $player = $event->getPlayer();
 
-        if($this->dimensionData[$player->getId()] != ($currentDimension = Dimension::getDimensionByLevel($player->getLevelNonNull()))) {
+        if ($this->dimensionData[$player->getId()] != ($currentDimension = Dimension::getDimensionByLevel($player->getLevelNonNull()))) {
             Dimension::sendDimensionToPlayer($player, $currentDimension, true);
         }
         unset($this->dimensionData[$player->getId()]);
 
-        if(isset($this->deathSessions[$player->getId()])) {
+        if (isset($this->deathSessions[$player->getId()])) {
             $this->deathSessions[$player->getId()]->close();
             unset($this->deathSessions[$player->getId()]);
         }
@@ -146,14 +146,14 @@ class EventListener implements Listener {
     public function onDamage(EntityDamageEvent $event): void {
         $entity = $event->getEntity();
 
-        if($entity instanceof Player && $event instanceof EntityDamageByEntityEvent && $event->getDamager() instanceof Player && !MultiWorld::getGameRules($event->getEntity()->getLevelNonNull())->getBool(GameRules::GAMERULE_PVP)) {
+        if ($entity instanceof Player && $event instanceof EntityDamageByEntityEvent && $event->getDamager() instanceof Player && !MultiWorld::getGameRules($event->getEntity()->getLevelNonNull())->getBool(GameRules::GAMERULE_PVP)) {
             $event->setCancelled();
         }
     }
 
     /** @noinspection PhpUnused */
     public function onExplode(EntityExplodeEvent $event): void {
-        if(!MultiWorld::getGameRules($event->getEntity()->getLevelNonNull())->getBool(GameRules::GAMERULE_TNT_EXPLODES)) {
+        if (!MultiWorld::getGameRules($event->getEntity()->getLevelNonNull())->getBool(GameRules::GAMERULE_TNT_EXPLODES)) {
             $event->setCancelled();
         }
     }

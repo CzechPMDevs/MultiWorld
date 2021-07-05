@@ -39,7 +39,7 @@ class BigOakTree extends Tree {
 
     const LEAF_DENSITY = 1.0;
 
-    /** @var int  */
+    /** @var int */
     private int $maxLeafDistance = 5;
     /** @var int */
     private int $trunkHeight = 0;

@@ -22,4 +22,5 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome\types;
 
-abstract class CoveredBiome extends Biome {}
+abstract class CoveredBiome extends Biome {
+}

@@ -41,12 +41,10 @@ use pocketmine\plugin\PluginBase;
 
 class MultiWorld extends PluginBase {
 
-    /** @var MultiWorld */
-    private static MultiWorld $instance;
-
     /** @var GameRules[] */
     public static array $gameRules = [];
-
+    /** @var MultiWorld */
+    private static MultiWorld $instance;
     /** @var LanguageManager */
     public LanguageManager $languageManager;
     /** @var ConfigManager */
@@ -55,8 +53,24 @@ class MultiWorld extends PluginBase {
     /** @var Command[] */
     public array $commands = [];
 
+    public function onEnable() {
+        $this->configManager = new ConfigManager($this);
+        $this->languageManager = new LanguageManager($this);
+
+        $this->commands = [
+            "multiworld" => new MultiWorldCommand(),
+            "gamerule" => new GameRuleCommand()
+        ];
+
+        foreach ($this->commands as $command) {
+            $this->getServer()->getCommandMap()->register("MultiWorld", $command);
+        }
+
+        $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
+    }
+
     public function onLoad() {
-        if(!Utils::isProtocolCompatible()) {
+        if (!Utils::isProtocolCompatible()) {
             throw new InvalidStateException("MultiWorld is not compatible with current server version");
         }
 
@@ -78,22 +92,6 @@ class MultiWorld extends PluginBase {
         }
     }
 
-    public function onEnable() {
-        $this->configManager = new ConfigManager($this);
-        $this->languageManager = new LanguageManager($this);
-
-        $this->commands = [
-            "multiworld" => new MultiWorldCommand(),
-            "gamerule" => new GameRuleCommand()
-        ];
-
-        foreach ($this->commands as $command) {
-            $this->getServer()->getCommandMap()->register("MultiWorld", $command);
-        }
-
-        $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
-    }
-
     /**
      * @internal
      */
@@ -105,11 +103,11 @@ class MultiWorld extends PluginBase {
         return MultiWorld::$gameRules[$level->getId()] ?? MultiWorld::$gameRules[$level->getId()] = GameRules::loadFromLevel($level);
     }
 
-    public static function getInstance(): MultiWorld {
-        return MultiWorld::$instance;
-    }
-
     public static function getPrefix(): string {
         return ConfigManager::getPrefix();
+    }
+
+    public static function getInstance(): MultiWorld {
+        return MultiWorld::$instance;
     }
 }

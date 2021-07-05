@@ -53,12 +53,12 @@ class NormalGenerator extends Generator {
     private static array $GAUSSIAN_KERNEL;
     /** @var int */
     private static int $SMOOTH_SIZE = 5;
-    
+
     /** @var Populator[] */
     private array $populators = [];
     /** @var Populator[] */
     private array $generationPopulators = [];
-    
+
     /** @var Simplex */
     private Simplex $noiseBase;
     /** @var BiomeSelector */

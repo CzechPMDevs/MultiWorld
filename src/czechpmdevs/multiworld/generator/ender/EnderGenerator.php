@@ -56,8 +56,9 @@ class EnderGenerator extends Generator {
     /** @var float */
     private float $density = 0.6;
 
-    /** @phpstan-ignore-next-line  */
-    public function __construct(array $options = []) {}
+    /** @phpstan-ignore-next-line */
+    public function __construct(array $options = []) {
+    }
 
     public function init(ChunkManager $level, Random $random): void {
         $this->level = $level;

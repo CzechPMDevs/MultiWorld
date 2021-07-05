@@ -49,7 +49,7 @@ class CreateSubcommand implements SubCommand {
         }
 
         $generator = WorldUtils::getGeneratorByName($generatorName = $args[2] ?? "");
-        if($generator === null) {
+        if ($generator === null) {
             $sender->sendMessage(LanguageManager::getMsg($sender, "create-gennotexists", [$generatorName]));
             return;
         }

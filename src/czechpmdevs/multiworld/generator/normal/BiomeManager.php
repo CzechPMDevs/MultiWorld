@@ -102,7 +102,7 @@ class BiomeManager {
     public const EXTREME_HILLS_MUTATED = 131;
     public const TALL_BIRCH_FOREST = 155;
     public const ROOFED_FOREST_HILLS = 157;
-    
+
     /** @var Biome[][][] $map */
     protected static array $map = [];
 

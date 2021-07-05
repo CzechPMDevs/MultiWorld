@@ -46,7 +46,7 @@ class GameRuleCommand extends Command implements PluginIdentifiableCommand {
     }
 
     public function execute(CommandSender $sender, string $commandLabel, array $args) {
-        if(!$this->testPermission($sender)) {
+        if (!$this->testPermission($sender)) {
             return;
         }
 
@@ -56,12 +56,12 @@ class GameRuleCommand extends Command implements PluginIdentifiableCommand {
         }
 
         $gameRules = GameRules::getDefaultGameRules()->getGameRules();
-        if($args[0] == "list") {
+        if ($args[0] == "list") {
             $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule-list", [implode(", ", array_keys($gameRules))]));
             return;
         }
 
-        if((!isset($args[1])) || (!isset($args[2]) && (!$sender instanceof Player))) {
+        if ((!isset($args[1])) || (!isset($args[2]) && (!$sender instanceof Player))) {
             $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule-usage"));
             return;
         }
@@ -74,9 +74,9 @@ class GameRuleCommand extends Command implements PluginIdentifiableCommand {
 
         /** @var bool|int|null $value */
         $value = $args[1] == "true" ? true : (
-            $args[1] == "false" ? false : (
-                is_numeric($args[1]) ? (int)$args[1] : null
-            )
+        $args[1] == "false" ? false : (
+        is_numeric($args[1]) ? (int)$args[1] : null
+        )
         );
 
         if ($value === null || GameRules::getPropertyType($value) != GameRules::getPropertyType($gameRules[$args[0]])) {
@@ -84,14 +84,14 @@ class GameRuleCommand extends Command implements PluginIdentifiableCommand {
             return;
         }
 
-        if(isset($args[2])) {
+        if (isset($args[2])) {
             $level = WorldUtils::getLoadedLevelByName($args[2]);
-            if($level === null) {
+            if ($level === null) {
                 $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule-levelnotfound", [$args[2]]));
                 return;
             }
 
-            if(is_bool($value)) {
+            if (is_bool($value)) {
                 MultiWorld::getGameRules($level)->setBool($args[0], $value);
             } else {
                 MultiWorld::getGameRules($level)->setInteger($args[1], (int)$value);
@@ -103,7 +103,7 @@ class GameRuleCommand extends Command implements PluginIdentifiableCommand {
         }
 
         /** @var Player $sender */
-        if(is_bool($value)) {
+        if (is_bool($value)) {
             MultiWorld::getGameRules($sender->getLevelNonNull())->setBool($args[0], $value);
         } else {
             MultiWorld::getGameRules($sender->getLevelNonNull())->setInteger($args[0], (int)$value);

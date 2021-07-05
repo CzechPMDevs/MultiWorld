@@ -57,8 +57,9 @@ class NetherGenerator extends Generator {
     private Simplex $noiseBase;
 
     /** @phpstan-ignore-next-line */
-    public function __construct(array $options = []) {}
-   
+    public function __construct(array $options = []) {
+    }
+
     public function init(ChunkManager $level, Random $random): void {
         parent::init($level, $random);
         $this->random->setSeed($this->level->getSeed());
@@ -112,7 +113,7 @@ class NetherGenerator extends Generator {
             $populator->populate($this->level, $chunkX, $chunkZ, $this->random);
         }
     }
-    
+
     public function populateChunk(int $chunkX, int $chunkZ): void {
         $this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
         foreach ($this->populators as $populator) {
@@ -128,11 +129,11 @@ class NetherGenerator extends Generator {
     public function getName(): string {
         return "nether";
     }
-    
+
     public function getSpawn(): Vector3 {
         return new Vector3(127.5, 128, 127.5);
     }
-    
+
     public function getSettings(): array {
         return [];
     }

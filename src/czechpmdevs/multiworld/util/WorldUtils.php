@@ -68,8 +68,8 @@ class WorldUtils {
         $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($worldPath = Server::getInstance()->getDataPath() . "/worlds/$name", RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
         /** @var SplFileInfo $fileInfo */
         foreach ($files as $fileInfo) {
-            if($filePath = $fileInfo->getRealPath()) {
-                if($fileInfo->isFile()) {
+            if ($filePath = $fileInfo->getRealPath()) {
+                if ($fileInfo->isFile()) {
                     unlink($filePath);
                 } else {
                     rmdir($filePath);
@@ -83,6 +83,28 @@ class WorldUtils {
         return $removedFiles;
     }
 
+    /**
+     * WARNING: This method should be used only in the case, when we
+     * know, that the level is generated and loaded.
+     */
+    public static function getLevelByNameNonNull(string $name): Level {
+        $level = Server::getInstance()->getLevelByName($name);
+        if ($level === null) {
+            throw new AssumptionFailedError("Required level $name is null");
+        }
+
+        return $level;
+    }
+
+    public static function getDefaultLevelNonNull(): Level {
+        $level = Server::getInstance()->getDefaultLevel();
+        if ($level === null) {
+            throw new AssumptionFailedError("Default level is null");
+        }
+
+        return $level;
+    }
+
     public static function renameLevel(string $oldName, string $newName): void {
         WorldUtils::lazyUnloadLevel($oldName);
 
@@ -93,7 +115,7 @@ class WorldUtils {
 
         WorldUtils::lazyLoadLevel($newName);
         $newLevel = Server::getInstance()->getLevelByName($newName);
-        if(!$newLevel instanceof Level) {
+        if (!$newLevel instanceof Level) {
             return;
         }
 
@@ -110,6 +132,17 @@ class WorldUtils {
     }
 
     /**
+     * @return bool Returns if the level was unloaded with the function.
+     * If it has already been unloaded before calling this function, returns FALSE!
+     */
+    public static function lazyUnloadLevel(string $name, bool $force = false): bool {
+        if (($level = Server::getInstance()->getLevelByName($name)) !== null) {
+            return Server::getInstance()->unloadLevel($level, $force);
+        }
+        return false;
+    }
+
+    /**
      * @return bool Returns if the level was loaded with the function.
      * If it has already been loaded before calling this function, returns FALSE!
      */
@@ -118,23 +151,12 @@ class WorldUtils {
     }
 
     /**
-     * @return bool Returns if the level was unloaded with the function.
-     * If it has already been unloaded before calling this function, returns FALSE!
-     */
-    public static function lazyUnloadLevel(string $name, bool $force = false): bool {
-        if(($level = Server::getInstance()->getLevelByName($name)) !== null) {
-            return Server::getInstance()->unloadLevel($level, $force);
-        }
-        return false;
-    }
-
-    /**
      * @return string[] Returns all the levels on the server including
      * unloaded ones
      */
     public static function getAllLevels(): array {
         $files = scandir(Server::getInstance()->getDataPath() . "/worlds/");
-        if(!$files) {
+        if (!$files) {
             return [];
         }
 
@@ -151,28 +173,6 @@ class WorldUtils {
         WorldUtils::lazyLoadLevel($name);
 
         return Server::getInstance()->getLevelByName($name);
-    }
-
-    /**
-     * WARNING: This method should be used only in the case, when we
-     * know, that the level is generated and loaded.
-     */
-    public static function getLevelByNameNonNull(string $name): Level {
-        $level = Server::getInstance()->getLevelByName($name);
-        if($level === null) {
-            throw new AssumptionFailedError("Required level $name is null");
-        }
-
-        return $level;
-    }
-
-    public static function getDefaultLevelNonNull(): Level {
-        $level = Server::getInstance()->getDefaultLevel();
-        if($level === null) {
-            throw new AssumptionFailedError("Default level is null");
-        }
-
-        return $level;
     }
 
     /**
@@ -207,7 +207,8 @@ class WorldUtils {
 
         try {
             return GeneratorManager::getGenerator($name, true);
-        } catch (InvalidArgumentException $e) {}
+        } catch (InvalidArgumentException $e) {
+        }
 
         return null;
     }

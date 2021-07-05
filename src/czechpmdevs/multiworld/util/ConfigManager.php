@@ -37,7 +37,7 @@ class ConfigManager {
 
     /** @var string */
     public static string $prefix;
-    
+
     /** @var MultiWorld */
     public MultiWorld $plugin;
     /** @var mixed[] */
@@ -59,27 +59,6 @@ class ConfigManager {
         GameRules::init((array)yaml_parse_file(ConfigManager::getDataFolder() . "data/gamerules.yml"));
         // Loads prefix
         ConfigManager::$prefix = MultiWorld::getInstance()->getConfig()->get("prefix") . " §a";
-    }
-
-    public function checkConfigUpdates(): void {
-        $configuration = $this->plugin->getConfig()->getAll();
-        if(
-            !array_key_exists("config-version", $configuration) ||
-            version_compare((string)$configuration["config-version"], ConfigManager::CONFIG_VERSION) < 0
-        ) {
-            // Update is required
-            @unlink($this->getDataFolder() . "config.yml.old");
-            @rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config.yml.old");
-
-            $this->plugin->saveResource("config.yml", true);
-            $this->plugin->getConfig()->reload();
-
-            $this->plugin->getLogger()->notice("Config updated. Old config was renamed to 'config.yml.old'.");
-        }
-    }
-
-    public static function getDataFolder(): string {
-        return MultiWorld::getInstance()->getDataFolder();
     }
 
     public function initConfig(): void {
@@ -139,10 +118,31 @@ class ConfigManager {
         }
     }
 
+    public static function getDataFolder(): string {
+        return MultiWorld::getInstance()->getDataFolder();
+    }
+
+    public function checkConfigUpdates(): void {
+        $configuration = $this->plugin->getConfig()->getAll();
+        if (
+            !array_key_exists("config-version", $configuration) ||
+            version_compare((string)$configuration["config-version"], ConfigManager::CONFIG_VERSION) < 0
+        ) {
+            // Update is required
+            @unlink($this->getDataFolder() . "config.yml.old");
+            @rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config.yml.old");
+
+            $this->plugin->saveResource("config.yml", true);
+            $this->plugin->getConfig()->reload();
+
+            $this->plugin->getLogger()->notice("Config updated. Old config was renamed to 'config.yml.old'.");
+        }
+    }
+
     public static function getDataPath(): string {
         return MultiWorld::getInstance()->getServer()->getDataPath();
     }
-    
+
     public static function getPrefix(): string {
         return ConfigManager::$prefix ?? "[MultiWorld]";
     }

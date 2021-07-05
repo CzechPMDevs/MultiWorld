@@ -25,6 +25,7 @@ namespace czechpmdevs\multiworld\util;
 use pocketmine\network\mcpe\protocol\GameRulesChangedPacket;
 use pocketmine\network\mcpe\protocol\StartGamePacket;
 use ReflectionClass;
+use ReflectionException;
 use ReflectionProperty;
 use function array_filter;
 use function class_exists;
@@ -34,7 +35,7 @@ use function strpos;
 class Utils {
 
     public static function isProtocolCompatible(): bool {
-        if(!class_exists(GameRulesChangedPacket::class)) {
+        if (!class_exists(GameRulesChangedPacket::class)) {
             return false;
         }
 
@@ -45,21 +46,21 @@ class Utils {
             $ref = new ReflectionClass(GameRulesChangedPacket::class);
             $prop = $ref->getProperty("gameRules");
 
-            if(!($doc = $prop->getDocComment())) {
+            if (!($doc = $prop->getDocComment())) {
                 return false;
             }
 
-            if(strpos($doc, $requiredVarType) === false) {
+            if (strpos($doc, $requiredVarType) === false) {
                 return false;
             }
 
-            if(count(array_filter($ref->getProperties(), function (ReflectionProperty $property): bool {
-                return $property->getDeclaringClass()->getName() == GameRulesChangedPacket::class;
-            })) != 1) {
+            if (count(array_filter($ref->getProperties(), function (ReflectionProperty $property): bool {
+                    return $property->getDeclaringClass()->getName() == GameRulesChangedPacket::class;
+                })) != 1) {
                 return false;
             }
 
-        } catch (\ReflectionException $e) {
+        } catch (ReflectionException $e) {
             return false;
         }
 
@@ -68,14 +69,14 @@ class Utils {
             $ref = new ReflectionClass(StartGamePacket::class);
             $prop = $ref->getProperty("gameRules");
 
-            if(!($doc = $prop->getDocComment())) {
+            if (!($doc = $prop->getDocComment())) {
                 return false;
             }
 
-            if(strpos($doc, $requiredVarType) === false) {
+            if (strpos($doc, $requiredVarType) === false) {
                 return false;
             }
-        } catch (\ReflectionException $e) {
+        } catch (ReflectionException $e) {
             return false;
         }
 

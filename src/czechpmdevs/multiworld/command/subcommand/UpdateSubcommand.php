@@ -34,7 +34,7 @@ use function str_replace;
 use function strtolower;
 
 class UpdateSubcommand implements SubCommand {
-    
+
     public function executeSub(CommandSender $sender, array $args, string $name): void {
         if (!isset($args[0])) {
             $sender->sendMessage(LanguageManager::getMsg($sender, "update-usage"));
