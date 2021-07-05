@@ -60,7 +60,7 @@ class LanguageManager {
     public function loadLang(): void {
         $config = $this->plugin->getConfig()->getAll();
 
-        LanguageManager::$defaultLang = $config["lang"];
+        LanguageManager::$defaultLang = $config["language"];
         if($langResources = glob(ConfigManager::getDataFolder() . "/languages/*.yml")) {
             foreach ($langResources as $langResource) {
                 LanguageManager::$languages[basename($langResource, ".yml")] = yaml_parse_file($langResource);
@@ -72,8 +72,8 @@ class LanguageManager {
             LanguageManager::$languages[LanguageManager::$defaultLang] = json_decode(base64_decode(LanguageManager::DEFAULT_LANGUAGE), true); // it should fix bug
         }
 
-        if (isset($config["forceDefaultLang"])) {
-            LanguageManager::$forceDefaultLang = (bool)$config["forceDefaultLang"];
+        if (isset($config["force-default-language"])) {
+            LanguageManager::$forceDefaultLang = (bool)$config["force-default-language"];
         }
     }
 

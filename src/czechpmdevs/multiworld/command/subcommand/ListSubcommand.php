@@ -22,37 +22,26 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
-use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
+use function array_map;
 use function array_values;
 use function count;
 use function implode;
-use function scandir;
 
 class ListSubcommand implements SubCommand {
 
     public function executeSub(CommandSender $sender, array $args, string $name): void {
-        $levels = [];
-
-        if(!($files = scandir(Server::getInstance()->getDataPath() . "worlds"))) {
-            $sender->sendMessage(MultiWorld::getPrefix() . "§cUnable to access /worlds/ directory"); // TODO - translation
-            return;
-        }
-
-        foreach ($files as $file) {
-            if (Server::getInstance()->isLevelGenerated($file)) {
-                if(Server::getInstance()->isLevelLoaded($file)) {
-                    $levels[$file] = "§7$file > §aLoaded§7, " . count(WorldUtils::getLevelByNameNonNull($file)->getPlayers()) . " Players";
-                } else {
-                    $level[$file] = "§7$file > §cUnloaded";
-                }
+        $worlds = array_values(array_map(static function (string $file): string {
+            if (Server::getInstance()->isLevelLoaded($file)) {
+                return "§7$file > §aLoaded§7, " . count(WorldUtils::getLevelByNameNonNull($file)->getPlayers()) . " Players";
+            } else {
+                return "§7$file > §cUnloaded";
             }
-        }
+        }, WorldUtils::getAllLevels()));
 
-
-        $sender->sendMessage(LanguageManager::getMsg($sender, "list-done", [(string)count($levels)]) . "\n" . implode("\n", array_values($levels)));
+        $sender->sendMessage(LanguageManager::getMsg($sender, "list-done", [(string)count($worlds)]) . "\n" . implode("\n", $worlds));
     }
 }

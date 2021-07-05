@@ -31,7 +31,6 @@ use czechpmdevs\multiworld\generator\skyblock\SkyBlockGenerator;
 use czechpmdevs\multiworld\generator\void\VoidGenerator;
 use czechpmdevs\multiworld\level\gamerules\GameRules;
 use czechpmdevs\multiworld\util\ConfigManager;
-use czechpmdevs\multiworld\util\FormManager;
 use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\Utils;
 use InvalidStateException;
@@ -52,8 +51,6 @@ class MultiWorld extends PluginBase {
     public LanguageManager $languageManager;
     /** @var ConfigManager */
     public ConfigManager $configManager;
-    /** @var FormManager */
-    public FormManager $formManager;
 
     /** @var Command[] */
     public array $commands = [];
@@ -84,7 +81,6 @@ class MultiWorld extends PluginBase {
     public function onEnable() {
         $this->configManager = new ConfigManager($this);
         $this->languageManager = new LanguageManager($this);
-        $this->formManager = new FormManager($this);
 
         $this->commands = [
             "multiworld" => new MultiWorldCommand(),

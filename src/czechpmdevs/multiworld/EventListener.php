@@ -42,7 +42,10 @@ use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\player\PlayerRespawnEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
+use pocketmine\event\server\DataPacketSendEvent;
 use pocketmine\network\mcpe\protocol\LoginPacket;
+use pocketmine\network\mcpe\protocol\StartGamePacket;
+use pocketmine\network\mcpe\protocol\types\SpawnSettings;
 use pocketmine\Player;
 
 class EventListener implements Listener {
@@ -89,7 +92,7 @@ class EventListener implements Listener {
 
         MultiWorld::getGameRules($event->getTarget())->applyToPlayer($player);
 
-        if(Dimension::getDimensionByLevel($event->getOrigin()) != ($targetDimension = Dimension::getDimensionByLevel($event->getTarget()))) {
+        if(Dimension::getDimensionByLevel($event->getOrigin()) != ($targetDimension = Dimension::getDimensionByLevel($event->getTarget())) && $this->plugin->getConfig()->get("handle-dimensions")) {
             Dimension::sendDimensionToPlayer($player, $targetDimension);
         }
     }
@@ -152,6 +155,14 @@ class EventListener implements Listener {
     public function onExplode(EntityExplodeEvent $event): void {
         if(!MultiWorld::getGameRules($event->getEntity()->getLevelNonNull())->getBool(GameRules::GAMERULE_TNT_EXPLODES)) {
             $event->setCancelled();
+        }
+    }
+
+    /** @noinspection PhpUnused */
+    public function onDataPacketSend(DataPacketSendEvent $event): void {
+        $packet = $event->getPacket();
+        if ($packet instanceof StartGamePacket && $this->plugin->getConfig()->get("handle-dimensions")) {
+            $packet->spawnSettings = new SpawnSettings($packet->spawnSettings->getBiomeType(), $packet->spawnSettings->getBiomeName(), Dimension::getDimensionByLevel($event->getPlayer()->getLevelNonNull()));
         }
     }
 

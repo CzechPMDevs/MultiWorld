@@ -24,12 +24,16 @@ namespace czechpmdevs\multiworld\util;
 
 use czechpmdevs\multiworld\level\gamerules\GameRules;
 use czechpmdevs\multiworld\MultiWorld;
+use function array_key_exists;
 use function is_dir;
 use function is_file;
 use function mkdir;
+use function version_compare;
 use function yaml_parse_file;
 
 class ConfigManager {
+
+    public const CONFIG_VERSION = "1.6.0.0";
 
     /** @var string */
     public static string $prefix;
@@ -58,28 +62,19 @@ class ConfigManager {
     }
 
     public function checkConfigUpdates(): void {
-        if (file_exists(ConfigManager::getDataFolder() . "/config.yml")) {
-            $data = @yaml_parse_file(ConfigManager::getDataFolder() . "/config.yml");
+        $configuration = $this->plugin->getConfig()->getAll();
+        if(
+            !array_key_exists("config-version", $configuration) ||
+            version_compare((string)$configuration["config-version"], ConfigManager::CONFIG_VERSION) < 0
+        ) {
+            // Update is required
+            @unlink($this->getDataFolder() . "config.yml.old");
+            @rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config.yml.old");
 
-            $currentVersion = "1.5";
+            $this->plugin->saveResource("config.yml", true);
+            $this->plugin->getConfig()->reload();
 
-            if (isset($data["config-version"])) $configVersion = $data["config-version"];
-            else $configVersion = "1.4";
-
-            if ($data["config-version"] == "1.5.0") $data["config-version"] = "1.5";
-
-            if ($configVersion !== $currentVersion) {
-                $this->plugin->getLogger()->notice("Old config found, updating config...");
-                if (in_array($configVersion, ["1.4"])) {
-                    @rename(ConfigManager::getDataFolder() . "/config.yml", $old = ConfigManager::getDataFolder() . "/config.{$configVersion}.yml");
-                    $this->plugin->saveResource("/config.yml");
-                    $this->plugin->getLogger()->notice("Config updated! Old config can be found at $old.");
-                } else {
-                    @unlink(ConfigManager::getDataFolder() . "/config.yml");
-                    $this->plugin->saveResource("/config.yml");
-                    $this->plugin->getLogger()->notice("Config updated!");
-                }
-            }
+            $this->plugin->getLogger()->notice("Config updated. Old config was renamed to 'config.yml.old'.");
         }
     }
 
@@ -149,6 +144,6 @@ class ConfigManager {
     }
     
     public static function getPrefix(): string {
-        return isset(ConfigManager::$prefix) ? ConfigManager::$prefix : "[MultiWorld]";
+        return ConfigManager::$prefix ?? "[MultiWorld]";
     }
 }

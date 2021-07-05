@@ -2,16 +2,21 @@
 ## Main configuration file for MultiWorld
 
 # Do not change this!
-config-version: '1.5'
+config-version: '1.6.0.0'
 
-## Supported languages (English (en_US), Czech (cs_CZ), German (de_DE), Japanese (ja_JP), Russian (ru_RU), Chinese (zh_CN), Indonesian (ina_IND))
-# You can add your language by creating PullRequest at github (github.com/CzechPMDevs/MultiWorld/pulls)
-# Language is automatically chosen from minecraft. However 'lang' in config is default language e.g for players with Spanish lang.
-lang: 'en_US'
-
-# Set it to true, and MultiWorld won't automatically select player's language, instead of this will use lang placed in config
-forceDefaultLang: false
-
-## If you want to disable prefix, set prefix to ' '
+## Option for modifying MultiWorld prefix
 prefix: '§7[MultiWorld]'
+
+# You can add your language by creating PullRequest at github (github.com/CzechPMDevs/MultiWorld/pulls)
+# Language is automatically chosen from minecraft. However 'language'
+# in config is default language which will be chosen for unknown languages
+language: 'en_US'
+
+# Set it to true, and MultiWorld won't automatically select
+# player's language, instead of this will use lang placed in config
+force-default-language: false
+
+# After disabling this, dimension won't be changed when
+# teleporting player between worlds with different dimensions
+handle-dimensions: true
 ...
