@@ -28,21 +28,21 @@ use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
 
-class RenameSubcommand implements SubCommand {
+class RenameSubCommand implements SubCommand {
 
-    public function executeSub(CommandSender $sender, array $args, string $name): void {
+    public function execute(CommandSender $sender, array $args, string $name): void {
         if (!isset($args[0]) || !isset($args[1])) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "rename-usage"));
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "rename-usage"));
             return;
         }
 
         if (Server::getInstance()->isLevelGenerated($args[1])) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "rename-exists", [$args[1]]));
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "rename-exists", [$args[1]]));
             return;
         }
 
         if (!Server::getInstance()->isLevelGenerated($args[0])) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "rename-levelnotfound", [$args[0]]));
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "rename-levelnotfound", [$args[0]]));
             return;
         }
 
@@ -54,10 +54,6 @@ class RenameSubcommand implements SubCommand {
         WorldUtils::lazyUnloadLevel($args[0], true);
 
         WorldUtils::renameLevel($args[0], $args[1]);
-        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "rename-done", [$args[0], $args[1]]));
-    }
-
-    private function getServer(): Server {
-        return Server::getInstance();
+        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "rename-done", [$args[0], $args[1]]));
     }
 }

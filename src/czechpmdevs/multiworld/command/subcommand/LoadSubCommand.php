@@ -24,37 +24,28 @@ namespace czechpmdevs\multiworld\command\subcommand;
 
 use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
-use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
-use function is_numeric;
-use function mt_rand;
 
-class CreateSubcommand implements SubCommand {
+class LoadSubCommand implements SubCommand {
 
-    public function executeSub(CommandSender $sender, array $args, string $name): void {
+    public function execute(CommandSender $sender, array $args, string $name): void {
         if (!isset($args[0])) {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "create-usage"));
+            $sender->sendMessage(LanguageManager::translateMessage($sender, "load-usage"));
             return;
         }
 
-        if (MultiWorld::getInstance()->getServer()->isLevelGenerated($args[0])) {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "create-exists", [$args[0]]));
+        if (!Server::getInstance()->isLevelGenerated($args[0])) {
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "load-levelnotexists", [$args[0]]));
             return;
         }
 
-        $seed = mt_rand();
-        if (isset($args[1]) && is_numeric($args[1])) {
-            $seed = (int)$args[1];
-        }
-
-        $generator = WorldUtils::getGeneratorByName($generatorName = $args[2] ?? "");
-        if ($generator === null) {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "create-gennotexists", [$generatorName]));
+        if (Server::getInstance()->isLevelLoaded($args[0])) {
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "load-loaded"));
             return;
         }
 
-        Server::getInstance()->generateLevel($args[0], $seed, $generator);
-        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "create-done", [$args[0], (string)$seed, $generatorName]));
+        Server::getInstance()->loadLevel($args[0]);
+        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "load-done"));
     }
 }

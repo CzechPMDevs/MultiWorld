@@ -22,30 +22,35 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
-use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
-use pocketmine\Server;
+use function is_numeric;
 
-class LoadSubcommand implements SubCommand {
+class HelpSubCommand implements SubCommand {
 
-    public function executeSub(CommandSender $sender, array $args, string $name): void {
+    public function execute(CommandSender $sender, array $args, string $name): void {
         if (!isset($args[0])) {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "load-usage"));
+            $sender->sendMessage($this->getHelpMessage($sender, 1));
             return;
         }
 
-        if (!Server::getInstance()->isLevelGenerated($args[0])) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "load-levelnotexists", [$args[0]]));
+        if (!is_numeric($args[0])) {
+            $sender->sendMessage($this->getHelpMessage($sender, 1));
             return;
         }
 
-        if (Server::getInstance()->isLevelLoaded($args[0])) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "load-loaded"));
-            return;
+        $sender->sendMessage($this->getHelpMessage($sender, (int)$args[0]));
+    }
+
+    public function getHelpMessage(CommandSender $sender, int $page): string {
+        if($page < 1 || $page > 3) {
+            return $this->getHelpMessage($sender, 1);
         }
 
-        Server::getInstance()->loadLevel($args[0]);
-        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "load-done"));
+        $message = LanguageManager::translateMessage($sender, "help", [(string)$page, "3"]);
+        for($i = $j = (($page - 1) * 5) + 1, $j = $j + 5; $i < $j; ++$i) {
+            $message .= "\n" . LanguageManager::translateMessage($sender, "help-$i");
+        }
+        return $message;
     }
 }

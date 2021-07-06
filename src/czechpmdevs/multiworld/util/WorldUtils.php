@@ -42,10 +42,13 @@ use RecursiveIteratorIterator;
 use SplFileInfo;
 use function array_filter;
 use function array_values;
+use function copy;
 use function count;
+use function mkdir;
 use function rename;
 use function rmdir;
 use function scandir;
+use function str_replace;
 use function strtolower;
 use function unlink;
 
@@ -129,6 +132,26 @@ class WorldUtils {
 
         Server::getInstance()->unloadLevel($newLevel);
         WorldUtils::lazyLoadLevel($newName); // reloading the level
+    }
+
+    public static function duplicateLevel(string $levelName, string $duplicateName): void {
+        if(Server::getInstance()->isLevelLoaded($levelName)) {
+            WorldUtils::getLevelByNameNonNull($levelName)->save(false);
+        }
+
+        mkdir(Server::getInstance()->getDataPath() . "/worlds/$duplicateName");
+
+        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(Server::getInstance()->getDataPath() . "/worlds/$levelName", RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
+        /** @var SplFileInfo $fileInfo */
+        foreach ($files as $fileInfo) {
+            if ($filePath = $fileInfo->getRealPath()) {
+                if ($fileInfo->isFile()) {
+                    copy($filePath, str_replace($levelName, $duplicateName, $filePath));
+                } else {
+                    mkdir(str_replace($levelName, $duplicateName, $filePath));
+                }
+            }
+        }
     }
 
     /**

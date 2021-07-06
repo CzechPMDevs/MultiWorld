@@ -11,14 +11,17 @@ help: '§c--- §eMultiWorld help page ({%0}/{%1}) §c---'
 help-1: '§c/mw create §fBir dünya yaratın '
 help-2: '§c/mw teleport §fBir dünyaya ışınlanın '
 help-3: '§c/mw list §fTüm dünyaların bir listesini görüntüler '
-help-4: '§c/mw <load | unload> §fDünyayı yükleyin veya boşaltın '
-help-5: '§c/mw update §fLobiyi, bir dünyadaki doğumu veya standart dünyayı değiştirin '
+help-4: '§2/mw load §fLoads a world'
+help-5: '§2/mw unload §fUnloads a world'
 
 help-6: '§c/mw delete §fBir dünyayı kaldır '
 help-7: '§c/mw info §fBir dünya hakkında bilgi görüntüler '
 help-8: '§c/mw gamerule §fBir seviye için oyunun kurallarını yönetin '
 help-9: '§c/mw manage §fDünyaları yönetmek için bir kullanıcı arayüzü gösterir '
 help-10: '§c/mw rename §fBir dünyanın adını değiştirir '
+
+help-11: '§2/mw duplicate §fDuplicates a world'
+help-12: '§c/mw update §fLobiyi, bir dünyadaki doğumu veya standart dünyayı değiştirin '
 
 # komut Dünya oluştur:
 create-usage: '§ckullanım : §7/mw create <İsim> [tohum] [jeneratör ]'
@@ -86,6 +89,12 @@ rename-usage: '§ckullanım §7/mw rename <eski isim> <yeni isim>'
 rename-exists: '§cisimli bir seviye {%0} zaten var .'
 rename-levelnotfound: '§cSeviye {%0} mecut değil.'
 rename-done: '§aSeviye adı {%0} {%1} olarak değiştirildi.  '
+
+# Duplicate Command
+duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
+duplicate-exists: '§cWorld with name {%0} already exists.'
+duplicate-levelnotfound: '§cLevel {%0} does not exist.'
+duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
 
 # Forms
 forms-invalid: '§cgeçersiz istek .'

@@ -53,18 +53,18 @@ class GameRuleCommand extends Command implements PluginIdentifiableCommand {
         }
 
         if (!isset($args[0])) {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule-usage"));
+            $sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
             return;
         }
 
         $gameRules = GameRules::getDefaultGameRules()->getGameRules();
         if ($args[0] == "list") {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule-list", [implode(", ", array_keys($gameRules))]));
+            $sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-list", [implode(", ", array_keys($gameRules))]));
             return;
         }
 
         if ((!isset($args[1])) || (!isset($args[2]) && (!$sender instanceof Player))) {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule-usage"));
+            $sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
             return;
         }
 
@@ -75,7 +75,7 @@ class GameRuleCommand extends Command implements PluginIdentifiableCommand {
         );
 
         if (!array_key_exists($args[0] = $gameRulesMap[strtolower($args[0])] ?? "unknownRule", $gameRules)) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule-notexists", [$args[0]]));
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-notexists", [$args[0]]));
             return;
         }
 
@@ -87,14 +87,14 @@ class GameRuleCommand extends Command implements PluginIdentifiableCommand {
         );
 
         if ($value === null || GameRules::getPropertyType($value) != GameRules::getPropertyType($gameRules[$args[0]])) {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "gamerule-usage"));
+            $sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
             return;
         }
 
         if (isset($args[2])) {
             $level = WorldUtils::getLoadedLevelByName($args[2]);
             if ($level === null) {
-                $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule-levelnotfound", [$args[2]]));
+                $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-levelnotfound", [$args[2]]));
                 return;
             }
 
@@ -105,7 +105,7 @@ class GameRuleCommand extends Command implements PluginIdentifiableCommand {
             }
 
             MultiWorld::getGameRules($level)->applyToLevel($level);
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule-done", [$args[0], $level->getName(), $args[1]]));
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-done", [$args[0], $level->getName(), $args[1]]));
             return;
         }
 
@@ -117,7 +117,7 @@ class GameRuleCommand extends Command implements PluginIdentifiableCommand {
         }
 
         MultiWorld::getGameRules($sender->getLevelNonNull())->applyToLevel($sender->getLevelNonNull());
-        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "gamerule-done", [$args[0], $sender->getLevelNonNull()->getName(), $args[1]]));
+        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-done", [$args[0], $sender->getLevelNonNull()->getName(), $args[1]]));
     }
 
     /**

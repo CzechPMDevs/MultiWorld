@@ -22,18 +22,19 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command;
 
-use czechpmdevs\multiworld\command\subcommand\CreateSubcommand;
-use czechpmdevs\multiworld\command\subcommand\DeleteSubcommand;
-use czechpmdevs\multiworld\command\subcommand\HelpSubcommand;
-use czechpmdevs\multiworld\command\subcommand\InfoSubcommand;
-use czechpmdevs\multiworld\command\subcommand\ListSubcommand;
-use czechpmdevs\multiworld\command\subcommand\LoadSubcommand;
-use czechpmdevs\multiworld\command\subcommand\ManageSubcommand;
-use czechpmdevs\multiworld\command\subcommand\RenameSubcommand;
+use czechpmdevs\multiworld\command\subcommand\CreateSubCommand;
+use czechpmdevs\multiworld\command\subcommand\DeleteSubCommand;
+use czechpmdevs\multiworld\command\subcommand\DuplicateSubCommand;
+use czechpmdevs\multiworld\command\subcommand\HelpSubCommand;
+use czechpmdevs\multiworld\command\subcommand\InfoSubCommand;
+use czechpmdevs\multiworld\command\subcommand\ListSubCommand;
+use czechpmdevs\multiworld\command\subcommand\LoadSubCommand;
+use czechpmdevs\multiworld\command\subcommand\ManageSubCommand;
+use czechpmdevs\multiworld\command\subcommand\RenameSubCommand;
 use czechpmdevs\multiworld\command\subcommand\SubCommand;
-use czechpmdevs\multiworld\command\subcommand\TeleportSubcommand;
-use czechpmdevs\multiworld\command\subcommand\UnloadSubcommand;
-use czechpmdevs\multiworld\command\subcommand\UpdateSubcommand;
+use czechpmdevs\multiworld\command\subcommand\TeleportSubCommand;
+use czechpmdevs\multiworld\command\subcommand\UnloadSubCommand;
+use czechpmdevs\multiworld\command\subcommand\UpdateSubCommand;
 use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\Command;
@@ -58,48 +59,49 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
     }
 
     public function registerSubcommands(): void {
-        $this->subcommands["help"] = new HelpSubcommand;
-        $this->subcommands["create"] = new CreateSubcommand;
-        $this->subcommands["teleport"] = new TeleportSubcommand;
-        $this->subcommands["list"] = new ListSubcommand;
-        $this->subcommands["load"] = new LoadSubcommand;
-        $this->subcommands["unload"] = new UnloadSubcommand;
-        $this->subcommands["delete"] = new DeleteSubcommand;
-        $this->subcommands["update"] = new UpdateSubcommand;
-        $this->subcommands["info"] = new InfoSubcommand;
-        $this->subcommands["manage"] = new ManageSubcommand;
-        $this->subcommands["rename"] = new RenameSubcommand;
+        $this->subcommands["create"] = new CreateSubCommand;
+        $this->subcommands["delete"] = new DeleteSubCommand;
+        $this->subcommands["duplicate"] = new DuplicateSubCommand;
+        $this->subcommands["help"] = new HelpSubCommand;
+        $this->subcommands["info"] = new InfoSubCommand;
+        $this->subcommands["list"] = new ListSubCommand;
+        $this->subcommands["load"] = new LoadSubCommand;
+        $this->subcommands["manage"] = new ManageSubCommand;
+        $this->subcommands["rename"] = new RenameSubCommand;
+        $this->subcommands["teleport"] = new TeleportSubCommand;
+        $this->subcommands["unload"] = new UnloadSubCommand;
+        $this->subcommands["update"] = new UpdateSubCommand;
     }
 
     public function execute(CommandSender $sender, string $commandLabel, array $args) {
         if (!isset($args[0])) {
             if ($sender->hasPermission("mw.cmd")) {
-                $sender->sendMessage(LanguageManager::getMsg($sender, "default-usage"));
+                $sender->sendMessage(LanguageManager::translateMessage($sender, "default-usage"));
                 return;
             }
-            $sender->sendMessage(LanguageManager::getMsg($sender, "not-perms"));
+            $sender->sendMessage(LanguageManager::translateMessage($sender, "not-perms"));
             return;
         }
 
         $subCommandName = $this->getSubCommandNameByAlias($args[0]);
         if ($subCommandName === null) {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "default-usage"));
+            $sender->sendMessage(LanguageManager::translateMessage($sender, "default-usage"));
             return;
         }
 
         $subCommand = $this->subcommands[$subCommandName] ?? null;
         if ($subCommand === null) {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "default-usage"));
+            $sender->sendMessage(LanguageManager::translateMessage($sender, "default-usage"));
             return;
         }
 
         if (!$this->checkPerms($sender, $args[0])) {
-            $sender->sendMessage(LanguageManager::getMsg($sender, "not-perms"));
+            $sender->sendMessage(LanguageManager::translateMessage($sender, "not-perms"));
             return;
         }
 
         array_shift($args);
-        $subCommand->executeSub($sender, $args, $subCommandName);
+        $subCommand->execute($sender, $args, $subCommandName);
     }
 
     public function getSubCommandNameByAlias(string $alias): ?string {
@@ -149,6 +151,10 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
             case "rnm":
             case "re":
                 return "rename";
+            case "duplicate":
+            case "copy":
+            case "cp":
+                return "duplicate";
         }
         return null;
     }
@@ -156,7 +162,7 @@ class MultiWorldCommand extends Command implements PluginIdentifiableCommand {
     public function checkPerms(CommandSender $sender, string $command): bool {
         if ($sender instanceof Player) {
             if (!$sender->hasPermission("mw.cmd." . $this->getSubCommandNameByAlias($command))) {
-                $sender->sendMessage(LanguageManager::getMsg($sender, "not-perms"));
+                $sender->sendMessage(LanguageManager::translateMessage($sender, "not-perms"));
                 return false;
             } else {
                 return true;

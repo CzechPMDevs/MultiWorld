@@ -31,16 +31,16 @@ use pocketmine\Server;
 use function file_exists;
 use function str_replace;
 
-class DeleteSubcommand implements SubCommand {
+class DeleteSubCommand implements SubCommand {
 
-    public function executeSub(CommandSender $sender, array $args, string $name): void {
+    public function execute(CommandSender $sender, array $args, string $name): void {
         if (!isset($args[0])) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "delete-usage"));
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "delete-usage"));
             return;
         }
 
         if (!Server::getInstance()->isLevelGenerated($args[0]) || !file_exists(Server::getInstance()->getDataPath() . "worlds/$args[0]")) {
-            $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[0], LanguageManager::getMsg($sender, "delete-levelnotexists")));
+            $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[0], LanguageManager::translateMessage($sender, "delete-levelnotexists")));
             return;
         }
 
@@ -52,6 +52,6 @@ class DeleteSubcommand implements SubCommand {
             }
         }
 
-        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::getMsg($sender, "delete-done", [(string)WorldUtils::removeLevel($args[0])]));
+        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "delete-done", [(string)WorldUtils::removeLevel($args[0])]));
     }
 }

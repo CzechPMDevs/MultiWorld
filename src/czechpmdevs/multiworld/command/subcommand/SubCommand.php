@@ -29,5 +29,5 @@ interface SubCommand {
     /**
      * @param string[] $args
      */
-    public function executeSub(CommandSender $sender, array $args, string $name): void;
+    public function execute(CommandSender $sender, array $args, string $name): void;
 }

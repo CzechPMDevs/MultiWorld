@@ -22,26 +22,31 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
+use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
-use function array_map;
-use function array_values;
-use function count;
-use function implode;
 
-class ListSubcommand implements SubCommand {
+class UnloadSubCommand implements SubCommand {
 
-    public function executeSub(CommandSender $sender, array $args, string $name): void {
-        $worlds = array_values(array_map(static function (string $file): string {
-            if (Server::getInstance()->isLevelLoaded($file)) {
-                return "§7$file > §aLoaded§7, " . count(WorldUtils::getLevelByNameNonNull($file)->getPlayers()) . " Players";
-            } else {
-                return "§7$file > §cUnloaded";
-            }
-        }, WorldUtils::getAllLevels()));
+    public function execute(CommandSender $sender, array $args, string $name): void {
+        if (!isset($args[0])) {
+            $sender->sendMessage(LanguageManager::translateMessage($sender, "unload-usage"));
+            return;
+        }
 
-        $sender->sendMessage(LanguageManager::getMsg($sender, "list-done", [(string)count($worlds)]) . "\n" . implode("\n", $worlds));
+        if (!Server::getInstance()->isLevelGenerated($args[0])) {
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "unload-levelnotexists", [$args[0]]));
+            return;
+        }
+
+        if (!Server::getInstance()->isLevelLoaded($args[0])) {
+            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "unload-unloaded"));
+            return;
+        }
+
+        Server::getInstance()->unloadLevel(WorldUtils::getLevelByNameNonNull($args[0]));
+        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "unload-done"));
     }
 }

@@ -11,14 +11,17 @@ help: '§2--- Hiển thị hướng dẫn của MultiWorld trang {%0} trong {%1}
 help-1: '§2/mw create §fTạo một thế giới mới'
 help-2: '§2/mw teleport §fDịch chuyển tới thế giới đó'
 help-3: '§2/mw list §f Hiển thị danh sách thế giới'
-help-4: '§2/mw <load|unload> §fTải lại hoặc hủy tải một thế giới'
-help-5: '§2/mw update §fCập nhật sảnh, nơi hồi sinh hoặc thế giới mặc định'
+help-4: '§2/mw load §fLoads a world'
+help-5: '§2/mw unload §fUnloads a world'
 
 help-6: '§2/mw delete §fXóa thế giới'
 help-7: '§2/mw info §fHiển thị thông tin về thế giới đó'
 help-8: '§2/mw gamerule §fChỉnh sửa luật của thế giới'
 help-9: '§2/mw manage §fHiển thị chỉnh sửa của thế giới'
 help-10: '§2/mw rename §fĐặt tên lại thế giới'
+
+help-11: '§2/mw duplicate §fDuplicates a world'
+help-12: '§2/mw update §fCập nhật sảnh, nơi hồi sinh hoặc thế giới mặc định'
 
 # Create Command:
 create-usage: '§cSử dụng: §7/mw create <Tên thế giới> [Hạt giống] [Loại thế giới]'
@@ -86,6 +89,12 @@ rename-usage: '§cSử dụng: §7/mw rename <Tên ban đầu> <Tên mới>'
 rename-exists: '§cTên thế giới {%0} đã tồn tại.'
 rename-levelnotfound: '§cThế giới {%0} không tồn tại.'
 rename-done: '§aThế giới {%0} được đổi tên thành {%1}.'
+
+# Duplicate Command
+duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
+duplicate-exists: '§cWorld with name {%0} already exists.'
+duplicate-levelnotfound: '§cLevel {%0} does not exist.'
+duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
 
 # Forms
 forms-invalid: '§cKết quả không hợp lệ.'

@@ -43,7 +43,6 @@ use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\player\PlayerRespawnEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\event\server\DataPacketSendEvent;
-use pocketmine\network\mcpe\protocol\GameRulesChangedPacket;
 use pocketmine\network\mcpe\protocol\LoginPacket;
 use pocketmine\network\mcpe\protocol\SettingsCommandPacket;
 use pocketmine\network\mcpe\protocol\StartGamePacket;
@@ -51,7 +50,6 @@ use pocketmine\network\mcpe\protocol\types\SpawnSettings;
 use pocketmine\Player;
 use pocketmine\Server;
 use function substr;
-use function var_dump;
 
 class EventListener implements Listener {
 

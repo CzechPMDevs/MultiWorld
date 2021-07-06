@@ -34,7 +34,6 @@ use function array_map;
 use function count;
 use function is_bool;
 use function is_int;
-use function var_dump;
 
 final class GameRules {
 
@@ -241,8 +240,6 @@ final class GameRules {
     public function getBool(string $index): bool {
         $value = $this->gameRules[$index] ?? null;
         if (!is_bool($value)) {
-            var_dump(self::$defaultGameRules);
-            var_dump($this->gameRules);
             throw new InvalidStateException("Received invalid type for Game Rule $index, got '$value' expected bool.");
         }
 
@@ -260,7 +257,6 @@ final class GameRules {
     public function getInteger(string $index): int {
         $value = $this->gameRules[$index] ?? null;
         if (!is_int($value)) {
-            var_dump($this->gameRules);
             throw new InvalidStateException("Received invalid type for Game Rule $index, got '$value' expected integer.");
         }
 

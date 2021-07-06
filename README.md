@@ -18,6 +18,8 @@
 		<img src="https://poggit.pmmp.io/ci.shield/CzechPMDevs/MultiWorld/MultiWorld?style=flat-square">
 	</a>
 <br><br>
+    ✔️ Passing PHPStan Level 8
+    <br>
     ✔️ Simple world management commands
     <br>
     ✔️New generators (Ender, Nether, Void, SkyBlock)

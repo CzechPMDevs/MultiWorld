@@ -11,14 +11,17 @@ help: '§2--- MultiWorld 도움말 {%0} of {%1} (/mw help <page>) ---'
 help-1: '§2/mw create §f새 월드 생성'
 help-2: '§2/mw teleport §f다른 월드로 이동'
 help-3: '§2/mw list §f 모든 월드 목록 표시'
-help-4: '§2/mw <load|unload> §f로딩이 안된 월드를 로딩'
-help-5: '§2/mw update §f기본월드를 변경'
+help-4: '§2/mw load §fLoads a world'
+help-5: '§2/mw unload §fUnloads a world'
 
 help-6: '§2/mw delete §f월드 삭제'
 help-7: '§2/mw info §f월드 정보 표시'
 help-8: '§2/mw gamerule §f월드의 규칙(게임룰)을 관리'
 help-9: '§2/mw manage §f월드를 관리할수 있는 서식표시'
 help-10: '§2/mw rename §f월드 이름 바꾸기'
+
+help-11: '§2/mw duplicate §fDuplicates a world'
+help-12: '§2/mw update §f기본월드를 변경'
 
 # Create Command:
 create-usage: '§c사용법: §7/mw create <월드이름> [시드] [유형]'
@@ -86,6 +89,12 @@ rename-usage: '§c사용법: §7/mw rename <현재이름> <바꿀이름>'
 rename-exists: '§c {%0} 은 이미 존재하는 이름입니다.'
 rename-levelnotfound: '§c {%0} 은 존재하지 않습니다.'
 rename-done: '§a {%0} 가 {%1} 로 바뀌었습니다.'
+
+# Duplicate Command
+duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
+duplicate-exists: '§cWorld with name {%0} already exists.'
+duplicate-levelnotfound: '§cLevel {%0} does not exist.'
+duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
 
 # Forms
 forms-invalid: '§c잘못된 결과.'

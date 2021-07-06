@@ -30,9 +30,9 @@ use pocketmine\Player;
 use pocketmine\Server;
 use function count;
 
-class InfoSubcommand implements SubCommand {
+class InfoSubCommand implements SubCommand {
 
-    public function executeSub(CommandSender $sender, array $args, string $name): void {
+    public function execute(CommandSender $sender, array $args, string $name): void {
         if (!$sender instanceof Player) {
             $sender->sendMessage("§cThis command can be used only in-game!");
             return;
@@ -40,7 +40,7 @@ class InfoSubcommand implements SubCommand {
 
         if (isset($args[0])) {
             if (!Server::getInstance()->isLevelGenerated($args[0])) {
-                $sender->sendMessage(LanguageManager::getMsg($sender, "info.levelnotexists", [$args[0]]));
+                $sender->sendMessage(LanguageManager::translateMessage($sender, "info.levelnotexists", [$args[0]]));
                 return;
             }
 
@@ -53,12 +53,12 @@ class InfoSubcommand implements SubCommand {
     }
 
     private function getInfoMessage(CommandSender $sender, Level $level): string {
-        return LanguageManager::getMsg($sender, "info", [$level->getName()]) . "\n" .
-            LanguageManager::getMsg($sender, "info-name", [$level->getName()]) . "\n" .
-            LanguageManager::getMsg($sender, "info-folderName", [$level->getFolderName()]) . "\n" .
-            LanguageManager::getMsg($sender, "info-players", [(string)count($level->getPlayers())]) . "\n" .
-            LanguageManager::getMsg($sender, "info-generator", [$level->getProvider()->getGenerator()]) . "\n" .
-            LanguageManager::getMsg($sender, "info-seed", [(string)$level->getSeed()]) . "\n" .
-            LanguageManager::getMsg($sender, "info-time", [(string)$level->getTime()]);
+        return LanguageManager::translateMessage($sender, "info", [$level->getName()]) . "\n" .
+            LanguageManager::translateMessage($sender, "info-name", [$level->getName()]) . "\n" .
+            LanguageManager::translateMessage($sender, "info-folderName", [$level->getFolderName()]) . "\n" .
+            LanguageManager::translateMessage($sender, "info-players", [(string)count($level->getPlayers())]) . "\n" .
+            LanguageManager::translateMessage($sender, "info-generator", [$level->getProvider()->getGenerator()]) . "\n" .
+            LanguageManager::translateMessage($sender, "info-seed", [(string)$level->getSeed()]) . "\n" .
+            LanguageManager::translateMessage($sender, "info-time", [(string)$level->getTime()]);
     }
 }
