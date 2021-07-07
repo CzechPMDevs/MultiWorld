@@ -20,6 +20,8 @@
 <br><br>
     ✔️ Passing PHPStan Level 8
     <br>
+    ✔️ Simple WorldManagement FormUI
+    <br>
     ✔️ Simple world management commands
     <br>
     ✔️New generators (Ender, Nether, Void, SkyBlock)
