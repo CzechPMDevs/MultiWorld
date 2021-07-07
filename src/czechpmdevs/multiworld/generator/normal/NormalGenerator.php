@@ -22,8 +22,8 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal;
 
-use Exception;
-use pocketmine\block\Block;
+use czechpmdevs\multiworld\generator\normal\populator\impl\GroundCoverPopulator;
+use pocketmine\block\BlockIds;
 use pocketmine\block\CoalOre;
 use pocketmine\block\DiamondOre;
 use pocketmine\block\Dirt;
@@ -39,12 +39,10 @@ use pocketmine\level\format\Chunk;
 use pocketmine\level\generator\Generator;
 use pocketmine\level\generator\noise\Simplex;
 use pocketmine\level\generator\object\OreType;
-use pocketmine\level\generator\populator\GroundCover;
 use pocketmine\level\generator\populator\Ore;
 use pocketmine\level\generator\populator\Populator;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
-use ReflectionException;
 use function exp;
 
 class NormalGenerator extends Generator {
@@ -62,7 +60,7 @@ class NormalGenerator extends Generator {
     /** @var Simplex */
     private Simplex $noiseBase;
     /** @var BiomeSelector */
-    private BiomeSelector $selector; // TODO - Make it different for each biome
+    private BiomeSelector $selector;
 
     /** @phpstan-ignore-next-line */
     public function __construct(array $options = []) {
@@ -96,21 +94,15 @@ class NormalGenerator extends Generator {
         return [];
     }
 
-    /**
-     * @param ChunkManager $level
-     * @param Random $random
-     * @throws ReflectionException
-     */
     public function init(ChunkManager $level, Random $random): void {
         parent::init($level, $random);
-        BiomeManager::registerBiomes();
 
         $this->random->setSeed($this->level->getSeed());
         $this->noiseBase = new Simplex($this->random, 4, 1 / 4, 1 / 32);
         $this->random->setSeed($this->level->getSeed());
         $this->selector = new BiomeSelector($this->random);
 
-        $cover = new GroundCover();
+        $cover = new GroundCoverPopulator();
         $this->generationPopulators[] = $cover;
 
         $ores = new Ore();
@@ -165,17 +157,10 @@ class NormalGenerator extends Generator {
                             }
                         }
 
-                        try {
-                            $minSum += ($adjacent->getMinElevation() - 1) * $weight;
-                            $maxSum += $adjacent->getMaxElevation() * $weight;
+                        $minSum += ($adjacent->getMinElevation() - 1) * $weight;
+                        $maxSum += $adjacent->getMaxElevation() * $weight;
 
-                            $weightSum += $weight;
-                        } catch (Exception $e) {
-//                            echo "[MultiWorld/Debug] Error appeared, maybe will cause generation bug\n";
-//                            echo "[MultiWorld/Debug] class: " . get_class($adjacent) . "; index: " . $index . "\n";
-//                            echo "[MultiWorld/Debug] Please, submit this to https://github.com/CzechPMDevs/MultiWorld/issues.\n";
-                        }
-
+                        $weightSum += $weight;
                     }
                 }
 
@@ -185,17 +170,17 @@ class NormalGenerator extends Generator {
                 $smoothHeight = ($maxSum - $minSum) / 2;
 
                 for ($y = 0; $y < 128; ++$y) {
-                    if ($y === 0) {
-                        $chunk->setBlockId($x, $y, $z, Block::BEDROCK);
+                    if ($y == 0) {
+                        $chunk->setBlockId($x, $y, $z, BlockIds::BEDROCK);
                         continue;
                     }
 
                     $noiseValue = $noise[$x][$z][$y] - 1 / $smoothHeight * ($y - $smoothHeight - $minSum);
 
                     if ($noiseValue > 0) {
-                        $chunk->setBlockId($x, $y, $z, Block::STONE);
+                        $chunk->setBlockId($x, $y, $z, BlockIds::STONE);
                     } elseif ($y < 63) {
-                        $chunk->setBlockId($x, $y, $z, Block::WATER);
+                        $chunk->setBlockId($x, $y, $z, BlockIds::WATER);
                     }
                 }
             }
@@ -229,8 +214,7 @@ class NormalGenerator extends Generator {
 
         /** @phpstan-var Chunk $chunk */
         $chunk = $this->level->getChunk($chunkX, $chunkZ);
-        $biome = BiomeManager::getBiome($chunk->getBiomeId(7, 7));
-        $biome->populateChunk($this->level, $chunkX, $chunkZ, $this->random);
+        BiomeFactory::getInstance()->getBiome($chunk->getBiomeId(7, 7))->populateChunk($this->level, $chunkX, $chunkZ, $this->random);
     }
 
     public function getSpawn(): Vector3 {

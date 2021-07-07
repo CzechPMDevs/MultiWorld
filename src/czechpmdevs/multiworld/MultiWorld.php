@@ -54,7 +54,7 @@ class MultiWorld extends PluginBase {
     public array $commands = [];
 
     public function onEnable() {
-        $this->configManager = new ConfigManager($this);
+        $this->configManager = new ConfigManager();
         $this->languageManager = new LanguageManager();
 
         $this->commands = [
