@@ -37,8 +37,8 @@ use czechpmdevs\multiworld\generator\normal\biome\FrozenRiver;
 use czechpmdevs\multiworld\generator\normal\biome\IceMountains;
 use czechpmdevs\multiworld\generator\normal\biome\IcePlains;
 use czechpmdevs\multiworld\generator\normal\biome\Jungle;
-use czechpmdevs\multiworld\generator\normal\biome\Mesa;
-use czechpmdevs\multiworld\generator\normal\biome\MesaPlateau;
+use czechpmdevs\multiworld\generator\normal\biome\Badlands;
+use czechpmdevs\multiworld\generator\normal\biome\BadlandsPlateau;
 use czechpmdevs\multiworld\generator\normal\biome\MushroomIsland;
 use czechpmdevs\multiworld\generator\normal\biome\MushroomIslandShore;
 use czechpmdevs\multiworld\generator\normal\biome\Ocean;
@@ -53,55 +53,12 @@ use czechpmdevs\multiworld\generator\normal\biome\Swampland;
 use czechpmdevs\multiworld\generator\normal\biome\Taiga;
 use czechpmdevs\multiworld\generator\normal\biome\TaigaHills;
 use czechpmdevs\multiworld\generator\normal\biome\TallBirchForest;
+use czechpmdevs\multiworld\level\data\BiomeIds;
 use InvalidStateException;
 use pocketmine\level\biome\Biome;
 use function array_key_exists;
 
-class BiomeFactory {
-
-    public const OCEAN = 0;
-    public const PLAINS = 1;
-    public const DESERT = 2;
-    public const EXTREME_HILLS = 3;
-    public const FOREST = 4;
-    public const TAIGA = 5;
-    public const SWAMP = 6;
-    public const RIVER = 7;
-    public const NETHER = 8;
-    public const THE_END = 9;
-    public const FROZEN_OCEAN = 10;
-    public const FROZEN_RIVER = 11; // new
-    public const ICE_PLAINS = 12; // new
-    public const ICE_MOUNTAINS = 13; // new
-    public const MUSHROOM_ISLAND = 14;
-    public const MUSHROOM_ISLAND_SHORE = 15; // new
-    public const BEACH = 16; // new
-    public const DESERT_HILLS = 17;
-    public const FOREST_HILLS = 18;
-    public const TAIGA_HILLS = 19;
-    public const EXTREME_HILLS_EDGE = 20; // new
-    public const JUNGLE = 21; // new
-    public const DEEP_OCEAN = 24; // new
-    //public const JUNGLE_HILLS = 22;
-    //public const JUNGLE_EDGE = 23;
-    public const BIRCH_FOREST = 27;
-    //public const STONE_BEACH = 25;
-    //public const COLD_BEACH = 26;
-    public const ROOFED_FOREST = 29;
-    //public const BIRCH_FOREST_HILLS = 28;
-    public const SAVANNA = 35;
-    //public const COLD_TAIGA = 30;
-    //public const COLD_TAIGA_HILLS = 31;
-    //public const MEGA_TAIGA = 32;
-    //public const MEGA_TAIGA_HILLS = 33;
-    //public const EXTREME_HILLS_PLUS = 34;
-    public const SAVANNA_PLATEAU = 36;
-    public const MESA = 37; // new
-    public const MESA_PLATEAU = 39;
-    public const SUNFLOWER_PLAINS = 129;
-    public const EXTREME_HILLS_MUTATED = 131;
-    public const TALL_BIRCH_FOREST = 155;
-    public const ROOFED_FOREST_HILLS = 157;
+class BiomeFactory implements BiomeIds {
 
     /** @var BiomeFactory */
     private static BiomeFactory $instance;
@@ -126,37 +83,45 @@ class BiomeFactory {
     private static function init(): void {
         BiomeFactory::$instance = new self;
 
-        BiomeFactory::$instance->registerBiome(0, new Ocean());
-        BiomeFactory::$instance->registerBiome(1, new Plains());
-        BiomeFactory::$instance->registerBiome(2, new Desert());
-        BiomeFactory::$instance->registerBiome(3, new ExtremeHills());
-        BiomeFactory::$instance->registerBiome(4, new Forest());
-        BiomeFactory::$instance->registerBiome(5, new Taiga());
-        BiomeFactory::$instance->registerBiome(6, new Swampland());
-        BiomeFactory::$instance->registerBiome(7, new River());
-        BiomeFactory::$instance->registerBiome(10, new FrozenOcean());
-        BiomeFactory::$instance->registerBiome(11, new FrozenRiver());
-        BiomeFactory::$instance->registerBiome(12, new IcePlains());
-        BiomeFactory::$instance->registerBiome(13, new IceMountains());
-        BiomeFactory::$instance->registerBiome(14, new MushroomIsland());
-        BiomeFactory::$instance->registerBiome(15, new MushroomIslandShore());
-        BiomeFactory::$instance->registerBiome(16, new Beach());
-        BiomeFactory::$instance->registerBiome(17, new DesertHills());
-        BiomeFactory::$instance->registerBiome(18, new ForestHills());
-        BiomeFactory::$instance->registerBiome(19, new TaigaHills());
-        BiomeFactory::$instance->registerBiome(20, new ExtremeHillsEdge());
-        BiomeFactory::$instance->registerBiome(21, new Jungle());
-        BiomeFactory::$instance->registerBiome(24, new DeepOcean());
-        BiomeFactory::$instance->registerBiome(27, new BirchForest());
-        BiomeFactory::$instance->registerBiome(29, new RoofedForest());
-        BiomeFactory::$instance->registerBiome(35, new Savanna());
-        BiomeFactory::$instance->registerBiome(36, new SavannaPlateau());
-        BiomeFactory::$instance->registerBiome(37, new Mesa());
-        BiomeFactory::$instance->registerBiome(39, new MesaPlateau());
-        BiomeFactory::$instance->registerBiome(129, new SunflowerPlains());
-        BiomeFactory::$instance->registerBiome(131, new ExtremeHillsMutated());
-        BiomeFactory::$instance->registerBiome(155, new TallBirchForest());
-        BiomeFactory::$instance->registerBiome(157, new RoffedForestHills());
+        BiomeFactory::$instance->registerBiome(BiomeIds::OCEAN, new Ocean());
+        BiomeFactory::$instance->registerBiome(BiomeIds::PLAINS, new Plains());
+        BiomeFactory::$instance->registerBiome(BiomeIds::DESERT, new Desert());
+        BiomeFactory::$instance->registerBiome(BiomeIds::EXTREME_HILLS, new ExtremeHills());
+        BiomeFactory::$instance->registerBiome(BiomeIds::FOREST, new Forest());
+        BiomeFactory::$instance->registerBiome(BiomeIds::TAIGA, new Taiga());
+        BiomeFactory::$instance->registerBiome(BiomeIds::SWAMP, new Swampland());
+        BiomeFactory::$instance->registerBiome(BiomeIds::RIVER, new River());
+        BiomeFactory::$instance->registerBiome(BiomeIds::FROZEN_OCEAN, new FrozenOcean());
+        BiomeFactory::$instance->registerBiome(BiomeIds::FROZEN_RIVER, new FrozenRiver());
+        BiomeFactory::$instance->registerBiome(BiomeIds::ICE_PLAINS, new IcePlains());
+        BiomeFactory::$instance->registerBiome(BiomeIds::ICE_MOUNTAINS, new IceMountains());
+        BiomeFactory::$instance->registerBiome(BiomeIds::MUSHROOM_ISLAND, new MushroomIsland());
+        BiomeFactory::$instance->registerBiome(BiomeIds::MUSHROOM_ISLAND_SHORE, new MushroomIslandShore());
+        BiomeFactory::$instance->registerBiome(BiomeIds::BEACH, new Beach());
+        BiomeFactory::$instance->registerBiome(BiomeIds::DESERT_HILLS, new DesertHills());
+        BiomeFactory::$instance->registerBiome(BiomeIds::FOREST_HILLS, new ForestHills());
+        BiomeFactory::$instance->registerBiome(BiomeIds::TAIGA_HILLS, new TaigaHills());
+        BiomeFactory::$instance->registerBiome(BiomeIds::EXTREME_HILLS_EDGE, new ExtremeHillsEdge());
+        BiomeFactory::$instance->registerBiome(BiomeIds::JUNGLE, new Jungle());
+        // TODO: Ids 21 - 23
+        BiomeFactory::$instance->registerBiome(BiomeIds::DEEP_OCEAN, new DeepOcean());
+        // TODO: Ids 25 - 26
+        BiomeFactory::$instance->registerBiome(BiomeIds::BIRCH_FOREST, new BirchForest());
+        // TODO: Id 28
+        BiomeFactory::$instance->registerBiome(BiomeIds::ROOFED_FOREST, new RoofedForest());
+        // TODO Ids 30 - 34
+        BiomeFactory::$instance->registerBiome(BiomeIds::SAVANNA, new Savanna());
+        BiomeFactory::$instance->registerBiome(BiomeIds::SAVANNA_PLATEAU, new SavannaPlateau());
+        BiomeFactory::$instance->registerBiome(BiomeIds::BADLANDS, new Badlands());
+        BiomeFactory::$instance->registerBiome(BiomeIds::BADLANDS_PLATEAU, new BadlandsPlateau());
+        // TODO Ids 39 - 128
+        BiomeFactory::$instance->registerBiome(BiomeIds::SUNFLOWER_PLAINS, new SunflowerPlains());
+        // TODO Id 130
+        BiomeFactory::$instance->registerBiome(BiomeIds::EXTREME_HILLS_MUTATED, new ExtremeHillsMutated());
+        // TODO Ids 132 - 154
+        BiomeFactory::$instance->registerBiome(BiomeIds::TALL_BIRCH_FOREST, new TallBirchForest());
+        // TODO Id 156
+        BiomeFactory::$instance->registerBiome(BiomeIds::ROOFED_FOREST_HILLS, new RoffedForestHills());
     }
 
     public static function getInstance(): BiomeFactory {

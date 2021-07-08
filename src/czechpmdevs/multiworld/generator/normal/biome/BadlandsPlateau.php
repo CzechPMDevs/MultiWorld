@@ -18,64 +18,57 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+
 declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
 use czechpmdevs\multiworld\generator\nether\populator\Ore;
-use czechpmdevs\multiworld\generator\normal\biome\types\CoveredBiome;
-use czechpmdevs\multiworld\generator\normal\populator\impl\CactusPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
+use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
 use pocketmine\block\BlockIds;
+use pocketmine\block\DeadBush;
 use pocketmine\block\GoldOre;
 use pocketmine\block\HardenedClay;
-use pocketmine\block\Sand;
 use pocketmine\block\StainedClay;
 use pocketmine\level\generator\object\OreType;
 
-class Mesa extends CoveredBiome {
+class BadlandsPlateau extends Badlands {
 
     public function __construct() {
-        parent::__construct(2, 0);
+        parent::__construct();
 
         $this->setGroundCover([
-            new Sand(1),
             new HardenedClay(),
-            new StainedClay(7),
             new StainedClay(0),
-            new StainedClay(14),
+            new HardenedClay(),
             new HardenedClay(),
             new StainedClay(4),
             new StainedClay(4),
+            new HardenedClay(),
             new HardenedClay(),
             new HardenedClay(),
             new StainedClay(1),
             new StainedClay(1),
-            new HardenedClay(),
-            new StainedClay(7),
-            new StainedClay(8),
-            new StainedClay(4),
             new HardenedClay()
         ]);
 
-        $cactus = new CactusPopulator(3, 2);
-
-        $deadBush = new PlantPopulator(3, 2);
-        $deadBush->allowBlockToStayAt(BlockIds::SAND);
+        $deadBush = new PlantPopulator(4, 3);
+        $deadBush->addPlant(new Plant(new DeadBush()));
+        $deadBush->allowBlockToStayAt(BlockIds::HARDENED_CLAY);
 
         $ore = new Ore();
-        $ore->setOreTypes([new OreType(new GoldOre(), 20, 12, 0, 128)]);
-
-        $this->addPopulators([
-            $cactus,
-            $deadBush,
-            $ore
+        $ore->setOreTypes([
+            new OreType(new GoldOre(), 20, 12, 0, 128)
         ]);
 
-        $this->setElevation(63, 67);
+        $this->clearPopulators();
+        $this->addPopulators([$deadBush, $ore]);
+
+        $this->setElevation(84, 87);
     }
 
     public function getName(): string {
-        return "Mesa";
+        return "Mesa Plateau";
     }
 }
