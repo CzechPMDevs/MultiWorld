@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal;
 
+use czechpmdevs\multiworld\generator\normal\populator\impl\CarvePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\GroundCoverPopulator;
 use pocketmine\block\BlockIds;
 use pocketmine\block\CoalOre;
@@ -100,10 +101,12 @@ class NormalGenerator extends Generator {
         $this->random->setSeed($this->level->getSeed());
         $this->noiseBase = new Simplex($this->random, 4, 1 / 4, 1 / 32);
         $this->random->setSeed($this->level->getSeed());
+
         $this->selector = new BiomeSelector($this->random);
 
-        $cover = new GroundCoverPopulator();
-        $this->generationPopulators[] = $cover;
+        $this->generationPopulators[] = new GroundCoverPopulator();
+
+        $this->populators[] = new CarvePopulator();
 
         $ores = new Ore();
         $ores->setOreTypes([
@@ -118,8 +121,8 @@ class NormalGenerator extends Generator {
             new OreType(new Stone(1), 10, 16, 0, 128),
             new OreType(new Stone(3), 10, 16, 0, 128),
             new OreType(new Stone(5), 10, 16, 0, 128),
-
         ]);
+
         $this->populators[] = $ores;
     }
 
@@ -187,6 +190,8 @@ class NormalGenerator extends Generator {
         }
 
         foreach ($this->generationPopulators as $populator) {
+            $this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
+            
             $populator->populate($this->level, $chunkX, $chunkZ, $this->random);
         }
     }
@@ -207,10 +212,12 @@ class NormalGenerator extends Generator {
     }
 
     public function populateChunk(int $chunkX, int $chunkZ): void {
-        $this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
         foreach ($this->populators as $populator) {
+            $this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
             $populator->populate($this->level, $chunkX, $chunkZ, $this->random);
         }
+
+        $this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
 
         /** @phpstan-var Chunk $chunk */
         $chunk = $this->level->getChunk($chunkX, $chunkZ);
