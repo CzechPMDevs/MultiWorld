@@ -78,10 +78,8 @@ abstract class Carve {
                     for ($y = $maxY; $y > $minY; --$y) {
                         $modY = ($y - 0.5 - $centerY) / $verticalSize;
 
-                        if ($modY > -0.7 && $modXZ + ($modY ** 2) < 1.0) {
-                            if (
-                                $chunk->getBlockId($x, $y, $z) == BlockIds::WATER
-                            ) {
+                        if ($this->continue($modXZ, $modY, $y)) {
+                            if ($chunk->getBlockId($x, $y, $z) == BlockIds::WATER || $chunk->getBlockId($x, $y + 1, $z) == BlockIds::WATER) {
                                 continue;
                             }
 
@@ -131,4 +129,6 @@ abstract class Carve {
     protected function canReach(int $chunkX, int $chunkZ, float $x, float $z, int $angle, int $maxAngle, float $radius): bool {
         return (($x - ($chunkX << 4) - 8) ** 2) + (($z - ($chunkZ << 4) - 8) ** 2) - (($maxAngle - $angle) ** 2) <= ($radius + 18) ** 2;
     }
+
+    abstract protected function continue(float $modXZ, float $modY, int $y): bool;
 }

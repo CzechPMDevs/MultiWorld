@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\populator\impl;
 
+use czechpmdevs\multiworld\generator\normal\populator\impl\carve\Canyon;
 use czechpmdevs\multiworld\generator\normal\populator\impl\carve\Carve;
 use czechpmdevs\multiworld\generator\normal\populator\impl\carve\Cave;
 use czechpmdevs\multiworld\generator\normal\populator\Populator;
@@ -41,6 +42,8 @@ class CarvePopulator extends Populator {
 
     public function __construct() {
         $this->random = new Random(0);
+
+        $this->carves[] = new Canyon($this->random);
         $this->carves[] = new Cave($this->random);
     }
 

@@ -72,7 +72,7 @@ class BiomeSelector {
             }
 
             if ($ocean > -0.23) {
-                if ($temperature > 0 && $temperature < 0.6 && $smallHills > -0.2) {
+                if ($temperature > -0.2 && $temperature < 0.6 && $smallHills > -0.4) {
                     return BiomeFactory::getInstance()->getBiome(BiomeIds::BEACH);
                 }
             }
@@ -145,7 +145,7 @@ class BiomeSelector {
             return BiomeFactory::getInstance()->getBiome(BiomeIds::ROOFED_FOREST);
         }
 
-        if($temperature < 0.2) {
+        if($temperature < 0.17) {
             if($rainfall < -0.1) {
 //                if($smallHills > 0) {
 //                    return BiomeFactory::getInstance()->getBiome(BiomeIds::BIRCH_FOREST_HILLS);

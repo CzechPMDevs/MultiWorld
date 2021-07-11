@@ -121,4 +121,8 @@ class Cave extends Carve {
 
         return $thickness;
     }
+
+    protected function continue(float $modXZ, float $modY, int $y): bool {
+        return $modY > -0.7 && $modXZ + $modY ** 2 < 1.0;
+    }
 }
