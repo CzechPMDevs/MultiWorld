@@ -40,7 +40,8 @@ use function array_values;
 use function is_array;
 use function is_bool;
 use function is_numeric;
-use function strlen;
+use function time;
+use function trim;
 
 class ManageSubCommand implements SubCommand {
 
@@ -56,7 +57,7 @@ class ManageSubCommand implements SubCommand {
         $form->addButton("Update world game rules");
         $form->addButton("Show world info");
         $form->addButton("Load world");
-        $form->addButton("Unoad world");
+        $form->addButton("Unload world");
         $form->addButton("Teleport to the world");
         $form->addButton("Teleport player to the world");
 
@@ -72,12 +73,15 @@ class ManageSubCommand implements SubCommand {
 
                     $customForm->setCallback(static function (Player $player, FormResponse $response) use ($generators): void {
                         $data = $response->getData();
-                        if (!is_array($data) || $data[1] === "" || (strlen($data[2]) > 2 && !is_numeric($data[2])) || !isset($generators[$data[3]])) {
+                        if (!is_array($data) || $data[1] === "" || ($data[2] != "" && !is_numeric($data[2])) || !isset($generators[$data[3]])) {
                             $player->sendMessage(LanguageManager::translateMessage($player, "forms-invalid"));
                             return;
                         }
 
-                        $cmd = "mw create \"$data[1]\" \"$data[2]\" \"{$generators[$data[3]]}\"";
+                        $name = $data[1];
+                        $seed = trim($data[2]) == "" ? time() : (int)$data[2];
+
+                        $cmd = "mw create \"$name\" \"$seed\" \"{$generators[$data[3]]}\"";
                         Server::getInstance()->dispatchCommand($player, $cmd);
                     });
 
