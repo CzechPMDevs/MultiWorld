@@ -37,16 +37,16 @@ class Canyon extends Carve {
     private array $sizeMap = [];
 
     public function carve(Chunk $chunk, int $chunkX, int $chunkZ): void {
-        $x = (float)(($chunkX << 4) + $this->random->nextBoundedInt(16));
+        $x = (float)($chunkX * 16 + $this->random->nextBoundedInt(16));
         $y = (float)($this->random->nextBoundedInt($this->random->nextBoundedInt(40) + 8) + 20);
-        $z = (float)(($chunkZ << 4) + $this->random->nextBoundedInt(16));
+        $z = (float)($chunkZ * 16 + $this->random->nextBoundedInt(16));
 
         $horizontalAngle = $this->random->nextFloat() * M_PI * 2;
         $verticalAngle = ($this->random->nextFloat() - 0.5) * 0.25;
 
         $horizontalScale = ($this->random->nextFloat() * 2.0 + $this->random->nextFloat()) * 2.0;
 
-        $nodeCountBound = (Canyon::CANYON_RANGE * 2 - 1) << 4;
+        $nodeCountBound = (Canyon::CANYON_RANGE * 2 - 1) * 16;
         $nodeCount = $nodeCountBound - $this->random->nextBoundedInt($nodeCountBound);
 
         $this->generateCanyon($chunk, $this->random->nextInt(), $chunkX, $chunkZ, $x, $y, $z, $horizontalScale, $horizontalAngle, $verticalAngle, $nodeCount);
@@ -101,5 +101,9 @@ class Canyon extends Carve {
 
     protected function continue(float $modXZ, float $modY, int $y): bool {
         return ($modXZ * $this->sizeMap[$y - 1]) + ($modY ** 2) * 1.66 < 1.0;
+    }
+
+    public function canCarve(Random $random, int $chunkX, int $chunkZ): bool {
+        return $random->nextFloat() <= 0.02;
     }
 }

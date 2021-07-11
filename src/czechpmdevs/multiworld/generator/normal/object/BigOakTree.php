@@ -31,6 +31,7 @@ use function cos;
 use function floor;
 use function hypot;
 use function max;
+use function min;
 use function pow;
 use function sin;
 use function sqrt;

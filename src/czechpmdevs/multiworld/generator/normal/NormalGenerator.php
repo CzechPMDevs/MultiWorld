@@ -51,7 +51,7 @@ class NormalGenerator extends Generator {
     /** @var float[][] */
     private static array $GAUSSIAN_KERNEL;
     /** @var int */
-    private static int $SMOOTH_SIZE = 5;
+    private static int $SMOOTH_SIZE = 2;
 
     /** @var Populator[] */
     private array $populators = [];

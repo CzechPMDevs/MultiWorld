@@ -53,8 +53,8 @@ class BiomeSelector {
     }
 
     public function pickBiome(float $x, float $z): Biome {
-        $temperature = $this->temperature->noise2D($x, $z, true);
-        $rainfall = $this->rainfall->noise2D($x, $z, true);
+        $temperature = $this->temperature->noise2D($x, $z, true) * 1.2;
+        $rainfall = $this->rainfall->noise2D($x, $z, true) * 1.2;
         $river = $this->river->noise2D($x, $z, true);
         $ocean = $this->ocean->noise2D($x, $z, true);
         $hills = $this->hills->noise2D($x, $z, true);
@@ -66,7 +66,7 @@ class BiomeSelector {
             }
 
             if ($ocean > -0.4) {
-                if ($temperature >= 0.8) {
+                if ($temperature >= 0.7) {
                     return BiomeFactory::getInstance()->getBiome(BiomeIds::SWAMP);
                 }
             }
@@ -116,7 +116,7 @@ class BiomeSelector {
 
         if($temperature < -0.4) {
             if($rainfall > 0) {
-                if($smallHills > 0) {
+                if($smallHills > 0.1) {
                     return BiomeFactory::getInstance()->getBiome(BiomeIds::TAIGA_HILLS);
                 }
                 return BiomeFactory::getInstance()->getBiome(BiomeIds::TAIGA);
@@ -138,7 +138,7 @@ class BiomeSelector {
                 return BiomeFactory::getInstance()->getBiome(BiomeIds::BADLANDS_PLATEAU);
             }
 
-            if($smallHills > 0) {
+            if($smallHills > 0.1) {
                 return BiomeFactory::getInstance()->getBiome(BiomeIds::ROOFED_FOREST_HILLS);
             }
 
@@ -147,7 +147,7 @@ class BiomeSelector {
 
         if($temperature < 0.17) {
             if($rainfall < -0.1) {
-//                if($smallHills > 0) {
+//                if($smallHills > 0.1) {
 //                    return BiomeFactory::getInstance()->getBiome(BiomeIds::BIRCH_FOREST_HILLS);
 //                }
                 if($rainfall < -0.6 && $temperature > 0.15) {
@@ -165,7 +165,7 @@ class BiomeSelector {
 
         if($temperature < 0.6) {
             if($rainfall > 0) {
-                if($hills > 0.5 && $smallHills > 0) {
+                if($hills > 0.5 && $smallHills > 0.1) {
                     return BiomeFactory::getInstance()->getBiome(BiomeIds::SUNFLOWER_PLAINS);
                 }
 
@@ -180,14 +180,14 @@ class BiomeSelector {
         }
 
         if($rainfall > 0.2) {
-//            if($smallHills > 0) {
+//            if($smallHills > 0.1) {
 //                return BiomeFactory::getInstance()->getBiome(BiomeIds::JUNGLE_HILLS);
 //            }
 
             return BiomeFactory::getInstance()->getBiome(BiomeIds::JUNGLE);
         }
 
-        if($hills > 0.2 && $smallHills > 0) {
+        if($hills > 0.2 && $smallHills > 0.1) {
             return BiomeFactory::getInstance()->getBiome(BiomeIds::DESERT_HILLS);
         }
 

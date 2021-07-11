@@ -48,8 +48,8 @@ abstract class Carve {
     abstract public function carve(Chunk $chunk, int $chunkX, int $chunkZ): void;
 
     protected function carveSphere(Chunk $chunk, float $centerX, float $centerY, float $centerZ, float $horizontalSize, float $verticalSize): void {
-        $realChunkX = $chunk->getX() << 4;
-        $realChunkZ = $chunk->getZ() << 4;
+        $realChunkX = $chunk->getX() * 16;
+        $realChunkZ = $chunk->getZ() * 16;
 
         if (
             ($centerX < $realChunkX - 8.0 - $horizontalSize * 2.0) ||
@@ -90,7 +90,8 @@ abstract class Carve {
 
                             if (
                                 $chunk->getBlockId($x, $y - 1, $z) == BlockIds::DIRT &&
-                                $chunk->getBlockId($x, $y + 1, $z) == BlockIds::AIR
+                                $chunk->getBlockId($x, $y + 1, $z) == BlockIds::AIR &&
+                                $y > 62
                             ) {
                                 $chunk->setBlockId($x, $y - 1, $z, BlockIds::GRASS);
                             }
@@ -127,8 +128,13 @@ abstract class Carve {
     }
 
     protected function canReach(int $chunkX, int $chunkZ, float $x, float $z, int $angle, int $maxAngle, float $radius): bool {
-        return (($x - ($chunkX << 4) - 8) ** 2) + (($z - ($chunkZ << 4) - 8) ** 2) - (($maxAngle - $angle) ** 2) <= ($radius + 18) ** 2;
+        return (($x - ($chunkX * 16) - 8) ** 2) + (($z - ($chunkZ * 16) - 8) ** 2) - (($maxAngle - $angle) ** 2) <= ($radius + 18) ** 2;
     }
 
     abstract protected function continue(float $modXZ, float $modY, int $y): bool;
+
+    /** @noinspection PhpUnusedParameterInspection */
+    public function canCarve(Random $random, int $chunkX, int $chunkZ): bool {
+        return true;
+    }
 }

@@ -33,7 +33,7 @@ use pocketmine\utils\Random;
 class CarvePopulator extends Populator {
 
     /** @const int */
-    public const CHECK_AREA_SIZE = 8;
+    public const CHECK_AREA_SIZE = 6; // originally 8
 
     /** @var Random */
     private Random $random;
@@ -68,7 +68,9 @@ class CarvePopulator extends Populator {
                 $seed = $randomX ^ $randomZ ^ $level->getSeed();
                 foreach ($this->carves as $carve) {
                     $this->random->setSeed($seed);
-                    $carve->carve($chunk, $x, $z);
+                    if($carve->canCarve($this->random, $chunkX, $chunkZ)) {
+                        $carve->carve($chunk, $x, $z);
+                    }
                 }
             }
         }

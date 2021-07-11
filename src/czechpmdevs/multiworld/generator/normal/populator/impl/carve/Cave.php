@@ -42,13 +42,13 @@ class Cave extends Carve {
     private const CAVE_TUNNEL_COUNT = 1.0;
 
     public function carve(Chunk $chunk, int $chunkX, int $chunkZ): void {
-        $i = (Cave::CAVE_RANGE * 2 - 1) << 4;
+        $i = (Cave::CAVE_RANGE * 2 - 1) * 16;
         $j = $this->random->nextBoundedInt($this->random->nextBoundedInt($this->random->nextBoundedInt(Cave::CAVE_BOUND) + 1) + 1);
 
         for ($k = 0; $k < $j; ++$k) {
-            $x = (float)(($chunkX << 4) + $this->random->nextBoundedInt(16));
+            $x = (float)(($chunkX * 16) + $this->random->nextBoundedInt(16));
             $y = (float)$this->random->nextBoundedInt($this->random->nextBoundedInt(120) + 8);
-            $z = (float)(($chunkZ << 4) + $this->random->nextBoundedInt(16));
+            $z = (float)(($chunkZ * 16) + $this->random->nextBoundedInt(16));
 
             $tunnelCount = Cave::CAVE_TUNNEL_COUNT;
             if ($this->random->nextBoundedInt(4) == 0) {
@@ -124,5 +124,9 @@ class Cave extends Carve {
 
     protected function continue(float $modXZ, float $modY, int $y): bool {
         return $modY > -0.7 && $modXZ + $modY ** 2 < 1.0;
+    }
+
+    public function canCarve(Random $random, int $chunkX, int $chunkZ): bool {
+        return $random->nextFloat() <= 0.14285714;
     }
 }
