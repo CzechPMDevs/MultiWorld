@@ -42,7 +42,7 @@ class Utils {
      * made on packets whose are not used by MultiWorld
      */
     public static function isProtocolCompatible(): bool {
-        if(class_exists(ProtocolInfo::class) && ProtocolInfo::CURRENT_PROTOCOL == 440) {
+        if(class_exists(ProtocolInfo::class) && ProtocolInfo::CURRENT_PROTOCOL == 448) {
             return true;
         }
 
