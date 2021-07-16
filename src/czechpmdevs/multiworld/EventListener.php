@@ -49,6 +49,7 @@ use pocketmine\network\mcpe\protocol\StartGamePacket;
 use pocketmine\network\mcpe\protocol\types\SpawnSettings;
 use pocketmine\Player;
 use pocketmine\Server;
+use function array_key_exists;
 use function substr;
 
 class EventListener implements Listener {
@@ -109,19 +110,21 @@ class EventListener implements Listener {
             $event->setDrops([]);
         }
 
-        $this->dimensionData[$player->getId()] = Dimension::getDimensionByLevel($player->getLevelNonNull());
+        if($this->plugin->getConfig()->get("handle-dimensions")) {
+            $this->dimensionData[$player->getId()] = Dimension::getDimensionByLevel($player->getLevelNonNull());
+        }
     }
 
     /** @noinspection PhpUnused */
     public function onPlayerRespawn(PlayerRespawnEvent $event): void {
         $player = $event->getPlayer();
 
-        if ($this->dimensionData[$player->getId()] != ($currentDimension = Dimension::getDimensionByLevel($player->getLevelNonNull()))) {
+        if (array_key_exists($player->getId(), $this->dimensionData) && $this->dimensionData[$player->getId()] != ($currentDimension = Dimension::getDimensionByLevel($player->getLevelNonNull()))) {
             Dimension::sendDimensionToPlayer($player, $currentDimension, true);
         }
         unset($this->dimensionData[$player->getId()]);
 
-        if (isset($this->deathSessions[$player->getId()])) {
+        if (array_key_exists($player->getId(), $this->deathSessions)) {
             $this->deathSessions[$player->getId()]->close();
             unset($this->deathSessions[$player->getId()]);
         }

@@ -58,7 +58,7 @@ class BirchForest extends GrassyBiome {
 
         $this->addPopulators([$birch, $flowers, $peonys, $roses, $mushrooms, $grass]);
 
-        $this->setElevation(66, 79);
+        $this->setElevation(63, 70);
     }
 
     public function getName(): string {

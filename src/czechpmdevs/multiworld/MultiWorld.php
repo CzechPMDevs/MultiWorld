@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld;
 
+use czechpmdevs\libautoupdate\AutoUpdater;
 use czechpmdevs\multiworld\command\GameRuleCommand;
 use czechpmdevs\multiworld\command\MultiWorldCommand;
 use czechpmdevs\multiworld\generator\ender\EnderGenerator;
@@ -53,23 +54,7 @@ class MultiWorld extends PluginBase {
     /** @var Command[] */
     public array $commands = [];
 
-    public function onEnable() {
-        $this->configManager = new ConfigManager();
-        $this->languageManager = new LanguageManager();
-
-        $this->commands = [
-            "multiworld" => new MultiWorldCommand(),
-            "gamerule" => new GameRuleCommand()
-        ];
-
-        foreach ($this->commands as $command) {
-            $this->getServer()->getCommandMap()->register("MultiWorld", $command);
-        }
-
-        $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
-    }
-
-    public function onLoad() {
+    public function onEnable(): void {
         if (!Utils::isProtocolCompatible()) {
             throw new InvalidStateException("MultiWorld is not compatible with current server version");
         }
@@ -90,6 +75,20 @@ class MultiWorld extends PluginBase {
                 GeneratorManager::addGenerator($class, $name, true);
             }
         }
+
+        $this->configManager = new ConfigManager();
+        $this->languageManager = new LanguageManager();
+
+        $this->commands = [
+            "multiworld" => new MultiWorldCommand(),
+            "gamerule" => new GameRuleCommand()
+        ];
+
+        foreach ($this->commands as $command) {
+            $this->getServer()->getCommandMap()->register("MultiWorld", $command);
+        }
+
+        $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
     }
 
     /**

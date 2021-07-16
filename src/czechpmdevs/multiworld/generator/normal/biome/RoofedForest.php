@@ -56,7 +56,7 @@ class RoofedForest extends GrassyBiome {
         $grass = new TallGrassPopulator(56, 20);
 
         $this->addPopulators([$tree, $peonys, $roses, $mushrooms, $mushroom, $birch, $oak, $grass]);
-        $this->setElevation(64, 74);
+        $this->setElevation(63, 70);
     }
 
     public function getName(): string {

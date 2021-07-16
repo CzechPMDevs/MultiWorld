@@ -26,7 +26,7 @@ class ForestHills extends Forest {
 
     public function __construct() {
         parent::__construct();
-        $this->setElevation(66, 89);
+        $this->setElevation(64, 84);
     }
 
     public function getName(): string {

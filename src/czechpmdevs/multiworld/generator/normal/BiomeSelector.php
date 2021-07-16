@@ -66,12 +66,12 @@ class BiomeSelector {
             }
 
             if ($ocean > -0.4) {
-                if ($temperature >= 0.7) {
+                if ($temperature > 0.5 && $rainfall > 0.5 && $hills < 0) {
                     return BiomeFactory::getInstance()->getBiome(BiomeIds::SWAMP);
                 }
             }
 
-            if ($ocean > -0.23) {
+            if ($ocean > -0.2687) {
                 if ($temperature > -0.2 && $temperature < 0.6 && $smallHills > -0.4) {
                     return BiomeFactory::getInstance()->getBiome(BiomeIds::BEACH);
                 }

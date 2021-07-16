@@ -26,7 +26,7 @@ class RoffedForestHills extends RoofedForest {
 
     public function __construct() {
         parent::__construct();
-        $this->setElevation(78, 84);
+        $this->setElevation(64, 84);
     }
 
     public function getName(): string {

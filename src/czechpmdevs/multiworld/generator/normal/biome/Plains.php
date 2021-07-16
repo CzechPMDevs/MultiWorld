@@ -56,7 +56,7 @@ class Plains extends GrassyBiome {
 
         $this->addPopulators([$lake, $flowers, $daisy, $bluet, $tulips, $tree, $tallGrass]);
 
-        $this->setElevation(64, 68);
+        $this->setElevation(62, 66);
     }
 
     public function getName(): string {

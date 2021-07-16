@@ -39,11 +39,11 @@ class MathHelper {
     }
 
     public function sin(float $num): float {
-        return $this->sinTable[(int)($num * 10430.378) & 65535];
+        return $this->sinTable[(int)($num * 10430.378) & 0xffff];
     }
 
     public function cos(float $num): float {
-        return $this->sinTable[(int)($num * 10430.378 + 16384.0) & 65535];
+        return $this->sinTable[(int)($num * 10430.378 + 16384.0) & 0xffff];
     }
 
     public static function getInstance(): MathHelper {
