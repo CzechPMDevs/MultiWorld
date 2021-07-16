@@ -24,6 +24,7 @@ namespace czechpmdevs\multiworld\util;
 
 use pocketmine\network\mcpe\protocol\GameRulesChangedPacket;
 use pocketmine\network\mcpe\protocol\LoginPacket;
+use pocketmine\network\mcpe\protocol\ProtocolInfo;
 use pocketmine\network\mcpe\protocol\SettingsCommandPacket;
 use pocketmine\network\mcpe\protocol\StartGamePacket;
 use ReflectionClass;
@@ -36,7 +37,15 @@ use function strpos;
 
 class Utils {
 
+    /**
+     * Hacky function which makes plugin independent on protocol changes
+     * made on packets whose are not used by MultiWorld
+     */
     public static function isProtocolCompatible(): bool {
+        if(class_exists(ProtocolInfo::class) && ProtocolInfo::CURRENT_PROTOCOL == 440) {
+            return true;
+        }
+
         if (!class_exists(GameRulesChangedPacket::class)) {
             return false;
         }
@@ -66,7 +75,7 @@ class Utils {
             return false;
         }
 
-        // Checking for changes in StartGamePacket
+        // ... for changes in StartGamePacket
         try {
             $ref = new ReflectionClass(StartGamePacket::class);
             $prop = $ref->getProperty("gameRules");
@@ -111,7 +120,8 @@ class Utils {
                 return false;
             }
 
-            $_ = $ref->getMethod("getCommand"); // Throws exception if the method does not exists.
+            /** @noinspection PhpExpressionResultUnusedInspection */
+            $ref->getMethod("getCommand"); // Throws exception if the method does not exists.
         } catch (ReflectionException $e) {
             return false;
         }

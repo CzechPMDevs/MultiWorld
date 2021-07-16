@@ -1,11 +1,13 @@
 name: MultiWorld
 author: CzechPMDevs
 authors: [VixikCZ, fuyutsuki, kaliiks]
-api: 3.0.0
+api: 3.20.0
 version: 1.6.0-beta2
 main: czechpmdevs\multiworld\MultiWorld
 description: Plugin that manage with worlds
 website: https://github.com/CzechPMDevs/MultiWorld
+extensions:
+  Core: '>=7.4'
 
 permissions:
   multiworld.command:
@@ -47,4 +49,7 @@ permissions:
         default: op
       multiworld.command.rename:
         description: Permission for /multiworld rename
+        default: op
+      multiworld.command.duplicate:
+        description: Permission for /multiworld duplicate
         default: op
