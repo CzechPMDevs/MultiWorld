@@ -55,10 +55,6 @@ class MultiWorld extends PluginBase {
     public array $commands = [];
 
     public function onEnable(): void {
-        if (!Utils::isProtocolCompatible()) {
-            throw new InvalidStateException("MultiWorld is not compatible with current server version");
-        }
-
         $start = !isset(MultiWorld::$instance);
         MultiWorld::$instance = $this;
 
