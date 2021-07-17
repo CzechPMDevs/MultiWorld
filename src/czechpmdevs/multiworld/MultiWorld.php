@@ -54,7 +54,7 @@ class MultiWorld extends PluginBase {
     /** @var Command[] */
     public array $commands = [];
 
-    public function onEnable(): void {
+    public function onLoad(): void {
         $start = !isset(MultiWorld::$instance);
         MultiWorld::$instance = $this;
 
@@ -71,7 +71,9 @@ class MultiWorld extends PluginBase {
                 GeneratorManager::addGenerator($class, $name, true);
             }
         }
+    }
 
+    public function onEnable(): void {
         $this->configManager = new ConfigManager();
         $this->languageManager = new LanguageManager();
 
