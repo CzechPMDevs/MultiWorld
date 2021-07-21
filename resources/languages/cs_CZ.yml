@@ -1,0 +1,101 @@
+---
+### Czech language file by @GamakCZ
+
+## Commands:
+
+not-perms: '§cNemáš povolení použít tento příkaz!'
+default-usage: '§cPoužij: §7/mw help'
+
+# Help Command:
+help: '§2--- Zobrazuji MultiWorld pomocnou stránku {%0} z {%1} (/mw help <page>) ---'
+help-1: '§2/mw create §fVytvoří nový svět'
+help-2: '§2/mw teleport §fTeleportuje na svět'
+help-3: '§2/mw list §fZobrazí list všech světů'
+help-4: '§2/mw load §fNačte svět'
+help-5: '§2/mw unload §fOdnačte svět'
+
+help-6: '§2/mw delete §fOdstraní svět'
+help-7: '§2/mw info §fZobrazí informace o světě'
+help-8: '§2/mw gamerule §fSpravuje pravidla světa'
+help-9: '§2/mw manage §fZapne správce světů'
+help-10: '§2/mw rename §fPřejmenuje svět'
+
+help-11: '§2/mw duplicate §fZduplikuje svět'
+help-12: '§2/mw update §fNastaví spawn, lobby nebo základní svět'
+
+# Create Command:
+create-usage: '§cPoužij: §7/mw create <jméno> [seed] [generátor]'
+create-exists: '§cSvět {%0} je již vygenerovaný!'
+create-gennotexists: '§cGenerátor {%0} neexistuje! Nastavuji základní generátor...'
+create-generating: '§aGeneruji svět...'
+create-done: 'Svět {%0} je vytvořen se seedem: {%1} a generátorem: {%2}.'
+
+# Teleport Command:
+teleport-usage: '§cPoužij: §7/mw teleport <svět> [hráč]'
+teleport-levelnotexists: '§cSvět {%0} nebyl nalezen! Použij /mw create pro vytvoření světa.'
+teleport-load: 'Načítám svět {%0}...'
+teleport-done-1: '§aByl jsi úspěšně teleportován do světa {%0}.'
+teleport-done-2: '§aHráč {%1} byl teleportován do světa {%0}!'
+teleport-playernotexists: '§cHráč nebyl nalezen!'
+
+# List Command:
+list-done: '§aSvěty ({%0}):'
+
+# Load Command:
+load-usage: '§cPoužij: §7/mw load <svět>'
+load-levelnotexists: '§cSvět {%0} neexistuje!'
+load-loaded: '§cNelze načíst načtený svět!'
+load-done: '§aSvět byl načten!'
+
+# Unload Command:
+unload-usage: '§cPoužij: §7/mw unload <svět>'
+unload-levelnotexists: '§cSvět {%0} neexistuje!'
+unload-unloaded: '§cNelze odnačíst odnačtený svět!'
+unload-done: '§aSvět byl odnačten!'
+
+# Delete Command:
+delete-usage: '§cPoužij: §7/mw delete <svět>'
+delete-levelnotexists: '§cSvět {%0} neexistuje!'
+delete-done: '§aSvět byl smazán (Bylo smazáno {%0} složek)!'
+
+# Update Command:
+update-usage: '§cPoužij: §7/mw update <mód: spawn|lobby|default> [nastavení: (x) (y) (z) (svět)]'
+update-levelnotexists: 'Svět {%0} nebyl nalezen'
+update-spawn-done: '§aSpawn ve světě {%0} byl změněn.'
+update-lobby-done: '§aLobby ve světě {%0} bylo změněno.'
+update-default-usage: '§cPoužij: §7/mw update default <level>'
+update-default-done: '§aHlavní svět byl změněn.'
+update-notsupported: '§cTento příkaz není v konzoli podporován.'
+
+# Info Command:
+info-levelnotexists: 'Svět {%0} nebyl nalezen'
+info: '§a--- {%0} ---'
+info-name: '§7Název: {%0}'
+info-folderName: '§7Název složky: {%0}'
+info-players: '§7Počet hráčů: {%0}'
+info-generator: '§7Generátor: {%0}'
+info-seed: '§7Seed: {%0}'
+info-time: '§7Čas: {%0}'
+
+# Gamerule Command:
+gamerule-usage: '§cPoužij: §7/mw gamerule <list|gamerule> [true|false] [level]'
+gamerule-list: '§aVe světě můžete upravit tyto pravidla: {%0}'
+gamerule-levelnotfound: '§cSvět {%0} nebyl nalezen.'
+gamerule-notexists: '§cGame rule {%0} neexistuje'
+gamerule-done: '§aGame rule {%0} ve světě {%1} bylo změněno na {%2}.'
+
+# Rename Command
+rename-usage: '§cPoužij: §7/mw rename <svět> <novýNázev>'
+rename-exists: '§cSvět se jménem {%0} již existuje.'
+rename-levelnotfound: '§cSvět {%0} nebyl nalezen.'
+rename-done: '§aJméno bylo změněno z {%0} na {%1}!'
+
+# Duplicate Command
+duplicate-usage: '§cPoužij: §7/mw duplicate <svět> [novýNázev]'
+duplicate-exists: '§cSvět s tímto jménem ({%0}) již existuje.'
+duplicate-levelnotfound: '§cSvět {%0} does not exist.'
+duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+
+# Forms
+forms-invalid: '§cPlugin nedostal správnou odpověď.'
+...

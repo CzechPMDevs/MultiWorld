@@ -1,0 +1,101 @@
+---
+### Japanese language file by @fuyutsuki
+
+## Commands:
+
+not-perms: '§cこのコマンドを実行する権限がありません!'
+default-usage: '§c使用方法: §7/mw help'
+
+# Help Command:
+help: '§2--- §fMultiWorld ヘルプ ページ({%0}/{%1}) §2---'
+help-1: '§2/mw create §fワールドを生成'
+help-2: '§2/mw teleport §fワールドにテレポート'
+help-3: '§2/mw list §f全てのワールドをリスト表示'
+help-4: '§2/mw load §fLoads a world'
+help-5: '§2/mw unload §fUnloads a world'
+
+help-6: '§2/mw delete §fワールドを削除'
+help-7: '§2/mw info §fワールドの情報を表示'
+help-8: '§2/mw gamerule §fワールドのゲームルールを変更'
+help-9: '§2/mw manage §fワールド管理用のフォームを表示'
+help-10: '§2/mw rename §fワールド名を変更'
+
+help-11: '§2/mw duplicate §fDuplicates a world'
+help-12: '§2/mw update §fワールドのロビー、スポーン、デフォルトを設定'
+
+# Create Command:
+create-usage: '§c使用方法: §7/mw create <ワールド名> [シード値] [ジェネレータ名]'
+create-exists: '§cワールド {%0} は既に存在します!'
+create-gennotexists: '§c%1 という名前のジェネレータは存在しません'
+create-generating: '§aワールド {%0} を生成中です'
+create-done: 'ワールド {%0} はシード値 {%1} , ジェネレータ名 {%2} によって生成されました'
+
+# Teleport Command:
+teleport-usage: '§c使用方法: §7/mw teleport <ワールド名> [プレイヤー名]'
+teleport-levelnotexists: '§c指定されたワールドは存在しません! ワールドを生成するには /mw create を使用して下さい'
+teleport-load: 'ワールド {%0} を読み込み中です'
+teleport-done-1: '§aワールド {%0} にテレポートしました'
+teleport-done-2: '§aプレイヤー名 {%1} をワールド {%0} にテレポートしました'
+teleport-playernotexists: '§c指定されたプレイヤーは存在しません!'
+
+# List Command:
+list-done: '§a全ワールド ({%0}):'
+
+# Load Command:
+load-usage: '§c使用方法: §7/mw load <ワールド名>'
+load-levelnotexists: '§cワールド {%0} は存在しません!'
+load-loaded: '§c既に読み込まれたワールドを再度読み込むことはできません!'
+load-done: '§aワールドを読み込みました'
+
+# Unload Command:
+unload-usage: '§c使用方法: §7/mw unload <ワールド名>'
+unload-levelnotexists: '§cワールド {%0} は存在しません!'
+unload-unloaded: '§c読み込まれていないワールドを読み込み解除することはできません!'
+unload-done: '§aワールドの読み込みを解除しました'
+
+# Delete Command:
+delete-usage: '§c使用方法: §7/mw delete <ワールド名>'
+delete-levelnotexists: '§cワールド {%0} は存在しません!'
+delete-done: '§aワールドを削除しました ({%0} つのファイルを削除しました)'
+
+# Update Command:
+update-usage: '§c使用方法: §7/mw update <spawn|lobby|default> [(ワールド名) (x座標) (y座標) (z座標)]'
+update-levelnotexists: '§cワールド {%0} は存在しません!'
+update-spawn-done: '§aワールド {%0} のスポーン位置を変更しました'
+update-lobby-done: '§aワールド {%0} のロビーの位置を変更しました'
+update-default-usage: '§c使用方法: §7/mw update default <ワールド名>'
+update-default-done: '§aワールド {%0} を標準のワールドとして設定しました'
+update-notsupported: '§cこのコマンドはコンソールでの実行に対応していません'
+
+# Info Command:
+info-levelnotexists: '§cワールド {%0} は存在しません!'
+info: '§a--- {%0} ---'
+info-name: '§7ワールド名: {%0}'
+info-folderName: '§7フォルダ名: {%0}'
+info-players: '§7プレイヤー数: {%0}'
+info-generator: '§7ジェネレータ名: {%0}'
+info-seed: '§7シード値: {%0}'
+info-time: '§7ワールド内時間: {%0}'
+
+# Gamerule Command:
+gamerule-usage: '§c使用方法: §7/mw gamerule <list|gamerule> [true|false] [ワールド名]'
+gamerule-list: '§aAvailable game rules: {%0}'
+gamerule-levelnotfound: '§cワールド {%0} は存在しません'
+gamerule-notexists: '§cゲームルール {%0} は存在しません'
+gamerule-done: '§aワールド {%1} のゲームルール {%0} を {%2} に変更しました'
+
+# Rename Command
+rename-usage: '§c使用方法: §7/mw rename <元のワールド名> <変更先ワールド名>'
+rename-exists: '§c{%0} という名前のワールドは既に存在します'
+rename-levelnotfound: '§cワールド {%0} は存在しません!'
+rename-done: '§aワールド名 {%0} を {%1} に変更しました'
+
+# Duplicate Command
+duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
+duplicate-exists: '§cWorld with name {%0} already exists.'
+duplicate-levelnotfound: '§cLevel {%0} does not exist.'
+duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+
+# Forms
+forms-invalid: '§cフォームに入力した値が異常です'
+...

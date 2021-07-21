@@ -1,0 +1,34 @@
+---
+# Pre-Generated Default Game Rules
+# Target MultiWorld version: 1.6.0^
+# DO NOT EDIT THIS!
+
+commandBlocksEnabled: true
+commandBlockOutput: true
+doDaylightCycle: true
+doEntityDrops: true
+doFireTick: true
+doInsomnia: true
+doImmediateRespawn: false
+doMobLoot: true
+doMobSpawning: true
+doTileDrops: true
+doWeatherCycle: true
+drowningDamage: true
+fallDamage: true
+fireDamage: true
+freezeDamage: true
+functionCommandLimit: true
+keepInventory: false
+maxCommandChainLength: 65536
+mobGriefing: true
+naturalRegeneration: true
+pvp: true
+randomTickSpeed: 1
+sendCommandFeedback: true
+showCoordinates: true
+showDeathMessages: true
+spawnRadius: 5
+tntExplodes: true
+showTags: true
+...

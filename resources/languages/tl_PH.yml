@@ -1,0 +1,101 @@
+---
+### Filipino language file by ills8oN
+
+## Commands:
+
+not-perms: '§cWala kang pahintulot na gamitin ang utos na ito'
+default-usage: '§cPaggamit: §7/mw help'
+
+# Help Command:
+help: '§2--- Ipinapakita ang pahina ng tulong ng MultiWorld {%0} of {%1} (/mw help <page>) ---'
+help-1: '§2/mw create §fGumawa ng mundo'
+help-2: '§2/mw teleport §fTeleport sa ibang mundo'
+help-3: '§2/mw list §fIpapakita ang listahan ng mga mundo'
+help-4: '§2/mw load §fLoads a world'
+help-5: '§2/mw unload §fUnloads a world'
+
+help-6: '§2/mw delete §fTanggalin ang mundo'
+help-7: '§2/mw info §fIpapakita ang impormasyon tunkol sa mundo'
+help-8: '§2/mw gamerule §fI-Manage ang mga gamerules sa level'
+help-9: '§2/mw manage §fI-papakita ang form para ma-manage ang mga mundo'
+help-10: '§2/mw rename §fI-pangalan ulit ang mundo'
+
+help-11: '§2/mw duplicate §fDuplicates a world'
+help-12: '§2/mw update §fI-Update ang lobby, spawn sa isang mundo o i-change ang default na mundo'
+
+# Create Command:
+create-usage: '§cPaggamit: §7/mw create <name> [seed] [generator]'
+create-exists: '§cLevel {%0} ay nilikha na!'
+create-gennotexists: '§cGenerator {%0} ay hindi mahanap.'
+create-generating: '§aGinagawa ang mundo {%0}'
+create-done: 'Ang mundo {%0} ay nagawa gamit ang seed: {%1} at generator: {%2}.'
+
+# Teleport Command:
+teleport-usage: '§cPaggamit: §7/mw teleport <world> [player]'
+teleport-levelnotexists: '§cAng Mundo {%0} ay hindi pa nagawa. Subukan ang /mw create para gumawa ng mundo.'
+teleport-load: 'Nag-loload ang mundo {%0}...'
+teleport-done-1: '§aIkaw ay na teleport sa {%0}.'
+teleport-done-2: '§aManlalaro {%1} ay na teleport sa {%0}.'
+teleport-playernotexists: '§cManlalaro ay hindi umiiral.'
+
+# List Command:
+list-done: '§aAng mga Mundo ({%0}):'
+
+# Load Command:
+load-usage: '§cPaggamit: §7/mw load <world>'
+load-notexists: '§cAng Mundo {%0} ay hindi umiiral.'
+load-loaded: '§cHindi ma-load ang mundo.'
+load-done: '§aAng Mundo Ay Na-Load na.'
+
+# Unload Command:
+unload-usage: '§cPaggamit: §7/mw unload <world>'
+unload-levelnotexists: '§cAng Mundo {%0} ay hindi umiiral.'
+unload-unloaded: '§cHindi ma-unload ang mundo.'
+unload-done: '§aAng Mundo Ay Na-Unloaded na.'
+
+# Delete Command:
+delete-usage: '§cPaggamit: §7/mw delete <world>'
+delete-levelnotexists: '§cMundo ay hindi umiiral.'
+delete-done: '§aAng mundo ay na delete na. ({%0} files na na-delete.)'
+
+# Update Command:
+update-usage: '§cPaggamit: §7/mw update <mod: spawn|lobby|default> [options: (world) (x) (y) (z)]'
+update-levelnotexists: '§cAng Mundo {%0} ay hindi umiiral.'
+update-spawn-done: '§aSpawn sa mundo {%0} ay na-iba.'
+update-lobby-done: '§aLobby sa mundo {%0} ay na-iba.'
+update-default-usage: '§cPaggamit: §7/mw update default <level>'
+update-default-done: '§aDefault na mundo ay na-iba ng {%0}.'
+update-notsupported: '§4I-run ang command sa laro'
+
+# Info Command:
+info-levelnotexists: '§c{%0} ay hindi umiiral.'
+info: '§a--- {%0} ---'
+info-name: '§7Pangalan: {%0}'
+info-folderName: '§7Pangalan ng folder: {%0}'
+info-players: '§7Bilang ng manlalaro: {%0}'
+info-generator: '§7Generator: {%0}'
+info-seed: '§7Seed: {%0}'
+info-time: '§7Oras: {%0}'
+
+# Gamerule Command:
+gamerule-usage: '§cPaggamit: §7/mw gamerule <list|gamerule> [true|false] [level]'
+gamerule-list: '§aAvailable game rules: {%0}'
+gamerule-levelnotfound: '§cAng Mundo {%0} ay hindi na hanap.'
+gamerule-notexists: '§cGamerule {%0} ay hindi umiiral.'
+gamerule-done: '§aGamerule {%0} sa mundo {%1} ay na-iba ng {%2}.'
+
+# Rename Command
+rename-usage: '§cPaggamit: §7/mw rename <from> <to>'
+rename-exists: '§cLevel na may pangalan {%0} ay meron na.'
+rename-levelnotfound: '§cLevel {%0} ay hindi umiiral.'
+rename-done: '§aPangalan ng level {%0} ay na-iba ng {%1}.'
+
+# Duplicate Command
+duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
+duplicate-exists: '§cWorld with name {%0} already exists.'
+duplicate-levelnotfound: '§cLevel {%0} does not exist.'
+duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+
+# Forms
+forms-invalid: '§cInvalid na resulta.'
+...

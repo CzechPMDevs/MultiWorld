@@ -1,0 +1,27 @@
+{
+  "name": "czechpmdevs/multiworld",
+  "description": "World management plugin for PocketMine servers",
+  "minimum-stability": "dev",
+  "license": "Apache-2.0",
+  "require": {
+    "php": "^7.4 || ^8.0",
+    "ext-yaml": "*",
+    "ext-pthreads": "*",
+    "ext-json": "*",
+    "czechpmdevs/libpmform": "dev-main",
+    "phpstan/phpstan": "0.12.83",
+    "pocketmine/pocketmine-mp": "dev-master"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "name": "czechpmdevs/libpmform",
+      "url": "https://github.com/CzechPMDevs/libpmform"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "": ["src"]
+    }
+  }
+}

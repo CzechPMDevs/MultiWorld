@@ -1,0 +1,101 @@
+---
+### Vietnamese language file by @Mcbeany.
+### Ngôn ngữ Tiếng Việt được tạo bởi @Mcbeany
+
+## Commands:
+not-perms: '§cBạn không có quyền để sử dụng lệnh này'
+default-usage: '§cSử dụng: §7/mw help'
+
+# Help Command:
+help: '§2--- Hiển thị hướng dẫn của MultiWorld trang {%0} trong {%1} (/mw help <Số trang>) ---'
+help-1: '§2/mw create §fTạo một thế giới mới'
+help-2: '§2/mw teleport §fDịch chuyển tới thế giới đó'
+help-3: '§2/mw list §f Hiển thị danh sách thế giới'
+help-4: '§2/mw load §fLoads a world'
+help-5: '§2/mw unload §fUnloads a world'
+
+help-6: '§2/mw delete §fXóa thế giới'
+help-7: '§2/mw info §fHiển thị thông tin về thế giới đó'
+help-8: '§2/mw gamerule §fChỉnh sửa luật của thế giới'
+help-9: '§2/mw manage §fHiển thị chỉnh sửa của thế giới'
+help-10: '§2/mw rename §fĐặt tên lại thế giới'
+
+help-11: '§2/mw duplicate §fDuplicates a world'
+help-12: '§2/mw update §fCập nhật sảnh, nơi hồi sinh hoặc thế giới mặc định'
+
+# Create Command:
+create-usage: '§cSử dụng: §7/mw create <Tên thế giới> [Hạt giống] [Loại thế giới]'
+create-exists: '§cThế giới {%0} đã được tạo!'
+create-gennotexists: '§cLoại thế giới {%0} không được tìm thấy.'
+create-generating: '§aĐang khởi tạo thế giới {%0}'
+create-done: 'Thế giới {%0} được tạo sử dụng hạt giống: {%1} và loại thế giới: {%2}.'
+
+# Teleport Command:
+teleport-usage: '§cSử dụng: §7/mw teleport <Tên thế giới> [Tên người chơi]'
+teleport-levelnotexists: '§cThế giới {%0} chưa được khởi tạo. Thử dùng /mw create để tạo một thế giới mới.'
+teleport-load: 'Đang tải thế giới {%0}...'
+teleport-done-1: '§aBạn đã được dịch chuyển tới thế giới {%0}.'
+teleport-done-2: '§aNgười chơi {%1} đã được dịch chuyển tới {%0}.'
+teleport-playernotexists: '§cNgười chơi không tồn tại.'
+
+# List Command:
+list-done: '§aDanh sách thế giới ({%0}):'
+
+# Load Command:
+load-usage: '§cSử dụng: §7/mw load <Tên thế gưới>'
+load-notexists: '§cThế giới {%0} không tồn tại.'
+load-loaded: '§cKhông thể tải lại thế giới.'
+load-done: '§aThế giới đã được tải lại.'
+
+# Unload Command:
+unload-usage: '§cSử dụng: §7/mw unload <Tên thế giới>'
+unload-levelnotexists: '§cThế giới {%0} không tồn tại.'
+unload-unloaded: '§cKhông thể hủy tải thế giới.'
+unload-done: '§aTHế giới đã được hủy tải.'
+
+# Delete Command:
+delete-usage: '§cSử dụng: §7/mw delete <Tên thế giới>'
+delete-levelnotexists: '§cThế giới không tồn tại.'
+delete-done: '§aThế giới đã được xóa. ({%0} tập tin đã được xóa.)'
+
+# Update Command:
+update-usage: '§cSử dụng: §7/mw update <Chế độ: spawn|lobby|default> [Tùy chọn: (Tên thế giới) (x) (y) (z)]'
+update-levelnotexists: '§cThế giới {%0} không tồn tại.'
+update-spawn-done: '§aNơi hồi sinh đã được đặt tại thế giới {%0}.'
+update-lobby-done: '§aSảnh đã được đặt tại thế giới {%0}.'
+update-default-usage: '§cSử dụng: §7/mw update default <Tên thế giới>'
+update-default-done: '§aThế giới mặc định đã được đặt tại thế giới {%0}.'
+update-notsupported: '§4Hãy sử dụng lệnh trong trò chơi'
+
+# Info Command:
+info-levelnotexists: '§cThế giới {%0} không tồn tại.'
+info: '§a--- {%0} ---'
+info-name: '§7Tên: {%0}'
+info-folderName: '§7Tên thư mục: {%0}'
+info-players: '§7Người chơi tại thế giới: {%0}'
+info-generator: '§7Loại thế giới: {%0}'
+info-seed: '§7Hạt giống: {%0}'
+info-time: '§7Thời gian: {%0}'
+
+# Gamerule Command:
+gamerule-usage: '§cSử dụng: §7/mw gamerule <list|gamerule> [true|false] [Tên thế giới]'
+gamerule-list: '§aAvailable game rules: {%0}'
+gamerule-levelnotfound: '§cThế giới {%0} không tìm thấy.'
+gamerule-notexists: '§cLuật lệ {%0} không tồn tại.'
+gamerule-done: '§aLuật lệ {%0} tại thế giới {%1} được chỉnh thành {%2}.'
+
+# Rename Command
+rename-usage: '§cSử dụng: §7/mw rename <Tên ban đầu> <Tên mới>'
+rename-exists: '§cTên thế giới {%0} đã tồn tại.'
+rename-levelnotfound: '§cThế giới {%0} không tồn tại.'
+rename-done: '§aThế giới {%0} được đổi tên thành {%1}.'
+
+# Duplicate Command
+duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
+duplicate-exists: '§cWorld with name {%0} already exists.'
+duplicate-levelnotfound: '§cLevel {%0} does not exist.'
+duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+
+# Forms
+forms-invalid: '§cKết quả không hợp lệ.'
+...

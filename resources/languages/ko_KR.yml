@@ -1,0 +1,101 @@
+---
+### Korean language file by @Regard0606, changes may be needed.
+
+## Commands:
+
+not-perms: '§c당신은 이 커맨드에 대한 권한이 없습니다'
+default-usage: '§c사용법: §7/mw help'
+
+# Help Command:
+help: '§2--- MultiWorld 도움말 {%0} of {%1} (/mw help <page>) ---'
+help-1: '§2/mw create §f새 월드 생성'
+help-2: '§2/mw teleport §f다른 월드로 이동'
+help-3: '§2/mw list §f 모든 월드 목록 표시'
+help-4: '§2/mw load §fLoads a world'
+help-5: '§2/mw unload §fUnloads a world'
+
+help-6: '§2/mw delete §f월드 삭제'
+help-7: '§2/mw info §f월드 정보 표시'
+help-8: '§2/mw gamerule §f월드의 규칙(게임룰)을 관리'
+help-9: '§2/mw manage §f월드를 관리할수 있는 서식표시'
+help-10: '§2/mw rename §f월드 이름 바꾸기'
+
+help-11: '§2/mw duplicate §fDuplicates a world'
+help-12: '§2/mw update §f기본월드를 변경'
+
+# Create Command:
+create-usage: '§c사용법: §7/mw create <월드이름> [시드] [유형]'
+create-exists: '§c{%0} 는 이미 생성됨'
+create-gennotexists: '§c {%0} 을 찾을 수 없습니다.'
+create-generating: '§a월드 생성 {%0}'
+create-done: '월드이름 :  {%0} 시드 :  {%1} 월드 유형 :  {%2} 생성 완료'
+
+# Teleport Command:
+teleport-usage: '§c사용법: §7/mw teleport <월드이름> [플레이어이름]'
+teleport-levelnotexists: '§c월드 {%0} 는 생성되지 않았습니다.  /mw create 로 월드를 만들어주세요.'
+teleport-load: '월드 로딩중 {%0}...'
+teleport-done-1: '§a당신은 {%0} 로 이동 되었습니다.'
+teleport-done-2: '§a플레이어 {%1} 는 {%0} 로 이동되었습니다.'
+teleport-playernotexists: '§c플레이어가 존재하지 않습니다.'
+
+# List Command:
+list-done: '§a월드 ({%0}):'
+
+# Load Command:
+load-usage: '§c사용법: §7/mw load <월드이름>'
+load-notexists: '§cWorld {%0} does not exist.'
+load-loaded: '§cUnable to load the world.'
+load-done: '§aWorld loaded.'
+
+# Unload Command:
+unload-usage: '§c사용법: §7/mw unload <월드이름>'
+unload-levelnotexists: '§c{%0} 는 존재하지 않습니다.'
+unload-unloaded: '§c월드를 언로드 할수 없습니다.'
+unload-done: '§a월드가 언로드 되었습니다.'
+
+# Delete Command:
+delete-usage: '§c사용법: §7/mw delete <월드이름>'
+delete-levelnotexists: '§c월드가 존재하지 않습니다.'
+delete-done: '§a월드가 삭제되었습니다. ({%0} 파일이 삭제 되었습니다.)'
+
+# Update Command:
+update-usage: '§c사용법: §7/mw update <모드:spawn|lobby|default> [옵션: (월드이름) (x) (y) (z)]'
+update-levelnotexists: '§c월드 {%0} 가 존재하지 않습니다.'
+update-spawn-done: '§c {%0} 월드의 스폰이 바뀌었습니다.'
+update-lobby-done: '§a{%0} 의 로비가 바뀌었습니다.'
+update-default-usage: '§c사용법: §7/mw update default <level>'
+update-default-done: '§a기본세계가 {%0}로 변경됨.'
+update-notsupported: '§4이 커맨드를 게임내에서 입력해주세요'
+
+# Info Command:
+info-levelnotexists: '§c{%0} 은 존재하지 않습니다.'
+info: '§a--- {%0} ---'
+info-name: '§7이름: {%0}'
+info-folderName: '§7폴더이름: {%0}'
+info-players: '§7플레이어 수: {%0}'
+info-generator: '§7유형: {%0}'
+info-seed: '§7시드: {%0}'
+info-time: '§7시간: {%0}'
+
+# Gamerule Command:
+gamerule-usage: '§c사용법: §7/mw gamerule <list|gamerule> [true|false] [level]'
+gamerule-list: '§aAvailable game rules: {%0}'
+gamerule-levelnotfound: '§c월드 {%0} 를 찾을 수 없습니다.'
+gamerule-notexists: '§c게임룰 {%0} 을 찾을 수 없습니다.'
+gamerule-done: '§a게임룰 {%0} 이 {%1} 월드에서 {%2} 로 바뀌었습니다.'
+
+# Rename Command
+rename-usage: '§c사용법: §7/mw rename <현재이름> <바꿀이름>'
+rename-exists: '§c {%0} 은 이미 존재하는 이름입니다.'
+rename-levelnotfound: '§c {%0} 은 존재하지 않습니다.'
+rename-done: '§a {%0} 가 {%1} 로 바뀌었습니다.'
+
+# Duplicate Command
+duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
+duplicate-exists: '§cWorld with name {%0} already exists.'
+duplicate-levelnotfound: '§cLevel {%0} does not exist.'
+duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+
+# Forms
+forms-invalid: '§c잘못된 결과.'
+...

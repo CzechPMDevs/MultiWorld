@@ -1,0 +1,101 @@
+---
+### Spanish language file made by @LewBr (http://twitter.com/lew_br).
+### Traducciones al español por Leonardo S. William (LewBr)
+
+## Commands:
+not-perms: '§cNo tienes permiso para usar este comando'
+default-usage: '§cUso: §7/mw help'
+
+# Help Command:
+help: '§2--- Mostrando la página de ayuda de MultiWorld {%0} de {%1} (/mw help <páginas>) ---'
+help-1: '§2/mw create §fCrear un mundo'
+help-2: '§2/mw teleport §fTeletransportarse a un mundo'
+help-3: '§2/mw list §fMuestra una lista de todos los mundos'
+help-4: '§2/mw load §fLoads a world'
+help-5: '§2/mw unload §fUnloads a world'
+
+help-6: '§2/mw delete §fEliminar un mundo'
+help-7: '§2/mw info §fMuestra información sobre un mundo.'
+help-8: '§2/mw gamerule §fAdministra las reglas de un mundo.'
+help-9: '§2/mw manage §fMuestra el formulario para gestionar los mundos.'
+help-10: '§2/mw rename §fRenombrar el mundo'
+
+help-11: '§2/mw duplicate §fDuplicates a world'
+help-12: '§2/mw update §fActualice el lobby, cree un mundo o cambie el mundo estándar'
+
+# Create Command:
+create-usage: '§cUso: §7/mw create <nombre> [semilla] [generador]'
+create-exists: '§c¡El nivel {%0} ya está generado!'
+create-gennotexists: '§cGenerador {%0} no encontrado.'
+create-generating: '§aGenerando el mundo: {%0}'
+create-done: 'Se generaron {%0} mundos utilizando la semilla: {%1} y el generador: {%2}.'
+
+# Teleport Command:
+teleport-usage: '§cUso: §7/mw teleport <mundo> [jugador]'
+teleport-levelnotexists: '§cEl mundo {%0} aún no se ha creado. Intenta /mw para crear un mundo.'
+teleport-load: 'Cargando el mundo {%0} ...'
+teleport-done-1: '§aHas sido teletransportado a {%0}.'
+teleport-done-2: '§aEl jugador {%1} se teletransportó a {%0}.'
+teleport-playernotexists: '§cEl jugador no existe.'
+
+# List Command:
+list-done: '§aMundos ({%0}):'
+
+# Load Command:
+load-usage: '§cUso: §7/mw load <mundo>'
+load-notexists: '§cEl mundo {%0} no existe.'
+load-loaded: '§cEl mundo no pudo ser cargado.'
+load-done: '§aMundo cargado.'
+
+# Unload Command:
+unload-usage: '§cUso: §7/mw unload <mundo>'
+unload-levelnotexists: '§c{%0} no existe.'
+unload-unloaded: '§cIncapaz de descargar el mundo.'
+unload-done: '§aMundo descargado.'
+
+# Delete Command:
+delete-usage: '§cUso: §7/mw delete <mundo>'
+delete-levelnotexists: '§cEl mundo no existe.'
+delete-done: '§aMundo excluido. ({%0} archivos eliminados).'
+
+# Update Command:
+update-usage: '§cUso: §7/mw update <mod: spawn|lobby|default> [opciones: (mundo) (x) (y) (z)]'
+update-levelnotexists: '§cEl mundo {%0} no existe.'
+update-spawn-done: '§aLa sitio de spawn en el mundo {%0} ha cambiado.'
+update-lobby-done: '§aEl lobby en el mundo {%0} ha cambiado.'
+update-default-usage: '§cUso: §7/mw update default <mundo>'
+update-default-done: '§aEl mundo estándar se ha cambiado a {%0}.'
+update-notsupported: '§4Por favor ejecuta este comando en el juego'
+
+# Info Command:
+info-levelnotexists: '§c{%0} no existe.'
+info: '§a--- {%0} ---'
+info-name: '§7Nombre: {%0}'
+info-folderName: '§7Nombre de la carpeta: {%0}'
+info-players: '§7Recuento de jugadores: {%0}'
+info-generator: '§7Generador: {%0}'
+info-seed: '§7Semilla: {%0}'
+info-time: '§7Tiempo/Horas: {%0}'
+
+# Gamerule Command:
+gamerule-usage: '§cUso: §7/mw gamerule <list|gamerule> [true|false] [mundo]'
+gamerule-list: '§aAvailable game rules: {%0}'
+gamerule-levelnotfound: '§cMundo {%0} no encontrado.'
+gamerule-notexists: '§cLa regla {%0} no existe.'
+gamerule-done: '§aLa regla {%0} en el mundo {%1} se ha cambiado a {%2}.'
+
+# Rename Command
+rename-usage: '§cUso: §7/mw rename <de> <para>'
+rename-exists: '§cEl nivel con el nombre {%0} ya existe.'
+rename-levelnotfound: '§cEl nivel {%0} no existe.'
+rename-done: '§aEl nombre del nivel {%0} se ha cambiado a {%1}.'
+
+# Duplicate Command
+duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
+duplicate-exists: '§cWorld with name {%0} already exists.'
+duplicate-levelnotfound: '§cLevel {%0} does not exist.'
+duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+
+# Forms
+forms-invalid: '§cResultado inválido.'
+...

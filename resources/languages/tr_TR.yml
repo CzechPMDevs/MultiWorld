@@ -1,0 +1,101 @@
+---
+### Türkçe Dil MultiWorld için :D 
+### Turkish language file by DragonfireHD98
+## Commands:
+
+not-perms: '§cSBu komutu çalıştırmak için gerekli izinlere sahip değilsiniz !'
+default-usage: '§ckullanım : §7/mw help'
+
+# Yardim komutlar:
+help: '§c--- §eMultiWorld help page ({%0}/{%1}) §c---'
+help-1: '§c/mw create §fBir dünya yaratın '
+help-2: '§c/mw teleport §fBir dünyaya ışınlanın '
+help-3: '§c/mw list §fTüm dünyaların bir listesini görüntüler '
+help-4: '§2/mw load §fLoads a world'
+help-5: '§2/mw unload §fUnloads a world'
+
+help-6: '§c/mw delete §fBir dünyayı kaldır '
+help-7: '§c/mw info §fBir dünya hakkında bilgi görüntüler '
+help-8: '§c/mw gamerule §fBir seviye için oyunun kurallarını yönetin '
+help-9: '§c/mw manage §fDünyaları yönetmek için bir kullanıcı arayüzü gösterir '
+help-10: '§c/mw rename §fBir dünyanın adını değiştirir '
+
+help-11: '§2/mw duplicate §fDuplicates a world'
+help-12: '§c/mw update §fLobiyi, bir dünyadaki doğumu veya standart dünyayı değiştirin '
+
+# komut Dünya oluştur:
+create-usage: '§ckullanım : §7/mw create <İsim> [tohum] [jeneratör ]'
+create-exists: '§cSeviye {%0} zaten oluşturuldu !'
+create-gennotexists: 'jeneratör  {%0} bulunamadı '
+create-generating: '§aDünya  {%0} oluşturuldu...'
+create-done: 'Seviye {%0} tohumla birlikte kullanılır {%1} oluşturulmuş ve jeneratör  {%2}.'
+
+# TP komut:
+teleport-usage: '§ckullanım: §7/mw teleport <seviye> [oyuncu]'
+teleport-levelnotexists: '§cDünya   {%0} henüz yaratılmadı!   /mw create dene bir dünya yaratmak için. '
+teleport-load: 'Seviye {%0} yükleniyor...'
+teleport-done-1: '§aSen dünyaya doğdun {%0} ışınlanmış .'
+teleport-done-2: '§aOyuncu {%1} dünyanın dışındaydı {%0} ışınlanmış !'
+teleport-playernotexisten: '§cBu oyuncu mevcut değil !'
+
+# List komutlar:
+list-done: '§aDünyalar ({%0}):'
+
+# komut dünya yükle:
+load-usage: '§ckullanım: §7/mw load <seviye>'
+load-levelnotexists: '§cDünya {%0} mevcut değil!'
+load-loaded: '§cDünya yüklenemedi !'
+load-done: '§aDünya yüklendi !'
+
+# komut dünya boşalt:
+unload-usage: '§ckullanım: §7/mw unload <seviye>'
+unload-levelnotexists: '§cDünya{%0} mevcut değil!'
+unload-unloaded: '§cDünya taburcu edilemedi !'
+unload-done: '§aDünyayı boşaltın !'
+
+# komut dünya Silmek:
+delete-use: §7/mw delete <seviye>'
+delete-levelnotexists: '§cDünya  {%0} mevcut değil!'
+delete-done: '§aDünya silindi ! ({%0} Dosyalar kaldırıldı .)'
+
+# Update komutları:
+update-usage: '§ckullanım : §7/mw update <typ: spawn|lobby|default> [Optionen: (x) (y) (z) (seviye)]'
+update-levelnotexists: '§cDünya {%0} mevcut değil!'
+update-spawn-done: '§aDünyada Spawn {%0} değişti .'
+update-lobby-done: '§aDünyadaki lobi  {%0} değişti.'
+update-default-done: '§aStandart dünya açıktı  {%0} değişti'
+update-default-usage: '§ckullanım: §7/mw update default <seviye>'
+update-notsupported: '§cLütfen oyun içi komutu yürütün .'
+
+# Info komutlar:
+info-levelnotexists: '§cDünya {%0} mevcut değil!'
+info: '§a--- {%0} ---'
+info-name: '§aisim: {%0}'
+info-folderName: '§7Dosya-isim: {%0}'
+info-players: '§7Oyuncu sayısı : {%0}'
+info-generator: '§7jeneratör : {%0}'
+info-seed: '§7Tohum : {%0}'
+info-time: '§7Saat: {%0}'
+
+# Gamerule Command:
+gamerule-usage: '§ckullanım §7/mw gamerule <list|gamerule> [true|false] [seviye]'
+gamerule-list: '§aAvailable game rules: {%0}'
+gamerule-levelnotfound: '§cDünya {%0} bulunamadı .'
+gamerule-notexists: '§cOyunun kuralları  {%0} mevcut değil .'
+gamerule-done: '§aOyunun kuralları  {%0} dünyada oldu {%1} açık  {%2} değişti .'
+
+# Rename Command
+rename-usage: '§ckullanım §7/mw rename <eski isim> <yeni isim>'
+rename-exists: '§cisimli bir seviye {%0} zaten var .'
+rename-levelnotfound: '§cSeviye {%0} mecut değil.'
+rename-done: '§aSeviye adı {%0} {%1} olarak değiştirildi.  '
+
+# Duplicate Command
+duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
+duplicate-exists: '§cWorld with name {%0} already exists.'
+duplicate-levelnotfound: '§cLevel {%0} does not exist.'
+duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+
+# Forms
+forms-invalid: '§cgeçersiz istek .'
+...

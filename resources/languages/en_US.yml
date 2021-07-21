@@ -1,0 +1,101 @@
+---
+### English language file by @lcyLand, changes may be needed.
+
+## Commands:
+
+not-perms: '§cYou do not have permission to use this command'
+default-usage: '§cUsage: §7/mw help'
+
+# Help Command:
+help: '§2--- Showing MultiWorld help page {%0} of {%1} (/mw help <page>) ---'
+help-1: '§2/mw create §fCreate a world'
+help-2: '§2/mw teleport §fTeleport to a world'
+help-3: '§2/mw list §f Displays a list of all worlds'
+help-4: '§2/mw load §fLoads a world'
+help-5: '§2/mw unload §fUnloads a world'
+
+help-6: '§2/mw delete §fRemoves a world'
+help-7: '§2/mw info §fDisplays information about a world'
+help-8: '§2/mw gamerule §fManages the gamerules of a level'
+help-9: '§2/mw manage §fDisplays form for managing with worlds'
+help-10: '§2/mw rename §fRenames the world'
+
+help-11: '§2/mw duplicate §fDuplicates a world'
+help-12: '§2/mw update §fUpdate lobby, spawn in a world or change the default world'
+
+# Create Command:
+create-usage: '§cUsage: §7/mw create <name> [seed] [generator]'
+create-exists: '§cWorld {%0} is already generated!'
+create-gennotexists: '§cGenerator {%0} not found.'
+create-generating: '§aGenerating world {%0}'
+create-done: 'World {%0} was generated using seed: {%1} and generator: {%2}.'
+
+# Teleport Command:
+teleport-usage: '§cUsage: §7/mw teleport <world> [player]'
+teleport-levelnotexists: '§cWorld {%0} has not been created yet. Try /mw create to create a world.'
+teleport-load: 'Loading world {%0}...'
+teleport-done-1: '§aYou were teleported to {%0}.'
+teleport-done-2: '§aPlayer {%1} was teleported to {%0}.'
+teleport-playernotexists: '§cPlayer does not exist.'
+
+# List Command:
+list-done: '§aWorlds ({%0}):'
+
+# Load Command:
+load-usage: '§cUsage: §7/mw load <world>'
+load-notexists: '§cWorld {%0} does not exist.'
+load-loaded: '§cUnable to load the world.'
+load-done: '§aWorld loaded.'
+
+# Unload Command:
+unload-usage: '§cUsage: §7/mw unload <world>'
+unload-levelnotexists: '§c{%0} does not exist.'
+unload-unloaded: '§cUnable to unload the world.'
+unload-done: '§aWorld unloaded.'
+
+# Delete Command:
+delete-usage: '§cUsage: §7/mw delete <world>'
+delete-levelnotexists: '§cWorld does not exist.'
+delete-done: '§aWorld deleted. ({%0} files removed.)'
+
+# Update Command:
+update-usage: '§cUsage: §7/mw update <mod: spawn|lobby|default> [options: (world) (x) (y) (z)]'
+update-levelnotexists: '§cWorld {%0} does not exist.'
+update-spawn-done: '§aSpawn in world {%0} was changed.'
+update-lobby-done: '§aLobby in world {%0} was changed.'
+update-default-usage: '§cUsage: §7/mw update default <level>'
+update-default-done: '§aDefault world was changed to {%0}.'
+update-notsupported: '§4Please run this command in-game'
+
+# Info Command:
+info-levelnotexists: '§c{%0} does not exist.'
+info: '§a--- {%0} ---'
+info-name: '§7Name: {%0}'
+info-folderName: '§7Folder name: {%0}'
+info-players: '§7Player count: {%0}'
+info-generator: '§7Generator: {%0}'
+info-seed: '§7Seed: {%0}'
+info-time: '§7Time: {%0}'
+
+# Gamerule Command:
+gamerule-usage: '§cUsage: §7/mw gamerule <list|gamerule> [true|false] [level]'
+gamerule-list: '§aAvailable game rules: {%0}'
+gamerule-levelnotfound: '§cWorld {%0} not found.'
+gamerule-notexists: '§cGame rule {%0} does not exist.'
+gamerule-done: '§aGame rule {%0} in world {%1} was changed to {%2}.'
+
+# Rename Command
+rename-usage: '§cUsage: §7/mw rename <from> <to>'
+rename-exists: '§cLevel with name {%0} already exists.'
+rename-levelnotfound: '§cLevel {%0} does not exist.'
+rename-done: '§aName of level {%0} was changed to {%1}.'
+
+# Duplicate Command
+duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
+duplicate-exists: '§cWorld with name {%0} already exists.'
+duplicate-levelnotfound: '§cLevel {%0} does not exist.'
+duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+
+# Forms
+forms-invalid: '§cInvalid result.'
+...
