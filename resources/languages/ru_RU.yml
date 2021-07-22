@@ -1,6 +1,6 @@
 ---
-### Файл с русским языком от SteinsSquad
-### Russian language by SteinsSquad
+### Файл с русским языком от kostamax27
+### Russian language by kostamax27
 ## Commands:
 
 not-perms: 'У вас нет прав использовать эту команду!'
@@ -11,21 +11,21 @@ help: '§2--- §fMultiWorld ({%0}/{%1}) §2---'
 help-1: '§2/mw create §fСоздать новый мир'
 help-2: '§2/mw teleport §fТелепортироваться в мир'
 help-3: '§2/mw list §fПросмотреть список всех миров'
-help-4: '§2/mw load §fLoads a world'
-help-5: '§2/mw unload §fUnloads a world'
+help-4: '§2/mw load §fЗагрузить мир'
+help-5: '§2/mw unload §fРазгрузить мир'
 
 help-6: '§2/mw delete §fУдалить мир'
 help-7: '§2/mw info §fУзнать информацию о мире'
 help-8: '§2/mw gamerule §fНастроить мир'
-help-9: '§2/mw manage §fDisplays form for managing with worlds'
-help-10: '§2/mw rename §fRenames the world'
+help-9: '§2/mw manage §fОтображает форму для управления мирами'
+help-10: '§2/mw rename §fПереименовать мир'
 
-help-11: '§2/mw duplicate §fDuplicates a world'
+help-11: '§2/mw duplicate §fДублирувать мир'
 help-12: '§2/mw update §fУстановить спавн, лобби или сделать мир стандартным мир'
 
 # Create Command:
 create-usage: '§cИспользование: §7/mw create <имя> [сид] [генерация]'
-create-exists: '§cLevel {%0} is already generated!'
+create-exists: '§cМир {%0} уже создан!'
 create-gennotexists: 'Генерация {%0} не найдена.'
 create-generating: 'Генерирование мира {%0}...'
 create-done: 'Мир {%0} с сидом {%1} и генератором {%2} был создан.'
@@ -55,7 +55,7 @@ unload-done: '§aМир был выгружен!'
 
 # Delete Command:
 delete-use: '§cИспользуйте: §7/mw delete <мир>'
-delete-levelnotexists: '§cМир не существует!'
+delete-levelnotexists: '§cМира не существует!'
 delete-done: '§aМир был удален!'
 
 # Update Command:
@@ -69,8 +69,8 @@ update-notsupported: '§cИспользуйте комманду в игре!'
 
 # Info Command:
 info-levelnotexists: '§cМир {%0} не существует!'
-info: '§a--- {%0} ---' # needs translate | Sorry, I can`t :c
-info-name: '§7Название: {%0}'
+info: '§a--- {%0} ---'
+info-name: '§7Название мира: {%0}'
 info-folderName: '§7Название папки: {%0}'
 info-players: '§7Количество игроков: {%0}'
 info-generator: '§7Генерация: {%0}'
@@ -79,23 +79,23 @@ info-time: '§7Время: {%0}'
 
 # Gamerule Command:
 gamerule-usage: '§cИспользование: §7/mw gamerule <list|gamerule> [true|false] [мир]'
-gamerule-list: '§aAvailable game rules: {%0}'
+gamerule-list: '§aДоступные правила игры: {%0}'
 gamerule-levelnotfound: '§cМир {%0} не найден.'
 gamerule-notexists: '§cНастройка {%0} не найдена.'
 gamerule-done: '§aНастройка {%0} в мире {%1} была изменена на {%2}.'
 
 # Rename Command
-rename-usage: '§cUsage: §7/mw rename <from> <to>'
-rename-exists: '§cLevel with name {%0} already exists.'
-rename-levelnotfound: '§cLevel {%0} does not exists.'
-rename-done: '§aName of level {%0} was changed to {%1}.'
+rename-usage: '§cИспользование: §7/mw rename <мир> <новое название>'
+rename-exists: '§cМир с названием {%0} уже существует.'
+rename-levelnotfound: '§cМира {%0} не существует.'
+rename-done: '§aНазвание мира {%0} было изменено на {%1}.'
 
 # Duplicate Command
-duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
-duplicate-exists: '§cWorld with name {%0} already exists.'
-duplicate-levelnotfound: '§cLevel {%0} does not exist.'
-duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+duplicate-usage: '§cИспользование: §7/mw duplicate <world> [newName]'
+duplicate-exists: '§cМир с именем {%0} уже существует.'
+duplicate-levelnotfound: '§cМира {%0} не существует.'
+duplicate-done: 'Мир {%0} дублируется, имя дубликата {%1}'
 
 # Forms
-forms-invalid: '§cInvalid result.'
+forms-invalid: '§cНеверный результат.'
 ...
