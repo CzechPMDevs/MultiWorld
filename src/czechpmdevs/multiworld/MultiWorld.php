@@ -24,10 +24,6 @@ namespace czechpmdevs\multiworld;
 
 use czechpmdevs\multiworld\command\GameRuleCommand;
 use czechpmdevs\multiworld\command\MultiWorldCommand;
-use czechpmdevs\multiworld\generator\ender\EnderGenerator;
-use czechpmdevs\multiworld\generator\nether\NetherGenerator;
-use czechpmdevs\multiworld\generator\normal\NormalGenerator;
-use czechpmdevs\multiworld\generator\skyblock\SkyBlockGenerator;
 use czechpmdevs\multiworld\generator\void\VoidGenerator;
 use czechpmdevs\multiworld\level\gamerules\GameRules;
 use czechpmdevs\multiworld\util\ConfigManager;
@@ -57,11 +53,7 @@ class MultiWorld extends PluginBase {
 
         if ($start) {
             $generators = [
-                "ender" => EnderGenerator::class,
                 "void" => VoidGenerator::class,
-                "skyblock" => SkyBlockGenerator::class,
-                "nether" => NetherGenerator::class,
-                "normal_mw" => NormalGenerator::class
             ];
 
             foreach ($generators as $name => $class) {

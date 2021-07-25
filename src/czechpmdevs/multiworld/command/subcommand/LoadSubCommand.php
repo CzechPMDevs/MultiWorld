@@ -45,7 +45,7 @@ class LoadSubCommand implements SubCommand {
             return;
         }
 
-        Server::getInstance()->getWorldManager()->loadWorld($args[0]);
+        Server::getInstance()->getWorldManager()->loadWorld($args[0], true);
         $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "load-done"));
     }
 }

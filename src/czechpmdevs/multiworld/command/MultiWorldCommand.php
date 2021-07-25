@@ -164,12 +164,10 @@ class MultiWorldCommand extends Command implements PluginOwned {
             if (!$sender->hasPermission("mw.cmd." . $this->getSubCommandNameByAlias($command))) {
                 $sender->sendMessage(LanguageManager::translateMessage($sender, "not-perms"));
                 return false;
-            } else {
-                return true;
             }
-        } else {
-            return true;
+	        return true;
         }
+	    return true;
     }
 
     public function getServer(): Server {

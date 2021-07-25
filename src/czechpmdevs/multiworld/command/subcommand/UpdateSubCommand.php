@@ -89,7 +89,7 @@ class UpdateSubCommand implements SubCommand {
                 }
 
                 if (!$sender->getServer()->getWorldManager()->isWorldLoaded($args[1])) {
-                    $sender->getServer()->getWorldManager()->loadWorld($args[1]);
+                    $sender->getServer()->getWorldManager()->loadWorld($args[1], true);
                 }
 
                 $sender->getServer()->getWorldManager()->setDefaultWorld(WorldUtils::getWorldByNameNonNull($args[1]));

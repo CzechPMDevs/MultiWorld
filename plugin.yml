@@ -1,56 +1,52 @@
 name: MultiWorld
 author: CzechPMDevs
-authors: [VixikCZ, fuyutsuki, kaliiks]
-api: 3.20.0
+authors: [ VixikCZ, fuyutsuki, kaliiks ]
+api: 4.0.0
 version: 1.6.0-beta2
 main: czechpmdevs\multiworld\MultiWorld
 description: Plugin that manage with worlds
 website: https://github.com/CzechPMDevs/MultiWorld
-mcpe-protocol: [440, 448]
+mcpe-protocol: [ 440, 448 ]
 extensions:
   Core: '>=7.4'
 
 permissions:
-  multiworld.command:
+  multiworld.command.help:
+    description: Permission for /multiworld help
     default: op
-    description: Permission for all multiworld commands
-    children:
-      multiworld.command.help:
-        description: Permission for /multiworld help
-        default: op
-      multiworld.command.create:
-        description: Permission for /multiworld create
-        default: op
-      multiworld.command.teleport:
-        description: Permission for /multiworld teleport
-        default: op
-      multiworld.command.list:
-        description: Permission for /multiworld list
-        default: op
-      multiworld.command.load:
-        description: Permission for /multiworld load
-        default: op
-      multiworld.command.unload:
-        description: Permission for /multiworld unload
-        default: op
-      multiworld.command.delete:
-        description: Permission for /multiworld delete
-        default: op
-      multiworld.command.update:
-        description: Permission for /multiworld update
-        default: op
-      multiworld.command.info:
-        description: Permission for /multiworld info
-        default: op
-      multiworld.command.gamerule:
-        description: Permission for /multiworld gamerule
-        default: op
-      multiworld.command.manage:
-        description: Permission for /multiworld manage
-        default: op
-      multiworld.command.rename:
-        description: Permission for /multiworld rename
-        default: op
-      multiworld.command.duplicate:
-        description: Permission for /multiworld duplicate
-        default: op
+  multiworld.command.create:
+    description: Permission for /multiworld create
+    default: op
+  multiworld.command.teleport:
+    description: Permission for /multiworld teleport
+    default: op
+  multiworld.command.list:
+    description: Permission for /multiworld list
+    default: op
+  multiworld.command.load:
+    description: Permission for /multiworld load
+    default: op
+  multiworld.command.unload:
+    description: Permission for /multiworld unload
+    default: op
+  multiworld.command.delete:
+    description: Permission for /multiworld delete
+    default: op
+  multiworld.command.update:
+    description: Permission for /multiworld update
+    default: op
+  multiworld.command.info:
+    description: Permission for /multiworld info
+    default: op
+  multiworld.command.gamerule:
+    description: Permission for /multiworld gamerule
+    default: op
+  multiworld.command.manage:
+    description: Permission for /multiworld manage
+    default: op
+  multiworld.command.rename:
+    description: Permission for /multiworld rename
+    default: op
+  multiworld.command.duplicate:
+    description: Permission for /multiworld duplicate
+    default: op

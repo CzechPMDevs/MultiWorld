@@ -191,10 +191,10 @@ final class GameRules {
      */
     public static function unserializeGameRules(CompoundTag $nbt): GameRules {
         return new GameRules(array_map(function (StringTag $stringTag) {
-            if ($stringTag->getValue() == "true") {
+            if ($stringTag->getValue() === "true") {
                 return true;
             }
-            if ($stringTag->getValue() == "false") {
+            if ($stringTag->getValue() === "false") {
                 return false;
             }
 

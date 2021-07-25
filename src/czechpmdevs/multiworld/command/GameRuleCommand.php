@@ -58,7 +58,7 @@ class GameRuleCommand extends Command implements PluginOwned {
         }
 
         $gameRules = GameRules::getDefaultGameRules()->getGameRules();
-        if ($args[0] == "list") {
+        if ($args[0] === "list") {
             $sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-list", [implode(", ", array_keys($gameRules))]));
             return;
         }
@@ -80,8 +80,8 @@ class GameRuleCommand extends Command implements PluginOwned {
         }
 
         /** @var bool|int|null $value */
-        $value = $args[1] == "true" ? true : (
-            $args[1] == "false" ? false : (
+        $value = $args[1] === "true" ? true : (
+            $args[1] === "false" ? false : (
                 is_numeric($args[1]) ? (int)$args[1] : null
             )
         );
