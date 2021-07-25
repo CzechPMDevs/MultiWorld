@@ -163,17 +163,6 @@ class EventListener implements Listener {
 		}
 	}
 
-	public function onDataPacketSend(DataPacketSendEvent $event) : void {
-		$packets = $event->getPackets();
-		// assume targets are in the same world or the StartGamePacket will never be the same, but i think that this packet is unique
-		$world = $event->getTargets()[array_key_first($event->getTargets())]->getPlayer()->getWorld();
-		foreach ($packets as $packet) {
-			if ($packet instanceof StartGamePacket && $this->plugin->getConfig()->get("handle-dimensions")) {
-				$packet->spawnSettings = new SpawnSettings($packet->spawnSettings->getBiomeType(), $packet->spawnSettings->getBiomeName(), Dimension::getDimensionByWorld($world));
-			}
-		}
-	}
-
 	public function onDataPacketReceive(DataPacketReceiveEvent $event) : void {
 		$packet = $event->getPacket();
 		// Changing game rules from the menu
