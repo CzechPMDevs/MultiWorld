@@ -33,9 +33,9 @@ use czechpmdevs\multiworld\level\gamerules\GameRules;
 use czechpmdevs\multiworld\util\ConfigManager;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\Command;
+use pocketmine\plugin\PluginBase;
 use pocketmine\world\generator\GeneratorManager;
 use pocketmine\world\World;
-use pocketmine\plugin\PluginBase;
 
 class MultiWorld extends PluginBase {
 

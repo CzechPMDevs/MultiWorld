@@ -10,7 +10,7 @@
     "ext-json": "*",
     "phpstan/phpstan": "0.12.93",
     "pocketmine/pocketmine-mp": "dev-master",
-    "czechpmdevs/libpmform": "dev-main"
+    "czechpmdevs/libpmform": "dev-feature/4.0.0"
   },
   "repositories": [
     {

@@ -91,6 +91,7 @@ class NormalGenerator extends Generator {
 
         $noise = $this->noiseBase->getFastNoise3D(16, 128, 16, 4, 8, 4, $chunkX * 16, 0, $chunkZ * 16);
 
+        /** @var Chunk $chunk */
         $chunk = $world->getChunk($chunkX, $chunkZ);
 
         $biomeCache = [];

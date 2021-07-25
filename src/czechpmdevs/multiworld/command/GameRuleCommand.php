@@ -28,6 +28,8 @@ use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\network\mcpe\protocol\types\BoolGameRule;
+use pocketmine\network\mcpe\protocol\types\IntGameRule;
 use pocketmine\player\Player;
 use pocketmine\plugin\Plugin;
 use pocketmine\plugin\PluginOwned;
@@ -99,9 +101,9 @@ class GameRuleCommand extends Command implements PluginOwned {
             }
 
             if (is_bool($value)) {
-                MultiWorld::getGameRules($world)->setBool($args[0], $value);
+                MultiWorld::getGameRules($world)->setRuleValue($args[1], new BoolGameRule($value, GameRules::$allowPlayersEditGameRulesFromGame));
             } else {
-                MultiWorld::getGameRules($world)->setInteger($args[1], (int)$value);
+                MultiWorld::getGameRules($world)->setRuleValue($args[1], new IntGameRule($value, GameRules::$allowPlayersEditGameRulesFromGame));
             }
 
             MultiWorld::getGameRules($world)->applyToWorld($world);
@@ -111,9 +113,9 @@ class GameRuleCommand extends Command implements PluginOwned {
 
         /** @var Player $sender */
         if (is_bool($value)) {
-            MultiWorld::getGameRules($sender->getWorld())->setBool($args[0], $value);
+            MultiWorld::getGameRules($sender->getWorld())->setRuleValue($args[0], new BoolGameRule($value, GameRules::$allowPlayersEditGameRulesFromGame));
         } else {
-            MultiWorld::getGameRules($sender->getWorld())->setInteger($args[0], (int)$value);
+            MultiWorld::getGameRules($sender->getWorld())->setRuleValue($args[0], new IntGameRule((int)$value, GameRules::$allowPlayersEditGameRulesFromGame));
         }
 
         MultiWorld::getGameRules($sender->getWorld())->applyToWorld($sender->getWorld());

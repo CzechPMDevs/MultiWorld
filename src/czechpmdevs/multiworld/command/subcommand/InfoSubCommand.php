@@ -26,8 +26,8 @@ use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
-use pocketmine\world\World;
 use pocketmine\Server;
+use pocketmine\world\World;
 use function count;
 
 class InfoSubCommand implements SubCommand {

@@ -22,8 +22,8 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\populator;
 
-use pocketmine\world\ChunkManager;
 use pocketmine\utils\Random;
+use pocketmine\world\ChunkManager;
 
 abstract class AmountPopulator extends Populator {
 

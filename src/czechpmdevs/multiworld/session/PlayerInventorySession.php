@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\session;
 
 use pocketmine\item\Item;
+use pocketmine\player\Player;
 
 class PlayerInventorySession {
 
@@ -37,7 +38,7 @@ class PlayerInventorySession {
     public array $cursorInventory;
 
     /** @var int */
-    public int $experienceWorld;
+    public int $experienceLevel;
     /** @var float */
     public float $experience;
 
@@ -48,8 +49,8 @@ class PlayerInventorySession {
         $this->armorInventory = $player->getArmorInventory()->getContents();
         $this->cursorInventory = $player->getCursorInventory()->getContents();
 
-        $this->experienceWorld = $player->getXpWorld();
-        $this->experience = $player->getXpProgress();
+        $this->experienceLevel = $player->getXpManager()->getXpLevel();
+        $this->experience = $player->getXpManager()->getXpProgress();
     }
 
     public function close(): void {
@@ -61,7 +62,7 @@ class PlayerInventorySession {
         $this->player->getArmorInventory()->setContents($this->armorInventory);
         $this->player->getCursorInventory()->setContents($this->cursorInventory);
 
-        $this->player->setXpWorld($this->experienceWorld);
-        $this->player->setXpProgress($this->experience);
+        $this->player->getXpManager()->setXpLevel($this->experienceLevel);
+        $this->player->getXpManager()->setXpProgress($this->experience);
     }
 }

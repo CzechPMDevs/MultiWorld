@@ -25,27 +25,24 @@ namespace czechpmdevs\multiworld;
 use czechpmdevs\multiworld\level\dimension\Dimension;
 use czechpmdevs\multiworld\level\gamerules\GameRules;
 use czechpmdevs\multiworld\session\PlayerInventorySession;
-use czechpmdevs\multiworld\util\LanguageManager;
+use pocketmine\entity\effect\VanillaEffects;
 use pocketmine\entity\Living;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\entity\EntityExplodeEvent;
 use pocketmine\event\entity\EntityRegainHealthEvent;
-use pocketmine\event\entity\EntityWorldChangeEvent;
-use pocketmine\event\level\WorldLoadEvent;
-use pocketmine\event\level\WorldUnloadEvent;
+use pocketmine\event\entity\EntityTeleportEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\player\PlayerRespawnEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
-use pocketmine\event\server\DataPacketSendEvent;
-use pocketmine\network\mcpe\protocol\LoginPacket;
+use pocketmine\event\world\WorldLoadEvent;
+use pocketmine\event\world\WorldUnloadEvent;
 use pocketmine\network\mcpe\protocol\SettingsCommandPacket;
-use pocketmine\network\mcpe\protocol\StartGamePacket;
-use pocketmine\network\mcpe\protocol\types\SpawnSettings;
+use pocketmine\player\Player;
 use pocketmine\Server;
 use function array_key_exists;
 use function substr;
@@ -66,7 +63,7 @@ class EventListener implements Listener {
 
     /** @noinspection PhpUnused */
     public function onJoin(PlayerJoinEvent $event): void {
-        MultiWorld::getGameRules($event->getPlayer()->getWorldNonNull())->applyToPlayer($event->getPlayer());
+        MultiWorld::getGameRules($event->getPlayer()->getWorld())->applyToPlayer($event->getPlayer());
     }
 
     /** @noinspection PhpUnused */
@@ -86,15 +83,18 @@ class EventListener implements Listener {
     }
 
     /** @noinspection PhpUnused */
-    public function onWorldChange(EntityWorldChangeEvent $event): void {
+    public function onWorldChange(EntityTeleportEvent $event): void {
         $player = $event->getEntity();
         if (!$player instanceof Player) {
             return;
         }
+        if($event->getFrom()->getWorld()->getId() == $event->getTo()->getWorld()->getId()) {
+            return;
+        }
 
-        MultiWorld::getGameRules($event->getTarget())->applyToPlayer($player);
+        MultiWorld::getGameRules($event->getTo()->getWorld())->applyToPlayer($player);
 
-        if (Dimension::getDimensionByWorld($event->getOrigin()) != ($targetDimension = Dimension::getDimensionByWorld($event->getTarget())) && $this->plugin->getConfig()->get("handle-dimensions")) {
+        if (Dimension::getDimensionByWorld($event->getFrom()->getWorld()) != ($targetDimension = Dimension::getDimensionByWorld($event->getTo()->getWorld())) && $this->plugin->getConfig()->get("handle-dimensions")) {
             Dimension::sendDimensionToPlayer($player, $targetDimension);
         }
     }
@@ -103,13 +103,13 @@ class EventListener implements Listener {
     public function onPlayerDeath(PlayerDeathEvent $event): void {
         $player = $event->getPlayer();
 
-        if (MultiWorld::getGameRules($player->getWorldNonNull())->getBool(GameRules::GAMERULE_KEEP_INVENTORY)) {
+        if (MultiWorld::getGameRules($player->getWorld())->getRuleValue(GameRules::GAMERULE_KEEP_INVENTORY)->getValue()) {
             $this->deathSessions[$player->getId()] = new PlayerInventorySession($player);
             $event->setDrops([]);
         }
 
         if($this->plugin->getConfig()->get("handle-dimensions")) {
-            $this->dimensionData[$player->getId()] = Dimension::getDimensionByWorld($player->getWorldNonNull());
+            $this->dimensionData[$player->getId()] = Dimension::getDimensionByWorld($player->getWorld());
         }
     }
 
@@ -117,7 +117,7 @@ class EventListener implements Listener {
     public function onPlayerRespawn(PlayerRespawnEvent $event): void {
         $player = $event->getPlayer();
 
-        if (array_key_exists($player->getId(), $this->dimensionData) && $this->dimensionData[$player->getId()] != ($currentDimension = Dimension::getDimensionByWorld($player->getWorldNonNull()))) {
+        if (array_key_exists($player->getId(), $this->dimensionData) && $this->dimensionData[$player->getId()] != ($currentDimension = Dimension::getDimensionByWorld($player->getWorld()))) {
             Dimension::sendDimensionToPlayer($player, $currentDimension, true);
         }
         unset($this->dimensionData[$player->getId()]);
@@ -130,7 +130,7 @@ class EventListener implements Listener {
 
     /** @noinspection PhpUnused */
     public function onBreak(BlockBreakEvent $event): void {
-        if (!MultiWorld::getGameRules($event->getPlayer()->getWorldNonNull())->getBool(GameRules::GAMERULE_DO_TILE_DROPS)) {
+        if (!MultiWorld::getGameRules($event->getPlayer()->getWorld())->getRuleValue(GameRules::GAMERULE_DO_TILE_DROPS)->getValue()) {
             $event->setDrops([]);
         }
     }
@@ -139,10 +139,10 @@ class EventListener implements Listener {
     public function onRegenerate(EntityRegainHealthEvent $event): void {
         $entity = $event->getEntity();
         if (!$entity instanceof Living) return;
-        if ($entity->hasEffect(Effect::REGENERATION)) return;
+        if ($entity->getEffects()->has(VanillaEffects::REGENERATION())) return;
 
-        if (!MultiWorld::getGameRules($entity->getWorldNonNull())->getBool(GameRules::GAMERULE_NATURAL_REGENERATION)) {
-            $event->setCancelled(true);
+        if (!MultiWorld::getGameRules($entity->getWorld())->getRuleValue(GameRules::GAMERULE_NATURAL_REGENERATION)->getValue()) {
+            $event->cancel();
         }
     }
 
@@ -150,38 +150,31 @@ class EventListener implements Listener {
     public function onDamage(EntityDamageEvent $event): void {
         $entity = $event->getEntity();
 
-        if ($entity instanceof Player && $event instanceof EntityDamageByEntityEvent && $event->getDamager() instanceof Player && !MultiWorld::getGameRules($event->getEntity()->getWorldNonNull())->getBool(GameRules::GAMERULE_PVP)) {
-            $event->setCancelled();
+        if ($entity instanceof Player && $event instanceof EntityDamageByEntityEvent && $event->getDamager() instanceof Player && !MultiWorld::getGameRules($event->getEntity()->getWorld())->getRuleValue(GameRules::GAMERULE_PVP)->getValue()) {
+            $event->cancel();
         }
     }
 
     /** @noinspection PhpUnused */
     public function onExplode(EntityExplodeEvent $event): void {
-        if (!MultiWorld::getGameRules($event->getEntity()->getWorldNonNull())->getBool(GameRules::GAMERULE_TNT_EXPLODES)) {
-            $event->setCancelled();
+        if (!MultiWorld::getGameRules($event->getEntity()->getWorld())->getRuleValue(GameRules::GAMERULE_TNT_EXPLODES)->getValue()) {
+            $event->cancel();
         }
     }
 
-    /** @noinspection PhpUnused */
-    public function onDataPacketSend(DataPacketSendEvent $event): void {
-        $packet = $event->getPacket();
-        if ($packet instanceof StartGamePacket && $this->plugin->getConfig()->get("handle-dimensions")) {
-            $packet->spawnSettings = new SpawnSettings($packet->spawnSettings->getBiomeType(), $packet->spawnSettings->getBiomeName(), Dimension::getDimensionByWorld($event->getPlayer()->getWorldNonNull()));
-        }
-    }
 
     /** @noinspection PhpUnused */
     public function onDataPacketReceive(DataPacketReceiveEvent $event): void {
         $packet = $event->getPacket();
 
-        // Loading language
-        if ($packet instanceof LoginPacket) {
-            LanguageManager::$players[$packet->username] = $packet->locale;
-        }
-
         // Changing game rules from the menu
         if ($packet instanceof SettingsCommandPacket) {
-            Server::getInstance()->dispatchCommand($event->getPlayer(), substr($packet->getCommand(), 1));
+            $player = $event->getOrigin()->getPlayer();
+            if($player === null) {
+                return;
+            }
+
+            Server::getInstance()->dispatchCommand($player, substr($packet->getCommand(), 1));
         }
     }
 }

@@ -25,19 +25,23 @@ namespace czechpmdevs\multiworld\generator\normal\populator\impl;
 use czechpmdevs\multiworld\generator\normal\object\Tree;
 use czechpmdevs\multiworld\generator\normal\populator\AmountPopulator;
 use pocketmine\block\BlockLegacyIds;
+use pocketmine\block\utils\TreeType;
 use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
 
 class TreePopulator extends AmountPopulator {
 
-    /** @var int */
-    private int $type;
+    /** @var TreeType|null */
+    private ?TreeType $treeType;
     /** @var bool */
     private bool $vines;
+    /** @var bool */
+    private bool $high;
 
-    public function __construct(int $baseAmount, int $randomAmount, int $spawnPercentage = 100, int $type = Tree::OAK, bool $vines = false) {
-        $this->type = $type;
+    public function __construct(int $baseAmount, int $randomAmount, int $spawnPercentage = 100, ?TreeType $treeType = null, bool $vines = false, bool $high = false) {
+        $this->treeType = $treeType;
         $this->vines = $vines;
+        $this->high = $high;
 
         parent::__construct($baseAmount, $randomAmount, $spawnPercentage);
     }
@@ -52,6 +56,6 @@ class TreePopulator extends AmountPopulator {
             return;
         }
 
-        Tree::growTree($world, $x, $y, $z, $random, $this->type, $this->vines);
+        Tree::growTree($world, $x, $y, $z, $random, $this->treeType, $this->vines, $this->high);
     }
 }

@@ -44,10 +44,14 @@ class CactusPopulator extends AmountPopulator {
         /** @phpstan-ignore-next-line */
         $block = $world->getBlockAt($pos->getX(), $pos->getY(), $pos->getZ());
         if (
-            !$world->getBlockAt($pos->getX() + 1, $pos->getY(), $pos->getZ())->isSameType(VanillaBlocks::AIR()) || // @phpstan-ignore-line
-            !$world->getBlockAt($pos->getX() - 1, $pos->getY(), $pos->getZ())->isSameType(VanillaBlocks::AIR()) || // @phpstan-ignore-line
-            !$world->getBlockAt($pos->getX(), $pos->getY(), $pos->getZ() + 1)->isSameType(VanillaBlocks::AIR()) || // @phpstan-ignore-line
-            !$world->getBlockAt($pos->getX(), $pos->getY(), $pos->getZ() - 1)->isSameType(VanillaBlocks::AIR()) // @phpstan-ignore-line
+            /** @phpstan-ignore-next-line */
+            !$world->getBlockAt($pos->getX() + 1, $pos->getY(), $pos->getZ())->isSameType(VanillaBlocks::AIR()) ||
+            /** @phpstan-ignore-next-line */
+            !$world->getBlockAt($pos->getX() - 1, $pos->getY(), $pos->getZ())->isSameType(VanillaBlocks::AIR()) ||
+            /** @phpstan-ignore-next-line */
+            !$world->getBlockAt($pos->getX(), $pos->getY(), $pos->getZ() + 1)->isSameType(VanillaBlocks::AIR()) ||
+            /** @phpstan-ignore-next-line */
+            !$world->getBlockAt($pos->getX(), $pos->getY(), $pos->getZ() - 1)->isSameType(VanillaBlocks::AIR())
         ) {
             return false;
         }

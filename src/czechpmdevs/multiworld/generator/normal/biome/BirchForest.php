@@ -28,6 +28,7 @@ use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
+use pocketmine\block\utils\TreeType;
 use pocketmine\block\VanillaBlocks;
 
 class BirchForest extends GrassyBiome {
@@ -49,7 +50,7 @@ class BirchForest extends GrassyBiome {
         $peonys = new PlantPopulator(5, 4, 80);
         $peonys->addPlant(new Plant(VanillaBlocks::PEONY()));
 
-        $birch = new TreePopulator(5, 4, 100, Tree::BIRCH);
+        $birch = new TreePopulator(5, 4, 100, TreeType::BIRCH());
         $grass = new TallGrassPopulator(56, 20);
 
         $this->addPopulators([$birch, $flowers, $peonys, $roses, $mushrooms, $grass]);

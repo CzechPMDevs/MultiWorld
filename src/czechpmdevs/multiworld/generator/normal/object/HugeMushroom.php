@@ -34,7 +34,7 @@ class HugeMushroom extends Tree {
 //        $this->overridable[BlockLegacyIds::MYCELIUM] = true;
 //    }
 
-    public function placeObject(ChunkManager $world, int $spawnX, int $spawnY, int $spawnZ, Random $random) {
+    public function placeObject(ChunkManager $world, int $spawnX, int $spawnY, int $spawnZ, Random $random): void {
         $block = $random->nextBoolean() ? VanillaBlocks::BROWN_MUSHROOM_BLOCK() : VanillaBlocks::RED_MUSHROOM_BLOCK();
         $maxY = 3 + $random->nextBoundedInt(1);
 

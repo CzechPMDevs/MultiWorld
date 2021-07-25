@@ -24,13 +24,13 @@ namespace czechpmdevs\multiworld\generator\ender;
 
 use czechpmdevs\multiworld\generator\ender\populator\EnderPilar;
 use pocketmine\block\BlockLegacyIds;
+use pocketmine\math\Vector3 as Vector3;
+use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
 use pocketmine\world\format\Chunk;
 use pocketmine\world\generator\Generator;
 use pocketmine\world\generator\noise\Simplex;
 use pocketmine\world\generator\populator\Populator;
-use pocketmine\math\Vector3 as Vector3;
-use pocketmine\utils\Random;
 use function abs;
 
 class EnderGenerator extends Generator {
@@ -58,22 +58,18 @@ class EnderGenerator extends Generator {
 
     public function __construct(int $seed, string $preset) {
         parent::__construct($seed, $preset);
-    }
 
-    public function init(ChunkManager $world, Random $random): void {
-        $this->world = $world;
-        $this->random = $random;
-        $this->random->setSeed($this->world->getSeed());
+        $this->random->setSeed($this->seed);
         $this->noiseBase = new Simplex($this->random, 4, 1 / 4, 1 / 64);
-        $this->random->setSeed($this->world->getSeed());
+        $this->random->setSeed($this->seed);
         $pilar = new EnderPilar;
         $pilar->setBaseAmount(0);
         $pilar->setRandomAmount(0);
         $this->populators[] = $pilar;
     }
 
-    public function generateChunk(int $chunkX, int $chunkZ): void {
-        $this->random->setSeed(0xa6fe78dc ^ ($chunkX << 8) ^ $chunkZ ^ $this->world->getSeed());
+    public function generateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {
+        $this->random->setSeed(0xa6fe78dc ^ ($chunkX << 8) ^ $chunkZ ^ $this->seed);
 
         /** @phpstan-var Chunk $chunk */
         $chunk = $this->world->getChunk($chunkX, $chunkZ);
@@ -89,7 +85,7 @@ class EnderGenerator extends Generator {
                     $distance = new Vector3(0, 64, 0);
                     $distance = $distance->distance(new Vector3($chunkX * 16 + $x, ($y / 1.3), $chunkZ * 16 + $z));
                     if ($noiseValue < 0 && $distance < 100 or $noiseValue < -0.2 && $distance > 400) {
-                        $chunk->setBlockId($x, $y, $z, BlockLegacyIds::END_STONE);
+                        $chunk->setFullBlock($x, $y, $z, BlockLegacyIds::END_STONE << 4);
                     }
                 }
             }
@@ -99,22 +95,10 @@ class EnderGenerator extends Generator {
         }
     }
 
-    public function populateChunk(int $chunkX, int $chunkZ): void {
-        $this->random->setSeed(0xa6fe78dc ^ ($chunkX << 8) ^ $chunkZ ^ $this->world->getSeed());
+    public function populateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {
+        $this->random->setSeed(0xa6fe78dc ^ ($chunkX << 8) ^ $chunkZ ^ $this->seed);
         foreach ($this->populators as $populator) {
             $populator->populate($this->world, $chunkX, $chunkZ, $this->random);
         }
-    }
-
-    public function getName(): string {
-        return "ender";
-    }
-
-    public function getSpawn(): Vector3 {
-        return new Vector3(48, 128, 48);
-    }
-
-    public function getSettings(): array {
-        return [];
     }
 }

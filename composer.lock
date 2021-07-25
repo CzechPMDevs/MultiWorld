@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2bd09be3249a86caf782ef0576f169a0",
+    "content-hash": "7d1240542b4010085d8c9cdef8dcb7cd",
     "packages": [
         {
             "name": "adhocore/json-comment",
@@ -119,26 +119,23 @@
         },
         {
             "name": "czechpmdevs/libpmform",
-            "version": "dev-main",
+            "version": "dev-feature/4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CzechPMDevs/libpmform.git",
-                "reference": "ee672e89ba01729cb5ac9e862a487bd83e3bd26e"
+                "reference": "792fd1b1e26d51278a9af2d8dabd90216b610fcb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CzechPMDevs/libpmform/zipball/ee672e89ba01729cb5ac9e862a487bd83e3bd26e",
-                "reference": "ee672e89ba01729cb5ac9e862a487bd83e3bd26e",
+                "url": "https://api.github.com/repos/CzechPMDevs/libpmform/zipball/792fd1b1e26d51278a9af2d8dabd90216b610fcb",
+                "reference": "792fd1b1e26d51278a9af2d8dabd90216b610fcb",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.4 || ^8.0"
+                "php": "^7.4 || ^8.0",
+                "phpstan/phpstan": "^0.12.89",
+                "pocketmine/pocketmine-mp": "dev-master"
             },
-            "require-dev": {
-                "phpstan/phpstan": "0.12.82",
-                "pocketmine/pocketmine-mp": "3.18.0"
-            },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -157,10 +154,10 @@
             ],
             "description": "Simple form library",
             "support": {
-                "source": "https://github.com/CzechPMDevs/libpmform/tree/main",
+                "source": "https://github.com/CzechPMDevs/libpmform/tree/feature/4.0.0",
                 "issues": "https://github.com/CzechPMDevs/libpmform/issues"
             },
-            "time": "2021-07-05T19:32:46+00:00"
+            "time": "2021-07-22T21:04:44+00:00"
         },
         {
             "name": "fgrosse/phpasn1",

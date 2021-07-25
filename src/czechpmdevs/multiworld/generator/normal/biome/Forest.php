@@ -29,6 +29,7 @@ use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
 use pocketmine\block\Dandelion;
+use pocketmine\block\utils\TreeType;
 use pocketmine\block\VanillaBlocks;
 
 class Forest extends GrassyBiome {
@@ -51,7 +52,7 @@ class Forest extends GrassyBiome {
         $peonys->addPlant(new Plant(VanillaBlocks::PEONY()));
 
         $oak = new TreePopulator(3, 3);
-        $birch = new TreePopulator(3, 3, 100, Tree::BIRCH);
+        $birch = new TreePopulator(3, 3, 100, TreeType::OAK());
 
         $grass = new TallGrassPopulator(56, 30);
 

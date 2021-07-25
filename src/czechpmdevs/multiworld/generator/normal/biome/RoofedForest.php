@@ -28,6 +28,7 @@ use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
+use pocketmine\block\utils\TreeType;
 use pocketmine\block\VanillaBlocks;
 
 class RoofedForest extends GrassyBiome {
@@ -45,14 +46,14 @@ class RoofedForest extends GrassyBiome {
         $peonys = new PlantPopulator(5, 4, 80);
         $peonys->addPlant(new Plant(VanillaBlocks::PEONY()));
 
-        $tree = new TreePopulator(4, 2, 100, Tree::DARK_OAK);
-        $mushroom = new TreePopulator(1, 1, 95, Tree::MUSHROOM);
-        $birch = new TreePopulator(1, 2, 100, Tree::BIRCH);
-        $oak = new TreePopulator(1, 2, 100, Tree::OAK);
+        $tree = new TreePopulator(4, 2, 100, TreeType::DARK_OAK());
+//        $mushroom = new TreePopulator(1, 1, 95, Tree::MUSHROOM); // TODO
+        $birch = new TreePopulator(1, 2, 100, TreeType::BIRCH());
+        $oak = new TreePopulator(1, 2, 100, TreeType::OAK());
 
         $grass = new TallGrassPopulator(56, 20);
 
-        $this->addPopulators([$tree, $peonys, $roses, $mushrooms, $mushroom, $birch, $oak, $grass]);
+        $this->addPopulators([$tree, $peonys, $roses, $mushrooms, /*$mushroom,*/ $birch, $oak, $grass]);
         $this->setElevation(63, 70);
     }
 

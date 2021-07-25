@@ -22,72 +22,53 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\object;
 
+use pocketmine\block\utils\TreeType;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
 use pocketmine\world\generator\object\BirchTree;
 use pocketmine\world\generator\object\JungleTree;
 use pocketmine\world\generator\object\OakTree;
-use pocketmine\world\generator\object\SpruceTree;
 
-abstract class Tree {
+abstract class Tree extends \pocketmine\world\generator\object\Tree {
 
-    public const OAK = 0;
-    public const SPRUCE = 1;
-    public const BIRCH = 2;
-    public const JUNGLE = 3;
-    public const ACACIA = 4;
-    public const DARK_OAK = 5;
-    public const BIG_BIRCH = 6;
-
-    public const SMALL_OAK = 10;
-    public const BIG_OAK = 11;
-
-    public const MUSHROOM = 20;
-
-    public static function growTree(ChunkManager $world, int $x, int $y, int $z, Random $random, int $type = 0, bool $vines = false): void {
-        switch ($type) {
-            case self::SPRUCE:
-                $tree = new SpruceTree();
-                break;
-            case self::BIRCH:
-                if ($random->nextBoundedInt(39) === 0) {
-                    $tree = new BirchTree(true);
-                } else {
-                    $tree = new BirchTree();
-                }
-                break;
-            case self::BIG_BIRCH:
-                $tree = new BirchTree(true);
-                break;
-            case self::JUNGLE:
-                $tree = new JungleTree();
-                break;
-            case self::ACACIA:
-                $tree = new AcaciaTree();
-                break;
-            case self::DARK_OAK:
-                $tree = new DarkOakTree();
-                break;
-            case self::MUSHROOM:
-                $tree = new HugeMushroom();
-                break;
-            default:
-                if ($vines) {
-                    $tree = new SwampTree();
-                    goto placeObject;
-                }
-
-                if ($type !== self::SMALL_OAK && $random->nextRange(0, 9) === 0) {
-                    $tree = new BigOakTree($random);
-                } else {
-                    $tree = new OakTree();
-                }
-                break;
+    public static function growTree(ChunkManager $world, int $x, int $y, int $z, Random $random, ?TreeType $type = null, bool $vines = false, bool $high = false): void {
+        $type = $type ?? TreeType::OAK();
+        if($type->equals(TreeType::OAK())) {
+            if($vines) {
+                (new SwampTree(VanillaBlocks::OAK_WOOD(), VanillaBlocks::OAK_LEAVES()))->placeObject($world, $x, $y, $z, $random);
+                return;
+            }
+            if($random->nextBoundedInt(10) == 0) {
+                (new BigOakTree($random))->placeObject($world, $x, $y, $z, $random);
+                return;
+            }
+            (new OakTree())->placeObject($world, $x, $y, $z, $random);
+            return;
         }
 
-        placeObject:
-        if ($tree->canPlaceObject($world, $x, $y, $z, $random)) {
-            $tree->placeObject($world, $x, $y, $z, $random);
+        if($type->equals(TreeType::BIRCH())) {
+            (new BirchTree($high))->placeObject($world, $x, $y, $z, $random);
+            return;
         }
+
+        if($type->equals(TreeType::JUNGLE())) {
+            (new JungleTree())->placeObject($world, $x, $y, $z, $random);
+            return;
+        }
+
+        if($type->equals(TreeType::ACACIA())) {
+            (new AcaciaTree(VanillaBlocks::ACACIA_WOOD(), VanillaBlocks::ACACIA_LEAVES()));
+            return;
+        }
+
+        if($type->equals(TreeType::DARK_OAK())) {
+            (new DarkOakTree(VanillaBlocks::DARK_OAK_WOOD(), VanillaBlocks::DARK_OAK_LEAVES()));
+            return;
+        }
+    }
+
+    public function growMushroom(ChunkManager $world, int $x, int $y, int $z, Random $random): void {
+        (new HugeMushroom(VanillaBlocks::BROWN_MUSHROOM(), VanillaBlocks::BROWN_MUSHROOM()))->placeObject($world, $x, $y, $z, $random);
     }
 }

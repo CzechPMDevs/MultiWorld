@@ -23,12 +23,12 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
 use czechpmdevs\multiworld\generator\normal\biome\types\GrassyBiome;
+use czechpmdevs\multiworld\generator\normal\object\Tree;
 use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
-use pocketmine\block\Dandelion;
-use pocketmine\block\Sapling;
+use pocketmine\block\utils\TreeType;
 use pocketmine\block\VanillaBlocks;
 
 class Swampland extends GrassyBiome {
@@ -44,7 +44,7 @@ class Swampland extends GrassyBiome {
         $flowers->addPlant(new Plant(VanillaBlocks::DANDELION()));
         $flowers->addPlant(new Plant(VanillaBlocks::POPPY()));
 
-        $oak = new TreePopulator(2, 2, 100, Sapling::OAK, true);
+        $oak = new TreePopulator(2, 2, 100, TreeType::OAK(), true);
         $tallGrass = new TallGrassPopulator(56, 12);
 
         $this->addPopulators([$mushrooms, $flowers, $oak, $tallGrass]);

@@ -29,6 +29,8 @@ use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
+use pocketmine\network\mcpe\protocol\types\BoolGameRule;
+use pocketmine\network\mcpe\protocol\types\IntGameRule;
 use pocketmine\player\Player;
 use pocketmine\Server;
 use function array_filter;
@@ -108,10 +110,11 @@ class ManageSubCommand implements SubCommand {
                     $customForm->addLabel("Update level GameRules");
                     $rules = MultiWorld::getGameRules($player->getWorld())->getGameRules();
                     foreach ($rules as $rule => $value) {
-                        if (is_bool($value)) {
-                            $customForm->addToggle($rule, $value);
+                        if ($value instanceof BoolGameRule) {
+                            $customForm->addToggle($rule, $value->getValue());
                         } else {
-                            $customForm->addInput($rule, (string)$value);
+                            /** @var IntGameRule $value */
+                            $customForm->addInput($rule, (string)$value->getValue());
                         }
                     }
 
@@ -131,7 +134,8 @@ class ManageSubCommand implements SubCommand {
                             }
 
                             $newValue = is_bool($value) ? $value : (int)$value;
-                            if($rules[$gameRules[$index]] == $newValue) {
+                            /** @phpstan-ignore-next-line */
+                            if($rules[$gameRules[$index]]->getValue() == $newValue) {
                                 continue;
                             }
 

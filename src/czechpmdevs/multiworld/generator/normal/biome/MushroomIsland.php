@@ -46,7 +46,7 @@ class MushroomIsland extends Biome {
         $mushrooms->addPlant(new Plant(VanillaBlocks::BROWN_MUSHROOM()));
         $mushrooms->allowBlockToStayAt(VanillaBlocks::MYCELIUM());
 
-        $this->addPopulators([$mushrooms, new TreePopulator(1, 1, 100, Tree::MUSHROOM)]);
+//        $this->addPopulators([$mushrooms, new TreePopulator(1, 1, 100, Tree::MUSHROOM)]); // TODO
 
         $this->setElevation(64, 74);
     }

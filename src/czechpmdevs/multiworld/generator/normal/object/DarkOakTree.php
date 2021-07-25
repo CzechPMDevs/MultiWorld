@@ -29,7 +29,7 @@ use pocketmine\world\ChunkManager;
 
 class DarkOakTree extends Tree {
 
-    public function placeObject(ChunkManager $world, int $x, int $y, int $z, Random $random) {
+    public function placeObject(ChunkManager $world, int $x, int $y, int $z, Random $random): void {
         $i = $random->nextBoundedInt(3) + $random->nextBoundedInt(2) + 6;
 
         if ($y >= 1 && $y + $i + 1 < 256) {
@@ -55,7 +55,7 @@ class DarkOakTree extends Tree {
                     }
 
                     $y2 = $y + $x2;
-                    $material = $world->getBlockAt($x1, $y2, $z1);
+                    $material = $world->getBlockAt($x1, $y2, $z1)->getId();
 
                     if ($material == BlockLegacyIds::AIR || $material == BlockLegacyIds::LEAVES) {
                         $world->setBlockAt($x1, $y2, $z1, VanillaBlocks::DARK_OAK_WOOD());

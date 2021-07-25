@@ -25,6 +25,7 @@ namespace czechpmdevs\multiworld\generator\normal\biome;
 use czechpmdevs\multiworld\generator\normal\object\Tree;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
+use pocketmine\block\utils\TreeType;
 
 class ExtremeHillsEdge extends ExtremeHills {
 
@@ -32,7 +33,7 @@ class ExtremeHillsEdge extends ExtremeHills {
         parent::__construct();
 
         $this->clearPopulators();
-        $this->addPopulators([new TallGrassPopulator(10, 5), new TreePopulator(1, 1, 100, Tree::SPRUCE), new TreePopulator(0, 1)]);
+        $this->addPopulators([new TallGrassPopulator(10, 5), new TreePopulator(1, 1, 100, TreeType::SPRUCE()), new TreePopulator(0, 1)]);
     }
 
     public function getName(): string {

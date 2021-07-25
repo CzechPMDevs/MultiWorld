@@ -32,7 +32,7 @@ use function abs;
 
 class AcaciaTree extends Tree {
 
-    public function placeObject(ChunkManager $world, int $x, int $y, int $z, Random $random) {
+    public function placeObject(ChunkManager $world, int $x, int $y, int $z, Random $random): void {
         $position = new Vector3($x, $y, $z);
         $i = $random->nextBoundedInt(3) + $random->nextBoundedInt(3) + 5;
 
@@ -72,7 +72,6 @@ class AcaciaTree extends Tree {
             for ($j3 = -3; $j3 <= 3; ++$j3) {
                 for ($i4 = -3; $i4 <= 3; ++$i4) {
                     if (abs($j3) != 3 || abs($i4) != 3) {
-                        /** @phpstan-ignore-next-line */
                         $this->placeLeafAt($world, $blockpos2->add($j3, 0, $i4));
                     }
                 }
@@ -82,7 +81,6 @@ class AcaciaTree extends Tree {
 
             for ($k3 = -1; $k3 <= 1; ++$k3) {
                 for ($j4 = -1; $j4 <= 1; ++$j4) {
-                    /** @phpstan-ignore-next-line */
                     $this->placeLeafAt($world, $blockpos2->add($k3, 0, $j4));
                 }
             }
@@ -123,7 +121,6 @@ class AcaciaTree extends Tree {
                     for ($i5 = -2; $i5 <= 2; ++$i5) {
                         for ($k5 = -2; $k5 <= 2; ++$k5) {
                             if (abs($i5) != 2 || abs($k5) != 2) {
-                                /** @phpstan-ignore-next-line */
                                 $this->placeLeafAt($world, $blockpos3->add($i5, 0, $k5));
                             }
                         }
@@ -133,7 +130,6 @@ class AcaciaTree extends Tree {
 
                     for ($j5 = -1; $j5 <= 1; ++$j5) {
                         for ($l5 = -1; $l5 <= 1; ++$l5) {
-                            /** @phpstan-ignore-next-line */
                             $this->placeLeafAt($world, $blockpos3->add($j5, 0, $l5));
                         }
                     }

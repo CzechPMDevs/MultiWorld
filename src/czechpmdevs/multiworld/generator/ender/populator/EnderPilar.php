@@ -24,9 +24,9 @@ namespace czechpmdevs\multiworld\generator\ender\populator;
 
 use pocketmine\block\BlockLegacyIds;
 use pocketmine\block\VanillaBlocks;
+use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
 use pocketmine\world\generator\populator\Populator;
-use pocketmine\utils\Random;
 use function cos;
 use function deg2rad;
 use function intval;
@@ -51,7 +51,7 @@ class EnderPilar extends Populator {
         $this->baseAmount = $amount;
     }
 
-    public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random) {
+    public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
         if (mt_rand(0, 100) < 10) {
             $this->world = $world;
             $amount = $random->nextRange(0, $this->randomAmount + 1) + $this->baseAmount;

@@ -23,23 +23,28 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\level\gamerules;
 
 use InvalidStateException;
-use pocketmine\player\Player;
-use pocketmine\world\format\io\data\BaseNbtWorldData;
-use pocketmine\world\World;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\network\mcpe\protocol\GameRulesChangedPacket;
+use pocketmine\network\mcpe\protocol\types\BoolGameRule;
+use pocketmine\network\mcpe\protocol\types\FloatGameRule;
+use pocketmine\network\mcpe\protocol\types\GameRule;
+use pocketmine\network\mcpe\protocol\types\IntGameRule;
+use pocketmine\player\Player;
+use pocketmine\world\format\io\data\BaseNbtWorldData;
+use pocketmine\world\World;
+use UnexpectedValueException;
 use function array_key_exists;
 use function array_map;
 use function count;
+use function get_class;
 use function is_bool;
+use function is_float;
 use function is_int;
+use function json_decode;
+use function json_encode;
 
 final class GameRules {
-
-    public const TYPE_INVALID = 0;
-    public const TYPE_BOOL = 1;
-    public const TYPE_INTEGER = 2;
 
     public const GAMERULE_COMMAND_BLOCKS_ENABLED = "commandBlocksEnabled";
     public const GAMERULE_COMMAND_BLOCK_OUTPUT = "commandBlockOutput";
@@ -81,19 +86,11 @@ final class GameRules {
     /** @var GameRules */
     private static GameRules $defaultGameRules;
 
-    /**
-     * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
-     *
-     * @var mixed[]
-     * @phpstan-var array<string, bool|int|float>
-     */
+    /** @var GameRule[] */
     private array $gameRules = [];
 
     /**
-     * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
-     *
-     * @param mixed[] $gameRules If the array is empty, default GameRules will be used
-     * @phpstan-param array<string, bool|int|float> $gameRules
+     * @param GameRule[] $gameRules If the array is empty, default GameRules will be used
      */
     public function __construct(array $gameRules = []) {
         // In case for default GameRules
@@ -109,9 +106,9 @@ final class GameRules {
 
         // Removing invalid GameRules
         foreach ($gameRules as $key => $value) {
-            if (!GameRules::$defaultGameRules->keyExists($key)) {
+            if (!GameRules::$defaultGameRules->exists($key)) {
                 unset($gameRules[$key]); // GameRule does not exist at all
-            } elseif (GameRules::getPropertyType($value) != GameRules::getPropertyType(GameRules::$defaultGameRules->getGameRules()[$key])) {
+            } elseif (get_class($value) != get_class(GameRules::$defaultGameRules->getGameRules()[$key])) {
                 unset($gameRules[$key]); // GameRule has invalid type
             }
         }
@@ -127,10 +124,7 @@ final class GameRules {
     }
 
     /**
-     * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
-     *
-     * @return mixed[]
-     * @phpstan-return array<string, int|float|bool>
+     * @return GameRule[]
      */
     public function getGameRules(): array {
         return $this->gameRules;
@@ -140,29 +134,29 @@ final class GameRules {
         return clone GameRules::$defaultGameRules;
     }
 
-    public function keyExists(string $index): bool {
+    public function exists(string $index): bool {
         return array_key_exists($index, $this->gameRules);
     }
 
     /**
      * @param mixed $value
      */
-    public static function getPropertyType($value): int {
+    public static function getPropertyType($value): string {
         if (is_bool($value)) {
-            return GameRules::TYPE_BOOL;
+            return BoolGameRule::class;
         }
         if (is_int($value)) {
-            return GameRules::TYPE_INTEGER;
+            return IntGameRule::class;
+        }
+        if (is_float($value)) {
+            return FloatGameRule::class;
         }
 
-        return GameRules::TYPE_INVALID;
+        throw new InvalidStateException("Unknown type for proper");
     }
 
     /**
-     * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
-     *
-     * @param mixed[] $defaultGameRules
-     * @phpstan-var array<string, bool|int|float>
+     * @param GameRule[] $defaultGameRules
      */
     public static function init(array $defaultGameRules): void {
         GameRules::$defaultGameRules = new GameRules($defaultGameRules);
@@ -191,14 +185,18 @@ final class GameRules {
      */
     public static function unserializeGameRules(CompoundTag $nbt): GameRules {
         return new GameRules(array_map(function (StringTag $stringTag) {
-            if ($stringTag->getValue() == "true") {
-                return true;
+            $value = json_decode($stringTag->getValue());
+            if(is_bool($value)) {
+                return new BoolGameRule($value, GameRules::$allowPlayersEditGameRulesFromGame);
             }
-            if ($stringTag->getValue() == "false") {
-                return false;
+            if(is_int($value)) {
+                return new IntGameRule($value, GameRules::$allowPlayersEditGameRulesFromGame);
+            }
+            if(is_float($value)) {
+                return new FloatGameRule($value, GameRules::$allowPlayersEditGameRulesFromGame);
             }
 
-            return (int)$stringTag->getValue();
+            throw new InvalidStateException("Received unknown type for '$value'.");
         }, $nbt->getValue()));
     }
 
@@ -217,49 +215,32 @@ final class GameRules {
      */
     public static function serializeGameRules(GameRules $gameRules): CompoundTag {
         $nbt = new CompoundTag();
-        foreach ($gameRules->getGameRules() as $name => [$type, $value]) {
-            if ($type == GameRules::TYPE_BOOL) {
-                $nbt->setString($name, $value ? "true" : "false");
-            } elseif ($type == GameRules::TYPE_INTEGER) {
-                $nbt->setString($name, (string)$value);
+        /** @var BoolGameRule|IntGameRule|FloatGameRule $gameRule */
+        foreach ($gameRules->getGameRules() as $name => $gameRule) {
+            if($value = json_encode($gameRule->getValue())) {
+                $nbt->setString($name, $value);
+                continue;
             }
+            throw new UnexpectedValueException("Unable to encode value ({$gameRule->getValue()}) for rule $name.");
         }
 
         return $nbt;
     }
 
     /**
-     * WARNING: This will only change the rule only on the server, to send it
-     * To player use GameRules::applyToPlayer(Player) method
+     * @return BoolGameRule|IntGameRule|FloatGameRule
      */
-    public function setBool(string $index, bool $value): void {
-        $this->gameRules[$index] = $value;
-    }
-
-    public function getBool(string $index): bool {
-        $value = $this->gameRules[$index] ?? null;
-        if (!is_bool($value)) {
-            throw new InvalidStateException("Received invalid type for Game Rule $index, got '$value' expected bool.");
+    public function getRuleValue(string $name): GameRule {
+        if(!array_key_exists($name, $this->gameRules)) {
+            throw new InvalidStateException("Requested invalid game rule $name.");
         }
 
-        return $value;
+        /** @phpstan-ignore-next-line */
+        return $this->gameRules[$name]; // TODO - Find better way to make the analyser happy
     }
 
-    /**
-     * WARNING: This will only change the rule only on the server, to send it
-     * To player use GameRules::applyToPlayer(Player) method
-     */
-    public function setInteger(string $index, int $value): void {
-        $this->gameRules[$index] = $value;
-    }
-
-    public function getInteger(string $index): int {
-        $value = $this->gameRules[$index] ?? null;
-        if (!is_int($value)) {
-            throw new InvalidStateException("Received invalid type for Game Rule $index, got '$value' expected integer.");
-        }
-
-        return $value;
+    public function setRuleValue(string $name, GameRule $value): void {
+        $this->gameRules[$name] = $value;
     }
 
     public function rulesCount(): int {
@@ -268,22 +249,14 @@ final class GameRules {
 
     public function applyToPlayer(Player $player): void {
         $pk = new GameRulesChangedPacket();
-        $pk->gameRules = array_map(fn($gameRule) => [
-            GameRules::getPropertyType($gameRule),
-            $gameRule,
-            GameRules::$allowPlayersEditGameRulesFromGame
-        ], $this->gameRules);
+        $pk->gameRules = $this->gameRules;
 
         $player->getNetworkSession()->sendDataPacket($pk);
     }
 
     public function applyToWorld(World $world): void {
         $pk = new GameRulesChangedPacket();
-        $pk->gameRules = array_map(fn($gameRule) => [
-            GameRules::getPropertyType($gameRule),
-            $gameRule,
-            GameRules::$allowPlayersEditGameRulesFromGame
-        ], $this->gameRules);
+        $pk->gameRules = $this->gameRules;
 
         foreach ($world->getPlayers() as $player) {
             $player->getNetworkSession()->sendDataPacket($pk);

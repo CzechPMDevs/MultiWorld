@@ -48,13 +48,14 @@ class LakePopulator extends Populator {
             $block = $vec->addVector($pos)->getY() < $pos->getY() ? VanillaBlocks::WATER() : VanillaBlocks::AIR();
 
             $blocks[] = [$finalPos, $block];
+            /** @phpstan-ignore-next-line */
             if ($block->isSameType(VanillaBlocks::WATER()) && ($world->getBlockAt($finalPos->getX() + 1, $finalPos->getY(), $finalPos->getZ()) || $world->getBlockAt($finalPos->getX() - 1, $finalPos->getY(), $finalPos->getZ()) || $world->getBlockAt($finalPos->getX(), $finalPos->getY(), $finalPos->getZ() + 1) || $world->getBlockAt($finalPos->getX(), $finalPos->getY(), $finalPos->getZ() - 1))) {
                 return;
             }
-
         }
 
         foreach ($blocks as [$vec, $block]) {
+            /** @phpstan-ignore-next-line */
             $world->setBlockAt($vec->getX(), $vec->getY(), $vec->getZ(), $block);
         }
     }
