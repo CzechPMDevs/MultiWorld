@@ -25,7 +25,6 @@ namespace czechpmdevs\multiworld\util;
 use czechpmdevs\multiworld\MultiWorld;
 use Exception;
 use pocketmine\command\CommandSender;
-use pocketmine\Player;
 use function base64_decode;
 use function basename;
 use function glob;

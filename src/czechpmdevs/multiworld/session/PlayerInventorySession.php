@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\session;
 
 use pocketmine\item\Item;
-use pocketmine\Player;
 
 class PlayerInventorySession {
 

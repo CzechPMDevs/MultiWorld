@@ -23,10 +23,10 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\populator\impl;
 
 use czechpmdevs\multiworld\generator\normal\populator\AmountPopulator;
-use pocketmine\block\BlockFactory;
 use pocketmine\block\BlockLegacyIds;
-use pocketmine\world\ChunkManager;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\utils\Random;
+use pocketmine\world\ChunkManager;
 
 class TallGrassPopulator extends AmountPopulator {
 
@@ -37,14 +37,11 @@ class TallGrassPopulator extends AmountPopulator {
         $this->getRandomSpawnPosition($world, $chunkX, $chunkZ, $random, $x, $y, $z);
 
         if ($y !== -1 and $this->canTallGrassStay($world, $x, $y, $z)) {
-            $id = ($this->allowDoubleGrass && $random->nextBoundedInt(5) == 4) ? BlockLegacyIds::DOUBLE_PLANT : BlockLegacyIds::TALL_GRASS;
-            $world->setBlockAt($x, $y, $z, BlockFactory::getInstance()->get($id));
-
-            if ($id == BlockLegacyIds::DOUBLE_PLANT) {
-                $world->setBlockDataAt($x, $y, $z, 2);
-                $world->setBlockIdAt($x, $y + 1, $z, $id);
-                $world->setBlockDataAt($x, $y + 1, $z, 10);
+            if($this->allowDoubleGrass && $random->nextBoundedInt(5) == 0) {
+                $world->setBlockAt($x, $y, $z, VanillaBlocks::DOUBLE_TALLGRASS());
+                return;
             }
+            $world->setBlockAt($x, $y, $z, VanillaBlocks::TALL_GRASS());
         }
     }
 

@@ -23,9 +23,9 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal;
 
 use czechpmdevs\multiworld\level\data\BiomeIds;
+use pocketmine\utils\Random;
 use pocketmine\world\biome\Biome;
 use pocketmine\world\generator\noise\Simplex;
-use pocketmine\utils\Random;
 use function abs;
 
 class BiomeSelector {

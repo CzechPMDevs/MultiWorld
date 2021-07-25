@@ -24,15 +24,14 @@ namespace czechpmdevs\multiworld\generator\normal\populator\impl;
 
 use czechpmdevs\multiworld\generator\normal\populator\Populator;
 use Generator;
-use pocketmine\block\Block;
-use pocketmine\block\BlockLegacyIds;
-use pocketmine\world\ChunkManager;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
+use pocketmine\world\ChunkManager;
 
 class LakePopulator extends Populator {
 
-    public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random) {
+    public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
         if ($random->nextBoundedInt(7) != 0) {
             return;
         }
@@ -44,24 +43,19 @@ class LakePopulator extends Populator {
 
         /** @var Vector3 $vec */
         foreach ($this->getRandomShape($random) as $vec) {
-            $finalPos = $pos->add($vec);
+            $finalPos = $pos->addVector($vec);
 
-            $id = $vec->add($pos)->getY() < $pos->getY() ? Block::WATER : Block::AIR;
+            $block = $vec->addVector($pos)->getY() < $pos->getY() ? VanillaBlocks::WATER() : VanillaBlocks::AIR();
 
-            $blocks[] = [$finalPos, $id];
-            if ($id == BlockLegacyIds::WATER &&
-                /** @phpstan-ignore-next-line */
-                in_array(BlockLegacyIds::AIR, [$world->getBlockIdAt($finalPos->getX() + 1, $finalPos->getY(), $finalPos->getZ()), $world->getBlockIdAt($finalPos->getX() - 1, $finalPos->getY(), $finalPos->getZ()), $world->getBlockIdAt($finalPos->getX(), $finalPos->getY(), $finalPos->getZ() + 1), $world->getBlockIdAt($finalPos->getX(), $finalPos->getY(), $finalPos->getZ() - 1)])) {
+            $blocks[] = [$finalPos, $block];
+            if ($block->isSameType(VanillaBlocks::WATER()) && ($world->getBlockAt($finalPos->getX() + 1, $finalPos->getY(), $finalPos->getZ()) || $world->getBlockAt($finalPos->getX() - 1, $finalPos->getY(), $finalPos->getZ()) || $world->getBlockAt($finalPos->getX(), $finalPos->getY(), $finalPos->getZ() + 1) || $world->getBlockAt($finalPos->getX(), $finalPos->getY(), $finalPos->getZ() - 1))) {
                 return;
             }
 
         }
 
-        foreach ($blocks as [$vec, $id]) {
-            /** @phpstan-ignore-next-line */
-            $world->setBlockIdAt($vec->getX(), $vec->getY(), $vec->getZ(), $id);
-            /** @phpstan-ignore-next-line */
-            $world->setBlockDataAt($vec->getX(), $vec->getY(), $vec->getZ(), 0);
+        foreach ($blocks as [$vec, $block]) {
+            $world->setBlockAt($vec->getX(), $vec->getY(), $vec->getZ(), $block);
         }
     }
 

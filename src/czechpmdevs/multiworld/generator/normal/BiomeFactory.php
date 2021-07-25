@@ -22,6 +22,8 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal;
 
+use czechpmdevs\multiworld\generator\normal\biome\Badlands;
+use czechpmdevs\multiworld\generator\normal\biome\BadlandsPlateau;
 use czechpmdevs\multiworld\generator\normal\biome\Beach;
 use czechpmdevs\multiworld\generator\normal\biome\BirchForest;
 use czechpmdevs\multiworld\generator\normal\biome\DeepOcean;
@@ -37,8 +39,6 @@ use czechpmdevs\multiworld\generator\normal\biome\FrozenRiver;
 use czechpmdevs\multiworld\generator\normal\biome\IceMountains;
 use czechpmdevs\multiworld\generator\normal\biome\IcePlains;
 use czechpmdevs\multiworld\generator\normal\biome\Jungle;
-use czechpmdevs\multiworld\generator\normal\biome\Badlands;
-use czechpmdevs\multiworld\generator\normal\biome\BadlandsPlateau;
 use czechpmdevs\multiworld\generator\normal\biome\MushroomIsland;
 use czechpmdevs\multiworld\generator\normal\biome\MushroomIslandShore;
 use czechpmdevs\multiworld\generator\normal\biome\Ocean;

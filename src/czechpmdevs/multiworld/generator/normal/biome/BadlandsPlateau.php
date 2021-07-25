@@ -23,47 +23,21 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
-use czechpmdevs\multiworld\generator\nether\populator\Ore;
 use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
-use pocketmine\block\BlockLegacyIds;
-use pocketmine\block\DeadBush;
-use pocketmine\block\GoldOre;
-use pocketmine\block\HardenedClay;
-use pocketmine\block\StainedClay;
-use pocketmine\world\generator\object\OreType;
+use pocketmine\block\VanillaBlocks;
 
 class BadlandsPlateau extends Badlands {
 
     public function __construct() {
         parent::__construct();
 
-        $this->setGroundCover([
-            new HardenedClay(),
-            new StainedClay(0),
-            new HardenedClay(),
-            new HardenedClay(),
-            new StainedClay(4),
-            new StainedClay(4),
-            new HardenedClay(),
-            new HardenedClay(),
-            new HardenedClay(),
-            new StainedClay(1),
-            new StainedClay(1),
-            new HardenedClay()
-        ]);
-
         $deadBush = new PlantPopulator(4, 3);
-        $deadBush->addPlant(new Plant(new DeadBush()));
-        $deadBush->allowBlockToStayAt(BlockLegacyIds::HARDENED_CLAY);
-
-        $ore = new Ore();
-        $ore->setOreTypes([
-            new OreType(new GoldOre(), 20, 12, 0, 128)
-        ]);
+        $deadBush->addPlant(new Plant(VanillaBlocks::DEAD_BUSH()));
+        $deadBush->allowBlockToStayAt(VanillaBlocks::HARDENED_CLAY());
 
         $this->clearPopulators();
-        $this->addPopulators([$deadBush, $ore]);
+        $this->addPopulators([$deadBush]);
 
         $this->setElevation(84, 87);
     }

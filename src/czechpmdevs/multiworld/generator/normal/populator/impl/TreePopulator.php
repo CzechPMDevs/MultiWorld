@@ -25,8 +25,8 @@ namespace czechpmdevs\multiworld\generator\normal\populator\impl;
 use czechpmdevs\multiworld\generator\normal\object\Tree;
 use czechpmdevs\multiworld\generator\normal\populator\AmountPopulator;
 use pocketmine\block\BlockLegacyIds;
-use pocketmine\world\ChunkManager;
 use pocketmine\utils\Random;
+use pocketmine\world\ChunkManager;
 
 class TreePopulator extends AmountPopulator {
 

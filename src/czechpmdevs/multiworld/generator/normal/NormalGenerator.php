@@ -25,6 +25,8 @@ namespace czechpmdevs\multiworld\generator\normal;
 use czechpmdevs\multiworld\generator\normal\populator\impl\CarvePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\GroundCoverPopulator;
 use pocketmine\block\VanillaBlocks;
+use pocketmine\math\Vector3;
+use pocketmine\utils\Random;
 use pocketmine\world\biome\Biome;
 use pocketmine\world\ChunkManager;
 use pocketmine\world\format\Chunk;
@@ -34,8 +36,6 @@ use pocketmine\world\generator\noise\Simplex;
 use pocketmine\world\generator\object\OreType;
 use pocketmine\world\generator\populator\Ore;
 use pocketmine\world\generator\populator\Populator;
-use pocketmine\math\Vector3;
-use pocketmine\utils\Random;
 use pocketmine\world\World;
 
 class NormalGenerator extends Generator {
@@ -66,7 +66,7 @@ class NormalGenerator extends Generator {
         $this->generationPopulators[] = new GroundCoverPopulator();
 
         // Other populators...
-        $this->populators[] = new CarvePopulator();
+        $this->populators[] = new CarvePopulator($this->seed);
 
         $ores = new Ore();
         $stone = VanillaBlocks::STONE();

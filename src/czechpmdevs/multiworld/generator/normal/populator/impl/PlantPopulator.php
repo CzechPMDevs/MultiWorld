@@ -24,26 +24,26 @@ namespace czechpmdevs\multiworld\generator\normal\populator\impl;
 
 use czechpmdevs\multiworld\generator\normal\populator\AmountPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
-use pocketmine\block\BlockLegacyIds;
-use pocketmine\world\ChunkManager;
+use pocketmine\block\Block;
+use pocketmine\block\VanillaBlocks;
+use pocketmine\math\Facing;
 use pocketmine\utils\Random;
-use function array_merge;
+use pocketmine\world\ChunkManager;
 use function count;
-use function in_array;
 
 class PlantPopulator extends AmountPopulator {
 
     /** @var Plant[] */
     private array $plants = [];
-    /** @var int[] */
+    /** @var Block[] */
     private array $allowedBlocks = [];
 
     public function addPlant(Plant $plant): void {
         $this->plants[] = $plant;
     }
 
-    public function allowBlockToStayAt(int $blockId): void {
-        $this->allowedBlocks[] = $blockId;
+    public function allowBlockToStayAt(Block $block): void {
+        $this->allowedBlocks[] = $block;
     }
 
     public function populateObject(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
@@ -57,15 +57,31 @@ class PlantPopulator extends AmountPopulator {
             $plant = $random->nextRange(0, count($this->plants) - 1);
             $pY = $y;
             foreach ($this->plants[$plant]->blocks as $block) {
-                $world->setBlockIdAt($x, $pY, $z, $block->getId());
-                $world->setBlockDataAt($x, $pY, $z, $block->getDamage());
+                $world->setBlockAt($x, $pY, $z, $block);
                 $pY++;
             }
         }
     }
 
     private function canPlantStay(ChunkManager $world, int $x, int $y, int $z): bool {
-        $b = $world->getBlockIdAt($x, $y, $z);
-        return ($b === BlockLegacyIds::AIR or $b === BlockLegacyIds::SNOW_LAYER or $b === BlockLegacyIds::WATER) and in_array($world->getBlockIdAt($x, $y - 1, $z), array_merge([BlockLegacyIds::GRASS], $this->allowedBlocks));
+        $block = $world->getBlockAt($x, $y, $z);
+        if(
+            $block->isSameType(VanillaBlocks::AIR()) or
+            $block->isSameType(VanillaBlocks::SNOW_LAYER()) or
+            $block->isSameType(VanillaBlocks::WATER())
+        ) {
+            $block = $block->getSide(Facing::DOWN);
+            if($block->isSameType(VanillaBlocks::GRASS())) {
+                return true;
+            }
+
+            foreach($this->allowedBlocks as $allowed) {
+                if($block->isSameType($allowed)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

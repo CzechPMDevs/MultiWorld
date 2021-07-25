@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
-use pocketmine\block\Block;
+use pocketmine\block\VanillaBlocks;
 
 class ExtremeHillsMutated extends ExtremeHills {
 
@@ -32,10 +32,10 @@ class ExtremeHillsMutated extends ExtremeHills {
         $this->setElevation(75, 120);
 
         $this->setGroundCover([
-            Block::get(Block::GRAVEL),
-            Block::get(Block::GRAVEL),
-            Block::get(Block::GRAVEL),
-            Block::get(Block::GRAVEL)
+            VanillaBlocks::GRAVEL(),
+            VanillaBlocks::GRAVEL(),
+            VanillaBlocks::GRAVEL(),
+            VanillaBlocks::GRAVEL()
         ]);
     }
 

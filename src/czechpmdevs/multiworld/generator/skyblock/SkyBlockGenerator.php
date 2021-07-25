@@ -24,10 +24,7 @@ namespace czechpmdevs\multiworld\generator\skyblock;
 
 use czechpmdevs\multiworld\generator\skyblock\populator\Island;
 use pocketmine\world\ChunkManager;
-use pocketmine\world\format\Chunk;
 use pocketmine\world\generator\Generator;
-use pocketmine\math\Vector3;
-use pocketmine\utils\Random;
 
 class SkyBlockGenerator extends Generator {
 
@@ -42,17 +39,5 @@ class SkyBlockGenerator extends Generator {
             $island = new Island();
             $island->populate($world, $chunkX, $chunkZ, $this->random);
         }
-    }
-
-    public function getName(): string {
-        return "skyblock";
-    }
-
-    public function getSpawn(): Vector3 {
-        return new Vector3(256, 70, 256);
-    }
-
-    public function getSettings(): array {
-        return [];
     }
 }

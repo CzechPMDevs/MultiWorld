@@ -24,7 +24,7 @@ namespace czechpmdevs\multiworld\generator\normal\biome;
 
 use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
-use pocketmine\block\DoublePlant;
+use pocketmine\block\VanillaBlocks;
 
 class SunflowerPlains extends Plains {
 
@@ -32,7 +32,7 @@ class SunflowerPlains extends Plains {
         parent::__construct();
 
         $sunflowers = new PlantPopulator(12, 6, 98);
-        $sunflowers->addPlant(new Plant(new DoublePlant(0), new DoublePlant(8)));
+        $sunflowers->addPlant(new Plant(VanillaBlocks::SUNFLOWER()));
 
         $this->addPopulator($sunflowers);
     }

@@ -22,9 +22,9 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\level\dimension;
 
+use pocketmine\network\mcpe\protocol\ChangeDimensionPacket;
 use pocketmine\player\Player;
 use pocketmine\world\World;
-use pocketmine\network\mcpe\protocol\ChangeDimensionPacket;
 use function strtolower;
 
 class Dimension {

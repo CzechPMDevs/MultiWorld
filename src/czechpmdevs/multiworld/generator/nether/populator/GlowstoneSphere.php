@@ -22,17 +22,17 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\nether\populator;
 
-use pocketmine\block\BlockLegacyIds;
-use pocketmine\world\ChunkManager;
-use pocketmine\world\generator\populator\Populator;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
+use pocketmine\world\ChunkManager;
+use pocketmine\world\generator\populator\Populator;
 
 class GlowstoneSphere extends Populator {
 
     public const SPHERE_RADIUS = 3;
 
-    public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random) {
+    public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
         $world->getChunk($chunkX, $chunkZ);
         if ($random->nextRange(0, 10) !== 0) return;
 
@@ -42,7 +42,7 @@ class GlowstoneSphere extends Populator {
         $sphereY = 0;
 
         for ($y = 0; $y < 127; $y++) {
-            if ($world->getBlockIdAt($x, $y, $z) == 0) {
+            if ($world->getBlockAt($x, $y, $z)->isSameType(VanillaBlocks::AIR())) {
                 $sphereY = $y;
             }
         }
@@ -64,7 +64,7 @@ class GlowstoneSphere extends Populator {
                     if (($xsqr + $ysqr + $zsqr) < (pow(2, $this->getRandomRadius($random)))) {
                         if ($random->nextRange(0, 4) !== 0) {
                             /** @phpstan-ignore-next-line */
-                            $world->setBlockIdAt($x, $y, $z, BlockLegacyIds::GLOWSTONE);
+                            $world->setBlockAt($x, $y, $z, VanillaBlocks::GLOWSTONE());
                         }
                     }
                 }

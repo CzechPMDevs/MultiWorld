@@ -22,15 +22,14 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\object;
 
+use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
 use pocketmine\world\generator\object\BirchTree;
 use pocketmine\world\generator\object\JungleTree;
 use pocketmine\world\generator\object\OakTree;
 use pocketmine\world\generator\object\SpruceTree;
-use pocketmine\world\generator\object\Tree as TreeObject;
-use pocketmine\utils\Random;
 
-abstract class Tree extends TreeObject {
+abstract class Tree {
 
     public const OAK = 0;
     public const SPRUCE = 1;
@@ -45,7 +44,7 @@ abstract class Tree extends TreeObject {
 
     public const MUSHROOM = 20;
 
-    public static function growTree(ChunkManager $world, int $x, int $y, int $z, Random $random, int $type = 0, bool $vines = false) {
+    public static function growTree(ChunkManager $world, int $x, int $y, int $z, Random $random, int $type = 0, bool $vines = false): void {
         switch ($type) {
             case self::SPRUCE:
                 $tree = new SpruceTree();

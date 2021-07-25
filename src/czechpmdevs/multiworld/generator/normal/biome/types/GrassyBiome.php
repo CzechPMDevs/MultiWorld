@@ -22,18 +22,17 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome\types;
 
-use pocketmine\block\Dirt;
-use pocketmine\block\Grass;
+use pocketmine\block\VanillaBlocks;
 
 abstract class GrassyBiome extends Biome {
 
     public function __construct(float $temperature, float $rainfall) {
         $this->setGroundCover([
-            new Grass(),
-            new Dirt(),
-            new Dirt(),
-            new Dirt(),
-            new Dirt()
+            VanillaBlocks::GRASS(),
+            VanillaBlocks::DIRT(),
+            VanillaBlocks::DIRT(),
+            VanillaBlocks::DIRT(),
+            VanillaBlocks::DIRT(),
         ]);
         parent::__construct($temperature, $rainfall);
     }

@@ -26,8 +26,8 @@ use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
-use pocketmine\world\World;
 use pocketmine\Server;
+use pocketmine\world\World;
 use function file_exists;
 use function str_replace;
 

@@ -23,10 +23,10 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\populator\impl;
 
 use czechpmdevs\multiworld\generator\normal\populator\AmountPopulator;
-use pocketmine\block\BlockLegacyIds;
-use pocketmine\world\ChunkManager;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
+use pocketmine\world\ChunkManager;
 
 class CactusPopulator extends AmountPopulator {
 
@@ -35,21 +35,24 @@ class CactusPopulator extends AmountPopulator {
 
         if ($y !== -1 && $this->canCactusStay($world, new Vector3($x, $y, $z))) {
             for ($aY = 0; $aY < $random->nextRange(0, 3); $aY++) {
-                $world->setBlockIdAt($x, $y + $aY, $z, BlockLegacyIds::CACTUS);
-                $world->setBlockDataAt($x, $y, $z, 1);
+                $world->setBlockAt($x, $y + $aY, $z, VanillaBlocks::CACTUS());
             }
         }
     }
 
     private function canCactusStay(ChunkManager $world, Vector3 $pos): bool {
         /** @phpstan-ignore-next-line */
-        $b = $world->getBlockIdAt($pos->getX(), $pos->getY(), $pos->getZ());
-        /** @phpstan-ignore-next-line */
-        if ($world->getBlockIdAt($pos->getX() + 1, $pos->getY(), $pos->getZ()) != 0 || $world->getBlockIdAt($pos->getX() - 1, $pos->getY(), $pos->getZ()) != 0 || $world->getBlockIdAt($pos->getX(), $pos->getY(), $pos->getZ() + 1) != 0 || $world->getBlockIdAt($pos->getX(), $pos->getY(), $pos->getZ() - 1) != 0) {
+        $block = $world->getBlockAt($pos->getX(), $pos->getY(), $pos->getZ());
+        if (
+            !$world->getBlockAt($pos->getX() + 1, $pos->getY(), $pos->getZ())->isSameType(VanillaBlocks::AIR()) || // @phpstan-ignore-line
+            !$world->getBlockAt($pos->getX() - 1, $pos->getY(), $pos->getZ())->isSameType(VanillaBlocks::AIR()) || // @phpstan-ignore-line
+            !$world->getBlockAt($pos->getX(), $pos->getY(), $pos->getZ() + 1)->isSameType(VanillaBlocks::AIR()) || // @phpstan-ignore-line
+            !$world->getBlockAt($pos->getX(), $pos->getY(), $pos->getZ() - 1)->isSameType(VanillaBlocks::AIR()) // @phpstan-ignore-line
+        ) {
             return false;
         }
 
         /** @phpstan-ignore-next-line */
-        return ($b === BlockLegacyIds::AIR) && $world->getBlockIdAt($pos->getX(), $pos->getY() - 1, $pos->getZ()) === BlockLegacyIds::SAND;
+        return ($block->isSameType($block)) && $world->getBlockAt($pos->getX(), $pos->getY() - 1, $pos->getZ())->isSameType(VanillaBlocks::SAND());
     }
 }

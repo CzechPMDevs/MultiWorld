@@ -26,20 +26,11 @@ use pocketmine\block\BlockLegacyIds;
 use pocketmine\world\ChunkManager;
 use pocketmine\world\format\Chunk;
 use pocketmine\world\generator\Generator;
-use pocketmine\math\Vector3;
-use pocketmine\utils\Random;
 
 class VoidGenerator extends Generator {
 
     public function __construct(int $seed, string $preset) {
         parent::__construct($seed, $preset);
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string {
-        return "void";
     }
 
     public function generateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {
@@ -51,14 +42,5 @@ class VoidGenerator extends Generator {
         }
     }
 
-    public function getSpawn(): Vector3 {
-        return new Vector3(256, 65, 256);
-    }
-
-    public function populateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {
-    }
-
-    public function getSettings(): array {
-        return [];
-    }
+    public function populateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {}
 }

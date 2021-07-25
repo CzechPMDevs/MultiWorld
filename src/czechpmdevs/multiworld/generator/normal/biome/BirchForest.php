@@ -28,11 +28,7 @@ use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
-use pocketmine\block\BrownMushroom;
-use pocketmine\block\Dandelion;
-use pocketmine\block\DoublePlant;
-use pocketmine\block\Flower;
-use pocketmine\block\RedMushroom;
+use pocketmine\block\VanillaBlocks;
 
 class BirchForest extends GrassyBiome {
 
@@ -40,18 +36,18 @@ class BirchForest extends GrassyBiome {
         parent::__construct(0.6, 0.6);
 
         $mushrooms = new PlantPopulator(2, 2, 95);
-        $mushrooms->addPlant(new Plant(new BrownMushroom()));
-        $mushrooms->addPlant(new Plant(new RedMushroom()));
+        $mushrooms->addPlant(new Plant(VanillaBlocks::RED_MUSHROOM()));
+        $mushrooms->addPlant(new Plant(VanillaBlocks::BROWN_MUSHROOM()));
 
         $flowers = new PlantPopulator(6, 7, 80);
-        $flowers->addPlant(new Plant(new Dandelion()));
-        $flowers->addPlant(new Plant(new Flower()));
+        $flowers->addPlant(new Plant(VanillaBlocks::DANDELION()));
+        $flowers->addPlant(new Plant(VanillaBlocks::POPPY()));
 
         $roses = new PlantPopulator(5, 4, 80);
-        $roses->addPlant(new Plant(new DoublePlant(4), new DoublePlant(12)));
+        $roses->addPlant(new Plant(VanillaBlocks::LILAC()));
 
         $peonys = new PlantPopulator(5, 4, 80);
-        $peonys->addPlant(new Plant(new DoublePlant(1), new DoublePlant(9)));
+        $peonys->addPlant(new Plant(VanillaBlocks::PEONY()));
 
         $birch = new TreePopulator(5, 4, 100, Tree::BIRCH);
         $grass = new TallGrassPopulator(56, 20);

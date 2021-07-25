@@ -27,24 +27,22 @@ use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
-use pocketmine\block\BrownMushroom;
 use pocketmine\block\Dandelion;
-use pocketmine\block\Flower;
-use pocketmine\block\RedMushroom;
 use pocketmine\block\Sapling;
+use pocketmine\block\VanillaBlocks;
 
 class Swampland extends GrassyBiome {
 
     public function __construct() {
         parent::__construct(0.8, 0.5);
 
-        $mushrooms = new PlantPopulator(4, 2, 95);
-        $mushrooms->addPlant(new Plant(new BrownMushroom()));
-        $mushrooms->addPlant(new Plant(new RedMushroom()));
+        $mushrooms = new PlantPopulator(2, 2, 95);
+        $mushrooms->addPlant(new Plant(VanillaBlocks::RED_MUSHROOM()));
+        $mushrooms->addPlant(new Plant(VanillaBlocks::BROWN_MUSHROOM()));
 
         $flowers = new PlantPopulator(6, 7, 80);
-        $flowers->addPlant(new Plant(new Dandelion()));
-        $flowers->addPlant(new Plant(new Flower()));
+        $flowers->addPlant(new Plant(VanillaBlocks::DANDELION()));
+        $flowers->addPlant(new Plant(VanillaBlocks::POPPY()));
 
         $oak = new TreePopulator(2, 2, 100, Sapling::OAK, true);
         $tallGrass = new TallGrassPopulator(56, 12);

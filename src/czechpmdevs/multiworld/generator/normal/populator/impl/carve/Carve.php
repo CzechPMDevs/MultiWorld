@@ -23,9 +23,9 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\populator\impl\carve;
 
 use pocketmine\block\BlockLegacyIds;
+use pocketmine\utils\Random;
 use pocketmine\world\format\Chunk;
 use pocketmine\world\World;
-use pocketmine\utils\Random;
 use function floor;
 use function max;
 use function min;
@@ -40,16 +40,16 @@ abstract class Carve {
     }
 
     /**
-     * @param Chunk $chunk Is chunk, which will be updated (it should be same chunk / population)
+     * @param Chunk $populatedChunk Is chunk, which will be updated (it should be same chunk / population)
      *
      * @param int $chunkX X coordinate from 'original' chunk (from chunk, where the carve starts)
      * @param int $chunkZ Z coordinate from 'original' chunk (from chunk, where the carve starts)
      */
-    abstract public function carve(Chunk $chunk, int $chunkX, int $chunkZ): void;
+    abstract public function carve(Chunk $populatedChunk, int $populatedChunkX, int $populatedChunkZ, int $chunkX, int $chunkZ): void;
 
-    protected function carveSphere(Chunk $chunk, float $centerX, float $centerY, float $centerZ, float $horizontalSize, float $verticalSize): void {
-        $realChunkX = $chunk->getX() * 16;
-        $realChunkZ = $chunk->getZ() * 16;
+    protected function carveSphere(Chunk $chunk, int $populatedChunkX, int $populatedChunkZ, float $centerX, float $centerY, float $centerZ, float $horizontalSize, float $verticalSize): void {
+        $realChunkX = $populatedChunkX * 16;
+        $realChunkZ = $populatedChunkZ * 16;
 
         if (
             ($centerX < $realChunkX - 8.0 - $horizontalSize * 2.0) ||
@@ -79,24 +79,24 @@ abstract class Carve {
                         $modY = ($y - 0.5 - $centerY) / $verticalSize;
 
                         if ($this->continue($modXZ, $modY, $y)) {
-                            if ($chunk->getBlockId($x, $y, $z) == BlockLegacyIds::WATER || $chunk->getBlockId($x, $y + 1, $z) == BlockLegacyIds::WATER) {
+                            if ($chunk->getFullBlock($x, $y, $z) >> 4 == BlockLegacyIds::WATER || $chunk->getFullBlock($x, $y + 1, $z) >> 4 == BlockLegacyIds::WATER) {
                                 continue;
                             }
 
                             if ($y < 11) {
-                                $chunk->setBlockId($x, $y, $z, BlockLegacyIds::STILL_LAVA);
+                                $chunk->setFullBlock($x, $y, $z, BlockLegacyIds::STILL_LAVA << 4);
                                 continue;
                             }
 
                             if (
-                                $chunk->getBlockId($x, $y - 1, $z) == BlockLegacyIds::DIRT &&
-                                $chunk->getBlockId($x, $y + 1, $z) == BlockLegacyIds::AIR &&
+                                $chunk->getFullBlock($x, $y - 1, $z) >> 4 == BlockLegacyIds::DIRT &&
+                                $chunk->getFullBlock($x, $y + 1, $z) >> 4 == BlockLegacyIds::AIR &&
                                 $y > 62
                             ) {
-                                $chunk->setBlockId($x, $y - 1, $z, BlockLegacyIds::GRASS);
+                                $chunk->setFullBlock($x, $y - 1, $z, BlockLegacyIds::GRASS << 4);
                             }
 
-                            $chunk->setBlockId($x, $y, $z, BlockLegacyIds::AIR);
+                            $chunk->setFullBlock($x, $y, $z, BlockLegacyIds::AIR);
                         }
                     }
                 }
@@ -108,7 +108,7 @@ abstract class Carve {
         for ($x = $minX; $x < $maxX; ++$x) {
             for ($z = $minZ; $z < $maxZ; ++$z) {
                 for ($y = $minY - 1; $y < $maxY + 1; ++$y) {
-                    $id = $chunk->getBlockId($x, $y, $z);
+                    $id = $chunk->getFullBlock($x, $y, $z) << 4;
                     if (
                         $id == BlockLegacyIds::FLOWING_WATER ||
                         $id == BlockLegacyIds::STILL_LAVA ||

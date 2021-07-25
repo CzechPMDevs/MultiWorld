@@ -22,21 +22,20 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome\types;
 
-use pocketmine\block\Sand;
-use pocketmine\block\Sandstone;
+use pocketmine\block\VanillaBlocks;
 
 abstract class SandyBiome extends Biome {
 
     public function __construct(float $temperature, float $rainfall) {
         $this->setGroundCover([
-            new Sand(),
-            new Sand(),
-            new Sand(),
-            new Sand(),
-            new Sandstone(),
-            new Sandstone(),
-            new Sandstone(),
-            new Sandstone()
+            VanillaBlocks::SAND(),
+            VanillaBlocks::SAND(),
+            VanillaBlocks::SAND(),
+            VanillaBlocks::SAND(),
+            VanillaBlocks::SANDSTONE(),
+            VanillaBlocks::SANDSTONE(),
+            VanillaBlocks::SANDSTONE(),
+            VanillaBlocks::SANDSTONE(),
         ]);
 
         parent::__construct($temperature, $rainfall);

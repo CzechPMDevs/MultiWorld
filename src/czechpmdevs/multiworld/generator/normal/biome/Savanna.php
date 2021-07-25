@@ -30,7 +30,7 @@ use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
 use pocketmine\block\Dandelion;
-use pocketmine\block\Flower;
+use pocketmine\block\VanillaBlocks;
 
 class Savanna extends GrassyBiome {
 
@@ -38,8 +38,8 @@ class Savanna extends GrassyBiome {
         parent::__construct(1.2, 0);
 
         $flowers = new PlantPopulator(6, 7, 80);
-        $flowers->addPlant(new Plant(new Dandelion()));
-        $flowers->addPlant(new Plant(new Flower()));
+        $flowers->addPlant(new Plant(VanillaBlocks::DANDELION()));
+        $flowers->addPlant(new Plant(VanillaBlocks::POPPY()));
 
         $acacia = new TreePopulator(1, 1, 100, Tree::ACACIA);
         $tallGrass = new TallGrassPopulator(56, 12);

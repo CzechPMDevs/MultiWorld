@@ -22,15 +22,15 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\nether\populator;
 
-use pocketmine\block\Block;
-use pocketmine\world\ChunkManager;
-use pocketmine\world\generator\populator\Populator;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
+use pocketmine\world\ChunkManager;
+use pocketmine\world\generator\populator\Populator;
 
 class SoulSand extends Populator {
 
-    public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random) {
+    public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
         if ($random->nextRange(0, 6) !== 0) return;
 
         $x = $random->nextRange($chunkX << 4, ($chunkX << 4) + 15);
@@ -39,7 +39,7 @@ class SoulSand extends Populator {
         $sphereY = 0;
 
         for ($y = 45; $y > 0; $y--) {
-            if ($world->getBlockIdAt($x, $y, $z) == 0) {
+            if ($world->getBlockAt($x, $y, $z)->isSameType(VanillaBlocks::AIR())) {
                 $sphereY = $y;
             }
         }
@@ -48,7 +48,7 @@ class SoulSand extends Populator {
             return;
         }
 
-        if ($world->getBlockIdAt($x, $sphereY - 3, $z) != Block::NETHERRACK) {
+        if (!$world->getBlockAt($x, $sphereY - 3, $z)->isSameType(VanillaBlocks::NETHERRACK())) {
             return;
         }
 
@@ -67,13 +67,13 @@ class SoulSand extends Populator {
                     $zsqr = ($position->getZ() - $z) * ($position->getZ() - $z);
                     if (($xsqr + $ysqr + $zsqr) < (pow(2, $random->nextRange(3, 6)))) {
                         /** @phpstan-ignore-next-line */
-                        if ($world->getBlockIdAt($x, $y, $z) == Block::NETHERRACK) {
+                        if ($world->getBlockAt($x, $y, $z)->isSameType(VanillaBlocks::NETHERRACK())) {
                             /** @phpstan-ignore-next-line */
-                            $world->setBlockIdAt($x, $y, $z, Block::SOUL_SAND);
+                            $world->setBlockAt($x, $y, $z, VanillaBlocks::SOUL_SAND());
                             /** @phpstan-ignore-next-line */
-                            if ($random->nextRange(0, 3) == 3 && $world->getBlockIdAt($x, $y + 1, $z) == Block::AIR) {
+                            if ($random->nextRange(0, 3) == 3 && $world->getBlockAt($x, $y + 1, $z)->isSameType(VanillaBlocks::AIR())) {
                                 /** @phpstan-ignore-next-line */
-                                $world->setBlockIdAt($x, $y + 1, $z, Block::NETHER_WART_PLANT);
+                                $world->setBlockAt($x, $y + 1, $z, VanillaBlocks::NETHER_WART());
                             }
                         }
                     }

@@ -26,8 +26,7 @@ use czechpmdevs\multiworld\generator\normal\biome\types\SandyBiome;
 use czechpmdevs\multiworld\generator\normal\populator\impl\CactusPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
-use pocketmine\block\Block;
-use pocketmine\block\DeadBush;
+use pocketmine\block\VanillaBlocks;
 
 class Desert extends SandyBiome {
 
@@ -37,8 +36,8 @@ class Desert extends SandyBiome {
         $cactus = new CactusPopulator(4, 3);
 
         $deadBush = new PlantPopulator(4, 2);
-        $deadBush->addPlant(new Plant(new DeadBush()));
-        $deadBush->allowBlockToStayAt(Block::SAND);
+        $deadBush->addPlant(new Plant(VanillaBlocks::DEAD_BUSH()));
+        $deadBush->allowBlockToStayAt(VanillaBlocks::SAND());
 
         $this->addPopulators([$cactus, $deadBush]);
 

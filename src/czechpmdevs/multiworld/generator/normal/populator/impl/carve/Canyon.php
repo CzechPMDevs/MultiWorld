@@ -23,9 +23,9 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\populator\impl\carve;
 
 use czechpmdevs\multiworld\util\MathHelper;
+use pocketmine\utils\Random;
 use pocketmine\world\format\Chunk;
 use pocketmine\world\World;
-use pocketmine\utils\Random;
 use const M_PI;
 
 class Canyon extends Carve {
@@ -36,7 +36,7 @@ class Canyon extends Carve {
     /** @var float[] */
     private array $sizeMap = [];
 
-    public function carve(Chunk $chunk, int $chunkX, int $chunkZ): void {
+    public function carve(Chunk $populatedChunk, int $populatedChunkX, int $populatedChunkZ, int $chunkX, int $chunkZ): void {
         $x = (float)($chunkX * 16 + $this->random->nextBoundedInt(16));
         $y = (float)($this->random->nextBoundedInt($this->random->nextBoundedInt(40) + 8) + 20);
         $z = (float)($chunkZ * 16 + $this->random->nextBoundedInt(16));
@@ -49,7 +49,7 @@ class Canyon extends Carve {
         $nodeCountBound = (Canyon::CANYON_RANGE * 2 - 1) * 16;
         $nodeCount = $nodeCountBound - $this->random->nextBoundedInt($nodeCountBound);
 
-        $this->generateCanyon($chunk, $this->random->nextInt(), $chunkX, $chunkZ, $x, $y, $z, $horizontalScale, $horizontalAngle, $verticalAngle, $nodeCount);
+        $this->generateCanyon($populatedChunk, $this->random->nextInt(), $chunkX, $chunkZ, $x, $y, $z, $horizontalScale, $horizontalAngle, $verticalAngle, $nodeCount);
     }
 
     private function generateCanyon(Chunk $chunk, int $seed, int $chunkX, int $chunkZ, float $x, float $y, float $z, float $horizontalScale, float $horizontalAngle, float $verticalAngle, int $nodeCount): void {
@@ -94,7 +94,7 @@ class Canyon extends Carve {
                     return;
                 }
 
-                $this->carveSphere($chunk, $x, $y, $z, $horizontalSize, $verticalSize);
+                $this->carveSphere($chunk, $chunkX, $chunkZ, $x, $y, $z, $horizontalSize, $verticalSize);
             }
         }
     }

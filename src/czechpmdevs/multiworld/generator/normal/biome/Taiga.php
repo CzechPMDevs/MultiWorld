@@ -23,30 +23,28 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
 use czechpmdevs\multiworld\generator\normal\biome\types\GrassyBiome;
+use czechpmdevs\multiworld\generator\normal\object\Tree;
 use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
-use pocketmine\block\BrownMushroom;
 use pocketmine\block\Dandelion;
-use pocketmine\block\Flower;
-use pocketmine\block\RedMushroom;
-use pocketmine\block\Sapling;
+use pocketmine\block\VanillaBlocks;
 
 class Taiga extends GrassyBiome {
 
     public function __construct() {
         parent::__construct(0.25, 0.8);
 
-        $mushrooms = new PlantPopulator(4, 5, 95);
-        $mushrooms->addPlant(new Plant(new BrownMushroom()));
-        $mushrooms->addPlant(new Plant(new RedMushroom()));
+        $mushrooms = new PlantPopulator(2, 2, 95);
+        $mushrooms->addPlant(new Plant(VanillaBlocks::RED_MUSHROOM()));
+        $mushrooms->addPlant(new Plant(VanillaBlocks::BROWN_MUSHROOM()));
 
         $flowers = new PlantPopulator(6, 7, 80);
-        $flowers->addPlant(new Plant(new Dandelion()));
-        $flowers->addPlant(new Plant(new Flower()));
+        $flowers->addPlant(new Plant(VanillaBlocks::DANDELION()));
+        $flowers->addPlant(new Plant(VanillaBlocks::POPPY()));
 
-        $spruce = new TreePopulator(3, 2, 100, Sapling::SPRUCE);
+        $spruce = new TreePopulator(3, 2, 100, Tree::SPRUCE);
 
         $tallGrass = new TallGrassPopulator(56, 12);
 

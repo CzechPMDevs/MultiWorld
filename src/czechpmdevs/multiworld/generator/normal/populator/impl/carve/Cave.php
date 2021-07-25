@@ -23,8 +23,8 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\populator\impl\carve;
 
 use czechpmdevs\multiworld\util\MathHelper;
-use pocketmine\world\format\Chunk;
 use pocketmine\utils\Random;
+use pocketmine\world\format\Chunk;
 use function floor;
 use function max;
 use const M_PI;
@@ -41,7 +41,7 @@ class Cave extends Carve {
     /** @const float */
     private const CAVE_TUNNEL_COUNT = 1.0;
 
-    public function carve(Chunk $chunk, int $chunkX, int $chunkZ): void {
+    public function carve(Chunk $populatedChunk, int $populatedChunkX, int $populatedChunkZ, int $chunkX, int $chunkZ): void {
         $i = (Cave::CAVE_RANGE * 2 - 1) * 16;
         $j = $this->random->nextBoundedInt($this->random->nextBoundedInt($this->random->nextBoundedInt(Cave::CAVE_BOUND) + 1) + 1);
 
@@ -52,18 +52,18 @@ class Cave extends Carve {
 
             $tunnelCount = Cave::CAVE_TUNNEL_COUNT;
             if ($this->random->nextBoundedInt(4) == 0) {
-                $this->generateRoom($chunk, $x, $y, $z, 1.0 + ($this->random->nextFloat() * 6.0));
+                $this->generateRoom($populatedChunk, $populatedChunkX, $populatedChunkZ, $x, $y, $z, 1.0 + ($this->random->nextFloat() * 6.0));
 
                 $tunnelCount += $this->random->nextBoundedInt(4);
             }
 
             for ($tunnel = 0; $tunnel < $tunnelCount; ++$tunnel) {
-                $this->generateTunnel($chunk, $this->random->nextInt(), $chunkX, $chunkZ, $x, $y, $z, $this->getRandomScale($this->random), $this->random->nextFloat() * M_PI * 2.0, ($this->random->nextFloat() - 0.5) * 0.25, 0, $i - $this->random->nextBoundedInt((int)floor($i / 4)), Cave::CAVE_SCALE);
+                $this->generateTunnel($populatedChunk, $populatedChunkX, $populatedChunkZ, $this->random->nextInt(), $chunkX, $chunkZ, $x, $y, $z, $this->getRandomScale($this->random), $this->random->nextFloat() * M_PI * 2.0, ($this->random->nextFloat() - 0.5) * 0.25, 0, $i - $this->random->nextBoundedInt((int)floor($i / 4)), Cave::CAVE_SCALE);
             }
         }
     }
 
-    private function generateTunnel(Chunk $chunk, int $seed, int $chunkX, int $chunkZ, float $x, float $y, float $z, float $horizontalScale, float $horizontalAngle, float $verticalAngle, int $node, int $nodeCount, float $scale): void {
+    private function generateTunnel(Chunk $chunk, int $populatedChunkX, int $populatedChunkZ, int $seed, int $chunkX, int $chunkZ, float $x, float $y, float $z, float $horizontalScale, float $horizontalAngle, float $verticalAngle, int $node, int $nodeCount, float $scale): void {
         $localRandom = new Random($seed);
 
         $randomStartingNode = $localRandom->nextBoundedInt((int)max(1, floor($nodeCount * 0.5))) + (int)floor($nodeCount * 0.25);
@@ -94,23 +94,23 @@ class Cave extends Carve {
             $verticalOffset += ($localRandom->nextFloat() - $localRandom->nextFloat()) * $localRandom->nextFloat() * 2.0;
 
             if ($node == $randomStartingNode && $horizontalScale > 1.0) {
-                $this->generateTunnel($chunk, $localRandom->nextInt(), $chunkX, $chunkZ, $x, $y, $z, $localRandom->nextFloat() * 0.5 + 0.5, $horizontalAngle - M_PI_2, $verticalAngle / 3.0, $node, $nodeCount, 1.0);
-                $this->generateTunnel($chunk, $localRandom->nextInt(), $chunkX, $chunkZ, $x, $y, $z, $localRandom->nextFloat() * 0.5 + 0.5, $horizontalAngle + M_PI_2, $verticalAngle / 3.0, $node, $nodeCount, 1.0);
+                $this->generateTunnel($chunk, $populatedChunkX, $populatedChunkZ, $localRandom->nextInt(), $chunkX, $chunkZ, $x, $y, $z, $localRandom->nextFloat() * 0.5 + 0.5, $horizontalAngle - M_PI_2, $verticalAngle / 3.0, $node, $nodeCount, 1.0);
+                $this->generateTunnel($chunk, $populatedChunkX, $populatedChunkZ, $localRandom->nextInt(), $chunkX, $chunkZ, $x, $y, $z, $localRandom->nextFloat() * 0.5 + 0.5, $horizontalAngle + M_PI_2, $verticalAngle / 3.0, $node, $nodeCount, 1.0);
                 return;
             }
 
             if ($localRandom->nextBoundedInt(4) != 0) {
-                if (!$this->canReach($chunk->getX(), $chunk->getZ(), $x, $z, $node, $nodeCount, $horizontalScale)) {
+                if (!$this->canReach($populatedChunkX, $populatedChunkZ, $x, $z, $node, $nodeCount, $horizontalScale)) {
                     return;
                 }
 
-                $this->carveSphere($chunk, $x, $y, $z, $horizontalSize, $verticalSize);
+                $this->carveSphere($chunk, $populatedChunkX, $populatedChunkZ, $x, $y, $z, $horizontalSize, $verticalSize);
             }
         }
     }
 
-    private function generateRoom(Chunk $chunk, float $x, float $y, float $z, float $roomSize): void {
-        $this->carveSphere($chunk, $x + 1.0, $y, $z, $horizontalSize = 1.5 + $roomSize, $horizontalSize * 0.5);
+    private function generateRoom(Chunk $chunk,  int $populatedChunkX, int $populatedChunkZ, float $x, float $y, float $z, float $roomSize): void {
+        $this->carveSphere($chunk, $populatedChunkX, $populatedChunkZ, $x + 1.0, $y, $z, $horizontalSize = 1.5 + $roomSize, $horizontalSize * 0.5);
     }
 
     private function getRandomScale(Random $random): float {

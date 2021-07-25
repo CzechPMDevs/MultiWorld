@@ -26,29 +26,32 @@ use czechpmdevs\multiworld\generator\normal\populator\impl\carve\Canyon;
 use czechpmdevs\multiworld\generator\normal\populator\impl\carve\Carve;
 use czechpmdevs\multiworld\generator\normal\populator\impl\carve\Cave;
 use czechpmdevs\multiworld\generator\normal\populator\Populator;
+use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
 use pocketmine\world\format\Chunk;
-use pocketmine\utils\Random;
 
 class CarvePopulator extends Populator {
 
     /** @const int */
     public const CHECK_AREA_SIZE = 6; // originally 8
 
+    /** @var int */
+    private int $seed;
     /** @var Random */
     private Random $random;
     /** @var Carve[] */
     private array $carves = [];
 
-    public function __construct() {
+    public function __construct(int $seed) {
+        $this->seed = $seed;
         $this->random = new Random(0);
 
         $this->carves[] = new Canyon($this->random);
         $this->carves[] = new Cave($this->random);
     }
 
-    public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random) {
-        $localRandom = new Random($world->getSeed());
+    public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
+        $localRandom = new Random($this->seed);
         $xSeed = $localRandom->nextInt();
         $zSeed = $localRandom->nextInt();
 
@@ -65,11 +68,11 @@ class CarvePopulator extends Populator {
             for ($z = $minZ; $z <= $maxZ; ++$z) {
                 $randomZ = $zSeed * $z;
 
-                $seed = $randomX ^ $randomZ ^ $world->getSeed();
+                $seed = $randomX ^ $randomZ ^ $this->seed;
                 foreach ($this->carves as $carve) {
                     $this->random->setSeed($seed);
                     if($carve->canCarve($this->random, $chunkX, $chunkZ)) {
-                        $carve->carve($chunk, $x, $z);
+                        $carve->carve($chunk, $chunkX, $chunkZ, $x, $z);
                     }
                 }
             }

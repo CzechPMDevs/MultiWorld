@@ -23,11 +23,11 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\nether\populator;
 
 use czechpmdevs\multiworld\generator\normal\populator\Populator;
-use pocketmine\block\Block;
-use pocketmine\world\ChunkManager;
-use pocketmine\world\generator\object\OreType;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\math\VectorMath;
 use pocketmine\utils\Random;
+use pocketmine\world\ChunkManager;
+use pocketmine\world\generator\object\OreType;
 use function sin;
 
 class Ore extends Populator {
@@ -35,14 +35,14 @@ class Ore extends Populator {
     /** @var OreType[] */
     protected array $oreTypes = [];
 
-    public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random) {
+    public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
         foreach ($this->oreTypes as $type) {
             $ore = new \pocketmine\world\generator\object\Ore($random, $type);
             for ($i = 0; $i < $ore->type->clusterCount; ++$i) {
                 $x = $random->nextRange($chunkX << 4, ($chunkX << 4) + 15);
                 $y = $random->nextRange($ore->type->minHeight, $ore->type->maxHeight);
                 $z = $random->nextRange($chunkZ << 4, ($chunkZ << 4) + 15);
-                if ($world->getBlockIdAt($x, $y, $z) == Block::NETHERRACK) {
+                if ($world->getBlockAt($x, $y, $z)->isSameType(VanillaBlocks::NETHERRACK())) {
                     $this->placeObject($type, $random, $world, $x, $y, $z);
                 }
             }
@@ -86,11 +86,8 @@ class Ore extends Populator {
                                 $sizeZ = ($z + 0.5 - $seedZ) / $size;
                                 $sizeZ *= $sizeZ;
 
-                                if (($sizeX + $sizeY + $sizeZ) < 1 and $world->getBlockIdAt($x, $y, $z) === Block::NETHERRACK) {
-                                    $world->setBlockIdAt($x, $y, $z, $type->material->getId());
-                                    if ($type->material->getDamage() !== 0) {
-                                        $world->setBlockDataAt($x, $y, $z, $type->material->getDamage());
-                                    }
+                                if (($sizeX + $sizeY + $sizeZ) < 1 and $world->getBlockAt($x, $y, $z)->isSameType(VanillaBlocks::NETHERRACK())) {
+                                    $world->setBlockAt($x, $y, $z, $type->material);
                                 }
                             }
                         }

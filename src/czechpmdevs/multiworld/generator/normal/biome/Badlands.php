@@ -26,11 +26,8 @@ use czechpmdevs\multiworld\generator\nether\populator\Ore;
 use czechpmdevs\multiworld\generator\normal\biome\types\CoveredBiome;
 use czechpmdevs\multiworld\generator\normal\populator\impl\CactusPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
-use pocketmine\block\BlockLegacyIds;
-use pocketmine\block\GoldOre;
-use pocketmine\block\HardenedClay;
-use pocketmine\block\Sand;
-use pocketmine\block\StainedClay;
+use pocketmine\block\utils\DyeColor;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\world\generator\object\OreType;
 
 class Badlands extends CoveredBiome {
@@ -39,32 +36,29 @@ class Badlands extends CoveredBiome {
         parent::__construct(2, 0);
 
         $this->setGroundCover([
-            new Sand(1),
-            new HardenedClay(),
-            new StainedClay(7),
-            new StainedClay(0),
-            new StainedClay(14),
-            new HardenedClay(),
-            new StainedClay(4),
-            new StainedClay(4),
-            new HardenedClay(),
-            new HardenedClay(),
-            new StainedClay(1),
-            new StainedClay(1),
-            new HardenedClay(),
-            new StainedClay(7),
-            new StainedClay(8),
-            new StainedClay(4),
-            new HardenedClay()
+            VanillaBlocks::RED_SAND(),
+            VanillaBlocks::HARDENED_CLAY(),
+            VanillaBlocks::STAINED_CLAY()->setColor(DyeColor::RED()),
+            VanillaBlocks::STAINED_CLAY()->setColor(DyeColor::YELLOW()),
+            VanillaBlocks::STAINED_CLAY()->setColor(DyeColor::YELLOW()),
+            VanillaBlocks::STAINED_CLAY()->setColor(DyeColor::BROWN()),
+            VanillaBlocks::STAINED_CLAY()->setColor(DyeColor::WHITE()),
+            VanillaBlocks::STAINED_CLAY()->setColor(DyeColor::ORANGE()),
+            VanillaBlocks::STAINED_CLAY()->setColor(DyeColor::RED()),
+            VanillaBlocks::STAINED_CLAY()->setColor(DyeColor::YELLOW()),
+            VanillaBlocks::STAINED_CLAY()->setColor(DyeColor::YELLOW()),
+            VanillaBlocks::STAINED_CLAY()->setColor(DyeColor::BROWN()),
+            VanillaBlocks::STAINED_CLAY()->setColor(DyeColor::WHITE()),
+            VanillaBlocks::STAINED_CLAY()->setColor(DyeColor::ORANGE())
         ]);
 
         $cactus = new CactusPopulator(3, 2);
 
         $deadBush = new PlantPopulator(3, 2);
-        $deadBush->allowBlockToStayAt(BlockLegacyIds::SAND);
+        $deadBush->allowBlockToStayAt(VanillaBlocks::STAINED_CLAY());
 
         $ore = new Ore();
-        $ore->setOreTypes([new OreType(new GoldOre(), 20, 12, 0, 128)]);
+        $ore->setOreTypes([new OreType(VanillaBlocks::GOLD_ORE(), VanillaBlocks::STONE(), 12, 0, 0, 128)]);
 
         $this->addPopulators([
             $cactus,

@@ -23,9 +23,10 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\object;
 
 use pocketmine\block\BlockLegacyIds;
-use pocketmine\world\ChunkManager;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
+use pocketmine\world\ChunkManager;
 use function abs;
 use function cos;
 use function floor;
@@ -69,7 +70,7 @@ class BigOakTree extends Tree {
 
     private function countAvailableBlocks(Vector3 $from, Vector3 $to): int {
         $n = 0;
-        $target = $to->subtract($from);
+        $target = $to->subtractVector($from);
         $maxDistance = max(abs(floor($target->getY())), max(abs(floor($target->getX())), abs(floor($target->getZ()))));
 
         if ($maxDistance > 0) {
@@ -77,7 +78,7 @@ class BigOakTree extends Tree {
             $dy = (float)$target->getY() / $maxDistance;
             $dz = (float)$target->getZ() / $maxDistance;
             for ($i = 0; $i <= $maxDistance; $i++, $n++) {
-                $target = $from->add(new Vector3(0.5 + $i * $dx, 0.5 + $i * $dy, 0.5 + $i * $dz));
+                $target = $from->add(0.5 + $i * $dx, 0.5 + $i * $dy, 0.5 + $i * $dz);
                 if ($target->getFloorY() < 0 || $target->getFloorY() > 255) {
                     return $n;
                 }
@@ -106,9 +107,9 @@ class BigOakTree extends Tree {
                         $sizeZ = abs($zz) + 0.5;
                         if ($sizeX * $sizeX + $sizeZ * $sizeZ <= $size * $size && $node->getY() + $yy - 3 >= $y) {
                             /** @phpstan-ignore-next-line */
-                            if ($world->getBlockIdAt($node->getX() + $xx, $node->getY() + $yy, $node->getZ() + $zz) == BlockLegacyIds::AIR) {
+                            if ($world->getBlockAt($node->getX() + $xx, $node->getY() + $yy, $node->getZ() + $zz)->getId() == BlockLegacyIds::AIR) {
                                 /** @phpstan-ignore-next-line */
-                                $world->setBlockIdAt($node->getX() + $xx, $node->getY() + $yy, $node->getZ() + $zz, BlockLegacyIds::LEAVES);
+                                $world->setBlockAt($node->getX() + $xx, $node->getY() + $yy, $node->getZ() + $zz, VanillaBlocks::OAK_LEAVES());
                             }
                         }
                     }
@@ -118,7 +119,7 @@ class BigOakTree extends Tree {
 
         // generate the trunk
         for ($yy = 0; $yy < $trunkHeight; $yy++) {
-            $world->setBlockIdAt($x, $y + $yy, $z, BlockLegacyIds::WOOD);
+            $world->setBlockAt($x, $y + $yy, $z, VanillaBlocks::OAK_WOOD());
         }
 
         // generate the branches
@@ -127,7 +128,7 @@ class BigOakTree extends Tree {
         foreach ($leafNodes as [$leafNode, $branchY]) {
             if ((double)$branchY - $y >= $this->height * 0.2) {
                 $base = new Vector3($x, $branchY, $z);
-                $branch = $leafNode->subtract($base);
+                $branch = $leafNode->subtractVector($base);
 
                 $maxDistance = max(abs(floor($branch->getY())), max(abs(floor($branch->getX())), abs(floor($branch->getZ()))));
 
@@ -137,15 +138,10 @@ class BigOakTree extends Tree {
 
                 for ($i = 0; $i <= $maxDistance; $i++) {
                     $branch = $base->add(0.5 + $i * $dx, 0.5 + $i * $dy, 0.5 + $i * $dz);
-                    $xx = abs(floor($branch->getX()) - floor($base->getX()));
                     $z = abs($branch->getZ() - $base->getZ());
-                    $max = max($xx, $z);
-                    $direction = $max > 0 ? $max == $xx ? 4 : 8 : 0; // EAST / SOUTH
 
                     /** @phpstan-ignore-next-line */
-                    $world->setBlockIdAt($branch->getX(), $branch->getY(), $branch->getZ(), BlockLegacyIds::WOOD);
-                    /** @phpstan-ignore-next-line */
-                    $world->setBlockDataAt($branch->getX(), $branch->getY(), $branch->getZ(), $direction);
+                    $world->setBlockAt($branch->getX(), $branch->getY(), $branch->getZ(), VanillaBlocks::OAK_WOOD());
                 }
             }
         }

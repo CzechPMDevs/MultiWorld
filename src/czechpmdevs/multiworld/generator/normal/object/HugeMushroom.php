@@ -22,45 +22,40 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\object;
 
-use pocketmine\block\BlockLegacyIds;
-use pocketmine\world\ChunkManager;
+use pocketmine\block\utils\MushroomBlockType;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\utils\Random;
+use pocketmine\world\ChunkManager;
 use function abs;
 
 class HugeMushroom extends Tree {
 
-    public function __construct() {
-        $this->overridable[BlockLegacyIds::MYCELIUM] = true;
-    }
+//    public function __construct() {
+//        $this->overridable[BlockLegacyIds::MYCELIUM] = true;
+//    }
 
-    public function placeObject(ChunkManager $world, int $x, int $y, int $z, Random $random) {
-        $block = $random->nextBoolean() ? BlockLegacyIds::BROWN_MUSHROOM_BLOCK : BlockLegacyIds::RED_MUSHROOM_BLOCK;
+    public function placeObject(ChunkManager $world, int $spawnX, int $spawnY, int $spawnZ, Random $random) {
+        $block = $random->nextBoolean() ? VanillaBlocks::BROWN_MUSHROOM_BLOCK() : VanillaBlocks::RED_MUSHROOM_BLOCK();
         $maxY = 3 + $random->nextBoundedInt(1);
 
-        for ($yy = 0; $yy <= $maxY; $yy++) {
-            $world->setBlockIdAt($x, $y + $yy, $z, $block);
-            $world->setBlockDataAt($x, $y + $yy, $z, 10);
+        for ($i = 0; $i <= $maxY; $i++) {
+            $world->setBlockAt($spawnX, $spawnY + $i, $spawnZ, $block);
         }
 
-        switch ($block) {
-            case 100:
+        switch ($block->isSameType(VanillaBlocks::RED_MUSHROOM_BLOCK())) {
+            case true:
                 $data = 0;
                 for ($i = -1; $i <= 1; $i++) {
                     for ($j = -1; $j <= 1; $j++) {
-                        $data++;
-                        $world->setBlockIdAt($x + $j, $y + $maxY + 1, $z + $i, $block);
-                        $world->setBlockDataAt($x + $j, $y + $maxY + 1, $z + $i, $data);
+                        $world->setBlockAt($spawnX + $j, $spawnY + $maxY + 1, $spawnZ + $i, $block = $block->setMushroomBlockType(MushroomBlockType::getAll()[++$data]));
 
-                        for ($yyy = $maxY; $yyy >= 1; $yyy--) {
+                        for ($y = $maxY; $y >= 1; $y--) {
                             if (abs($i) == 1 && abs($j) == 1) {
                                 $i1 = $i < 0 ? $i - 1 : $i + 1;
                                 $j1 = $j < 0 ? $j - 1 : $j + 1;
 
-                                $world->setBlockIdAt($x + $j1, $yyy + $y, $z + $i, $block);
-                                $world->setBlockDataAt($x + $j1, $yyy + $y, $z + $i, $data);
-
-                                $world->setBlockIdAt($x + $j, $yyy + $y, $z + $i1, $block);
-                                $world->setBlockDataAt($x + $j, $yyy + $y, $z + $i1, $data);
+                                $world->setBlockAt($spawnX + $j1, $y + $spawnY, $spawnZ + $i, $block);
+                                $world->setBlockAt($spawnX + $j, $y + $spawnY, $spawnZ + $i1, $block);
                             } else {
                                 $i1 = $i < 0 ? $i - 1 : ($i > 0 ? $i + 1 : $i);
                                 $j1 = $j < 0 ? $j - 1 : ($j > 0 ? $j + 1 : $j);
@@ -69,19 +64,17 @@ class HugeMushroom extends Tree {
                                     continue;
                                 }
 
-                                $world->setBlockIdAt($x + $j1, $yyy + $y, $z + $i1, $block);
-                                $world->setBlockDataAt($x + $j1, $yyy + $y, $z + $i1, $data);
+                                $world->setBlockAt($spawnX + $j1, $y + $spawnY, $spawnZ + $i1, $block);
                             }
                         }
                     }
                 }
                 break;
 
-            case 99:
+            case false:
                 for ($i = -2; $i <= 2; $i++) {
                     for ($j = -2; $j <= 2; $j++) {
-                        $world->setBlockIdAt($x + $j, $maxY + 1 + $y, $z + $i, $block);
-                        $world->setBlockDataAt($x + $j, $maxY + 1 + $y, $z + $i, 5);
+                        $world->setBlockAt($spawnX + $j, $maxY + 1 + $spawnY, $spawnZ + $i, $block->setMushroomBlockType(MushroomBlockType::CAP_MIDDLE()));
                     }
                 }
 
@@ -89,7 +82,6 @@ class HugeMushroom extends Tree {
                 for ($i = -1; $i <= 1; $i++) {
                     for ($j = -1; $j <= 1; $j++) {
                         $data++;
-                        if ($i == 0 && $i == 1) continue;
 
                         $i1 = $i * 3; // z
                         $j1 = $j * 3; // x
@@ -97,30 +89,17 @@ class HugeMushroom extends Tree {
                             $i11 = $i1 < 0 ? $i1 + 1 : $i1 - 1;
                             $j11 = $j1 < 0 ? $j1 + 1 : $j1 - 1;
 
-                            $world->setBlockIdAt($x + $j1, $maxY + 1 + $y, $z + $i11, $block);
-                            $world->setBlockDataAt($x + $j1, $maxY + 1 + $y, $z + $i11, $data);
-
-                            $world->setBlockIdAt($x + $j11, $maxY + 1 + $y, $z + $i1, $block);
-                            $world->setBlockDataAt($x + $j11, $maxY + 1 + $y, $z + $i1, $data);
+                            $world->setBlockAt($spawnX + $j1, $maxY + 1 + $spawnY, $spawnZ + $i11, $block = $block->setMushroomBlockType(MushroomBlockType::getAll()[$data]));
+                            $world->setBlockAt($spawnX + $j11, $maxY + 1 + $spawnY, $spawnZ + $i1, $block);
                         } else {
                             if ($i1 === 0) {
-                                $world->setBlockIdAt($x + $j1, $maxY + 1 + $y, $z + 1, $block);
-                                $world->setBlockDataAt($x + $j1, $maxY + 1 + $y, $z + 1, $data);
-
-                                $world->setBlockIdAt($x + $j1, $maxY + 1 + $y, $z, $block);
-                                $world->setBlockDataAt($x + $j1, $maxY + 1 + $y, $z, $data);
-
-                                $world->setBlockIdAt($x + $j1, $maxY + 1 + $y, $z - 1, $block);
-                                $world->setBlockDataAt($x + $j1, $maxY + 1 + $y, $z - 1, $data);
+                                $world->setBlockAt($spawnX + $j1, $maxY + 1 + $spawnY, $spawnZ + 1, $block = $block->setMushroomBlockType(MushroomBlockType::getAll()[$data]));
+                                $world->setBlockAt($spawnX + $j1, $maxY + 1 + $spawnY, $spawnZ, $block);
+                                $world->setBlockAt($spawnX + $j1, $maxY + 1 + $spawnY, $spawnZ - 1, $block);
                             } else {
-                                $world->setBlockIdAt($x + 1, $maxY + 1 + $y, $z + $i1, $block);
-                                $world->setBlockDataAt($x + 1, $maxY + 1 + $y, $z + $i1, $data);
-
-                                $world->setBlockIdAt($x, $maxY + 1 + $y, $z + $i1, $block);
-                                $world->setBlockDataAt($x, $maxY + 1 + $y, $z + $i1, $data);
-
-                                $world->setBlockIdAt($x - 1, $maxY + 1 + $y, $z + $i1, $block);
-                                $world->setBlockDataAt($x - 1, $maxY + 1 + $y, $z + $i1, $data);
+                                $world->setBlockAt($spawnX + 1, $maxY + 1 + $spawnY, $spawnZ + $i1, $block);
+                                $world->setBlockAt($spawnX, $maxY + 1 + $spawnY, $spawnZ + $i1, $block);
+                                $world->setBlockAt($spawnX - 1, $maxY + 1 + $spawnY, $spawnZ + $i1, $block);
                             }
                         }
                     }

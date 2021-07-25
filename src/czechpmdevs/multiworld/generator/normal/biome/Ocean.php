@@ -23,7 +23,7 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
 use czechpmdevs\multiworld\generator\normal\biome\types\Biome;
-use pocketmine\block\Block;
+use pocketmine\block\VanillaBlocks;
 
 class Ocean extends Biome {
 
@@ -31,8 +31,8 @@ class Ocean extends Biome {
         parent::__construct(0.5, 0.5);
 
         $this->setGroundCover([
-            Block::get(Block::GRAVEL),
-            Block::get(Block::GRAVEL)
+            VanillaBlocks::GRAVEL(),
+            VanillaBlocks::GRAVEL()
         ]);
 
         $this->setElevation(55, 57);

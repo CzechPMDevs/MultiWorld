@@ -23,15 +23,15 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
 use czechpmdevs\multiworld\generator\normal\biome\types\Biome;
-use pocketmine\block\Sand;
+use pocketmine\block\VanillaBlocks;
 
 class FrozenRiver extends Biome {
 
     public function __construct() {
         parent::__construct(0.5, 0.5);
         $this->setGroundCover([
-            new Sand(),
-            new Sand()
+            VanillaBlocks::SAND(),
+            VanillaBlocks::SAND()
         ]);
 
         $this->setElevation(54, 57);

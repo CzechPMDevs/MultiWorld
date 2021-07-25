@@ -23,11 +23,11 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\skyblock\populator;
 
 use pocketmine\block\VanillaBlocks;
+use pocketmine\math\Vector3;
+use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
 use pocketmine\world\generator\object\OakTree;
 use pocketmine\world\generator\populator\Populator;
-use pocketmine\math\Vector3;
-use pocketmine\utils\Random;
 
 class Island extends Populator {
 

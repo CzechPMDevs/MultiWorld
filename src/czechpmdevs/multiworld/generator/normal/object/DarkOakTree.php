@@ -23,8 +23,9 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\object;
 
 use pocketmine\block\BlockLegacyIds;
-use pocketmine\world\ChunkManager;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\utils\Random;
+use pocketmine\world\ChunkManager;
 
 class DarkOakTree extends Tree {
 
@@ -32,15 +33,15 @@ class DarkOakTree extends Tree {
         $i = $random->nextBoundedInt(3) + $random->nextBoundedInt(2) + 6;
 
         if ($y >= 1 && $y + $i + 1 < 256) {
-            $block = $world->getBlockIdAt($x, $y - 1, $z);
+            $block = $world->getBlockAt($x, $y - 1, $z);
 
-            if ($block != BlockLegacyIds::GRASS && $block != BlockLegacyIds::DIRT) {
+            if (!$block->isSameType(VanillaBlocks::GRASS()) && !$block->isSameType(VanillaBlocks::DIRT())) {
                 return;
             } else {
-                $world->setBlockIdAt($x, $y - 1, $z, BlockLegacyIds::DIRT);
-                $world->setBlockIdAt($x + 1, $y - 1, $z, BlockLegacyIds::DIRT);
-                $world->setBlockIdAt($x + 1, $y - 1, $z + 1, BlockLegacyIds::DIRT);
-                $world->setBlockIdAt($x, $y - 1, $z + 1, BlockLegacyIds::DIRT);
+                $world->setBlockAt($x, $y - 1, $z, VanillaBlocks::DIRT());
+                $world->setBlockAt($x + 1, $y - 1, $z, VanillaBlocks::DIRT());
+                $world->setBlockAt($x + 1, $y - 1, $z + 1, VanillaBlocks::DIRT());
+                $world->setBlockAt($x, $y - 1, $z + 1, VanillaBlocks::DIRT());
 
                 $i1 = $i - $random->nextBoundedInt(4);
                 $j1 = 2 - $random->nextBoundedInt(3); // x1 -> j1
@@ -54,68 +55,45 @@ class DarkOakTree extends Tree {
                     }
 
                     $y2 = $y + $x2;
-                    $material = $world->getBlockIdAt($x1, $y2, $z1);
+                    $material = $world->getBlockAt($x1, $y2, $z1);
 
                     if ($material == BlockLegacyIds::AIR || $material == BlockLegacyIds::LEAVES) {
-                        $world->setBlockIdAt($x1, $y2, $z1, BlockLegacyIds::WOOD2);
-                        $world->setBlockDataAt($x1, $y2, $z1, 1);
-                        $world->setBlockIdAt($x1 + 1, $y2, $z1, BlockLegacyIds::WOOD2);
-                        $world->setBlockDataAt($x1 + 1, $y2, $z1, 1);
-                        $world->setBlockIdAt($x1 + 1, $y2, $z1 + 1, BlockLegacyIds::WOOD2);
-                        $world->setBlockDataAt($x1 + 1, $y2, $z1 + 1, 1);
-                        $world->setBlockIdAt($x1, $y2, $z1 + 1, BlockLegacyIds::WOOD2);
-                        $world->setBlockDataAt($x1, $y2, $z1 + 1, 1);
+                        $world->setBlockAt($x1, $y2, $z1, VanillaBlocks::DARK_OAK_WOOD());
+                        $world->setBlockAt($x1 + 1, $y2, $z1, VanillaBlocks::DARK_OAK_WOOD());
+                        $world->setBlockAt($x1 + 1, $y2, $z1 + 1, VanillaBlocks::DARK_OAK_WOOD());
+                        $world->setBlockAt($x1, $y2, $z1 + 1, VanillaBlocks::DARK_OAK_WOOD());
                     }
                 }
 
                 for ($i3 = -2; $i3 <= 0; ++$i3) {
                     for ($l3 = -2; $l3 <= 0; ++$l3) {
                         $k4 = -1;
-                        $world->setBlockIdAt($x1 + $i3, $i2 + $k4, $z1 + $l3, BlockLegacyIds::LEAVES2);
-                        $world->setBlockDataAt($x1 + $i3, $i2 + $k4, $z1 + $l3, 1);
-                        $world->setBlockIdAt(1 + $x1 - $i3, $i2 + $k4, $z1 + $l3, BlockLegacyIds::LEAVES2);
-                        $world->setBlockDataAt(1 + $x1 - $i3, $i2 + $k4, $z1 + $l3, 1);
-                        $world->setBlockIdAt($x1 + $i3, $i2 + $k4, 1 + $z1 - $l3, BlockLegacyIds::LEAVES2);
-                        $world->setBlockDataAt($x1 + $i3, $i2 + $k4, 1 + $z1 - $l3, 1);
-                        $world->setBlockIdAt(1 + $x1 - $i3, $i2 + $k4, 1 + $z1 - $l3, BlockLegacyIds::LEAVES2);
-                        $world->setBlockDataAt(1 + $x1 - $i3, $i2 + $k4, 1 + $z1 - $l3, 1);
+                        $world->setBlockAt($x1 + $i3, $i2 + $k4, $z1 + $l3, VanillaBlocks::DARK_OAK_LEAVES());
+                        $world->setBlockAt(1 + $x1 - $i3, $i2 + $k4, $z1 + $l3, VanillaBlocks::DARK_OAK_LEAVES());
+                        $world->setBlockAt($x1 + $i3, $i2 + $k4, 1 + $z1 - $l3, VanillaBlocks::DARK_OAK_LEAVES());
+                        $world->setBlockAt(1 + $x1 - $i3, $i2 + $k4, 1 + $z1 - $l3, VanillaBlocks::DARK_OAK_LEAVES());
 
                         if (($i3 > -2 || $l3 > -1) && ($i3 != -1 || $l3 != -2)) {
                             $k4 = 1;
-                            $world->setBlockIdAt($x1 + $i3, $i2 + $k4, $z1 + $l3, BlockLegacyIds::LEAVES2);
-                            $world->setBlockDataAt($x1 + $i3, $i2 + $k4, $z1 + $l3, 1);
-
-                            $world->setBlockIdAt(1 + $x1 - $i3, $i2 + $k4, $z1 + $l3, BlockLegacyIds::LEAVES2);
-                            $world->setBlockDataAt(1 + $x1 - $i3, $i2 + $k4, $z1 + $l3, 1);
-
-                            $world->setBlockIdAt($x1 + $i3, $i2 + $k4, 1 + $z1 - $l3, BlockLegacyIds::LEAVES2);
-                            $world->setBlockDataAt($x1 + $i3, $i2 + $k4, 1 + $z1 - $l3, 1);
-
-                            $world->setBlockIdAt(1 + $x1 - $i3, $i2 + $k4, 1 + $z1 - $l3, BlockLegacyIds::LEAVES2);
-                            $world->setBlockDataAt(1 + $x1 - $i3, $i2 + $k4, 1 + $z1 - $l3, 1);
+                            $world->setBlockAt($x1 + $i3, $i2 + $k4, $z1 + $l3, VanillaBlocks::DARK_OAK_LEAVES());
+                            $world->setBlockAt(1 + $x1 - $i3, $i2 + $k4, $z1 + $l3, VanillaBlocks::DARK_OAK_LEAVES());
+                            $world->setBlockAt($x1 + $i3, $i2 + $k4, 1 + $z1 - $l3, VanillaBlocks::DARK_OAK_LEAVES());
+                            $world->setBlockAt(1 + $x1 - $i3, $i2 + $k4, 1 + $z1 - $l3, VanillaBlocks::DARK_OAK_LEAVES());
                         }
                     }
                 }
 
                 if ($random->nextBoolean()) {
-                    $world->setBlockIdAt($x1, $i2 + 2, $z1, BlockLegacyIds::LEAVES2);
-                    $world->setBlockDataAt($x1, $i2 + 2, $z1, 1);
-
-                    $world->setBlockIdAt($x1 + 1, $i2 + 2, $z1, BlockLegacyIds::LEAVES2);
-                    $world->setBlockDataAt($x1 + 1, $i2 + 2, $z1, 1);
-
-                    $world->setBlockIdAt($x1, $i2 + 2, $z1 + 1, BlockLegacyIds::LEAVES2);
-                    $world->setBlockDataAt($x1, $i2 + 2, $z1 + 1, 1);
-
-                    $world->setBlockIdAt($x1 + 1, $i2 + 2, $z1 + 1, BlockLegacyIds::LEAVES2);
-                    $world->setBlockDataAt($x1 + 1, $i2 + 2, $z1 + 1, 1);
+                    $world->setBlockAt($x1, $i2 + 2, $z1, VanillaBlocks::DARK_OAK_LEAVES());
+                    $world->setBlockAt($x1 + 1, $i2 + 2, $z1, VanillaBlocks::DARK_OAK_LEAVES());
+                    $world->setBlockAt($x1, $i2 + 2, $z1 + 1, VanillaBlocks::DARK_OAK_LEAVES());
+                    $world->setBlockAt($x1 + 1, $i2 + 2, $z1 + 1, VanillaBlocks::DARK_OAK_LEAVES());
                 }
 
                 for ($j3 = -3; $j3 <= 4; ++$j3) {
                     for ($i4 = -3; $i4 <= 4; ++$i4) {
                         if (($j3 != -3 || $i4 != -3) && ($j3 != -3 || $i4 != 4) && ($j3 != 4 || $i4 != -3) && ($j3 != 4 || $i4 != 4) && (abs($j3) < 3 || abs($i4) < 3)) {
-                            $world->setBlockIdAt($x1 + $j3, $i2, $z1 + $i4, BlockLegacyIds::LEAVES2);
-                            $world->setBlockDataAt($x1 + $j3, $i2, $z1 + $i4, 1);
+                            $world->setBlockAt($x1 + $j3, $i2, $z1 + $i4, VanillaBlocks::DARK_OAK_LEAVES());
                         }
                     }
                 }
@@ -126,22 +104,19 @@ class DarkOakTree extends Tree {
                             $l4 = $random->nextBoundedInt(3) + 2;
 
                             for ($i5 = 0; $i5 < $l4; ++$i5) {
-                                $world->setBlockIdAt($x + $k3, $i2 - $i5 - 1, $z + $j4, BlockLegacyIds::LEAVES2);
-                                $world->setBlockDataAt($x + $k3, $i2 - $i5 - 1, $z + $j4, 1);
+                                $world->setBlockAt($x + $k3, $i2 - $i5 - 1, $z + $j4, VanillaBlocks::DARK_OAK_LEAVES());
                             }
 
                             for ($j5 = -1; $j5 <= 1; ++$j5) {
                                 for ($l2 = -1; $l2 <= 1; ++$l2) {
-                                    $world->setBlockIdAt($x1 + $k3 + $j5, $i2, $z1 + $j4 + $l2, BlockLegacyIds::LEAVES2);
-                                    $world->setBlockDataAt($x1 + $k3 + $j5, $i2, $z1 + $j4 + $l2, 1);
+                                    $world->setBlockAt($x1 + $k3 + $j5, $i2, $z1 + $j4 + $l2, VanillaBlocks::DARK_OAK_LEAVES());
                                 }
                             }
 
                             for ($k5 = -2; $k5 <= 2; ++$k5) {
                                 for ($l5 = -2; $l5 <= 2; ++$l5) {
                                     if (abs($k5) != 2 || abs($l5) != 2) {
-                                        $world->setBlockIdAt($x1 + $k3 + $k5, $i2 - 1, $z1 + $j4 + $l5, BlockLegacyIds::LEAVES2);
-                                        $world->setBlockDataAt($x1 + $k3 + $k5, $i2 - 1, $z1 + $j4 + $l5, 1);
+                                        $world->setBlockAt($x1 + $k3 + $k5, $i2 - 1, $z1 + $j4 + $l5, VanillaBlocks::DARK_OAK_LEAVES());
                                     }
                                 }
                             }
