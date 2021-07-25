@@ -35,6 +35,7 @@ use pocketmine\world\World;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
+use Webmozart\PathUtil\Path;
 use function array_filter;
 use function array_values;
 use function copy;
@@ -51,10 +52,10 @@ class WorldUtils {
 
 	public static function removeWorld(string $name) : int {
 		if (Server::getInstance()->getWorldManager()->isWorldLoaded($name)) {
-			$world = WorldUtils::getWorldByNameNonNull($name);
+			$world = self::getWorldByNameNonNull($name);
 			if (count($world->getPlayers()) > 0) {
 				foreach ($world->getPlayers() as $player) {
-					$player->teleport(WorldUtils::getDefaultWorldNonNull()->getSpawnLocation());
+					$player->teleport(self::getDefaultWorldNonNull()->getSpawnLocation());
 				}
 			}
 
@@ -104,14 +105,14 @@ class WorldUtils {
 	}
 
 	public static function renameWorld(string $oldName, string $newName) : void {
-		WorldUtils::lazyUnloadWorld($oldName);
+		self::lazyUnloadWorld($oldName);
 
-		$from = Server::getInstance()->getDataPath() . "/worlds/" . $oldName;
-		$to = Server::getInstance()->getDataPath() . "/worlds/" . $newName;
+		$dataPath = Server::getInstance()->getDataPath();
+		$from = Path::join($dataPath, "worlds", $oldName);
+		$to = Path::join($dataPath, "worlds", $newName);
 
 		rename($from, $to);
-
-		WorldUtils::lazyLoadWorld($newName);
+		self::lazyLoadWorld($newName);
 		$newWorld = Server::getInstance()->getWorldManager()->getWorldByName($newName);
 		if (!$newWorld instanceof World) {
 			return;
@@ -126,12 +127,12 @@ class WorldUtils {
 //        $provider->saveWorldData();
 
 		Server::getInstance()->getWorldManager()->unloadWorld($newWorld);
-		WorldUtils::lazyLoadWorld($newName); // reloading the level
+		self::lazyLoadWorld($newName); // reloading the level
 	}
 
 	public static function duplicateWorld(string $worldName, string $duplicateName) : void {
 		if (Server::getInstance()->getWorldManager()->isWorldLoaded($worldName)) {
-			WorldUtils::getWorldByNameNonNull($worldName)->save(false);
+			self::getWorldByNameNonNull($worldName)->save(false);
 		}
 
 		mkdir(Server::getInstance()->getDataPath() . "/worlds/$duplicateName");
@@ -178,7 +179,7 @@ class WorldUtils {
 			return [];
 		}
 
-		return array_values(array_filter($files, function (string $fileName) : bool {
+		return array_values(array_filter($files, static function (string $fileName) : bool {
 			return Server::getInstance()->getWorldManager()->isWorldGenerated($fileName) &&
 				$fileName !== "." && $fileName !== ".."; // Server->isWorldGenerated detects '.' and '..' as world, TODO - make pull request
 		}));
@@ -188,7 +189,7 @@ class WorldUtils {
 	 * @return World|null Loads and returns level, if it is generated.
 	 */
 	public static function getLoadedWorldByName(string $name) : ?World {
-		WorldUtils::lazyLoadWorld($name);
+		self::lazyLoadWorld($name);
 
 		return Server::getInstance()->getWorldManager()->getWorldByName($name);
 	}

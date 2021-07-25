@@ -86,7 +86,7 @@ class GameRuleCommand extends Command implements PluginOwned {
             )
         );
 
-        if ($value === null || GameRules::getPropertyType($value) != GameRules::getPropertyType($gameRules[$args[0]])) {
+        if ($value === null || GameRules::getPropertyType($value) !== GameRules::getPropertyType($gameRules[$args[0]])) {
             $sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
             return;
         }

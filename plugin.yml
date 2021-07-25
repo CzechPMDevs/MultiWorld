@@ -11,42 +11,45 @@ extensions:
   Core: '>=7.4'
 
 permissions:
-  multiworld.command.help:
+  mw.cmd:
+    description: Permission for /multiworld
+    default: op
+  mw.cmd.help:
     description: Permission for /multiworld help
     default: op
-  multiworld.command.create:
+  mw.cmd.create:
     description: Permission for /multiworld create
     default: op
-  multiworld.command.teleport:
+  mw.cmd.teleport:
     description: Permission for /multiworld teleport
     default: op
-  multiworld.command.list:
+  mw.cmd.list:
     description: Permission for /multiworld list
     default: op
-  multiworld.command.load:
+  mw.cmd.load:
     description: Permission for /multiworld load
     default: op
-  multiworld.command.unload:
+  mw.cmd.unload:
     description: Permission for /multiworld unload
     default: op
-  multiworld.command.delete:
+  mw.cmd.delete:
     description: Permission for /multiworld delete
     default: op
-  multiworld.command.update:
+  mw.cmd.update:
     description: Permission for /multiworld update
     default: op
-  multiworld.command.info:
+  mw.cmd.info:
     description: Permission for /multiworld info
     default: op
   multiworld.command.gamerule:
     description: Permission for /multiworld gamerule
     default: op
-  multiworld.command.manage:
+  mw.cmd.manage:
     description: Permission for /multiworld manage
     default: op
-  multiworld.command.rename:
+  mw.cmd.rename:
     description: Permission for /multiworld rename
     default: op
-  multiworld.command.duplicate:
+  mw.cmd.duplicate:
     description: Permission for /multiworld duplicate
     default: op

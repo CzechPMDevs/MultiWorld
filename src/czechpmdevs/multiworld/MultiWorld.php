@@ -29,71 +29,63 @@ use czechpmdevs\multiworld\level\gamerules\GameRules;
 use czechpmdevs\multiworld\util\ConfigManager;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\Command;
+use pocketmine\plugin\PluginBase;
 use pocketmine\world\generator\GeneratorManager;
 use pocketmine\world\World;
-use pocketmine\plugin\PluginBase;
 
 class MultiWorld extends PluginBase {
+	/** @var GameRules[] */
+	public static array $gameRules = [];
+	private static MultiWorld $instance;
+	public LanguageManager $languageManager;
+	public ConfigManager $configManager;
+	/** @var Command[] */
+	public array $commands = [];
 
-    /** @var GameRules[] */
-    public static array $gameRules = [];
-    /** @var MultiWorld */
-    private static MultiWorld $instance;
-    /** @var LanguageManager */
-    public LanguageManager $languageManager;
-    /** @var ConfigManager */
-    public ConfigManager $configManager;
+	public function onLoad() : void {
+		$start = !isset(self::$instance);
+		self::$instance = $this;
 
-    /** @var Command[] */
-    public array $commands = [];
+		if ($start) {
+			$generators = [
+				"void" => VoidGenerator::class,
+			];
 
-    public function onLoad(): void {
-        $start = !isset(MultiWorld::$instance);
-        MultiWorld::$instance = $this;
+			foreach ($generators as $name => $class) {
+				GeneratorManager::getInstance()->addGenerator($class, $name, true);
+			}
+		}
+	}
 
-        if ($start) {
-            $generators = [
-                "void" => VoidGenerator::class,
-            ];
+	public function onEnable() : void {
+		$this->configManager = new ConfigManager();
+		$this->languageManager = new LanguageManager();
+		$this->commands = [
+			"multiworld" => new MultiWorldCommand(),
+			"gamerule" => new GameRuleCommand()
+		];
+		foreach ($this->commands as $command) {
+			$this->getServer()->getCommandMap()->register("MultiWorld", $command);
+		}
+		$this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
+	}
 
-            foreach ($generators as $name => $class) {
-                GeneratorManager::getInstance()->addGenerator($class, $name, true);
-            }
-        }
-    }
+	/**
+	 * @internal
+	 */
+	public static function unloadWorld(World $world) : void {
+		unset(self::$gameRules[$world->getId()]);
+	}
 
-    public function onEnable(): void {
-        $this->configManager = new ConfigManager();
-        $this->languageManager = new LanguageManager();
+	public static function getGameRules(World $world) : GameRules {
+		return self::$gameRules[$world->getId()] ?? self::$gameRules[$world->getId()] = GameRules::loadFromWorld($world);
+	}
 
-        $this->commands = [
-            "multiworld" => new MultiWorldCommand(),
-            "gamerule" => new GameRuleCommand()
-        ];
+	public static function getPrefix() : string {
+		return ConfigManager::getPrefix();
+	}
 
-        foreach ($this->commands as $command) {
-            $this->getServer()->getCommandMap()->register("MultiWorld", $command);
-        }
-
-        $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
-    }
-
-    /**
-     * @internal
-     */
-    static function unloadWorld(World $world): void {
-        unset(MultiWorld::$gameRules[$world->getId()]);
-    }
-
-    public static function getGameRules(World $world): GameRules {
-        return MultiWorld::$gameRules[$world->getId()] ?? MultiWorld::$gameRules[$world->getId()] = GameRules::loadFromWorld($world);
-    }
-
-    public static function getPrefix(): string {
-        return ConfigManager::getPrefix();
-    }
-
-    public static function getInstance(): MultiWorld {
-        return MultiWorld::$instance;
-    }
+	public static function getInstance() : MultiWorld {
+		return self::$instance;
+	}
 }
