@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
 use czechpmdevs\multiworld\generator\normal\biome\types\GrassyBiome;
-use czechpmdevs\multiworld\generator\normal\object\Tree;
 use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
@@ -33,26 +32,26 @@ use pocketmine\block\VanillaBlocks;
 
 class Swampland extends GrassyBiome {
 
-    public function __construct() {
-        parent::__construct(0.8, 0.5);
+	public function __construct() {
+		parent::__construct(0.8, 0.5);
 
-        $mushrooms = new PlantPopulator(2, 2, 95);
-        $mushrooms->addPlant(new Plant(VanillaBlocks::RED_MUSHROOM()));
-        $mushrooms->addPlant(new Plant(VanillaBlocks::BROWN_MUSHROOM()));
+		$mushrooms = new PlantPopulator(2, 2, 95);
+		$mushrooms->addPlant(new Plant(VanillaBlocks::RED_MUSHROOM()));
+		$mushrooms->addPlant(new Plant(VanillaBlocks::BROWN_MUSHROOM()));
 
-        $flowers = new PlantPopulator(6, 7, 80);
-        $flowers->addPlant(new Plant(VanillaBlocks::DANDELION()));
-        $flowers->addPlant(new Plant(VanillaBlocks::POPPY()));
+		$flowers = new PlantPopulator(6, 7, 80);
+		$flowers->addPlant(new Plant(VanillaBlocks::DANDELION()));
+		$flowers->addPlant(new Plant(VanillaBlocks::POPPY()));
 
-        $oak = new TreePopulator(2, 2, 100, TreeType::OAK(), true);
-        $tallGrass = new TallGrassPopulator(56, 12);
+		$oak = new TreePopulator(2, 2, 100, TreeType::OAK(), true);
+		$tallGrass = new TallGrassPopulator(56, 12);
 
-        $this->addPopulators([$mushrooms, $flowers, $oak, $tallGrass]);
+		$this->addPopulators([$mushrooms, $flowers, $oak, $tallGrass]);
 
-        $this->setElevation(60, 65);
-    }
+		$this->setElevation(60, 65);
+	}
 
-    public function getName(): string {
-        return "Swampland";
-    }
+	public function getName(): string {
+		return "Swampland";
+	}
 }

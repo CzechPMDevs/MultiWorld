@@ -33,55 +33,55 @@ use function count;
 
 class PlantPopulator extends AmountPopulator {
 
-    /** @var Plant[] */
-    private array $plants = [];
-    /** @var Block[] */
-    private array $allowedBlocks = [];
+	/** @var Plant[] */
+	private array $plants = [];
+	/** @var Block[] */
+	private array $allowedBlocks = [];
 
-    public function addPlant(Plant $plant): void {
-        $this->plants[] = $plant;
-    }
+	public function addPlant(Plant $plant): void {
+		$this->plants[] = $plant;
+	}
 
-    public function allowBlockToStayAt(Block $block): void {
-        $this->allowedBlocks[] = $block;
-    }
+	public function allowBlockToStayAt(Block $block): void {
+		$this->allowedBlocks[] = $block;
+	}
 
-    public function populateObject(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
-        if (count($this->plants) === 0) {
-            return;
-        }
+	public function populateObject(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
+		if (count($this->plants) === 0) {
+			return;
+		}
 
-        $this->getRandomSpawnPosition($world, $chunkX, $chunkZ, $random, $x, $y, $z);
+		$this->getRandomSpawnPosition($world, $chunkX, $chunkZ, $random, $x, $y, $z);
 
-        if ($y !== -1 and $this->canPlantStay($world, $x, $y, $z)) {
-            $plant = $random->nextRange(0, count($this->plants) - 1);
-            $pY = $y;
-            foreach ($this->plants[$plant]->blocks as $block) {
-                $world->setBlockAt($x, $pY, $z, $block);
-                $pY++;
-            }
-        }
-    }
+		if ($y !== -1 and $this->canPlantStay($world, $x, $y, $z)) {
+			$plant = $random->nextRange(0, count($this->plants) - 1);
+			$pY = $y;
+			foreach ($this->plants[$plant]->blocks as $block) {
+				$world->setBlockAt($x, $pY, $z, $block);
+				$pY++;
+			}
+		}
+	}
 
-    private function canPlantStay(ChunkManager $world, int $x, int $y, int $z): bool {
-        $block = $world->getBlockAt($x, $y, $z);
-        if(
-            $block->isSameType(VanillaBlocks::AIR()) or
-            $block->isSameType(VanillaBlocks::SNOW_LAYER()) or
-            $block->isSameType(VanillaBlocks::WATER())
-        ) {
-            $block = $block->getSide(Facing::DOWN);
-            if($block->isSameType(VanillaBlocks::GRASS())) {
-                return true;
-            }
+	private function canPlantStay(ChunkManager $world, int $x, int $y, int $z): bool {
+		$block = $world->getBlockAt($x, $y, $z);
+		if(
+			$block->isSameType(VanillaBlocks::AIR()) or
+			$block->isSameType(VanillaBlocks::SNOW_LAYER()) or
+			$block->isSameType(VanillaBlocks::WATER())
+		) {
+			$block = $block->getSide(Facing::DOWN);
+			if($block->isSameType(VanillaBlocks::GRASS())) {
+				return true;
+			}
 
-            foreach($this->allowedBlocks as $allowed) {
-                if($block->isSameType($allowed)) {
-                    return true;
-                }
-            }
-        }
+			foreach($this->allowedBlocks as $allowed) {
+				if($block->isSameType($allowed)) {
+					return true;
+				}
+			}
+		}
 
-        return false;
-    }
+		return false;
+	}
 }

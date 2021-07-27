@@ -63,7 +63,7 @@ update-usage: '§c输入: §7/mw update <mod: spawn|lobby|default> [options: (�
 update-levelnotexists: '§c世界 {%0} 不存在!'
 update-spawn-done: '§aSpawn 在如下世界 {%0} 被更改.'
 update-lobby-done: '§aLobby 在如下世界 {%0} 被更改.'
-update-default-usage: '§c输入: §7/mw update default <level>'
+update-default-usage: '§c输入: §7/mw update default <world>'
 update-default-done: '§a默认世界被更改为 {%0}.'
 update-notsupported: '§c这个命令不支持控制台'
 
@@ -88,7 +88,7 @@ gamerule-done: '§游戏模式 {%0} 在如下世界 {%1} 被更改为 {%2}.'
 rename-usage: '§cUsage: §7/mw rename <from> <to>'
 rename-exists: '§cLevel with name {%0} already exists.'
 rename-levelnotfound: '§cLevel {%0} does not exists.'
-rename-done: '§aName of level {%0} was changed to {%1}.'
+rename-done: '§aName of world {%0} was changed to {%1}.'
 
 # Duplicate Command
 duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'

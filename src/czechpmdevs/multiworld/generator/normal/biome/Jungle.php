@@ -26,13 +26,13 @@ use czechpmdevs\multiworld\generator\normal\biome\types\GrassyBiome;
 
 class Jungle extends GrassyBiome {
 
-    public function __construct() {
-        parent::__construct(0.95, 0.9);
+	public function __construct() {
+		parent::__construct(0.95, 0.9);
 
-        $this->setElevation(64, 78);
-    }
+		$this->setElevation(64, 78);
+	}
 
-    public function getName(): string {
-        return "Jungle";
-    }
+	public function getName(): string {
+		return "Jungle";
+	}
 }

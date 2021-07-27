@@ -24,13 +24,13 @@ namespace czechpmdevs\multiworld\generator\normal\biome;
 
 class DesertHills extends Desert {
 
-    public function __construct() {
-        parent::__construct();
+	public function __construct() {
+		parent::__construct();
 
-        $this->setElevation(63, 85);
-    }
+		$this->setElevation(63, 85);
+	}
 
-    public function getName(): string {
-        return "Desert Hills";
-    }
+	public function getName(): string {
+		return "Desert Hills";
+	}
 }

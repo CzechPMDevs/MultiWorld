@@ -23,35 +23,33 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
 use czechpmdevs\multiworld\generator\normal\biome\types\Biome;
-use czechpmdevs\multiworld\generator\normal\object\Tree;
 use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
-use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
 use pocketmine\block\VanillaBlocks;
 
 class MushroomIsland extends Biome {
 
-    public function __construct() {
-        parent::__construct(0.9, 1);
-        $this->setGroundCover([
-            VanillaBlocks::MYCELIUM(),
-            VanillaBlocks::DIRT(),
-            VanillaBlocks::DIRT(),
-            VanillaBlocks::DIRT(),
-            VanillaBlocks::DIRT()
-        ]);
+	public function __construct() {
+		parent::__construct(0.9, 1);
+		$this->setGroundCover([
+			VanillaBlocks::MYCELIUM(),
+			VanillaBlocks::DIRT(),
+			VanillaBlocks::DIRT(),
+			VanillaBlocks::DIRT(),
+			VanillaBlocks::DIRT()
+		]);
 
-        $mushrooms = new PlantPopulator(2, 2, 95);
-        $mushrooms->addPlant(new Plant(VanillaBlocks::RED_MUSHROOM()));
-        $mushrooms->addPlant(new Plant(VanillaBlocks::BROWN_MUSHROOM()));
-        $mushrooms->allowBlockToStayAt(VanillaBlocks::MYCELIUM());
+		$mushrooms = new PlantPopulator(2, 2, 95);
+		$mushrooms->addPlant(new Plant(VanillaBlocks::RED_MUSHROOM()));
+		$mushrooms->addPlant(new Plant(VanillaBlocks::BROWN_MUSHROOM()));
+		$mushrooms->allowBlockToStayAt(VanillaBlocks::MYCELIUM());
 
 //        $this->addPopulators([$mushrooms, new TreePopulator(1, 1, 100, Tree::MUSHROOM)]); // TODO
 
-        $this->setElevation(64, 74);
-    }
+		$this->setElevation(64, 74);
+	}
 
-    public function getName(): string {
-        return "Mushroom Island";
-    }
+	public function getName(): string {
+		return "Mushroom Island";
+	}
 }

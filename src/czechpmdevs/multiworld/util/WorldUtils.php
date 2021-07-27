@@ -54,184 +54,184 @@ use function unlink;
 
 class WorldUtils {
 
-    public static function removeWorld(string $name): int {
-        if (Server::getInstance()->getWorldManager()->isWorldLoaded($name)) {
-            $world = WorldUtils::getWorldByNameNonNull($name);
-            if (count($world->getPlayers()) > 0) {
-                foreach ($world->getPlayers() as $player) {
-                    $player->teleport(WorldUtils::getDefaultWorldNonNull()->getSpawnLocation());
-                }
-            }
+	public static function removeWorld(string $name): int {
+		if (Server::getInstance()->getWorldManager()->isWorldLoaded($name)) {
+			$world = WorldUtils::getWorldByNameNonNull($name);
+			if (count($world->getPlayers()) > 0) {
+				foreach ($world->getPlayers() as $player) {
+					$player->teleport(WorldUtils::getDefaultWorldNonNull()->getSpawnLocation());
+				}
+			}
 
-            Server::getInstance()->getWorldManager()->unloadWorld($world);
-        }
+			Server::getInstance()->getWorldManager()->unloadWorld($world);
+		}
 
-        $removedFiles = 1;
+		$removedFiles = 1;
 
-        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($worldPath = Server::getInstance()->getDataPath() . "/worlds/$name", RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
-        /** @var SplFileInfo $fileInfo */
-        foreach ($files as $fileInfo) {
-            if ($filePath = $fileInfo->getRealPath()) {
-                if ($fileInfo->isFile()) {
-                    unlink($filePath);
-                } else {
-                    rmdir($filePath);
-                }
+		$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($worldPath = Server::getInstance()->getDataPath() . "/worlds/$name", RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
+		/** @var SplFileInfo $fileInfo */
+		foreach ($files as $fileInfo) {
+			if ($filePath = $fileInfo->getRealPath()) {
+				if ($fileInfo->isFile()) {
+					unlink($filePath);
+				} else {
+					rmdir($filePath);
+				}
 
-                $removedFiles++;
-            }
-        }
+				$removedFiles++;
+			}
+		}
 
-        rmdir($worldPath);
-        return $removedFiles;
-    }
+		rmdir($worldPath);
+		return $removedFiles;
+	}
 
-    /**
-     * WARNING: This method should be used only in the case, when we
-     * know, that the level is generated and loaded.
-     */
-    public static function getWorldByNameNonNull(string $name): World {
-        $world = Server::getInstance()->getWorldManager()->getWorldByName($name);
-        if ($world === null) {
-            throw new AssumptionFailedError("Required level $name is null");
-        }
+	/**
+	 * WARNING: This method should be used only in the case, when we
+	 * know, that the world is generated and loaded.
+	 */
+	public static function getWorldByNameNonNull(string $name): World {
+		$world = Server::getInstance()->getWorldManager()->getWorldByName($name);
+		if ($world === null) {
+			throw new AssumptionFailedError("Required world $name is null");
+		}
 
-        return $world;
-    }
+		return $world;
+	}
 
-    public static function getDefaultWorldNonNull(): World {
-        $world = Server::getInstance()->getWorldManager()->getDefaultWorld();
-        if ($world === null) {
-            throw new AssumptionFailedError("Default level is null");
-        }
+	public static function getDefaultWorldNonNull(): World {
+		$world = Server::getInstance()->getWorldManager()->getDefaultWorld();
+		if ($world === null) {
+			throw new AssumptionFailedError("Default world is null");
+		}
 
-        return $world;
-    }
+		return $world;
+	}
 
-    public static function renameWorld(string $oldName, string $newName): void {
-        WorldUtils::lazyUnloadWorld($oldName);
+	public static function renameWorld(string $oldName, string $newName): void {
+		WorldUtils::lazyUnloadWorld($oldName);
 
-        $from = Server::getInstance()->getDataPath() . "/worlds/" . $oldName;
-        $to = Server::getInstance()->getDataPath() . "/worlds/" . $newName;
+		$from = Server::getInstance()->getDataPath() . "/worlds/" . $oldName;
+		$to = Server::getInstance()->getDataPath() . "/worlds/" . $newName;
 
-        rename($from, $to);
+		rename($from, $to);
 
-        WorldUtils::lazyLoadWorld($newName);
-        $newWorld = Server::getInstance()->getWorldManager()->getWorldByName($newName);
-        if (!$newWorld instanceof World) {
-            return;
-        }
+		WorldUtils::lazyLoadWorld($newName);
+		$newWorld = Server::getInstance()->getWorldManager()->getWorldByName($newName);
+		if (!$newWorld instanceof World) {
+			return;
+		}
 
-        $provider = $newWorld->getProvider();
-        if (!$provider instanceof BaseWorldProvider) {
-            return;
-        }
+		$provider = $newWorld->getProvider();
+		if (!$provider instanceof BaseWorldProvider) {
+			return;
+		}
 
 //        $provider->getWorldData()->setString("WorldName", $newName);
 //        $provider->saveWorldData();
 
-        Server::getInstance()->getWorldManager()->unloadWorld($newWorld);
-        WorldUtils::lazyLoadWorld($newName); // reloading the level
-    }
+		Server::getInstance()->getWorldManager()->unloadWorld($newWorld);
+		WorldUtils::lazyLoadWorld($newName); // reloading the world
+	}
 
-    public static function duplicateWorld(string $worldName, string $duplicateName): void {
-        if(Server::getInstance()->getWorldManager()->isWorldLoaded($worldName)) {
-            WorldUtils::getWorldByNameNonNull($worldName)->save(false);
-        }
+	public static function duplicateWorld(string $worldName, string $duplicateName): void {
+		if(Server::getInstance()->getWorldManager()->isWorldLoaded($worldName)) {
+			WorldUtils::getWorldByNameNonNull($worldName)->save(false);
+		}
 
-        mkdir(Server::getInstance()->getDataPath() . "/worlds/$duplicateName");
+		mkdir(Server::getInstance()->getDataPath() . "/worlds/$duplicateName");
 
-        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(Server::getInstance()->getDataPath() . "/worlds/$worldName", RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
-        /** @var SplFileInfo $fileInfo */
-        foreach ($files as $fileInfo) {
-            if ($filePath = $fileInfo->getRealPath()) {
-                if ($fileInfo->isFile()) {
-                    copy($filePath, str_replace($worldName, $duplicateName, $filePath));
-                } else {
-                    mkdir(str_replace($worldName, $duplicateName, $filePath));
-                }
-            }
-        }
-    }
+		$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(Server::getInstance()->getDataPath() . "/worlds/$worldName", RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
+		/** @var SplFileInfo $fileInfo */
+		foreach ($files as $fileInfo) {
+			if ($filePath = $fileInfo->getRealPath()) {
+				if ($fileInfo->isFile()) {
+					copy($filePath, str_replace($worldName, $duplicateName, $filePath));
+				} else {
+					mkdir(str_replace($worldName, $duplicateName, $filePath));
+				}
+			}
+		}
+	}
 
-    /**
-     * @return bool Returns if the level was unloaded with the function.
-     * If it has already been unloaded before calling this function, returns FALSE!
-     */
-    public static function lazyUnloadWorld(string $name, bool $force = false): bool {
-        if (($world = Server::getInstance()->getWorldManager()->getWorldByName($name)) !== null) {
-            return Server::getInstance()->getWorldManager()->unloadWorld($world, $force);
-        }
-        return false;
-    }
+	/**
+	 * @return bool Returns if the world was unloaded with the function.
+	 * If it has already been unloaded before calling this function, returns FALSE!
+	 */
+	public static function lazyUnloadWorld(string $name, bool $force = false): bool {
+		if (($world = Server::getInstance()->getWorldManager()->getWorldByName($name)) !== null) {
+			return Server::getInstance()->getWorldManager()->unloadWorld($world, $force);
+		}
+		return false;
+	}
 
-    /**
-     * @return bool Returns if the level was loaded with the function.
-     * If it has already been loaded before calling this function, returns FALSE!
-     */
-    public static function lazyLoadWorld(string $name): bool {
-        return !Server::getInstance()->getWorldManager()->isWorldLoaded($name) && Server::getInstance()->getWorldManager()->loadWorld($name);
-    }
+	/**
+	 * @return bool Returns if the world was loaded with the function.
+	 * If it has already been loaded before calling this function, returns FALSE!
+	 */
+	public static function lazyLoadWorld(string $name): bool {
+		return !Server::getInstance()->getWorldManager()->isWorldLoaded($name) && Server::getInstance()->getWorldManager()->loadWorld($name);
+	}
 
-    /**
-     * @return string[] Returns all the levels on the server including
-     * unloaded ones
-     */
-    public static function getAllWorlds(): array {
-        $files = scandir(Server::getInstance()->getDataPath() . "/worlds/");
-        if (!$files) {
-            return [];
-        }
+	/**
+	 * @return string[] Returns all the levels on the server including
+	 * unloaded ones
+	 */
+	public static function getAllWorlds(): array {
+		$files = scandir(Server::getInstance()->getDataPath() . "/worlds/");
+		if (!$files) {
+			return [];
+		}
 
-        return array_values(array_filter($files, function (string $fileName): bool {
-            return Server::getInstance()->getWorldManager()->isWorldGenerated($fileName) &&
-                $fileName != "." && $fileName != ".."; // Server->isWorldGenerated detects '.' and '..' as world, TODO - make pull request
-        }));
-    }
+		return array_values(array_filter($files, function (string $fileName): bool {
+			return Server::getInstance()->getWorldManager()->isWorldGenerated($fileName) &&
+				$fileName != "." && $fileName != ".."; // Server->isWorldGenerated detects '.' and '..' as world, TODO - make pull request
+		}));
+	}
 
-    /**
-     * @return World|null Loads and returns level, if it is generated.
-     */
-    public static function getLoadedWorldByName(string $name): ?World {
-        WorldUtils::lazyLoadWorld($name);
+	/**
+	 * @return World|null Loads and returns world, if it is generated.
+	 */
+	public static function getLoadedWorldByName(string $name): ?World {
+		WorldUtils::lazyLoadWorld($name);
 
-        return Server::getInstance()->getWorldManager()->getWorldByName($name);
-    }
+		return Server::getInstance()->getWorldManager()->getWorldByName($name);
+	}
 
-    /**
-     * @phpstan-return class-string<Generator>|null
-     */
-    public static function getGeneratorByName(string $name): ?string {
-        switch (strtolower($name)) {
-            case "normal":
-            case "classic":
-            case "basic":
-                return Normal::class;
-            case "custom":
-                return NormalGenerator::class;
-            case "flat":
-            case "superflat":
-                return Flat::class;
-            case "nether":
-            case "hell":
-                return NetherGenerator::class;
-            case "ender":
-            case "end":
-                return EnderGenerator::class;
-            case "void":
-                return VoidGenerator::class;
-            case "skyblock":
-            case "sb":
-            case "sky":
-                return SkyBlockGenerator::class;
-            case "nether_old":
-                return Nether::class;
-        }
+	/**
+	 * @phpstan-return class-string<Generator>|null
+	 */
+	public static function getGeneratorByName(string $name): ?string {
+		switch (strtolower($name)) {
+			case "normal":
+			case "classic":
+			case "basic":
+				return Normal::class;
+			case "custom":
+				return NormalGenerator::class;
+			case "flat":
+			case "superflat":
+				return Flat::class;
+			case "nether":
+			case "hell":
+				return NetherGenerator::class;
+			case "ender":
+			case "end":
+				return EnderGenerator::class;
+			case "void":
+				return VoidGenerator::class;
+			case "skyblock":
+			case "sb":
+			case "sky":
+				return SkyBlockGenerator::class;
+			case "nether_old":
+				return Nether::class;
+		}
 
-        try {
-            return GeneratorManager::getInstance()->getGenerator($name, true);
-        } catch (InvalidArgumentException $e) {}
+		try {
+			return GeneratorManager::getInstance()->getGenerator($name, true);
+		} catch (InvalidArgumentException $e) {}
 
-        return null;
-    }
+		return null;
+	}
 }

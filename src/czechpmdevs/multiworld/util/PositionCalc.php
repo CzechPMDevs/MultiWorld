@@ -28,27 +28,27 @@ use pocketmine\world\ChunkManager;
 
 trait PositionCalc {
 
-    /**
-     * Returns random spawn position based on Random class for
-     * specified Chunk
-     */
-    public function getRandomSpawnPosition(ChunkManager $world, int $chunkX, int $chunkZ, Random $random, ?int &$x, ?int &$y, ?int &$z): void {
-        $x = ($chunkX << 4) + $random->nextBoundedInt(16);
-        $z = ($chunkZ << 4) + $random->nextBoundedInt(16);
-        $y = $this->getHighestWorkableBlock($world, $x, $z);
-    }
+	/**
+	 * Returns random spawn position based on Random class for
+	 * specified Chunk
+	 */
+	public function getRandomSpawnPosition(ChunkManager $world, int $chunkX, int $chunkZ, Random $random, ?int &$x, ?int &$y, ?int &$z): void {
+		$x = ($chunkX << 4) + $random->nextBoundedInt(16);
+		$z = ($chunkZ << 4) + $random->nextBoundedInt(16);
+		$y = $this->getHighestWorkableBlock($world, $x, $z);
+	}
 
-    /**
-     * Returns Y coordinate of highest block at X:Z coordinates in the level
-     */
-    public function getHighestWorkableBlock(ChunkManager $world, int $x, int $z): int {
-        for ($y = 127; $y >= 0; --$y) {
-            $b = $world->getBlockAt($x, $y, $z)->getId();
-            if ($b !== BlockLegacyIds::AIR and $b !== BlockLegacyIds::LEAVES and $b !== BlockLegacyIds::LEAVES2 and $b !== BlockLegacyIds::SNOW_LAYER) {
-                break;
-            }
-        }
+	/**
+	 * Returns Y coordinate of highest block at X:Z coordinates in the world
+	 */
+	public function getHighestWorkableBlock(ChunkManager $world, int $x, int $z): int {
+		for ($y = 127; $y >= 0; --$y) {
+			$b = $world->getBlockAt($x, $y, $z)->getId();
+			if ($b !== BlockLegacyIds::AIR and $b !== BlockLegacyIds::LEAVES and $b !== BlockLegacyIds::LEAVES2 and $b !== BlockLegacyIds::SNOW_LAYER) {
+				break;
+			}
+		}
 
-        return $y === 0 ? -1 : ++$y;
-    }
+		return $y === 0 ? -1 : ++$y;
+	}
 }

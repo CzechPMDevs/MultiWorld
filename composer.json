@@ -4,13 +4,16 @@
   "minimum-stability": "dev",
   "license": "Apache-2.0",
   "require": {
-    "php": "^7.4 || ^8.0",
+    "php": "^8.0",
     "ext-yaml": "*",
     "ext-pthreads": "*",
     "ext-json": "*",
+    "czechpmdevs/libpmform": "dev-feature/4.0.0",
+    "pocketmine/pocketmine-mp": "dev-master"
+  },
+  "require-dev": {
     "phpstan/phpstan": "0.12.93",
-    "pocketmine/pocketmine-mp": "dev-master",
-    "czechpmdevs/libpmform": "dev-feature/4.0.0"
+    "friendsofphp/php-cs-fixer": "v2.19.0"
   },
   "repositories": [
     {

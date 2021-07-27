@@ -27,42 +27,40 @@ use pocketmine\player\Player;
 
 class PlayerInventorySession {
 
-    /** @var Player */
-    public Player $player;
+	public Player $player;
 
-    /** @var Item[] */
-    public array $inventory;
-    /** @var Item[] */
-    public array $armorInventory;
-    /** @var Item[] */
-    public array $cursorInventory;
+	/** @var Item[] */
+	public array $inventory;
+	/** @var Item[] */
+	public array $armorInventory;
+	/** @var Item[] */
+	public array $cursorInventory;
 
-    /** @var int */
-    public int $experienceLevel;
-    /** @var float */
-    public float $experience;
+	public int $experienceLevel;
 
-    public function __construct(Player $player) {
-        $this->player = $player;
+	public float $experience;
 
-        $this->inventory = $player->getInventory()->getContents();
-        $this->armorInventory = $player->getArmorInventory()->getContents();
-        $this->cursorInventory = $player->getCursorInventory()->getContents();
+	public function __construct(Player $player) {
+		$this->player = $player;
 
-        $this->experienceLevel = $player->getXpManager()->getXpLevel();
-        $this->experience = $player->getXpManager()->getXpProgress();
-    }
+		$this->inventory = $player->getInventory()->getContents();
+		$this->armorInventory = $player->getArmorInventory()->getContents();
+		$this->cursorInventory = $player->getCursorInventory()->getContents();
 
-    public function close(): void {
-        if (!$this->player->isOnline()) {
-            return;
-        }
+		$this->experienceLevel = $player->getXpManager()->getXpLevel();
+		$this->experience = $player->getXpManager()->getXpProgress();
+	}
 
-        $this->player->getInventory()->setContents($this->inventory);
-        $this->player->getArmorInventory()->setContents($this->armorInventory);
-        $this->player->getCursorInventory()->setContents($this->cursorInventory);
+	public function close(): void {
+		if (!$this->player->isOnline()) {
+			return;
+		}
 
-        $this->player->getXpManager()->setXpLevel($this->experienceLevel);
-        $this->player->getXpManager()->setXpProgress($this->experience);
-    }
+		$this->player->getInventory()->setContents($this->inventory);
+		$this->player->getArmorInventory()->setContents($this->armorInventory);
+		$this->player->getCursorInventory()->setContents($this->cursorInventory);
+
+		$this->player->getXpManager()->setXpLevel($this->experienceLevel);
+		$this->player->getXpManager()->setXpProgress($this->experience);
+	}
 }

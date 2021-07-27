@@ -25,5 +25,5 @@ namespace czechpmdevs\multiworld\generator\normal\populator;
 use czechpmdevs\multiworld\util\PositionCalc;
 
 abstract class Populator extends \pocketmine\world\generator\populator\Populator {
-    use PositionCalc;
+	use PositionCalc;
 }

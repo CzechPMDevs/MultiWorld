@@ -26,18 +26,18 @@ use pocketmine\block\VanillaBlocks;
 
 abstract class SandyBiome extends Biome {
 
-    public function __construct(float $temperature, float $rainfall) {
-        $this->setGroundCover([
-            VanillaBlocks::SAND(),
-            VanillaBlocks::SAND(),
-            VanillaBlocks::SAND(),
-            VanillaBlocks::SAND(),
-            VanillaBlocks::SANDSTONE(),
-            VanillaBlocks::SANDSTONE(),
-            VanillaBlocks::SANDSTONE(),
-            VanillaBlocks::SANDSTONE(),
-        ]);
+	public function __construct(float $temperature, float $rainfall) {
+		$this->setGroundCover([
+			VanillaBlocks::SAND(),
+			VanillaBlocks::SAND(),
+			VanillaBlocks::SAND(),
+			VanillaBlocks::SAND(),
+			VanillaBlocks::SANDSTONE(),
+			VanillaBlocks::SANDSTONE(),
+			VanillaBlocks::SANDSTONE(),
+			VanillaBlocks::SANDSTONE(),
+		]);
 
-        parent::__construct($temperature, $rainfall);
-    }
+		parent::__construct($temperature, $rainfall);
+	}
 }

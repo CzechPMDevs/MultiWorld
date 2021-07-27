@@ -24,13 +24,13 @@ namespace czechpmdevs\multiworld\generator\normal\biome;
 
 class SavannaPlateau extends Savanna {
 
-    public function __construct() {
-        parent::__construct();
+	public function __construct() {
+		parent::__construct();
 
-        $this->setElevation(95, 100);
-    }
+		$this->setElevation(95, 100);
+	}
 
-    public function getName(): string {
-        return "Savanna Plateau";
-    }
+	public function getName(): string {
+		return "Savanna Plateau";
+	}
 }

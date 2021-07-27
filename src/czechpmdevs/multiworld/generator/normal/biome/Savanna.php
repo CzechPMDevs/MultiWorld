@@ -23,34 +23,32 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
 use czechpmdevs\multiworld\generator\normal\biome\types\GrassyBiome;
-use czechpmdevs\multiworld\generator\normal\object\Tree;
 use czechpmdevs\multiworld\generator\normal\populator\impl\LakePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
-use pocketmine\block\Dandelion;
 use pocketmine\block\utils\TreeType;
 use pocketmine\block\VanillaBlocks;
 
 class Savanna extends GrassyBiome {
 
-    public function __construct() {
-        parent::__construct(1.2, 0);
+	public function __construct() {
+		parent::__construct(1.2, 0);
 
-        $flowers = new PlantPopulator(6, 7, 80);
-        $flowers->addPlant(new Plant(VanillaBlocks::DANDELION()));
-        $flowers->addPlant(new Plant(VanillaBlocks::POPPY()));
+		$flowers = new PlantPopulator(6, 7, 80);
+		$flowers->addPlant(new Plant(VanillaBlocks::DANDELION()));
+		$flowers->addPlant(new Plant(VanillaBlocks::POPPY()));
 
-        $acacia = new TreePopulator(1, 1, 100, TreeType::ACACIA());
-        $tallGrass = new TallGrassPopulator(56, 12);
+		$acacia = new TreePopulator(1, 1, 100, TreeType::ACACIA());
+		$tallGrass = new TallGrassPopulator(56, 12);
 
-        $this->addPopulators([new LakePopulator(), $flowers, $acacia, $tallGrass]);
+		$this->addPopulators([new LakePopulator(), $flowers, $acacia, $tallGrass]);
 
-        $this->setElevation(67, 70);
-    }
+		$this->setElevation(67, 70);
+	}
 
-    public function getName(): string {
-        return "Savanna";
-    }
+	public function getName(): string {
+		return "Savanna";
+	}
 }

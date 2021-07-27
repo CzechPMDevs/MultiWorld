@@ -24,13 +24,13 @@ namespace czechpmdevs\multiworld\generator\normal\biome;
 
 class MushroomIslandShore extends MushroomIsland {
 
-    public function __construct() {
-        parent::__construct();
+	public function __construct() {
+		parent::__construct();
 
-        $this->setElevation(63, 65);
-    }
+		$this->setElevation(63, 65);
+	}
 
-    public function getName(): string {
-        return "Mushroom Island Shore";
-    }
+	public function getName(): string {
+		return "Mushroom Island Shore";
+	}
 }

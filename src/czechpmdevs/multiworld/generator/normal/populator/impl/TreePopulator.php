@@ -28,34 +28,34 @@ use pocketmine\block\BlockLegacyIds;
 use pocketmine\block\utils\TreeType;
 use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
+use function in_array;
 
 class TreePopulator extends AmountPopulator {
 
-    /** @var TreeType|null */
-    private ?TreeType $treeType;
-    /** @var bool */
-    private bool $vines;
-    /** @var bool */
-    private bool $high;
+	private ?TreeType $treeType;
 
-    public function __construct(int $baseAmount, int $randomAmount, int $spawnPercentage = 100, ?TreeType $treeType = null, bool $vines = false, bool $high = false) {
-        $this->treeType = $treeType;
-        $this->vines = $vines;
-        $this->high = $high;
+	private bool $vines;
 
-        parent::__construct($baseAmount, $randomAmount, $spawnPercentage);
-    }
+	private bool $high;
 
-    public function populateObject(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
-        $this->getRandomSpawnPosition($world, $chunkX, $chunkZ, $random, $x, $y, $z);
-        if ($y === -1) {
-            return;
-        }
+	public function __construct(int $baseAmount, int $randomAmount, int $spawnPercentage = 100, ?TreeType $treeType = null, bool $vines = false, bool $high = false) {
+		$this->treeType = $treeType;
+		$this->vines = $vines;
+		$this->high = $high;
 
-        if (!in_array($world->getBlockAt($x, $y - 1, $z)->getId(), [BlockLegacyIds::GRASS, BlockLegacyIds::MYCELIUM])) {
-            return;
-        }
+		parent::__construct($baseAmount, $randomAmount, $spawnPercentage);
+	}
 
-        Tree::growTree($world, $x, $y, $z, $random, $this->treeType, $this->vines, $this->high);
-    }
+	public function populateObject(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
+		$this->getRandomSpawnPosition($world, $chunkX, $chunkZ, $random, $x, $y, $z);
+		if ($y === -1) {
+			return;
+		}
+
+		if (!in_array($world->getBlockAt($x, $y - 1, $z)->getId(), [BlockLegacyIds::GRASS, BlockLegacyIds::MYCELIUM], true)) {
+			return;
+		}
+
+		Tree::growTree($world, $x, $y, $z, $random, $this->treeType, $this->vines, $this->high);
+	}
 }

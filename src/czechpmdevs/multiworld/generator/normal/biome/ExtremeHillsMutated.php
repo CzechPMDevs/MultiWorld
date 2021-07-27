@@ -26,20 +26,20 @@ use pocketmine\block\VanillaBlocks;
 
 class ExtremeHillsMutated extends ExtremeHills {
 
-    public function __construct() {
-        parent::__construct();
+	public function __construct() {
+		parent::__construct();
 
-        $this->setElevation(75, 120);
+		$this->setElevation(75, 120);
 
-        $this->setGroundCover([
-            VanillaBlocks::GRAVEL(),
-            VanillaBlocks::GRAVEL(),
-            VanillaBlocks::GRAVEL(),
-            VanillaBlocks::GRAVEL()
-        ]);
-    }
+		$this->setGroundCover([
+			VanillaBlocks::GRAVEL(),
+			VanillaBlocks::GRAVEL(),
+			VanillaBlocks::GRAVEL(),
+			VanillaBlocks::GRAVEL()
+		]);
+	}
 
-    public function getName(): string {
-        return "Extreme Hills Mutated";
-    }
+	public function getName(): string {
+		return "Extreme Hills Mutated";
+	}
 }

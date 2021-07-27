@@ -8,9 +8,12 @@ description: Plugin that manage with worlds
 website: https://github.com/CzechPMDevs/MultiWorld
 mcpe-protocol: [440, 448]
 extensions:
-  Core: '>=7.4'
+  Core: '>=8.0'
 
 permissions:
+  multiworld.command:
+    description: Permssion nested for /multiworld
+    default: op
   multiworld.command.create:
     description: Permission for /multiworld create
     default: op

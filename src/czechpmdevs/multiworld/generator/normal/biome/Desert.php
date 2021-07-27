@@ -30,21 +30,21 @@ use pocketmine\block\VanillaBlocks;
 
 class Desert extends SandyBiome {
 
-    public function __construct() {
-        parent::__construct(2.0, 0.0);
+	public function __construct() {
+		parent::__construct(2.0, 0.0);
 
-        $cactus = new CactusPopulator(4, 3);
+		$cactus = new CactusPopulator(4, 3);
 
-        $deadBush = new PlantPopulator(4, 2);
-        $deadBush->addPlant(new Plant(VanillaBlocks::DEAD_BUSH()));
-        $deadBush->allowBlockToStayAt(VanillaBlocks::SAND());
+		$deadBush = new PlantPopulator(4, 2);
+		$deadBush->addPlant(new Plant(VanillaBlocks::DEAD_BUSH()));
+		$deadBush->allowBlockToStayAt(VanillaBlocks::SAND());
 
-        $this->addPopulators([$cactus, $deadBush]);
+		$this->addPopulators([$cactus, $deadBush]);
 
-        $this->setElevation(63, 69);
-    }
+		$this->setElevation(63, 69);
+	}
 
-    public function getName(): string {
-        return "Desert";
-    }
+	public function getName(): string {
+		return "Desert";
+	}
 }

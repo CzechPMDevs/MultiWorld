@@ -31,56 +31,55 @@ use function cos;
 use function deg2rad;
 use function intval;
 use function mt_rand;
+use function pi;
 use function sin;
 
 class EnderPilar extends Populator {
 
-    /** @var ChunkManager */
-    private ChunkManager $world;
+	private ChunkManager $world;
 
-    /** @var int */
-    private int $randomAmount;
-    /** @var int */
-    private int $baseAmount;
+	private int $randomAmount;
 
-    public function setRandomAmount(int $amount): void {
-        $this->randomAmount = $amount;
-    }
+	private int $baseAmount;
 
-    public function setBaseAmount(int $amount): void {
-        $this->baseAmount = $amount;
-    }
+	public function setRandomAmount(int $amount): void {
+		$this->randomAmount = $amount;
+	}
 
-    public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
-        if (mt_rand(0, 100) < 10) {
-            $this->world = $world;
-            $amount = $random->nextRange(0, $this->randomAmount + 1) + $this->baseAmount;
-            for ($i = 0; $i < $amount; ++$i) {
-                $x = $random->nextRange($chunkX * 16, $chunkX * 16 + 15);
-                $z = $random->nextRange($chunkZ * 16, $chunkZ * 16 + 15);
-                $y = $this->getHighestWorkableBlock($x, $z);
-                if ($this->world->getBlockAt($x, $y, $z)->getId() == BlockLegacyIds::END_STONE) {
-                    $height = mt_rand(28, 50);
-                    for ($ny = $y; $ny < $y + $height; $ny++) {
-                        for ($r = 0.5; $r < 5; $r += 0.5) {
-                            $nd = 360 / (2 * pi() * $r);
-                            for ($d = 0; $d < 360; $d += $nd) {
-                                $world->setBlockAt(intval($x + (cos(deg2rad($d)) * $r)), $ny, intval($z + (sin(deg2rad($d)) * $r)), VanillaBlocks::OBSIDIAN());
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+	public function setBaseAmount(int $amount): void {
+		$this->baseAmount = $amount;
+	}
 
-    private function getHighestWorkableBlock(int $x, int $z): int {
-        for ($y = 127; $y >= 0; --$y) {
-            $b = $this->world->getBlockAt($x, $y, $z)->getId();
-            if ($b == BlockLegacyIds::END_STONE) {
-                break;
-            }
-        }
-        return $y === 0 ? -1 : $y;
-    }
+	public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
+		if (mt_rand(0, 100) < 10) {
+			$this->world = $world;
+			$amount = $random->nextRange(0, $this->randomAmount + 1) + $this->baseAmount;
+			for ($i = 0; $i < $amount; ++$i) {
+				$x = $random->nextRange($chunkX * 16, $chunkX * 16 + 15);
+				$z = $random->nextRange($chunkZ * 16, $chunkZ * 16 + 15);
+				$y = $this->getHighestWorkableBlock($x, $z);
+				if ($this->world->getBlockAt($x, $y, $z)->getId() == BlockLegacyIds::END_STONE) {
+					$height = mt_rand(28, 50);
+					for ($ny = $y; $ny < $y + $height; $ny++) {
+						for ($r = 0.5; $r < 5; $r += 0.5) {
+							$nd = 360 / (2 * pi() * $r);
+							for ($d = 0; $d < 360; $d += $nd) {
+								$world->setBlockAt(intval($x + (cos(deg2rad($d)) * $r)), $ny, intval($z + (sin(deg2rad($d)) * $r)), VanillaBlocks::OBSIDIAN());
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private function getHighestWorkableBlock(int $x, int $z): int {
+		for ($y = 127; $y >= 0; --$y) {
+			$b = $this->world->getBlockAt($x, $y, $z)->getId();
+			if ($b == BlockLegacyIds::END_STONE) {
+				break;
+			}
+		}
+		return $y === 0 ? -1 : $y;
+	}
 }

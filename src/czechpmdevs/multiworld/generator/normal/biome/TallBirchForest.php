@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
-use czechpmdevs\multiworld\generator\normal\object\Tree;
 use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
@@ -32,34 +31,34 @@ use pocketmine\block\VanillaBlocks;
 
 class TallBirchForest extends BirchForest {
 
-    public function __construct() {
-        parent::__construct();
+	public function __construct() {
+		parent::__construct();
 
-        $mushrooms = new PlantPopulator(2, 2, 95);
-        $mushrooms->addPlant(new Plant(VanillaBlocks::RED_MUSHROOM()));
-        $mushrooms->addPlant(new Plant(VanillaBlocks::BROWN_MUSHROOM()));
+		$mushrooms = new PlantPopulator(2, 2, 95);
+		$mushrooms->addPlant(new Plant(VanillaBlocks::RED_MUSHROOM()));
+		$mushrooms->addPlant(new Plant(VanillaBlocks::BROWN_MUSHROOM()));
 
-        $flowers = new PlantPopulator(6, 7, 80);
-        $flowers->addPlant(new Plant(VanillaBlocks::DANDELION()));
-        $flowers->addPlant(new Plant(VanillaBlocks::POPPY()));
+		$flowers = new PlantPopulator(6, 7, 80);
+		$flowers->addPlant(new Plant(VanillaBlocks::DANDELION()));
+		$flowers->addPlant(new Plant(VanillaBlocks::POPPY()));
 
-        $roses = new PlantPopulator(5, 4, 80);
-        $roses->addPlant(new Plant(VanillaBlocks::LILAC()));
+		$roses = new PlantPopulator(5, 4, 80);
+		$roses->addPlant(new Plant(VanillaBlocks::LILAC()));
 
-        $peonys = new PlantPopulator(5, 4, 80);
-        $peonys->addPlant(new Plant(VanillaBlocks::PEONY()));
+		$peonys = new PlantPopulator(5, 4, 80);
+		$peonys->addPlant(new Plant(VanillaBlocks::PEONY()));
 
-        $birch = new TreePopulator(5, 4, 100, TreeType::BIRCH(), false, true);
+		$birch = new TreePopulator(5, 4, 100, TreeType::BIRCH(), false, true);
 
-        $grass = new TallGrassPopulator(56, 20);
+		$grass = new TallGrassPopulator(56, 20);
 
-        $this->addPopulators([$mushrooms, $flowers, $roses, $peonys, $birch, $grass]);
+		$this->addPopulators([$mushrooms, $flowers, $roses, $peonys, $birch, $grass]);
 
-        $this->setElevation(60, 80);
-    }
+		$this->setElevation(60, 80);
+	}
 
-    public function getName(): string {
-        return "Tall Birch Forest";
-    }
+	public function getName(): string {
+		return "Tall Birch Forest";
+	}
 
 }

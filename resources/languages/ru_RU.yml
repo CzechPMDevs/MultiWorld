@@ -88,7 +88,7 @@ gamerule-done: '§aНастройка {%0} в мире {%1} была измен�
 rename-usage: '§cUsage: §7/mw rename <from> <to>'
 rename-exists: '§cLevel with name {%0} already exists.'
 rename-levelnotfound: '§cLevel {%0} does not exists.'
-rename-done: '§aName of level {%0} was changed to {%1}.'
+rename-done: '§aName of world {%0} was changed to {%1}.'
 
 # Duplicate Command
 duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'

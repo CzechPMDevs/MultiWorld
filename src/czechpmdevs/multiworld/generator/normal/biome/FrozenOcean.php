@@ -27,22 +27,22 @@ use pocketmine\block\VanillaBlocks;
 
 class FrozenOcean extends Biome {
 
-    public function __construct() {
-        parent::__construct(0, 0.5);
+	public function __construct() {
+		parent::__construct(0, 0.5);
 
-        $this->setGroundCover([
-            VanillaBlocks::GRAVEL(),
-            VanillaBlocks::GRAVEL()
-        ]);
+		$this->setGroundCover([
+			VanillaBlocks::GRAVEL(),
+			VanillaBlocks::GRAVEL()
+		]);
 
-        $this->setElevation(55, 57);
-    }
+		$this->setElevation(55, 57);
+	}
 
-    public function isFrozen(): bool {
-        return true;
-    }
+	public function isFrozen(): bool {
+		return true;
+	}
 
-    public function getName(): string {
-        return "Frozen Ocean";
-    }
+	public function getName(): string {
+		return "Frozen Ocean";
+	}
 }

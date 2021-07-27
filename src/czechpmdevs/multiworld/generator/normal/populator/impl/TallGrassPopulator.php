@@ -30,27 +30,26 @@ use pocketmine\world\ChunkManager;
 
 class TallGrassPopulator extends AmountPopulator {
 
-    /** @var bool */
-    private bool $allowDoubleGrass = true;
+	private bool $allowDoubleGrass = true;
 
-    public function populateObject(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
-        $this->getRandomSpawnPosition($world, $chunkX, $chunkZ, $random, $x, $y, $z);
+	public function populateObject(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
+		$this->getRandomSpawnPosition($world, $chunkX, $chunkZ, $random, $x, $y, $z);
 
-        if ($y !== -1 and $this->canTallGrassStay($world, $x, $y, $z)) {
-            if($this->allowDoubleGrass && $random->nextBoundedInt(5) == 0) {
-                $world->setBlockAt($x, $y, $z, VanillaBlocks::DOUBLE_TALLGRASS());
-                return;
-            }
-            $world->setBlockAt($x, $y, $z, VanillaBlocks::TALL_GRASS());
-        }
-    }
+		if ($y !== -1 and $this->canTallGrassStay($world, $x, $y, $z)) {
+			if($this->allowDoubleGrass && $random->nextBoundedInt(5) == 0) {
+				$world->setBlockAt($x, $y, $z, VanillaBlocks::DOUBLE_TALLGRASS());
+				return;
+			}
+			$world->setBlockAt($x, $y, $z, VanillaBlocks::TALL_GRASS());
+		}
+	}
 
-    private function canTallGrassStay(ChunkManager $world, int $x, int $y, int $z): bool {
-        $b = $world->getBlockAt($x, $y, $z)->getId();
-        return ($b === BlockLegacyIds::AIR or $b === BlockLegacyIds::SNOW_LAYER) and $world->getBlockAt($x, $y - 1, $z)->getId() === BlockLegacyIds::GRASS;
-    }
+	private function canTallGrassStay(ChunkManager $world, int $x, int $y, int $z): bool {
+		$b = $world->getBlockAt($x, $y, $z)->getId();
+		return ($b === BlockLegacyIds::AIR or $b === BlockLegacyIds::SNOW_LAYER) and $world->getBlockAt($x, $y - 1, $z)->getId() === BlockLegacyIds::GRASS;
+	}
 
-    public function setDoubleGrassAllowed(bool $allowed = true): void {
-        $this->allowDoubleGrass = $allowed;
-    }
+	public function setDoubleGrassAllowed(bool $allowed = true): void {
+		$this->allowDoubleGrass = $allowed;
+	}
 }

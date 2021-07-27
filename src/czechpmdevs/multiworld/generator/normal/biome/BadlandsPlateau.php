@@ -18,7 +18,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-
 declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
@@ -29,20 +28,20 @@ use pocketmine\block\VanillaBlocks;
 
 class BadlandsPlateau extends Badlands {
 
-    public function __construct() {
-        parent::__construct();
+	public function __construct() {
+		parent::__construct();
 
-        $deadBush = new PlantPopulator(4, 3);
-        $deadBush->addPlant(new Plant(VanillaBlocks::DEAD_BUSH()));
-        $deadBush->allowBlockToStayAt(VanillaBlocks::HARDENED_CLAY());
+		$deadBush = new PlantPopulator(4, 3);
+		$deadBush->addPlant(new Plant(VanillaBlocks::DEAD_BUSH()));
+		$deadBush->allowBlockToStayAt(VanillaBlocks::HARDENED_CLAY());
 
-        $this->clearPopulators();
-        $this->addPopulators([$deadBush]);
+		$this->clearPopulators();
+		$this->addPopulators([$deadBush]);
 
-        $this->setElevation(84, 87);
-    }
+		$this->setElevation(84, 87);
+	}
 
-    public function getName(): string {
-        return "Mesa Plateau";
-    }
+	public function getName(): string {
+		return "Mesa Plateau";
+	}
 }

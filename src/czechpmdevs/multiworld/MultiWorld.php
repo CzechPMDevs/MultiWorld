@@ -29,9 +29,9 @@ use czechpmdevs\multiworld\generator\nether\NetherGenerator;
 use czechpmdevs\multiworld\generator\normal\NormalGenerator;
 use czechpmdevs\multiworld\generator\skyblock\SkyBlockGenerator;
 use czechpmdevs\multiworld\generator\void\VoidGenerator;
-use czechpmdevs\multiworld\level\gamerules\GameRules;
 use czechpmdevs\multiworld\util\ConfigManager;
 use czechpmdevs\multiworld\util\LanguageManager;
+use czechpmdevs\multiworld\world\gamerules\GameRules;
 use pocketmine\command\Command;
 use pocketmine\plugin\PluginBase;
 use pocketmine\world\generator\GeneratorManager;
@@ -39,69 +39,69 @@ use pocketmine\world\World;
 
 class MultiWorld extends PluginBase {
 
-    /** @var GameRules[] */
-    public static array $gameRules = [];
-    /** @var MultiWorld */
-    private static MultiWorld $instance;
-    /** @var LanguageManager */
-    public LanguageManager $languageManager;
-    /** @var ConfigManager */
-    public ConfigManager $configManager;
+	/** @var GameRules[] */
+	public static array $gameRules = [];
 
-    /** @var Command[] */
-    public array $commands = [];
+	private static MultiWorld $instance;
 
-    public function onLoad(): void {
-        $start = !isset(MultiWorld::$instance);
-        MultiWorld::$instance = $this;
+	public LanguageManager $languageManager;
 
-        if ($start) {
-            $generators = [
-                "ender" => EnderGenerator::class,
-                "void" => VoidGenerator::class,
-                "skyblock" => SkyBlockGenerator::class,
-                "nether" => NetherGenerator::class,
-                "normal_mw" => NormalGenerator::class
-            ];
+	public ConfigManager $configManager;
 
-            foreach ($generators as $name => $class) {
-                GeneratorManager::getInstance()->addGenerator($class, $name, true);
-            }
-        }
-    }
+	/** @var Command[] */
+	public array $commands = [];
 
-    public function onEnable(): void {
-        $this->configManager = new ConfigManager();
-        $this->languageManager = new LanguageManager();
+	public function onLoad(): void {
+		$start = !isset(MultiWorld::$instance);
+		MultiWorld::$instance = $this;
 
-        $this->commands = [
-            "multiworld" => new MultiWorldCommand(),
-            "gamerule" => new GameRuleCommand()
-        ];
+		if ($start) {
+			$generators = [
+				"ender" => EnderGenerator::class,
+				"void" => VoidGenerator::class,
+				"skyblock" => SkyBlockGenerator::class,
+				"nether" => NetherGenerator::class,
+				"normal_mw" => NormalGenerator::class
+			];
 
-        foreach ($this->commands as $command) {
-            $this->getServer()->getCommandMap()->register("MultiWorld", $command);
-        }
+			foreach ($generators as $name => $class) {
+				GeneratorManager::getInstance()->addGenerator($class, $name, true);
+			}
+		}
+	}
 
-        $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
-    }
+	public function onEnable(): void {
+		$this->configManager = new ConfigManager();
+		$this->languageManager = new LanguageManager();
 
-    /**
-     * @internal
-     */
-    static function unloadWorld(World $world): void {
-        unset(MultiWorld::$gameRules[$world->getId()]);
-    }
+		$this->commands = [
+			"multiworld" => new MultiWorldCommand(),
+			"gamerule" => new GameRuleCommand()
+		];
 
-    public static function getGameRules(World $world): GameRules {
-        return MultiWorld::$gameRules[$world->getId()] ?? MultiWorld::$gameRules[$world->getId()] = GameRules::loadFromWorld($world);
-    }
+		foreach ($this->commands as $command) {
+			$this->getServer()->getCommandMap()->register("MultiWorld", $command);
+		}
 
-    public static function getPrefix(): string {
-        return ConfigManager::getPrefix();
-    }
+		$this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
+	}
 
-    public static function getInstance(): MultiWorld {
-        return MultiWorld::$instance;
-    }
+	/**
+	 * @internal
+	 */
+	static function unloadWorld(World $world): void {
+		unset(MultiWorld::$gameRules[$world->getId()]);
+	}
+
+	public static function getGameRules(World $world): GameRules {
+		return MultiWorld::$gameRules[$world->getId()] ?? MultiWorld::$gameRules[$world->getId()] = GameRules::loadFromWorld($world);
+	}
+
+	public static function getPrefix(): string {
+		return ConfigManager::getPrefix();
+	}
+
+	public static function getInstance(): MultiWorld {
+		return MultiWorld::$instance;
+	}
 }

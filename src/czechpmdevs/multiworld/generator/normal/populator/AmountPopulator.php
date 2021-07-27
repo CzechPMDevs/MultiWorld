@@ -24,47 +24,47 @@ namespace czechpmdevs\multiworld\generator\normal\populator;
 
 use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
+use function is_null;
 
 abstract class AmountPopulator extends Populator {
 
-    /** @var int */
-    private int $baseAmount;
-    /** @var int */
-    private int $randomAmount;
-    /** @var int */
-    private int $spawnPercentage = 100;
+	private int $baseAmount;
 
-    public function __construct(int $baseAmount, int $randomAmount, ?int $spawnPercentage = null) {
-        $this->baseAmount = $baseAmount;
-        $this->randomAmount = $randomAmount;
+	private int $randomAmount;
 
-        if (!is_null($spawnPercentage)) {
-            $this->spawnPercentage = $spawnPercentage;
-        }
-    }
+	private int $spawnPercentage = 100;
 
-    public function setBaseAmount(int $baseAmount): void {
-        $this->baseAmount = $baseAmount;
-    }
+	public function __construct(int $baseAmount, int $randomAmount, ?int $spawnPercentage = null) {
+		$this->baseAmount = $baseAmount;
+		$this->randomAmount = $randomAmount;
 
-    public function setRandomAmount(int $randomAmount): void {
-        $this->randomAmount = $randomAmount;
-    }
+		if (!is_null($spawnPercentage)) {
+			$this->spawnPercentage = $spawnPercentage;
+		}
+	}
 
-    public function setSpawnPercentage(int $percentage): void {
-        $this->spawnPercentage = $percentage;
-    }
+	public function setBaseAmount(int $baseAmount): void {
+		$this->baseAmount = $baseAmount;
+	}
 
-    public final function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
-        if ($random->nextRange($this->spawnPercentage, 100) != 100) {
-            return;
-        }
+	public function setRandomAmount(int $randomAmount): void {
+		$this->randomAmount = $randomAmount;
+	}
 
-        $amount = $random->nextBoundedInt($this->randomAmount + 1) + $this->baseAmount;
-        for ($i = 0; $i < $amount; $i++) {
-            $this->populateObject($world, $chunkX, $chunkZ, $random);
-        }
-    }
+	public function setSpawnPercentage(int $percentage): void {
+		$this->spawnPercentage = $percentage;
+	}
 
-    abstract public function populateObject(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void;
+	public final function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
+		if ($random->nextRange($this->spawnPercentage, 100) != 100) {
+			return;
+		}
+
+		$amount = $random->nextBoundedInt($this->randomAmount + 1) + $this->baseAmount;
+		for ($i = 0; $i < $amount; $i++) {
+			$this->populateObject($world, $chunkX, $chunkZ, $random);
+		}
+	}
+
+	abstract public function populateObject(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void;
 }

@@ -22,14 +22,12 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command;
 
-use czechpmdevs\multiworld\level\gamerules\GameRules;
 use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\WorldUtils;
+use czechpmdevs\multiworld\world\gamerules\GameRule;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use pocketmine\network\mcpe\protocol\types\BoolGameRule;
-use pocketmine\network\mcpe\protocol\types\IntGameRule;
 use pocketmine\player\Player;
 use pocketmine\plugin\Plugin;
 use pocketmine\plugin\PluginOwned;
@@ -37,92 +35,82 @@ use function array_combine;
 use function array_key_exists;
 use function array_keys;
 use function array_map;
+use function gettype;
 use function implode;
-use function is_bool;
-use function is_numeric;
+use function json_decode;
 use function strtolower;
 
 class GameRuleCommand extends Command implements PluginOwned {
 
-    public function __construct() {
-        parent::__construct("gamerule", "Edit level gamerules", null, []);
-        $this->setPermission("multiworld.command.gamerule");
-    }
+	public function __construct() {
+		parent::__construct("gamerule", "Edit world gamerules", null, []);
+		$this->setPermission("multiworld.command.gamerule");
+	}
 
-    public function execute(CommandSender $sender, string $commandLabel, array $args) {
-        if (!$this->testPermission($sender)) {
-            return;
-        }
+	public function execute(CommandSender $sender, string $commandLabel, array $args) {
+		if (!$this->testPermission($sender)) {
+			return;
+		}
 
-        if (!isset($args[0])) {
-            $sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
-            return;
-        }
+		if (!isset($args[0])) {
+			$sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
+			return;
+		}
 
-        $gameRules = GameRules::getDefaultGameRules()->getGameRules();
-        if ($args[0] == "list") {
-            $sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-list", [implode(", ", array_keys($gameRules))]));
-            return;
-        }
+		/** @var GameRule[] $gameRules */
+		$gameRules = array_combine(
+			array_map(fn(GameRule $rule) => $rule->getRuleName(), GameRule::getAll()),
+			GameRule::getAll()
+		);
 
-        if ((!isset($args[1])) || (!isset($args[2]) && (!$sender instanceof Player))) {
-            $sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
-            return;
-        }
+		if ($args[0] == "list") {
+			$sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-list", [implode(", ", array_keys($gameRules))]));
+			return;
+		}
 
-        /** @var string[] $gameRulesMap */
-        $gameRulesMap = array_combine(
-            array_map(fn(string $rule) => strtolower($rule), array_keys($gameRules)),
-            array_keys($gameRules)
-        );
+		if ((!isset($args[1])) || ((!isset($args[2]) && (!$sender instanceof Player)))) {
+			$sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
+			return;
+		}
 
-        if (!array_key_exists($args[0] = $gameRulesMap[strtolower($args[0])] ?? "unknownRule", $gameRules)) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-notexists", [$args[0]]));
-            return;
-        }
+		/** @var string[] $gameRulesMap */
+		$gameRulesMap = array_combine(
+			array_map(fn(string $rule) => strtolower($rule), array_keys($gameRules)),
+			array_keys($gameRules)
+		);
 
-        /** @var bool|int|null $value */
-        $value = $args[1] == "true" ? true : (
-            $args[1] == "false" ? false : (
-                is_numeric($args[1]) ? (int)$args[1] : null
-            )
-        );
+		if (!array_key_exists($args[0] = $gameRulesMap[strtolower($args[0])] ?? "unknownRule", $gameRules)) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-notexists", [$args[0]]));
+			return;
+		}
 
-        if ($value === null || GameRules::getPropertyType($value) != GameRules::getPropertyType($gameRules[$args[0]])) {
-            $sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
-            return;
-        }
+		$rule = $gameRules[$args[0]];
+		$value = json_decode($args[1]);
+		if (gettype($rule->getValue()) != gettype($value)) {
+			$sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
+			return;
+		}
 
-        if (isset($args[2])) {
-            $world = WorldUtils::getLoadedWorldByName($args[2]);
-            if ($world === null) {
-                $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-levelnotfound", [$args[2]]));
-                return;
-            }
+		if (isset($args[2])) {
+			$world = WorldUtils::getLoadedWorldByName($args[2]);
+			if ($world === null) {
+				$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-levelnotfound", [$args[2]]));
+				return;
+			}
 
-            if (is_bool($value)) {
-                MultiWorld::getGameRules($world)->setRuleValue($args[1], new BoolGameRule($value, GameRules::$allowPlayersEditGameRulesFromGame));
-            } else {
-                MultiWorld::getGameRules($world)->setRuleValue($args[1], new IntGameRule($value, GameRules::$allowPlayersEditGameRulesFromGame));
-            }
+			MultiWorld::getGameRules($world)->setRule($rule->setValue($value));
+			MultiWorld::getGameRules($world)->applyToWorld($world);
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-done", [$args[0], $world->getDisplayName(), $args[1]]));
+			return;
+		}
 
-            MultiWorld::getGameRules($world)->applyToWorld($world);
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-done", [$args[0], $world->getDisplayName(), $args[1]]));
-            return;
-        }
+		/** @var Player $sender */
+		MultiWorld::getGameRules($sender->getWorld())->setRule($rule->setValue($value));
+		MultiWorld::getGameRules($sender->getWorld())->applyToWorld($sender->getWorld());
+		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-done", [$args[0], $sender->getWorld()->getDisplayName(), $args[1]]));
+	}
 
-        /** @var Player $sender */
-        if (is_bool($value)) {
-            MultiWorld::getGameRules($sender->getWorld())->setRuleValue($args[0], new BoolGameRule($value, GameRules::$allowPlayersEditGameRulesFromGame));
-        } else {
-            MultiWorld::getGameRules($sender->getWorld())->setRuleValue($args[0], new IntGameRule((int)$value, GameRules::$allowPlayersEditGameRulesFromGame));
-        }
-
-        MultiWorld::getGameRules($sender->getWorld())->applyToWorld($sender->getWorld());
-        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-done", [$args[0], $sender->getWorld()->getDisplayName(), $args[1]]));
-    }
-
-    public function getOwningPlugin(): Plugin {
-        return MultiWorld::getInstance();
-    }
+	public function getOwningPlugin(): Plugin {
+		return MultiWorld::getInstance();
+	}
 }

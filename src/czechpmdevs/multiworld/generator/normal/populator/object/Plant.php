@@ -26,13 +26,13 @@ use pocketmine\block\Block;
 
 class Plant {
 
-    /** @var Block[] */
-    public array $blocks = [];
+	/** @var Block[] */
+	public array $blocks = [];
 
-    public function __construct(Block $baseBlock, Block $secondaryBlock = null) {
-        $this->blocks = [$baseBlock];
-        if ($secondaryBlock !== null) {
-            $this->blocks[] = $secondaryBlock;
-        }
-    }
+	public function __construct(Block $baseBlock, Block $secondaryBlock = null) {
+		$this->blocks = [$baseBlock];
+		if ($secondaryBlock !== null) {
+			$this->blocks[] = $secondaryBlock;
+		}
+	}
 }

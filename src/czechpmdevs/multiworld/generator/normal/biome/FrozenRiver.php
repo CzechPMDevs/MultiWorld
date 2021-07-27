@@ -27,17 +27,17 @@ use pocketmine\block\VanillaBlocks;
 
 class FrozenRiver extends Biome {
 
-    public function __construct() {
-        parent::__construct(0.5, 0.5);
-        $this->setGroundCover([
-            VanillaBlocks::SAND(),
-            VanillaBlocks::SAND()
-        ]);
+	public function __construct() {
+		parent::__construct(0.5, 0.5);
+		$this->setGroundCover([
+			VanillaBlocks::SAND(),
+			VanillaBlocks::SAND()
+		]);
 
-        $this->setElevation(54, 57);
-    }
+		$this->setElevation(54, 57);
+	}
 
-    public function getName(): string {
-        return "Frozen River";
-    }
+	public function getName(): string {
+		return "Frozen River";
+	}
 }
