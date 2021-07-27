@@ -37,7 +37,7 @@ class LakePopulator extends Populator {
 		}
 
 		$this->getSpawnPosition($world->getChunk($chunkX, $chunkZ), $random, $x, $y, $z);
-		$pos = new Vector3($x, $y, $z);
+		$pos = new Vector3($chunkX * 16 + $x, $y, $chunkZ * 16 + $z);
 
 		$blocks = [];
 

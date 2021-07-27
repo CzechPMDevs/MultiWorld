@@ -22,12 +22,11 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal;
 
+use czechpmdevs\multiworld\generator\normal\biome\types\Biome;
 use czechpmdevs\multiworld\generator\normal\populator\impl\CarvePopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\GroundCoverPopulator;
 use pocketmine\block\VanillaBlocks;
-use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
-use pocketmine\world\biome\Biome;
 use pocketmine\world\ChunkManager;
 use pocketmine\world\format\Chunk;
 use pocketmine\world\generator\Gaussian;
@@ -149,7 +148,7 @@ class NormalGenerator extends Generator {
 
 					if($noiseValue > 0){
 						$chunk->setFullBlock($x, $y, $z, $stone);
-					}elseif($y <= 64){
+					}elseif($y <= 60){
 						$chunk->setFullBlock($x, $y, $z, $stillWater);
 					}
 				}
@@ -186,10 +185,7 @@ class NormalGenerator extends Generator {
 
 		/** @phpstan-var Chunk $chunk */
 		$chunk = $world->getChunk($chunkX, $chunkZ);
-		BiomeFactory::getInstance()->getBiome($chunk->getBiomeId(7, 7))->populateChunk($world, $chunkX, $chunkZ, $this->random);
-	}
-
-	public function getSpawn(): Vector3 {
-		return new Vector3(127.5, 128, 127.5);
+		$biome = BiomeFactory::getInstance()->getBiome($chunk->getBiomeId(7, 7));
+		$biome->populateChunk($world, $chunkX, $chunkZ, $this->random);
 	}
 }

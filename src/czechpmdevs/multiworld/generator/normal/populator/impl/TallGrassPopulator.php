@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\populator\impl;
 
 use czechpmdevs\multiworld\generator\normal\populator\AmountPopulator;
-use pocketmine\block\BlockLegacyIds;
 use pocketmine\block\VanillaBlocks;
 use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
@@ -33,20 +32,16 @@ class TallGrassPopulator extends AmountPopulator {
 	private bool $allowDoubleGrass = true;
 
 	public function populateObject(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
-		$this->getSpawnPosition($world->getChunk($chunkX, $chunkZ), $random, $x, $y, $z);
-
-		if ($y !== -1 and $this->canTallGrassStay($world, $x, $y, $z)) {
-			if($this->allowDoubleGrass && $random->nextBoundedInt(5) == 0) {
-				$world->setBlockAt($x, $y, $z, VanillaBlocks::DOUBLE_TALLGRASS());
-				return;
-			}
-			$world->setBlockAt($x, $y, $z, VanillaBlocks::TALL_GRASS());
+		if(!$this->getSpawnPositionOn($world->getChunk($chunkX, $chunkZ), $random, [VanillaBlocks::GRASS()], $x, $y, $z)) {
+			return;
 		}
-	}
 
-	private function canTallGrassStay(ChunkManager $world, int $x, int $y, int $z): bool {
-		$b = $world->getBlockAt($x, $y, $z)->getId();
-		return ($b === BlockLegacyIds::AIR or $b === BlockLegacyIds::SNOW_LAYER) and $world->getBlockAt($x, $y - 1, $z)->getId() === BlockLegacyIds::GRASS;
+		if($this->allowDoubleGrass && $random->nextBoundedInt(5) == 0) {
+			$world->setBlockAt($chunkX * 16 + $x, $y, $chunkZ * 16 + $z, VanillaBlocks::DOUBLE_TALLGRASS());
+			return;
+		}
+
+		$world->setBlockAt($chunkX * 16 + $x, $y, $chunkZ * 16 + $z, VanillaBlocks::TALL_GRASS());
 	}
 
 	public function setDoubleGrassAllowed(bool $allowed = true): void {

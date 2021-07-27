@@ -22,9 +22,9 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal;
 
+use czechpmdevs\multiworld\generator\normal\biome\types\Biome;
 use czechpmdevs\multiworld\world\data\BiomeIds;
 use pocketmine\utils\Random;
-use pocketmine\world\biome\Biome;
 use pocketmine\world\generator\noise\Simplex;
 use function abs;
 

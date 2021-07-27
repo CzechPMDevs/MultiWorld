@@ -24,39 +24,31 @@ namespace czechpmdevs\multiworld\generator\normal\populator\impl;
 
 use czechpmdevs\multiworld\generator\normal\populator\AmountPopulator;
 use pocketmine\block\VanillaBlocks;
-use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
 
 class CactusPopulator extends AmountPopulator {
 
 	public function populateObject(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
-		$this->getSpawnPosition($world->getChunk($chunkX, $chunkZ), $random, $x, $y, $z);
-
-		if ($y !== -1 && $this->canCactusStay($world, new Vector3($x, $y, $z))) {
-			for ($aY = 0; $aY < $random->nextRange(0, 3); $aY++) {
-				$world->setBlockAt($x, $y + $aY, $z, VanillaBlocks::CACTUS());
-			}
+		if(!$this->getSpawnPositionOn($world->getChunk($chunkX, $chunkZ), $random, [VanillaBlocks::SAND(), VanillaBlocks::RED_SAND()], $x, $y, $z)) {
+			return;
 		}
-	}
 
-	private function canCactusStay(ChunkManager $world, Vector3 $pos): bool {
-		/** @phpstan-ignore-next-line */
-		$block = $world->getBlockAt($pos->getX(), $pos->getY(), $pos->getZ());
-		if (
-			/** @phpstan-ignore-next-line */
-			!$world->getBlockAt($pos->getX() + 1, $pos->getY(), $pos->getZ())->isSameType(VanillaBlocks::AIR()) ||
-			/** @phpstan-ignore-next-line */
-			!$world->getBlockAt($pos->getX() - 1, $pos->getY(), $pos->getZ())->isSameType(VanillaBlocks::AIR()) ||
-			/** @phpstan-ignore-next-line */
-			!$world->getBlockAt($pos->getX(), $pos->getY(), $pos->getZ() + 1)->isSameType(VanillaBlocks::AIR()) ||
-			/** @phpstan-ignore-next-line */
-			!$world->getBlockAt($pos->getX(), $pos->getY(), $pos->getZ() - 1)->isSameType(VanillaBlocks::AIR())
+		$x += $chunkX * 16;
+		$z += $chunkZ * 16;
+
+		if(
+			!$world->getBlockAt($x + 1, $y, $z)->isSameType(VanillaBlocks::AIR()) ||
+			!$world->getBlockAt($x, $y, $z + 1)->isSameType(VanillaBlocks::AIR()) ||
+			!$world->getBlockAt($x - 1, $y, $z)->isSameType(VanillaBlocks::AIR()) ||
+			!$world->getBlockAt($x, $y, $z - 1)->isSameType(VanillaBlocks::AIR())
 		) {
-			return false;
+			return;
 		}
 
-		/** @phpstan-ignore-next-line */
-		return ($block->isSameType($block)) && $world->getBlockAt($pos->getX(), $pos->getY() - 1, $pos->getZ())->isSameType(VanillaBlocks::SAND());
+		$size = $random->nextBoundedInt(4);
+		for($i = 0; $i < $size; ++$i) {
+			$world->setBlockAt($x, $y + $i, $z, VanillaBlocks::CACTUS());
+		}
 	}
 }

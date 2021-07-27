@@ -53,9 +53,9 @@ use czechpmdevs\multiworld\generator\normal\biome\Swampland;
 use czechpmdevs\multiworld\generator\normal\biome\Taiga;
 use czechpmdevs\multiworld\generator\normal\biome\TaigaHills;
 use czechpmdevs\multiworld\generator\normal\biome\TallBirchForest;
+use czechpmdevs\multiworld\generator\normal\biome\types\Biome;
 use czechpmdevs\multiworld\world\data\BiomeIds;
 use InvalidStateException;
-use pocketmine\world\biome\Biome;
 use function array_key_exists;
 
 class BiomeFactory implements BiomeIds {

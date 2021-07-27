@@ -24,11 +24,10 @@ namespace czechpmdevs\multiworld\generator\normal\populator\impl;
 
 use czechpmdevs\multiworld\generator\normal\object\Tree;
 use czechpmdevs\multiworld\generator\normal\populator\AmountPopulator;
-use pocketmine\block\BlockLegacyIds;
 use pocketmine\block\utils\TreeType;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
-use function in_array;
 
 class TreePopulator extends AmountPopulator {
 
@@ -47,15 +46,10 @@ class TreePopulator extends AmountPopulator {
 	}
 
 	public function populateObject(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
-		$this->getSpawnPosition($world->getChunk($chunkX, $chunkZ), $random, $x, $y, $z);
-		if ($y === -1) {
+		if (!$this->getSpawnPositionOn($world->getChunk($chunkX, $chunkZ), $random, [VanillaBlocks::GRASS(), VanillaBlocks::MYCELIUM()], $x, $y, $z)) {
 			return;
 		}
 
-		if (!in_array($world->getBlockAt($x, $y - 1, $z)->getId(), [BlockLegacyIds::GRASS, BlockLegacyIds::MYCELIUM], true)) {
-			return;
-		}
-
-		Tree::growTree($world, $x, $y, $z, $random, $this->treeType, $this->vines, $this->high);
+		Tree::growTree($world, $chunkX * 16 + $x, $y, $chunkZ * 16 + $z, $random, $this->treeType, $this->vines, $this->high);
 	}
 }
