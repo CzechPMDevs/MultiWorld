@@ -23,8 +23,8 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
 use czechpmdevs\multiworld\generator\normal\biome\types\Biome;
+use czechpmdevs\multiworld\generator\normal\populator\impl\plant\Plant;
 use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
-use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
 use pocketmine\block\VanillaBlocks;
 
 class MushroomIsland extends Biome {
@@ -40,9 +40,8 @@ class MushroomIsland extends Biome {
 		]);
 
 		$mushrooms = new PlantPopulator(2, 2, 95);
-		$mushrooms->addPlant(new Plant(VanillaBlocks::RED_MUSHROOM()));
-		$mushrooms->addPlant(new Plant(VanillaBlocks::BROWN_MUSHROOM()));
-		$mushrooms->allowBlockToStayAt(VanillaBlocks::MYCELIUM());
+		$mushrooms->addPlant(new Plant(VanillaBlocks::RED_MUSHROOM(), [VanillaBlocks::MYCELIUM()]));
+		$mushrooms->addPlant(new Plant(VanillaBlocks::BROWN_MUSHROOM(), [VanillaBlocks::MYCELIUM()]));
 
 //        $this->addPopulators([$mushrooms, new TreePopulator(1, 1, 100, Tree::MUSHROOM)]); // TODO
 

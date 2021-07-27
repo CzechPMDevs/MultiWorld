@@ -40,19 +40,19 @@ class IntGameRule extends GameRule {
 	}
 
 	/**
-     * @param int $value
+	 * @param int $value
 	 * @return $this
 	 */
 	public function setValue(bool|int|float $value): IntGameRule {
-		$this->value = (int)$value;
+		$this->value = (int) $value;
 		return $this;
 	}
 
 	public function getValue(): int {
-		return (int)$this->value;
+		return (int) $this->value;
 	}
 
 	public function encode(PacketSerializer $out): void {
-		$out->putUnsignedVarInt($this->value);
+		$out->putUnsignedVarInt($this->getValue());
 	}
 }

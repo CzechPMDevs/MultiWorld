@@ -22,8 +22,8 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
+use czechpmdevs\multiworld\generator\normal\populator\impl\plant\Plant;
 use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
-use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
 use pocketmine\block\VanillaBlocks;
 
 class BadlandsPlateau extends Badlands {
@@ -32,8 +32,7 @@ class BadlandsPlateau extends Badlands {
 		parent::__construct();
 
 		$deadBush = new PlantPopulator(4, 3);
-		$deadBush->addPlant(new Plant(VanillaBlocks::DEAD_BUSH()));
-		$deadBush->allowBlockToStayAt(VanillaBlocks::HARDENED_CLAY());
+		$deadBush->addPlant(new Plant(VanillaBlocks::DEAD_BUSH(), [VanillaBlocks::HARDENED_CLAY()]));
 
 		$this->clearPopulators();
 		$this->addPopulators([$deadBush]);

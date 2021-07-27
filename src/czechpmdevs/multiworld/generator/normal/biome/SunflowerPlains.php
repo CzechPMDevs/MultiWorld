@@ -22,8 +22,8 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
+use czechpmdevs\multiworld\generator\normal\populator\impl\plant\Plant;
 use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
-use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
 use pocketmine\block\VanillaBlocks;
 
 class SunflowerPlains extends Plains {

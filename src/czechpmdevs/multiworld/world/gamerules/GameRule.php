@@ -122,13 +122,13 @@ abstract class GameRule extends \pocketmine\network\mcpe\protocol\types\GameRule
 	 * @return $this
 	 */
 	public function setValue(bool|int|float $value): GameRule {
-	    $this->value = $value;
-	    return $this;
-    }
+		$this->value = $value;
+		return $this;
+	}
 
 	public function getValue(): bool|int|float {
-	    return $this->value;
-    }
+		return $this->value;
+	}
 
 	public function isPlayerModifiable(): bool {
 		return true;

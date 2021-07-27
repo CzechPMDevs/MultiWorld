@@ -36,7 +36,7 @@ class LakePopulator extends Populator {
 			return;
 		}
 
-		$this->getRandomSpawnPosition($world, $chunkX, $chunkZ, $random, $x, $y, $z);
+		$this->getSpawnPosition($world->getChunk($chunkX, $chunkZ), $random, $x, $y, $z);
 		$pos = new Vector3($x, $y, $z);
 
 		$blocks = [];

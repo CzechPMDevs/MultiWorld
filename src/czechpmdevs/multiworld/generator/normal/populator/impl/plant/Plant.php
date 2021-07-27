@@ -20,19 +20,33 @@
 
 declare(strict_types=1);
 
-namespace czechpmdevs\multiworld\generator\normal\populator\object;
+namespace czechpmdevs\multiworld\generator\normal\populator\impl\plant;
 
 use pocketmine\block\Block;
+use pocketmine\block\VanillaBlocks;
 
 class Plant {
 
-	/** @var Block[] */
-	public array $blocks = [];
-
-	public function __construct(Block $baseBlock, Block $secondaryBlock = null) {
-		$this->blocks = [$baseBlock];
-		if ($secondaryBlock !== null) {
-			$this->blocks[] = $secondaryBlock;
+	/**
+	 * @param Block[] $allowedUnderground If empty, Grass will be used as a default option
+	 */
+	public function __construct(
+		private Block $block,
+		private array $allowedUnderground = []
+	) {
+		if(empty($this->allowedUnderground)) {
+			$this->allowedUnderground = [VanillaBlocks::GRASS()];
 		}
+	}
+
+	public function getBlock(): Block {
+		return $this->block;
+	}
+
+	/**
+	 * @return Block[]
+	 */
+	public function getAllowedUnderground(): array {
+		return $this->allowedUnderground;
 	}
 }

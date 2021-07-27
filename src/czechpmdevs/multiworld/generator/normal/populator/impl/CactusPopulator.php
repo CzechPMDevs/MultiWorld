@@ -31,7 +31,7 @@ use pocketmine\world\ChunkManager;
 class CactusPopulator extends AmountPopulator {
 
 	public function populateObject(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
-		$this->getRandomSpawnPosition($world, $chunkX, $chunkZ, $random, $x, $y, $z);
+		$this->getSpawnPosition($world->getChunk($chunkX, $chunkZ), $random, $x, $y, $z);
 
 		if ($y !== -1 && $this->canCactusStay($world, new Vector3($x, $y, $z))) {
 			for ($aY = 0; $aY < $random->nextRange(0, 3); $aY++) {

@@ -23,10 +23,10 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\biome;
 
 use czechpmdevs\multiworld\generator\normal\biome\types\GrassyBiome;
+use czechpmdevs\multiworld\generator\normal\populator\impl\plant\Plant;
 use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TallGrassPopulator;
 use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
-use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
 use pocketmine\block\utils\TreeType;
 use pocketmine\block\VanillaBlocks;
 

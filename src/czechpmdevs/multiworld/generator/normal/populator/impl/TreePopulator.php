@@ -47,7 +47,7 @@ class TreePopulator extends AmountPopulator {
 	}
 
 	public function populateObject(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
-		$this->getRandomSpawnPosition($world, $chunkX, $chunkZ, $random, $x, $y, $z);
+		$this->getSpawnPosition($world->getChunk($chunkX, $chunkZ), $random, $x, $y, $z);
 		if ($y === -1) {
 			return;
 		}

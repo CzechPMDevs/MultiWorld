@@ -25,6 +25,7 @@ namespace czechpmdevs\multiworld\generator\normal\biome;
 use czechpmdevs\multiworld\generator\nether\populator\Ore;
 use czechpmdevs\multiworld\generator\normal\biome\types\CoveredBiome;
 use czechpmdevs\multiworld\generator\normal\populator\impl\CactusPopulator;
+use czechpmdevs\multiworld\generator\normal\populator\impl\plant\Plant;
 use czechpmdevs\multiworld\generator\normal\populator\impl\PlantPopulator;
 use pocketmine\block\utils\DyeColor;
 use pocketmine\block\VanillaBlocks;
@@ -55,7 +56,7 @@ class Badlands extends CoveredBiome {
 		$cactus = new CactusPopulator(3, 2);
 
 		$deadBush = new PlantPopulator(3, 2);
-		$deadBush->allowBlockToStayAt(VanillaBlocks::STAINED_CLAY());
+		$deadBush->addPlant(new Plant(VanillaBlocks::DEAD_BUSH(), [VanillaBlocks::STAINED_CLAY()]));
 
 		$ore = new Ore();
 		$ore->setOreTypes([new OreType(VanillaBlocks::GOLD_ORE(), VanillaBlocks::STONE(), 12, 0, 0, 128)]);

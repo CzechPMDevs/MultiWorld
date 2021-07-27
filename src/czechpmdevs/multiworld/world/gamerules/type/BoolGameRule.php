@@ -40,16 +40,15 @@ class BoolGameRule extends GameRule {
 	}
 
 	/**
-     * @param bool $value
 	 * @return $this
 	 */
 	public function setValue(bool|float|int $value): BoolGameRule {
-		$this->value = (bool)$value;
+		$this->value = (bool) $value;
 		return $this;
 	}
 
 	public function getValue(): bool {
-		return (bool)$this->value;
+		return (bool) $this->value;
 	}
 
 	public function encode(PacketSerializer $out): void {

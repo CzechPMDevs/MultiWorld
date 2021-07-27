@@ -23,10 +23,7 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\populator\impl;
 
 use czechpmdevs\multiworld\generator\normal\populator\AmountPopulator;
-use czechpmdevs\multiworld\generator\normal\populator\object\Plant;
-use pocketmine\block\Block;
-use pocketmine\block\VanillaBlocks;
-use pocketmine\math\Facing;
+use czechpmdevs\multiworld\generator\normal\populator\impl\plant\Plant;
 use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
 use function count;
@@ -35,15 +32,9 @@ class PlantPopulator extends AmountPopulator {
 
 	/** @var Plant[] */
 	private array $plants = [];
-	/** @var Block[] */
-	private array $allowedBlocks = [];
 
 	public function addPlant(Plant $plant): void {
 		$this->plants[] = $plant;
-	}
-
-	public function allowBlockToStayAt(Block $block): void {
-		$this->allowedBlocks[] = $block;
 	}
 
 	public function populateObject(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
@@ -51,37 +42,9 @@ class PlantPopulator extends AmountPopulator {
 			return;
 		}
 
-		$this->getRandomSpawnPosition($world, $chunkX, $chunkZ, $random, $x, $y, $z);
-
-		if ($y !== -1 and $this->canPlantStay($world, $x, $y, $z)) {
-			$plant = $random->nextRange(0, count($this->plants) - 1);
-			$pY = $y;
-			foreach ($this->plants[$plant]->blocks as $block) {
-				$world->setBlockAt($x, $pY, $z, $block);
-				$pY++;
-			}
+		$plant = $this->plants[$random->nextBoundedInt(count($this->plants))];
+		if($this->getSpawnPositionOn($world->getChunk($chunkX, $chunkZ), $random, $plant->getAllowedUnderground(), $x, $y, $z)) {
+			$world->setBlockAt($chunkX * 16 + $x, $y, $chunkZ * 16 + $z, $plant->getBlock());
 		}
-	}
-
-	private function canPlantStay(ChunkManager $world, int $x, int $y, int $z): bool {
-		$block = $world->getBlockAt($x, $y, $z);
-		if(
-			$block->isSameType(VanillaBlocks::AIR()) or
-			$block->isSameType(VanillaBlocks::SNOW_LAYER()) or
-			$block->isSameType(VanillaBlocks::WATER())
-		) {
-			$block = $block->getSide(Facing::DOWN);
-			if($block->isSameType(VanillaBlocks::GRASS())) {
-				return true;
-			}
-
-			foreach($this->allowedBlocks as $allowed) {
-				if($block->isSameType($allowed)) {
-					return true;
-				}
-			}
-		}
-
-		return false;
 	}
 }
