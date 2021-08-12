@@ -26,6 +26,7 @@ use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
+use pocketmine\world\format\io\exception\UnsupportedWorldFormatException;
 
 class LoadSubCommand implements SubCommand {
 
@@ -45,7 +46,7 @@ class LoadSubCommand implements SubCommand {
 			return;
 		}
 
-		Server::getInstance()->getWorldManager()->loadWorld($args[0]);
+		Server::getInstance()->getWorldManager()->loadWorld($args[0], true);
 		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "load-done"));
 	}
 }

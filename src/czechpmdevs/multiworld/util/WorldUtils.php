@@ -170,7 +170,7 @@ class WorldUtils {
 	 * If it has already been loaded before calling this function, returns FALSE!
 	 */
 	public static function lazyLoadWorld(string $name): bool {
-		return !Server::getInstance()->getWorldManager()->isWorldLoaded($name) && Server::getInstance()->getWorldManager()->loadWorld($name);
+		return !Server::getInstance()->getWorldManager()->isWorldLoaded($name) && Server::getInstance()->getWorldManager()->loadWorld($name, true);
 	}
 
 	/**
