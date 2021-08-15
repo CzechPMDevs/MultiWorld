@@ -22,9 +22,9 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\world\gamerules;
 
-use _HumbugBoxfd814575fcc2\Nette\InvalidStateException;
 use czechpmdevs\multiworld\world\gamerules\type\BoolGameRule;
 use czechpmdevs\multiworld\world\gamerules\type\IntGameRule;
+use InvalidStateException;
 use pocketmine\utils\EnumTrait;
 
 /**

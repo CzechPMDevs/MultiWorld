@@ -26,7 +26,6 @@ use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
-use pocketmine\world\format\io\exception\UnsupportedWorldFormatException;
 
 class LoadSubCommand implements SubCommand {
 

@@ -12,5 +12,7 @@ projects:
       libpmform:
         src: CzechPMDevs/libpmform/libpmform
         version: ^1.0.1
+    lint:
+      phpstan: false
 
 ...
