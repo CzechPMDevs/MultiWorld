@@ -22,7 +22,6 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld;
 
-use czechpmdevs\libautoupdate\AutoUpdater;
 use czechpmdevs\multiworld\command\GameRuleCommand;
 use czechpmdevs\multiworld\command\MultiWorldCommand;
 use czechpmdevs\multiworld\generator\ender\EnderGenerator;
@@ -33,8 +32,6 @@ use czechpmdevs\multiworld\generator\void\VoidGenerator;
 use czechpmdevs\multiworld\level\gamerules\GameRules;
 use czechpmdevs\multiworld\util\ConfigManager;
 use czechpmdevs\multiworld\util\LanguageManager;
-use czechpmdevs\multiworld\util\Utils;
-use InvalidStateException;
 use pocketmine\command\Command;
 use pocketmine\level\generator\GeneratorManager;
 use pocketmine\level\Level;
