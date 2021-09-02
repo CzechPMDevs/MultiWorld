@@ -1,6 +1,6 @@
 {
   "name": "czechpmdevs/multiworld",
-  "description": "Advanced WorldEdit plugin for PocketMine servers",
+  "description": "An advanced world management PocketMine plugin with custom world generators.",
   "minimum-stability": "dev",
   "license": "Apache-2.0",
   "require": {

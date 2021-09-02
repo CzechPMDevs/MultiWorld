@@ -26,9 +26,11 @@ use InvalidStateException;
 use pocketmine\level\format\io\BaseLevelProvider;
 use pocketmine\level\Level;
 use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\NamedTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\network\mcpe\protocol\GameRulesChangedPacket;
 use pocketmine\Player;
+use function array_filter;
 use function array_key_exists;
 use function array_map;
 use function count;
@@ -190,16 +192,16 @@ final class GameRules {
      * Unserializes GameRules from World Provider
      */
     public static function unserializeGameRules(CompoundTag $nbt): GameRules {
-        return new GameRules(array_map(function (StringTag $stringTag) {
-            if ($stringTag->getValue() == "true") {
+        return new GameRules(array_map(function (NamedTag $tag) {
+            if ($tag->getValue() == "true") {
                 return true;
             }
-            if ($stringTag->getValue() == "false") {
+            if ($tag->getValue() == "false") {
                 return false;
             }
 
-            return (int)$stringTag->getValue();
-        }, $nbt->getValue()));
+            return (int)$tag->getValue();
+        }, array_filter($nbt->getValue(), fn(NamedTag $tag) => $tag instanceof StringTag))); // There are some programs whose saving those incorrect. Although it makes more sense than Mojang's way, it won't be supported.
     }
 
     public static function saveForLevel(Level $level, GameRules $gameRules): bool {
