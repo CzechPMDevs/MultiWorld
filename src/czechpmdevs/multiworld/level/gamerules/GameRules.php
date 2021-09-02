@@ -192,15 +192,15 @@ final class GameRules {
      * Unserializes GameRules from World Provider
      */
     public static function unserializeGameRules(CompoundTag $nbt): GameRules {
-        return new GameRules(array_map(function (NamedTag $tag) {
-            if ($tag->getValue() == "true") {
+        return new GameRules(array_map(function (StringTag $stringTag) {
+            if ($stringTag->getValue() == "true") {
                 return true;
             }
-            if ($tag->getValue() == "false") {
+            if ($stringTag->getValue() == "false") {
                 return false;
             }
 
-            return (int)$tag->getValue();
+            return (int)$stringTag->getValue();
         }, array_filter($nbt->getValue(), fn(NamedTag $tag) => $tag instanceof StringTag))); // There are some programs whose saving those incorrect. Although it makes more sense than Mojang's way, it won't be supported.
     }
 
