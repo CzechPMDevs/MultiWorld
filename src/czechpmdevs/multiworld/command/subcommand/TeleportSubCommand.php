@@ -51,7 +51,7 @@ class TeleportSubCommand implements SubCommand {
 					return;
 				}
 
-				$sender->teleport($world->getSafeSpawn());
+				$sender->teleport($world->getSpawnLocation());
 				$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "teleport-done-1", [$world->getDisplayName()]));
 				return;
 			}
@@ -68,7 +68,7 @@ class TeleportSubCommand implements SubCommand {
 			$sender->sendMessage(LanguageManager::translateMessage($sender, "teleport-done-2", [$world->getDisplayName(), $player->getName()]));
 			return;
 		} catch (Exception $exception) {
-			$sender->sendMessage("An error occurred while teleporting player between worlds: " . $exception->getMessage() . " (at line: " . $exception->getLine() . " , file: " . $exception->getFile() . ")");
+			$sender->sendMessage("§cAn error occurred while teleporting player between worlds: " . $exception->getMessage() . " (at line: " . $exception->getLine() . " , file: " . $exception->getFile() . ")");
 		}
 	}
 }
