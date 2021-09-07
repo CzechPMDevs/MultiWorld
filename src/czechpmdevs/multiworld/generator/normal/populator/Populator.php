@@ -28,7 +28,7 @@ use pocketmine\world\format\Chunk;
 use function array_map;
 use function in_array;
 
-abstract class Populator extends \pocketmine\world\generator\populator\Populator {
+abstract class Populator implements \pocketmine\world\generator\populator\Populator {
 
 	protected function getSpawnPosition(?Chunk $chunk, Random $random, ?int &$x = null, ?int &$y = null, ?int &$z = null): bool {
 		if($chunk === null) {

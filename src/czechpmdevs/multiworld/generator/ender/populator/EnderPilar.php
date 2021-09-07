@@ -34,7 +34,7 @@ use function mt_rand;
 use function pi;
 use function sin;
 
-class EnderPilar extends Populator {
+class EnderPilar implements Populator {
 
 	private ChunkManager $world;
 

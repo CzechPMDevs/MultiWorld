@@ -1,6 +1,6 @@
 {
   "name": "czechpmdevs/multiworld",
-  "description": "World management plugin for PocketMine servers",
+  "description": "An advanced world management PocketMine plugin with custom world generators.",
   "minimum-stability": "dev",
   "license": "Apache-2.0",
   "require": {
@@ -9,11 +9,10 @@
     "ext-pthreads": "*",
     "ext-json": "*",
     "czechpmdevs/libpmform": "dev-feature/4.0.0",
-    "pocketmine/pocketmine-mp": "dev-master"
+    "pocketmine/pocketmine-mp": "4.0.0-beta1"
   },
   "require-dev": {
-    "phpstan/phpstan": "0.12.93",
-    "friendsofphp/php-cs-fixer": "v2.19.0"
+    "phpstan/phpstan": "0.12.98"
   },
   "repositories": [
     {

@@ -1,4 +1,3 @@
-
 <a align="center"><img src="https://image.ibb.co/gPs5Se/Multi_World.png"></a>
 
 <p align="center">
@@ -22,15 +21,13 @@
     <br>
     ✔️ Simple world management commands
     <br>
-    ✔️New generators (Ender, Nether, Void, SkyBlock)
+    ✔️ New generators (Ender, Nether, Void, SkyBlock)
     <br>
     ✔️Custom world generator
     <br>
-    ✔️ Fast, without lags
-    <br>
     ✔️ Supports last PocketMine API version
     <br>
-    ✔️ Multi language sytem
+    ✔️ Multi-language system
     <br>
     ✔️ Implemented Game Rules
     <br>
@@ -161,36 +158,7 @@
 <img src="https://i.ibb.co/DDVM4zM/image.png">
 
 
-##  🗺️ World Management API
-
-- World management api was added in MultiWorld v1.5.0, you can download stubs on [release page](), there are all WorldManagementAPI methods
-
-**Examples:**
-
-```php
-/**  
- * @param string $levelName  
- *
- * @return bool  
- */
- public function reloadWorld(string $levelName): bool {  
-   if(!WorldManagementAPI::isLevelGenerated($levelName)) {  
-     return false;  
-   }
-
-   if(!WorldManagementAPI::isLevelLoaded($levelName)) {  
-     WorldManagementAPI::loadLevel($levelName);  
-   }
-
-   WorldManagementAPI::removeLevel($levelName);  
-   WorldManagementAPI::generateLevel($levelName, rand(0, 100), WorldManagementAPI::GENERATOR_SKYBLOCK);  
-   return true;  
-}
-```
-
-
 ## 🖊️  World Game Rules API
-
 
 - The World game rules API was added in MultiWorld v1.5.0, you can download stubs on [release page](), there are all WorldGameRulesAPI methods
 
@@ -206,35 +174,23 @@ declare(strict_types=1);
   
 namespace xyz;  
   
-use multiworld\api\WorldGameRulesAPI;  
+use czechpmdevs\multiworld\MultiWorld;  
+use czechpmdevs\multiworld\world\gamerules\GameRule;
 use pocketmine\command\Command;  
 use pocketmine\command\CommandSender;  
-use pocketmine\event\level\LevelLoadEvent;  
+use pocketmine\event\world\WorldLoadEvent;  
 use pocketmine\event\Listener;  
 use pocketmine\plugin\PluginBase;  
   
-/**  
- * Class XYZPlugin
- * @package xyz  
- */
 class XYZPlugin extends PluginBase implements Listener {
  
-  /** @var bool $enabled */  
-  private $enabled = false;  
+  private bool $enabled = false;  
   
   public function onEnable() {  
     $this->getServer()->getPluginManager()->registerEvents($this, $this);  
     $this->update();  
   }
     
-  /**  
-    * @param CommandSender $sender  
-    * @param Command $command  
-    * @param string $label  
-    * @param array $args
-    *   
-    * @return bool  
-    */
    public function onCommand(CommandSender $sender, Command $command, string $label, array $args): bool {
      if($command->getName() !== "xyz") {
        return false;
@@ -246,21 +202,17 @@ class XYZPlugin extends PluginBase implements Listener {
      return true;
    }  
    
- /**  
-   * @param LevelLoadEvent $event  
-   */
-  public function onLevelLoad(LevelLoadEvent $event) {
-    WorldGameRulesAPI::updateLevelGameRule($event->getLevel(), "showcoordinates", $this->enabled);  
+  public function onLevelLoad(WorldLoadEvent $event): void {
+    MultiWorld::getGameRules($event->getWorld())->setRule(GameRule::SHOW_COORDINATES()->setValue(true));
   }
   
-  private function update() {
+  private function update(): void {
     foreach ($this->getServer()->getLevels() as $level) {  
-      WorldGameRulesAPI::updateLevelGameRule($level, "showcoordinates", $this->enabled);  
+      MultiWorld::getGameRules($event->getWorld())->setRule(GameRule::SHOW_COORDINATES()->setValue(true));
     }
   }
-}  
+}
 ```
-
 
 ## 🌐Add your language!
 
@@ -285,7 +237,7 @@ class XYZPlugin extends PluginBase implements Listener {
 
 ```
 MultiWorld - PocketMine plugin that manages worlds.
-Copyright (C) 2018 CzechPMDevs
+Copyright (C) 2018 - 2021 CzechPMDevs
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
