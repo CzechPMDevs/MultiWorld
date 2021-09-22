@@ -94,7 +94,7 @@ rename-done: '§aEl nombre del nivel {%0} se ha cambiado a {%1}.'
 duplicate-usage: '§cUsa: §7/mw duplicate <mundo> [nuevoNombre]'
 duplicate-exists: '§cEl mundo con el nombre {%0} ya existe.'
 duplicate-levelnotfound: '§cEl mundo {%0} no existe.'
-duplicate-done: 'El mundo {%0} fue duplicado con el nombre de {%1}'
+duplicate-done: '§aEl mundo {%0} fue duplicado con el nombre de {%1}'
 
 # Forms
 forms-invalid: '§cResultado inválido.'
