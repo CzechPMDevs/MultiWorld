@@ -1,6 +1,6 @@
 ---
-### Portuguese language file made by @LewBr (http://twitter.com/lew_br).
-### Traduções ao Português feito por Leonardo S. William (LewBr)
+### Portuguese language file made by @LewBr (http://twitter.com/lew_br) && @JuqnDev (https://twitter.com/____Juqn____).
+### Traduções ao Português feito por Leonardo S. William (LewBr) e Juan E. (JuqnDev)
 
 ## Commands:
 not-perms: '§cVocê não tem permissão para usar este comando'
@@ -11,8 +11,8 @@ help: '§2--- Mostrando a página de ajuda do MultiWorld {%0} de {%1} (/mw help 
 help-1: '§2/mw create §fCrie um mundo'
 help-2: '§2/mw teleport §fTeleporte para um mundo'
 help-3: '§2/mw list §f Exibe uma lista de todos os mundos'
-help-4: '§2/mw load §fLoads a world'
-help-5: '§2/mw unload §fUnloads a world'
+help-4: '§2/mw load §fCarregue um mundo'
+help-5: '§2/mw unload §fDescarregar um mundo'
 
 help-6: '§2/mw delete §fRemover um mundo'
 help-7: '§2/mw info §fExibe informações sobre um mundo'
@@ -91,10 +91,10 @@ rename-levelnotfound: '§cO nível {%0} não existe.'
 rename-done: '§aO nome do nível {%0} foi alterado para {%1}.'
 
 # Duplicate Command
-duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
-duplicate-exists: '§cWorld with name {%0} already exists.'
-duplicate-levelnotfound: '§cLevel {%0} does not exist.'
-duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+duplicate-usage: '§cUse: §7/mw duplicate <mundo> [novoNome]'
+duplicate-exists: '§c O mundo {%0} já existe.'
+duplicate-levelnotfound: '§cO mundo {%0} não existe.'
+duplicate-done: '&aO mundo {%0} foi duplicado com o nome de {%1}'
 
 # Forms
 forms-invalid: '§cResultado inválido.'
