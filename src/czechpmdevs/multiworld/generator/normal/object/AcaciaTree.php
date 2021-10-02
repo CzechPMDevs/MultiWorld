@@ -164,4 +164,3 @@ class AcaciaTree extends Tree {
 		}
 	}
 }
-

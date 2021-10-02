@@ -29,7 +29,7 @@ use pocketmine\world\ChunkManager;
 use pocketmine\world\generator\object\OakTree;
 use pocketmine\world\generator\populator\Populator;
 
-class Island extends Populator {
+class Island implements Populator {
 
 	public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
 		$center = new Vector3(256, 68, 256);

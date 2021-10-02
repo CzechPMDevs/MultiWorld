@@ -29,7 +29,7 @@ use pocketmine\world\ChunkManager;
 use pocketmine\world\generator\populator\Populator;
 use function pow;
 
-class SoulSand extends Populator {
+class SoulSand implements Populator {
 
 	public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
 		if ($random->nextRange(0, 6) !== 0) return;
@@ -82,5 +82,4 @@ class SoulSand extends Populator {
 			}
 		}
 	}
-
 }

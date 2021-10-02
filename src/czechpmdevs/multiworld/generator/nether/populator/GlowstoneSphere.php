@@ -29,7 +29,7 @@ use pocketmine\world\ChunkManager;
 use pocketmine\world\generator\populator\Populator;
 use function pow;
 
-class GlowstoneSphere extends Populator {
+class GlowstoneSphere implements Populator {
 
 	public const SPHERE_RADIUS = 3;
 
@@ -76,5 +76,4 @@ class GlowstoneSphere extends Populator {
 	public function getRandomRadius(Random $random): int {
 		return $random->nextRange(self::SPHERE_RADIUS, self::SPHERE_RADIUS + 2);
 	}
-
 }
