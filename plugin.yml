@@ -1,7 +1,7 @@
 name: MultiWorld
 author: CzechPMDevs
 authors: [VixikCZ, fuyutsuki, kaliiks]
-api: [4.0.0-BETA1, 4.0.0-BETA2, 4.0.0-BETA3, 4.0.0-BETA4]
+api: 4.0.0-beta1
 version: 1.7.0-beta2
 main: czechpmdevs\multiworld\MultiWorld
 description: Plugin that manage with worlds
