@@ -29,7 +29,7 @@ use pocketmine\world\ChunkManager;
 use pocketmine\world\generator\object\OakTree;
 use pocketmine\world\generator\populator\Populator;
 
-class Island extends Populator {
+class Island implements Populator {
 
 	public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
 		$center = new Vector3(256, 68, 256);
@@ -84,7 +84,7 @@ class Island extends Populator {
 		$tree = new OakTree;
 
 		/** @phpstan-ignore-next-line */
-		$tree->placeObject($world, $treeVec->getX(), $treeVec->getY(), $treeVec->getZ(), $random);
+		$tree->getBlockTransaction($world, $treeVec->getX(), $treeVec->getY(), $treeVec->getZ(), $random)?->apply();
 
 		// bedrock
 		/** @phpstan-ignore-next-line */

@@ -122,4 +122,3 @@ class SwampTree extends Tree {
 		$worldIn->setBlockAt((int) $pos->getX(), (int) $pos->getY(), (int) $pos->getZ(), VanillaBlocks::VINES());
 	}
 }
-

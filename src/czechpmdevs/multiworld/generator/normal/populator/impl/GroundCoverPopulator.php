@@ -37,7 +37,7 @@ use function min;
  * Copy of PocketMine's ground cover populator, only with different biome source.
  * @link https://github.com/pmmp/PocketMine-MP/blob/master/src/world/generator/populator/GroundCover.php
  */
-class GroundCoverPopulator extends Populator {
+class GroundCoverPopulator implements Populator {
 
 	public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
 		/** @var Chunk $chunk */

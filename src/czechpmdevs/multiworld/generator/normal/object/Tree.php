@@ -43,17 +43,17 @@ abstract class Tree extends \pocketmine\world\generator\object\Tree {
 				(new BigOakTree($random))->placeObject($world, $x, $y, $z, $random);
 				return;
 			}
-			(new OakTree())->placeObject($world, $x, $y, $z, $random);
+			(new OakTree())->getBlockTransaction($world, $x, $y, $z, $random)?->apply();
 			return;
 		}
 
 		if($type->equals(TreeType::BIRCH())) {
-			(new BirchTree($high))->placeObject($world, $x, $y, $z, $random);
+			(new BirchTree($high))->getBlockTransaction($world, $x, $y, $z, $random)?->apply();
 			return;
 		}
 
 		if($type->equals(TreeType::JUNGLE())) {
-			(new JungleTree())->placeObject($world, $x, $y, $z, $random);
+			(new JungleTree())->getBlockTransaction($world, $x, $y, $z, $random)?->apply();
 			return;
 		}
 
@@ -64,7 +64,6 @@ abstract class Tree extends \pocketmine\world\generator\object\Tree {
 
 		if($type->equals(TreeType::DARK_OAK())) {
 			(new DarkOakTree(VanillaBlocks::DARK_OAK_WOOD(), VanillaBlocks::DARK_OAK_LEAVES()));
-			return;
 		}
 	}
 
