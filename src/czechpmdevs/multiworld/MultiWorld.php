@@ -65,7 +65,7 @@ class MultiWorld extends PluginBase {
 			];
 
 			foreach ($generators as $name => $class) {
-				GeneratorManager::getInstance()->addGenerator($class, $name, true);
+				GeneratorManager::getInstance()->addGenerator($class, $name, fn() => null, true);
 			}
 		}
 	}
