@@ -126,7 +126,13 @@ final class GameRules {
 	 * Unserializes GameRules from World Provider
 	 */
 	public static function unserializeGameRules(CompoundTag $nbt): GameRules {
-		return new GameRules(array_map(fn(StringTag $stringTag) => GameRule::fromRuleName($stringTag->getValue())->setValue(json_decode($stringTag->getValue())), $nbt->getValue()));
+		$rules = [];
+		foreach ($nbt->getValue() as $index => $value) {
+			$rule = GameRule::fromRuleName($index)->setValue(json_decode($value->getValue()));
+			$rules[$rule->getRuleName()] = $rule;
+		}
+
+		return new GameRules($rules);
 	}
 
 	public function getRuleValue(string $name): GameRule {
