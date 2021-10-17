@@ -107,6 +107,7 @@ class GameRuleCommand extends Command implements PluginOwned {
 		/** @var Player $sender */
 		MultiWorld::getGameRules($sender->getWorld())->setRule($rule->setValue($value));
 		MultiWorld::getGameRules($sender->getWorld())->applyToWorld($sender->getWorld());
+
 		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-done", [$args[0], $sender->getWorld()->getDisplayName(), $args[1]]));
 	}
 

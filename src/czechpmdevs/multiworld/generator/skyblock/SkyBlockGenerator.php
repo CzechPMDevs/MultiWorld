@@ -32,7 +32,8 @@ class SkyBlockGenerator extends Generator {
 		parent::__construct($seed, $preset);
 	}
 
-	public function generateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {}
+	public function generateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {
+	}
 
 	public function populateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {
 		if ($chunkX == 16 && $chunkZ == 16) {

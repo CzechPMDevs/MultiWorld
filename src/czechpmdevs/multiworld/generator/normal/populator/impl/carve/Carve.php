@@ -57,12 +57,12 @@ abstract class Carve {
 			($centerZ > $realChunkZ + 24.0 + $horizontalSize * 2.0)
 		) return;
 
-		$minX = (int) max(0, (int) floor($centerX - $horizontalSize) - $realChunkX - 1);
-		$maxX = (int) min(16, (int) floor($centerX + $horizontalSize) - $realChunkX + 1);
-		$minY = (int) max(1, (int) floor($centerY - $verticalSize) - 1);
-		$maxY = (int) min(World::Y_MAX - 8, (int) floor($centerY + $verticalSize) + 1);
-		$minZ = (int) max(0, (int) floor($centerZ - $horizontalSize) - $realChunkZ - 1);
-		$maxZ = (int) min(16, (int) floor($centerZ + $horizontalSize) - $realChunkZ + 1);
+		$minX = (int)max(0, (int)floor($centerX - $horizontalSize) - $realChunkX - 1);
+		$maxX = (int)min(16, (int)floor($centerX + $horizontalSize) - $realChunkX + 1);
+		$minY = (int)max(1, (int)floor($centerY - $verticalSize) - 1);
+		$maxY = (int)min(World::Y_MAX - 8, (int)floor($centerY + $verticalSize) + 1);
+		$minZ = (int)max(0, (int)floor($centerZ - $horizontalSize) - $realChunkZ - 1);
+		$maxZ = (int)min(16, (int)floor($centerZ + $horizontalSize) - $realChunkZ + 1);
 
 		if ($this->collidesWithLiquids($chunk, $minX, $maxX, $minY, $maxY, $minZ, $maxZ)) {
 			return;

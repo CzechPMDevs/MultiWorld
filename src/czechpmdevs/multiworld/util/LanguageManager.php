@@ -59,11 +59,11 @@ class LanguageManager {
 		}
 
 		if (!isset(LanguageManager::$languages[LanguageManager::$defaultLang])) {
-			LanguageManager::$languages[LanguageManager::$defaultLang] = json_decode((string) base64_decode(LanguageManager::DEFAULT_LANGUAGE, true), true); // it should fix bug
+			LanguageManager::$languages[LanguageManager::$defaultLang] = json_decode((string)base64_decode(LanguageManager::DEFAULT_LANGUAGE, true), true); // it should fix bug
 		}
 
 		if (isset($configuration["force-default-language"])) {
-			LanguageManager::$forceDefaultLang = (bool) $configuration["force-default-language"];
+			LanguageManager::$forceDefaultLang = (bool)$configuration["force-default-language"];
 		}
 	}
 

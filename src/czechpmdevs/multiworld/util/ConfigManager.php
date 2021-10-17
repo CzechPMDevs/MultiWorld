@@ -110,7 +110,7 @@ class ConfigManager {
 		$configuration = MultiWorld::getInstance()->getConfig()->getAll();
 		if (
 			!array_key_exists("config-version", $configuration) ||
-			version_compare((string) $configuration["config-version"], ConfigManager::CONFIG_VERSION) < 0
+			version_compare((string)$configuration["config-version"], ConfigManager::CONFIG_VERSION) < 0
 		) {
 			// Update is required
 			@unlink($this->getDataFolder() . "config.yml.old");

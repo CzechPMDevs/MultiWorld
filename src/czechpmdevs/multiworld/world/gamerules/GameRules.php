@@ -55,7 +55,7 @@ final class GameRules {
 
 	private function addMissingRules(): void {
 		foreach (GameRule::getAll() as $rule) {
-			if(!array_key_exists($rule->getRuleName(), $this->gameRules)) {
+			if (!array_key_exists($rule->getRuleName(), $this->gameRules)) {
 				$this->gameRules[$rule->getRuleName()] = $rule;
 			}
 		}
@@ -68,8 +68,9 @@ final class GameRules {
 		return $this->gameRules;
 	}
 
-	public function setRule(GameRule $rule): void {
+	public function setRule(GameRule $rule): self {
 		$this->gameRules[$rule->getRuleName()] = $rule;
+		return $this;
 	}
 
 	public function getRule(GameRule $rule): GameRule {
@@ -111,7 +112,7 @@ final class GameRules {
 		$nbt = new CompoundTag();
 		/** @var BoolGameRule|IntGameRule|FloatGameRule $gameRule */
 		foreach ($gameRules->getRules() as $name => $gameRule) {
-			if($value = json_encode($gameRule->getValue())) {
+			if ($value = json_encode($gameRule->getValue())) {
 				$nbt->setString($name, $value);
 				continue;
 			}
@@ -125,30 +126,35 @@ final class GameRules {
 	 * Unserializes GameRules from World Provider
 	 */
 	public static function unserializeGameRules(CompoundTag $nbt): GameRules {
-		return new GameRules(array_map(fn (StringTag $stringTag) => GameRule::fromRuleName($stringTag->getValue())->setValue(json_decode($stringTag->getValue())), $nbt->getValue()));
+		return new GameRules(array_map(fn(StringTag $stringTag) => GameRule::fromRuleName($stringTag->getValue())->setValue(json_decode($stringTag->getValue())), $nbt->getValue()));
 	}
 
 	public function getRuleValue(string $name): GameRule {
-		if(!array_key_exists($name, $this->gameRules)) {
+		if (!array_key_exists($name, $this->gameRules)) {
 			throw new InvalidStateException("Requested invalid game rule $name.");
 		}
 
 		return $this->gameRules[$name]; // TODO - Find better way to make the analyser happy
 	}
 
-	public function applyToPlayer(Player $player): void {
+	public function applyToPlayer(Player $player): self {
 		$pk = new GameRulesChangedPacket();
 		$pk->gameRules = $this->gameRules;
 
 		$player->getNetworkSession()->sendDataPacket($pk);
+
+		return $this;
 	}
 
-	public function applyToWorld(World $world): void {
+	public function applyToWorld(World $world): self {
 		$pk = new GameRulesChangedPacket();
 		$pk->gameRules = $this->gameRules;
 
 		foreach ($world->getPlayers() as $player) {
 			$player->getNetworkSession()->sendDataPacket($pk);
 		}
+
+		self::saveForWorld($world, $this);
+		return $this;
 	}
 }

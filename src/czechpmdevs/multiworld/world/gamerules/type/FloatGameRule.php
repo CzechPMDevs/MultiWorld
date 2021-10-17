@@ -43,12 +43,12 @@ class FloatGameRule extends GameRule {
 	 * @return $this
 	 */
 	public function setValue(float|bool|int $value): FloatGameRule {
-		$this->value = (float) $value;
+		$this->value = (float)$value;
 		return $this;
 	}
 
 	public function getValue(): float {
-		return (float) $this->value;
+		return (float)$this->value;
 	}
 
 	public function encode(PacketSerializer $out): void {

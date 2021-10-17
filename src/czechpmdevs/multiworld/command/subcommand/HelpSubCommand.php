@@ -39,16 +39,16 @@ class HelpSubCommand implements SubCommand {
 			return;
 		}
 
-		$sender->sendMessage($this->getHelpMessage($sender, (int) $args[0]));
+		$sender->sendMessage($this->getHelpMessage($sender, (int)$args[0]));
 	}
 
 	public function getHelpMessage(CommandSender $sender, int $page): string {
-		if($page < 1 || $page > 3) {
+		if ($page < 1 || $page > 3) {
 			return $this->getHelpMessage($sender, 1);
 		}
 
-		$message = LanguageManager::translateMessage($sender, "help", [(string) $page, "3"]);
-		for($i = $j = (($page - 1) * 5) + 1, $j = $j + 5; $i < $j; ++$i) {
+		$message = LanguageManager::translateMessage($sender, "help", [(string)$page, "3"]);
+		for ($i = $j = (($page - 1) * 5) + 1, $j = $j + 5; $i < $j; ++$i) {
 			$message .= "\n" . LanguageManager::translateMessage($sender, "help-$i");
 		}
 		return $message;

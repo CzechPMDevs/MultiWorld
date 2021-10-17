@@ -60,7 +60,7 @@ class UpdateSubCommand implements SubCommand {
 				}
 
 				WorldUtils::lazyLoadWorld($args[1]);
-				WorldUtils::getWorldByNameNonNull($args[1])->setSpawnLocation(new Vector3((int) $args[2], (int) $args[3], (int) $args[4]));
+				WorldUtils::getWorldByNameNonNull($args[1])->setSpawnLocation(new Vector3((int)$args[2], (int)$args[3], (int)$args[4]));
 
 				$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "update-done"));
 				break;

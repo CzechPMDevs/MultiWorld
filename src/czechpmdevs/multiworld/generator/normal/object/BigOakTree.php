@@ -73,9 +73,9 @@ class BigOakTree extends Tree {
 		$maxDistance = max(abs(floor($target->getY())), max(abs(floor($target->getX())), abs(floor($target->getZ()))));
 
 		if ($maxDistance > 0) {
-			$dx = (float) $target->getX() / $maxDistance;
-			$dy = (float) $target->getY() / $maxDistance;
-			$dz = (float) $target->getZ() / $maxDistance;
+			$dx = (float)$target->getX() / $maxDistance;
+			$dy = (float)$target->getY() / $maxDistance;
+			$dz = (float)$target->getZ() / $maxDistance;
 			for ($i = 0; $i <= $maxDistance; $i++, $n++) {
 				$target = $from->add(0.5 + $i * $dx, 0.5 + $i * $dy, 0.5 + $i * $dz);
 				if ($target->getFloorY() < 0 || $target->getFloorY() > 255) {
@@ -87,7 +87,7 @@ class BigOakTree extends Tree {
 	}
 
 	public function placeObject(ChunkManager $world, int $x, int $y, int $z, Random $random): void {
-		$trunkHeight = (int) ($this->height * 0.618);
+		$trunkHeight = (int)($this->height * 0.618);
 		if ($trunkHeight >= $this->height) {
 			$trunkHeight = $this->height - 1;
 		}
@@ -99,7 +99,7 @@ class BigOakTree extends Tree {
 		foreach ($leafNodes as [$node, $branchY]) {
 			for ($yy = 0; $yy < $this->maxLeafDistance; $yy++) {
 				$size = $yy > 0 && $yy < $this->maxLeafDistance - 1.0 ? 3.0 : 2.0;
-				$nodeDistance = (int) (0.618 + $size);
+				$nodeDistance = (int)(0.618 + $size);
 				for ($xx = -$nodeDistance; $xx <= $nodeDistance; $xx++) {
 					for ($zz = -$nodeDistance; $zz <= $nodeDistance; $zz++) {
 						$sizeX = abs($xx) + 0.5;
@@ -125,15 +125,15 @@ class BigOakTree extends Tree {
 
 		/** @var Vector3 $leafNode */
 		foreach ($leafNodes as [$leafNode, $branchY]) {
-			if ((double) $branchY - $y >= $this->height * 0.2) {
+			if ((double)$branchY - $y >= $this->height * 0.2) {
 				$base = new Vector3($x, $branchY, $z);
 				$branch = $leafNode->subtractVector($base);
 
 				$maxDistance = max(abs(floor($branch->getY())), max(abs(floor($branch->getX())), abs(floor($branch->getZ()))));
 
-				$dx = (float) $branch->getX() / $maxDistance;
-				$dy = (float) $branch->getY() / $maxDistance;
-				$dz = (float) $branch->getZ() / $maxDistance;
+				$dx = (float)$branch->getX() / $maxDistance;
+				$dy = (float)$branch->getY() / $maxDistance;
+				$dz = (float)$branch->getZ() / $maxDistance;
 
 				for ($i = 0; $i <= $maxDistance; $i++) {
 					$branch = $base->add(0.5 + $i * $dx, 0.5 + $i * $dy, 0.5 + $i * $dz);
@@ -155,25 +155,25 @@ class BigOakTree extends Tree {
 		$trunkTopY = $blockY + $this->trunkHeight;
 		$leafNodes[] = [new Vector3($blockX, $y, $blockZ), $trunkTopY];
 
-		$nodeCount = (int) (1.382 + pow(self::LEAF_DENSITY * (double) $this->height / 13.0, 2.0));
+		$nodeCount = (int)(1.382 + pow(self::LEAF_DENSITY * (double)$this->height / 13.0, 2.0));
 		$nodeCount = $nodeCount < 1 ? 1 : $nodeCount;
 
 		for ($l = --$y - $blockY; $l >= 0; $l--, $y--) {
 			$h = $this->height / 2.0;
 			$v = $h - $l;
-			$f = $l < (float) $this->height * 0.3 ? -1.0 : ($v == $h ? $h * 0.5 : ($h <= abs($v) ? 0.0 : (sqrt($h * $h - $v * $v) * 0.5)));
+			$f = $l < (float)$this->height * 0.3 ? -1.0 : ($v == $h ? $h * 0.5 : ($h <= abs($v) ? 0.0 : (sqrt($h * $h - $v * $v) * 0.5)));
 
 			if ($f >= 0.0) {
 				for ($i = 0; $i < $nodeCount; $i++) {
 					$d1 = $f * ($random->nextFloat() + 0.328);
 					$d2 = $random->nextFloat() * M_PI * 2.0;
-					$x = (int) ($d1 * sin($d2) + $blockX + 0.5);
-					$z = (int) ($d1 * cos($d2) + $blockZ + 0.5);
+					$x = (int)($d1 * sin($d2) + $blockX + 0.5);
+					$z = (int)($d1 * cos($d2) + $blockZ + 0.5);
 					if ($this->countAvailableBlocks(new Vector3($x, $y, $z), new Vector3($x, $y + $this->maxLeafDistance, $z)) == -1) {
 						$offX = $blockX - $x;
 						$offZ = $blockZ - $z;
 						$distance = 0.381 * hypot($offX, $offZ);
-						$branchBaseY = min($trunkTopY, (int) ($y - $distance));
+						$branchBaseY = min($trunkTopY, (int)($y - $distance));
 
 						if ($this->countAvailableBlocks(new Vector3($x, $branchBaseY, $z), new Vector3($x, $y, $z)) == -1) {
 							$leafNodes[] = [new Vector3($x, $y, $z), $branchBaseY];

@@ -22,17 +22,14 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\ender\populator;
 
+use czechpmdevs\multiworld\util\MathHelper;
 use pocketmine\block\BlockLegacyIds;
 use pocketmine\block\VanillaBlocks;
 use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
 use pocketmine\world\generator\populator\Populator;
-use function cos;
 use function deg2rad;
-use function intval;
-use function mt_rand;
-use function pi;
-use function sin;
+use const M_PI;
 
 class EnderPilar implements Populator {
 
@@ -51,7 +48,7 @@ class EnderPilar implements Populator {
 	}
 
 	public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
-		if (mt_rand(0, 100) < 10) {
+		if ($random->nextRange(0, 100) < 10) {
 			$this->world = $world;
 			$amount = $random->nextRange(0, $this->randomAmount + 1) + $this->baseAmount;
 			for ($i = 0; $i < $amount; ++$i) {
@@ -59,12 +56,12 @@ class EnderPilar implements Populator {
 				$z = $random->nextRange($chunkZ * 16, $chunkZ * 16 + 15);
 				$y = $this->getHighestWorkableBlock($x, $z);
 				if ($this->world->getBlockAt($x, $y, $z)->getId() == BlockLegacyIds::END_STONE) {
-					$height = mt_rand(28, 50);
+					$height = $random->nextRange(28, 50);
 					for ($ny = $y; $ny < $y + $height; $ny++) {
 						for ($r = 0.5; $r < 5; $r += 0.5) {
-							$nd = 360 / (2 * pi() * $r);
+							$nd = 180 / (M_PI * $r);
 							for ($d = 0; $d < 360; $d += $nd) {
-								$world->setBlockAt(intval($x + (cos(deg2rad($d)) * $r)), $ny, intval($z + (sin(deg2rad($d)) * $r)), VanillaBlocks::OBSIDIAN());
+								$world->setBlockAt((int)($x + (MathHelper::getInstance()->cos(deg2rad($d)) * $r)), $ny, (int)($z + (MathHelper::getInstance()->sin(deg2rad($d)) * $r)), VanillaBlocks::OBSIDIAN());
 							}
 						}
 					}

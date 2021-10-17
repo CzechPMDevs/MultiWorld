@@ -43,7 +43,7 @@ class PlantPopulator extends AmountPopulator {
 		}
 
 		$plant = $this->plants[$random->nextBoundedInt(count($this->plants))];
-		if($this->getSpawnPositionOn($world->getChunk($chunkX, $chunkZ), $random, $plant->getAllowedUnderground(), $x, $y, $z)) {
+		if ($this->getSpawnPositionOn($world->getChunk($chunkX, $chunkZ), $random, $plant->getAllowedUnderground(), $x, $y, $z)) {
 			$world->setBlockAt($chunkX * 16 + $x, $y, $chunkZ * 16 + $z, $plant->getBlock());
 		}
 	}

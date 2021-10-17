@@ -87,7 +87,7 @@ class EventListener implements Listener {
 		if (!$player instanceof Player) {
 			return;
 		}
-		if($event->getFrom()->getWorld()->getId() == $event->getTo()->getWorld()->getId()) {
+		if ($event->getFrom()->getWorld()->getId() == $event->getTo()->getWorld()->getId()) {
 			return;
 		}
 
@@ -107,7 +107,7 @@ class EventListener implements Listener {
 			$event->setDrops([]);
 		}
 
-		if($this->plugin->getConfig()->get("handle-dimensions")) {
+		if ($this->plugin->getConfig()->get("handle-dimensions")) {
 			$this->dimensionData[$player->getId()] = Dimension::getDimensionByWorld($player->getWorld());
 		}
 	}
@@ -173,7 +173,7 @@ class EventListener implements Listener {
 		// Changing game rules from the menu
 		if ($packet instanceof SettingsCommandPacket) {
 			$player = $event->getOrigin()->getPlayer();
-			if($player === null) {
+			if ($player === null) {
 				return;
 			}
 

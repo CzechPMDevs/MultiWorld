@@ -70,7 +70,7 @@ class CarvePopulator extends Populator {
 				$seed = $randomX ^ $randomZ ^ $this->seed;
 				foreach ($this->carves as $carve) {
 					$this->random->setSeed($seed);
-					if($carve->canCarve($this->random, $chunkX, $chunkZ)) {
+					if ($carve->canCarve($this->random, $chunkX, $chunkZ)) {
 						$carve->carve($chunk, $chunkX, $chunkZ, $x, $z);
 					}
 				}

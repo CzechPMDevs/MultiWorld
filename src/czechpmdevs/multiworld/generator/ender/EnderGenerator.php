@@ -36,7 +36,7 @@ use function abs;
 class EnderGenerator extends Generator {
 
 	/** @var ChunkManager */
-	protected $world;
+	protected ChunkManager $world;
 	/** @var Random */
 	protected $random;
 

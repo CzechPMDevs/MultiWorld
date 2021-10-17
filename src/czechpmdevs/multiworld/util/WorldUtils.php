@@ -27,6 +27,7 @@ use czechpmdevs\multiworld\generator\nether\NetherGenerator;
 use czechpmdevs\multiworld\generator\normal\NormalGenerator;
 use czechpmdevs\multiworld\generator\skyblock\SkyBlockGenerator;
 use czechpmdevs\multiworld\generator\void\VoidGenerator;
+use FilesystemIterator;
 use InvalidArgumentException;
 use pocketmine\Server;
 use pocketmine\utils\AssumptionFailedError;
@@ -68,7 +69,7 @@ class WorldUtils {
 
 		$removedFiles = 1;
 
-		$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($worldPath = Server::getInstance()->getDataPath() . "/worlds/$name", RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
+		$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($worldPath = Server::getInstance()->getDataPath() . "/worlds/$name", FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
 		/** @var SplFileInfo $fileInfo */
 		foreach ($files as $fileInfo) {
 			if ($filePath = $fileInfo->getRealPath()) {
@@ -135,13 +136,13 @@ class WorldUtils {
 	}
 
 	public static function duplicateWorld(string $worldName, string $duplicateName): void {
-		if(Server::getInstance()->getWorldManager()->isWorldLoaded($worldName)) {
+		if (Server::getInstance()->getWorldManager()->isWorldLoaded($worldName)) {
 			WorldUtils::getWorldByNameNonNull($worldName)->save(false);
 		}
 
 		mkdir(Server::getInstance()->getDataPath() . "/worlds/$duplicateName");
 
-		$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(Server::getInstance()->getDataPath() . "/worlds/$worldName", RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
+		$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(Server::getInstance()->getDataPath() . "/worlds/$worldName", FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
 		/** @var SplFileInfo $fileInfo */
 		foreach ($files as $fileInfo) {
 			if ($filePath = $fileInfo->getRealPath()) {
@@ -230,7 +231,8 @@ class WorldUtils {
 
 		try {
 			return GeneratorManager::getInstance()->getGenerator($name, true);
-		} catch (InvalidArgumentException $e) {}
+		} catch (InvalidArgumentException $e) {
+		}
 
 		return null;
 	}

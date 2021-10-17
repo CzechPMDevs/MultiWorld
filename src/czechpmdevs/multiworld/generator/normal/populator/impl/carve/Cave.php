@@ -46,9 +46,9 @@ class Cave extends Carve {
 		$j = $this->random->nextBoundedInt($this->random->nextBoundedInt($this->random->nextBoundedInt(Cave::CAVE_BOUND) + 1) + 1);
 
 		for ($k = 0; $k < $j; ++$k) {
-			$x = (float) (($chunkX * 16) + $this->random->nextBoundedInt(16));
-			$y = (float) $this->random->nextBoundedInt($this->random->nextBoundedInt(120) + 8);
-			$z = (float) (($chunkZ * 16) + $this->random->nextBoundedInt(16));
+			$x = (float)(($chunkX * 16) + $this->random->nextBoundedInt(16));
+			$y = (float)$this->random->nextBoundedInt($this->random->nextBoundedInt(120) + 8);
+			$z = (float)(($chunkZ * 16) + $this->random->nextBoundedInt(16));
 
 			$tunnelCount = Cave::CAVE_TUNNEL_COUNT;
 			if ($this->random->nextBoundedInt(4) == 0) {
@@ -58,7 +58,7 @@ class Cave extends Carve {
 			}
 
 			for ($tunnel = 0; $tunnel < $tunnelCount; ++$tunnel) {
-				$this->generateTunnel($populatedChunk, $populatedChunkX, $populatedChunkZ, $this->random->nextInt(), $chunkX, $chunkZ, $x, $y, $z, $this->getRandomScale($this->random), $this->random->nextFloat() * M_PI * 2.0, ($this->random->nextFloat() - 0.5) * 0.25, 0, $i - $this->random->nextBoundedInt((int) floor($i / 4)), Cave::CAVE_SCALE);
+				$this->generateTunnel($populatedChunk, $populatedChunkX, $populatedChunkZ, $this->random->nextInt(), $chunkX, $chunkZ, $x, $y, $z, $this->getRandomScale($this->random), $this->random->nextFloat() * M_PI * 2.0, ($this->random->nextFloat() - 0.5) * 0.25, 0, $i - $this->random->nextBoundedInt((int)floor($i / 4)), Cave::CAVE_SCALE);
 			}
 		}
 	}
@@ -66,14 +66,14 @@ class Cave extends Carve {
 	private function generateTunnel(Chunk $chunk, int $populatedChunkX, int $populatedChunkZ, int $seed, int $chunkX, int $chunkZ, float $x, float $y, float $z, float $horizontalScale, float $horizontalAngle, float $verticalAngle, int $node, int $nodeCount, float $scale): void {
 		$localRandom = new Random($seed);
 
-		$randomStartingNode = $localRandom->nextBoundedInt((int) max(1, floor($nodeCount * 0.5))) + (int) floor($nodeCount * 0.25);
+		$randomStartingNode = $localRandom->nextBoundedInt((int)max(1, floor($nodeCount * 0.5))) + (int)floor($nodeCount * 0.25);
 		$flag = $localRandom->nextBoundedInt(6) == 0;
 
 		$horizontalOffset = 0.0;
 		$verticalOffset = 0.0;
 
 		for (; $node < $nodeCount; ++$node) {
-			$horizontalSize = 1.5 + (MathHelper::getInstance()->sin(M_PI * $node / (float) $nodeCount) * $horizontalScale);
+			$horizontalSize = 1.5 + (MathHelper::getInstance()->sin(M_PI * $node / (float)$nodeCount) * $horizontalScale);
 			$verticalSize = $horizontalSize * $scale;
 
 			$f2 = MathHelper::getInstance()->cos($verticalAngle);
@@ -109,7 +109,7 @@ class Cave extends Carve {
 		}
 	}
 
-	private function generateRoom(Chunk $chunk,  int $populatedChunkX, int $populatedChunkZ, float $x, float $y, float $z, float $roomSize): void {
+	private function generateRoom(Chunk $chunk, int $populatedChunkX, int $populatedChunkZ, float $x, float $y, float $z, float $roomSize): void {
 		$this->carveSphere($chunk, $populatedChunkX, $populatedChunkZ, $x + 1.0, $y, $z, $horizontalSize = 1.5 + $roomSize, $horizontalSize * 0.5);
 	}
 

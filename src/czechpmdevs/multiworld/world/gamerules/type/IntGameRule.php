@@ -44,12 +44,12 @@ class IntGameRule extends GameRule {
 	 * @return $this
 	 */
 	public function setValue(bool|int|float $value): IntGameRule {
-		$this->value = (int) $value;
+		$this->value = (int)$value;
 		return $this;
 	}
 
 	public function getValue(): int {
-		return (int) $this->value;
+		return (int)$this->value;
 	}
 
 	public function encode(PacketSerializer $out): void {

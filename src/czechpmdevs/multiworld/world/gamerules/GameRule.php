@@ -136,7 +136,7 @@ abstract class GameRule extends \pocketmine\network\mcpe\protocol\types\GameRule
 
 	public static function fromRuleName(string $name): GameRule {
 		foreach (self::getAll() as $rule) {
-			if($rule->getRuleName() == $name) {
+			if ($rule->getRuleName() == $name) {
 				return $rule;
 			}
 		}

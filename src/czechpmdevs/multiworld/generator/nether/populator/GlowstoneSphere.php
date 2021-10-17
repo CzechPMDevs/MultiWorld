@@ -29,7 +29,7 @@ use pocketmine\world\ChunkManager;
 use pocketmine\world\generator\populator\Populator;
 use function pow;
 
-class GlowstoneSphere extends Populator {
+class GlowstoneSphere implements Populator {
 
 	public const SPHERE_RADIUS = 3;
 

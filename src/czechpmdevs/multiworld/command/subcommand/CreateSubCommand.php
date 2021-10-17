@@ -46,7 +46,7 @@ class CreateSubCommand implements SubCommand {
 
 		$seed = mt_rand();
 		if (isset($args[1]) && is_numeric($args[1])) {
-			$seed = (int) $args[1];
+			$seed = (int)$args[1];
 		}
 
 		$generator = WorldUtils::getGeneratorByName($generatorName = $args[2] ?? "");
@@ -56,6 +56,6 @@ class CreateSubCommand implements SubCommand {
 		}
 
 		Server::getInstance()->getWorldManager()->generateWorld($args[0], WorldCreationOptions::create()->setSeed($seed)->setGeneratorClass($generator));
-		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "create-done", [$args[0], (string) $seed, $generatorName]));
+		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "create-done", [$args[0], (string)$seed, $generatorName]));
 	}
 }

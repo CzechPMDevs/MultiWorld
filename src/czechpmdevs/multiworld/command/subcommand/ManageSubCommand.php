@@ -81,7 +81,7 @@ class ManageSubCommand implements SubCommand {
 						}
 
 						$name = $data[1];
-						$seed = trim($data[2]) == "" ? time() : (int) $data[2];
+						$seed = trim($data[2]) == "" ? time() : (int)$data[2];
 
 						$cmd = "mw create \"$name\" \"$seed\" \"{$generators[$data[3]]}\"";
 						Server::getInstance()->dispatchCommand($player, $cmd);
@@ -114,7 +114,7 @@ class ManageSubCommand implements SubCommand {
 							$customForm->addToggle($rule, $value->getValue());
 						} else {
 							/** @var IntGameRule $value */
-							$customForm->addInput($rule, (string) $value->getValue());
+							$customForm->addInput($rule, (string)$value->getValue());
 						}
 					}
 
@@ -133,8 +133,8 @@ class ManageSubCommand implements SubCommand {
 								continue;
 							}
 
-							$newValue = is_bool($value) ? $value : (int) $value;
-							if($rules[$gameRules[$index]]->getValue() == $newValue) {
+							$newValue = is_bool($value) ? $value : (int)$value;
+							if ($rules[$gameRules[$index]]->getValue() == $newValue) {
 								continue;
 							}
 

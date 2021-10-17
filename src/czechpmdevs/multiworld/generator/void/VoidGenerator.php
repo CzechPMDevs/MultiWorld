@@ -42,5 +42,6 @@ class VoidGenerator extends Generator {
 		}
 	}
 
-	public function populateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {}
+	public function populateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {
+	}
 }

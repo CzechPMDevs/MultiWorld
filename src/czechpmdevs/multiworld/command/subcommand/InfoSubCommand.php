@@ -56,9 +56,9 @@ class InfoSubCommand implements SubCommand {
 		return LanguageManager::translateMessage($sender, "info", [$world->getDisplayName()]) . "\n" .
 			LanguageManager::translateMessage($sender, "info-name", [$world->getDisplayName()]) . "\n" .
 			LanguageManager::translateMessage($sender, "info-folderName", [$world->getFolderName()]) . "\n" .
-			LanguageManager::translateMessage($sender, "info-players", [(string) count($world->getPlayers())]) . "\n" .
+			LanguageManager::translateMessage($sender, "info-players", [(string)count($world->getPlayers())]) . "\n" .
 			LanguageManager::translateMessage($sender, "info-generator", [$world->getProvider()->getWorldData()->getGenerator()]) . "\n" .
-			LanguageManager::translateMessage($sender, "info-seed", [(string) $world->getSeed()]) . "\n" .
-			LanguageManager::translateMessage($sender, "info-time", [(string) $world->getTime()]);
+			LanguageManager::translateMessage($sender, "info-seed", [(string)$world->getSeed()]) . "\n" .
+			LanguageManager::translateMessage($sender, "info-time", [(string)$world->getTime()]);
 	}
 }

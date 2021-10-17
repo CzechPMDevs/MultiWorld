@@ -72,7 +72,7 @@ class BiomeFactory implements BiomeIds {
 	}
 
 	public function getBiome(int $id): Biome {
-		if(!array_key_exists($id, $this->biomes)) {
+		if (!array_key_exists($id, $this->biomes)) {
 			throw new InvalidStateException("Biome with id $id is not registered.");
 		}
 
@@ -124,7 +124,7 @@ class BiomeFactory implements BiomeIds {
 	}
 
 	public static function getInstance(): BiomeFactory {
-		if(!isset(BiomeFactory::$instance)) {
+		if (!isset(BiomeFactory::$instance)) {
 			BiomeFactory::init();
 		}
 

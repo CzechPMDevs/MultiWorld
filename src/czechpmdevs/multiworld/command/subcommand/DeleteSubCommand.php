@@ -52,6 +52,6 @@ class DeleteSubCommand implements SubCommand {
 			}
 		}
 
-		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "delete-done", [(string) WorldUtils::removeWorld($args[0])]));
+		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "delete-done", [(string)WorldUtils::removeWorld($args[0])]));
 	}
 }

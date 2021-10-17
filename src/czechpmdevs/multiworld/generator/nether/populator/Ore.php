@@ -65,12 +65,12 @@ class Ore extends Populator {
 			$seedZ = $z1 + ($z2 - $z1) * $count / $clusterSize;
 			$size = ((sin($count * (M_PI / $clusterSize)) + 1) * $random->nextFloat() * $clusterSize / 16 + 1) / 2;
 
-			$startX = (int) ($seedX - $size);
-			$startY = (int) ($seedY - $size);
-			$startZ = (int) ($seedZ - $size);
-			$endX = (int) ($seedX + $size);
-			$endY = (int) ($seedY + $size);
-			$endZ = (int) ($seedZ + $size);
+			$startX = (int)($seedX - $size);
+			$startY = (int)($seedY - $size);
+			$startZ = (int)($seedZ - $size);
+			$endX = (int)($seedX + $size);
+			$endY = (int)($seedY + $size);
+			$endZ = (int)($seedZ + $size);
 
 			for ($x = $startX; $x <= $endX; ++$x) {
 				$sizeX = ($x + 0.5 - $seedX) / $size;

@@ -42,6 +42,6 @@ class ListSubCommand implements SubCommand {
 			}
 		}, WorldUtils::getAllWorlds()));
 
-		$sender->sendMessage(LanguageManager::translateMessage($sender, "list-done", [(string) count($worlds)]) . "\n" . implode("\n", $worlds));
+		$sender->sendMessage(LanguageManager::translateMessage($sender, "list-done", [(string)count($worlds)]) . "\n" . implode("\n", $worlds));
 	}
 }
