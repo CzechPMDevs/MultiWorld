@@ -35,27 +35,27 @@ use pocketmine\block\RedMushroom;
 
 class MushroomIsland extends Biome {
 
-    public function __construct() {
-        parent::__construct(0.9, 1);
-        $this->setGroundCover([
-            new Mycelium(),
-            new Dirt(),
-            new Dirt(),
-            new Dirt()
+	public function __construct() {
+		parent::__construct(0.9, 1);
+		$this->setGroundCover([
+			new Mycelium(),
+			new Dirt(),
+			new Dirt(),
+			new Dirt()
 
-        ]);
+		]);
 
-        $mushrooms = new PlantPopulator(5, 4, 95);
-        $mushrooms->addPlant(new Plant(new RedMushroom()));
-        $mushrooms->addPlant(new Plant(new BrownMushroom()));
-        $mushrooms->allowBlockToStayAt(BlockIds::MYCELIUM);
+		$mushrooms = new PlantPopulator(5, 4, 95);
+		$mushrooms->addPlant(new Plant(new RedMushroom()));
+		$mushrooms->addPlant(new Plant(new BrownMushroom()));
+		$mushrooms->allowBlockToStayAt(BlockIds::MYCELIUM);
 
-        $this->addPopulators([$mushrooms, new TreePopulator(1, 1, 100, Tree::MUSHROOM)]);
+		$this->addPopulators([$mushrooms, new TreePopulator(1, 1, 100, Tree::MUSHROOM)]);
 
-        $this->setElevation(64, 74);
-    }
+		$this->setElevation(64, 74);
+	}
 
-    public function getName(): string {
-        return "Mushroom Island";
-    }
+	public function getName(): string {
+		return "Mushroom Island";
+	}
 }

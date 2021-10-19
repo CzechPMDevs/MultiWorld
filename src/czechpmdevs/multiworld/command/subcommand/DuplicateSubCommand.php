@@ -30,24 +30,24 @@ use pocketmine\Server;
 
 class DuplicateSubCommand implements SubCommand {
 
-    public function execute(CommandSender $sender, array $args, string $name): void {
-        if (!isset($args[0])) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "duplicate-usage"));
-            return;
-        }
+	public function execute(CommandSender $sender, array $args, string $name): void {
+		if(!isset($args[0])) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "duplicate-usage"));
+			return;
+		}
 
-        $newName = $args[1] ?? ($args[0] . "_copy");
-        if (Server::getInstance()->isLevelGenerated($newName)) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "duplicate-exists", [$args[1]]));
-            return;
-        }
+		$newName = $args[1] ?? ($args[0] . "_copy");
+		if(Server::getInstance()->isLevelGenerated($newName)) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "duplicate-exists", [$args[1]]));
+			return;
+		}
 
-        if (!Server::getInstance()->isLevelGenerated($args[0])) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "duplicate-levelnotfound", [$args[0]]));
-            return;
-        }
+		if(!Server::getInstance()->isLevelGenerated($args[0])) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "duplicate-levelnotfound", [$args[0]]));
+			return;
+		}
 
-        WorldUtils::duplicateLevel($args[0], $newName);
-        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "duplicate-done", [$args[0], $newName]));
-    }
+		WorldUtils::duplicateLevel($args[0], $newName);
+		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "duplicate-done", [$args[0], $newName]));
+	}
 }

@@ -28,16 +28,16 @@ use pocketmine\block\DoublePlant;
 
 class SunflowerPlains extends Plains {
 
-    public function __construct() {
-        parent::__construct();
+	public function __construct() {
+		parent::__construct();
 
-        $sunflowers = new PlantPopulator(12, 6, 98);
-        $sunflowers->addPlant(new Plant(new DoublePlant(0), new DoublePlant(8)));
+		$sunflowers = new PlantPopulator(12, 6, 98);
+		$sunflowers->addPlant(new Plant(new DoublePlant(0), new DoublePlant(8)));
 
-        $this->addPopulator($sunflowers);
-    }
+		$this->addPopulator($sunflowers);
+	}
 
-    public function getName(): string {
-        return "Sunflower Plains";
-    }
+	public function getName(): string {
+		return "Sunflower Plains";
+	}
 }

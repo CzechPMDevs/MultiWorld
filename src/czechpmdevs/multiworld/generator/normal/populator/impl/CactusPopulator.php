@@ -30,26 +30,26 @@ use pocketmine\utils\Random;
 
 class CactusPopulator extends AmountPopulator {
 
-    public function populateObject(ChunkManager $level, int $chunkX, int $chunkZ, Random $random): void {
-        $this->getRandomSpawnPosition($level, $chunkX, $chunkZ, $random, $x, $y, $z);
+	public function populateObject(ChunkManager $level, int $chunkX, int $chunkZ, Random $random): void {
+		$this->getRandomSpawnPosition($level, $chunkX, $chunkZ, $random, $x, $y, $z);
 
-        if ($y !== -1 && $this->canCactusStay($level, new Vector3($x, $y, $z))) {
-            for ($aY = 0; $aY < $random->nextRange(0, 3); $aY++) {
-                $level->setBlockIdAt($x, $y + $aY, $z, BlockIds::CACTUS);
-                $level->setBlockDataAt($x, $y, $z, 1);
-            }
-        }
-    }
+		if($y !== -1 && $this->canCactusStay($level, new Vector3($x, $y, $z))) {
+			for($aY = 0; $aY < $random->nextRange(0, 3); $aY++) {
+				$level->setBlockIdAt($x, $y + $aY, $z, BlockIds::CACTUS);
+				$level->setBlockDataAt($x, $y, $z, 1);
+			}
+		}
+	}
 
-    private function canCactusStay(ChunkManager $level, Vector3 $pos): bool {
-        /** @phpstan-ignore-next-line */
-        $b = $level->getBlockIdAt($pos->getX(), $pos->getY(), $pos->getZ());
-        /** @phpstan-ignore-next-line */
-        if ($level->getBlockIdAt($pos->getX() + 1, $pos->getY(), $pos->getZ()) != 0 || $level->getBlockIdAt($pos->getX() - 1, $pos->getY(), $pos->getZ()) != 0 || $level->getBlockIdAt($pos->getX(), $pos->getY(), $pos->getZ() + 1) != 0 || $level->getBlockIdAt($pos->getX(), $pos->getY(), $pos->getZ() - 1) != 0) {
-            return false;
-        }
+	private function canCactusStay(ChunkManager $level, Vector3 $pos): bool {
+		/** @phpstan-ignore-next-line */
+		$b = $level->getBlockIdAt($pos->getX(), $pos->getY(), $pos->getZ());
+		/** @phpstan-ignore-next-line */
+		if($level->getBlockIdAt($pos->getX() + 1, $pos->getY(), $pos->getZ()) != 0 || $level->getBlockIdAt($pos->getX() - 1, $pos->getY(), $pos->getZ()) != 0 || $level->getBlockIdAt($pos->getX(), $pos->getY(), $pos->getZ() + 1) != 0 || $level->getBlockIdAt($pos->getX(), $pos->getY(), $pos->getZ() - 1) != 0) {
+			return false;
+		}
 
-        /** @phpstan-ignore-next-line */
-        return ($b === BlockIds::AIR) && $level->getBlockIdAt($pos->getX(), $pos->getY() - 1, $pos->getZ()) === BlockIds::SAND;
-    }
+		/** @phpstan-ignore-next-line */
+		return ($b === BlockIds::AIR) && $level->getBlockIdAt($pos->getX(), $pos->getY() - 1, $pos->getZ()) === BlockIds::SAND;
+	}
 }

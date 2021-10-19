@@ -8,9 +8,9 @@
     "ext-yaml": "*",
     "ext-pthreads": "*",
     "ext-json": "*",
-    "czechpmdevs/libpmform": "dev-main",
-    "phpstan/phpstan": "0.12.83",
-    "pocketmine/pocketmine-mp": "3.20.0"
+    "czechpmdevs/libpmform": "dev-stable",
+    "phpstan/phpstan": "0.12.99",
+    "pocketmine/pocketmine-mp": "3.25.0"
   },
   "repositories": [
     {

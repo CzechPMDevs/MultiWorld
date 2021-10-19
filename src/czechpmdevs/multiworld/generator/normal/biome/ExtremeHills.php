@@ -29,14 +29,14 @@ use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 
 class ExtremeHills extends GrassyBiome {
 
-    public function __construct() {
-        parent::__construct(0.2, 0.3);
+	public function __construct() {
+		parent::__construct(0.2, 0.3);
 
-        $this->addPopulators([new TallGrassPopulator(10, 5), new TreePopulator(3, 1, 80, Tree::SPRUCE), new TreePopulator(1, 0, 80)]);
-        $this->setElevation(66, 120);
-    }
+		$this->addPopulators([new TallGrassPopulator(10, 5), new TreePopulator(3, 1, 80, Tree::SPRUCE), new TreePopulator(1, 0, 80)]);
+		$this->setElevation(66, 120);
+	}
 
-    public function getName(): string {
-        return "Extreme Hills";
-    }
+	public function getName(): string {
+		return "Extreme Hills";
+	}
 }

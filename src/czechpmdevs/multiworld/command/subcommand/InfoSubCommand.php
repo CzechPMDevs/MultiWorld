@@ -32,33 +32,33 @@ use function count;
 
 class InfoSubCommand implements SubCommand {
 
-    public function execute(CommandSender $sender, array $args, string $name): void {
-        if (!$sender instanceof Player) {
-            $sender->sendMessage("§cThis command can be used only in-game!");
-            return;
-        }
+	public function execute(CommandSender $sender, array $args, string $name): void {
+		if(!$sender instanceof Player) {
+			$sender->sendMessage("§cThis command can be used only in-game!");
+			return;
+		}
 
-        if (isset($args[0])) {
-            if (!Server::getInstance()->isLevelGenerated($args[0])) {
-                $sender->sendMessage(LanguageManager::translateMessage($sender, "info.levelnotexists", [$args[0]]));
-                return;
-            }
+		if(isset($args[0])) {
+			if(!Server::getInstance()->isLevelGenerated($args[0])) {
+				$sender->sendMessage(LanguageManager::translateMessage($sender, "info.levelnotexists", [$args[0]]));
+				return;
+			}
 
-            WorldUtils::lazyLoadLevel($args[0]);
+			WorldUtils::lazyLoadLevel($args[0]);
 
-            $sender->sendMessage($this->getInfoMessage($sender, WorldUtils::getLevelByNameNonNull($args[0])));
-            return;
-        }
-        $sender->sendMessage($this->getInfoMessage($sender, $sender->getLevelNonNull()));
-    }
+			$sender->sendMessage($this->getInfoMessage($sender, WorldUtils::getLevelByNameNonNull($args[0])));
+			return;
+		}
+		$sender->sendMessage($this->getInfoMessage($sender, $sender->getLevelNonNull()));
+	}
 
-    private function getInfoMessage(CommandSender $sender, Level $level): string {
-        return LanguageManager::translateMessage($sender, "info", [$level->getName()]) . "\n" .
-            LanguageManager::translateMessage($sender, "info-name", [$level->getName()]) . "\n" .
-            LanguageManager::translateMessage($sender, "info-folderName", [$level->getFolderName()]) . "\n" .
-            LanguageManager::translateMessage($sender, "info-players", [(string)count($level->getPlayers())]) . "\n" .
-            LanguageManager::translateMessage($sender, "info-generator", [$level->getProvider()->getGenerator()]) . "\n" .
-            LanguageManager::translateMessage($sender, "info-seed", [(string)$level->getSeed()]) . "\n" .
-            LanguageManager::translateMessage($sender, "info-time", [(string)$level->getTime()]);
-    }
+	private function getInfoMessage(CommandSender $sender, Level $level): string {
+		return LanguageManager::translateMessage($sender, "info", [$level->getName()]) . "\n" .
+			LanguageManager::translateMessage($sender, "info-name", [$level->getName()]) . "\n" .
+			LanguageManager::translateMessage($sender, "info-folderName", [$level->getFolderName()]) . "\n" .
+			LanguageManager::translateMessage($sender, "info-players", [(string)count($level->getPlayers())]) . "\n" .
+			LanguageManager::translateMessage($sender, "info-generator", [$level->getProvider()->getGenerator()]) . "\n" .
+			LanguageManager::translateMessage($sender, "info-seed", [(string)$level->getSeed()]) . "\n" .
+			LanguageManager::translateMessage($sender, "info-time", [(string)$level->getTime()]);
+	}
 }

@@ -33,25 +33,25 @@ use function str_replace;
 
 class DeleteSubCommand implements SubCommand {
 
-    public function execute(CommandSender $sender, array $args, string $name): void {
-        if (!isset($args[0])) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "delete-usage"));
-            return;
-        }
+	public function execute(CommandSender $sender, array $args, string $name): void {
+		if(!isset($args[0])) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "delete-usage"));
+			return;
+		}
 
-        if (!Server::getInstance()->isLevelGenerated($args[0]) || !file_exists(Server::getInstance()->getDataPath() . "worlds/$args[0]")) {
-            $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[0], LanguageManager::translateMessage($sender, "delete-levelnotexists")));
-            return;
-        }
+		if(!Server::getInstance()->isLevelGenerated($args[0]) || !file_exists(Server::getInstance()->getDataPath() . "worlds/$args[0]")) {
+			$sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[0], LanguageManager::translateMessage($sender, "delete-levelnotexists")));
+			return;
+		}
 
-        $level = Server::getInstance()->getLevelByName($args[0]);
-        if ($level instanceof Level) { // Level is loaded
-            if (WorldUtils::getDefaultLevelNonNull()->getId() == $level->getId()) {
-                $sender->sendMessage("§cCould not remove default level!");
-                return;
-            }
-        }
+		$level = Server::getInstance()->getLevelByName($args[0]);
+		if($level instanceof Level) { // Level is loaded
+			if(WorldUtils::getDefaultLevelNonNull()->getId() == $level->getId()) {
+				$sender->sendMessage("§cCould not remove default level!");
+				return;
+			}
+		}
 
-        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "delete-done", [(string)WorldUtils::removeLevel($args[0])]));
-    }
+		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "delete-done", [(string)WorldUtils::removeLevel($args[0])]));
+	}
 }

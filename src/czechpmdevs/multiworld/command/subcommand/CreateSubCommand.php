@@ -32,29 +32,29 @@ use function mt_rand;
 
 class CreateSubCommand implements SubCommand {
 
-    public function execute(CommandSender $sender, array $args, string $name): void {
-        if (!isset($args[0])) {
-            $sender->sendMessage(LanguageManager::translateMessage($sender, "create-usage"));
-            return;
-        }
+	public function execute(CommandSender $sender, array $args, string $name): void {
+		if(!isset($args[0])) {
+			$sender->sendMessage(LanguageManager::translateMessage($sender, "create-usage"));
+			return;
+		}
 
-        if (MultiWorld::getInstance()->getServer()->isLevelGenerated($args[0])) {
-            $sender->sendMessage(LanguageManager::translateMessage($sender, "create-exists", [$args[0]]));
-            return;
-        }
+		if(MultiWorld::getInstance()->getServer()->isLevelGenerated($args[0])) {
+			$sender->sendMessage(LanguageManager::translateMessage($sender, "create-exists", [$args[0]]));
+			return;
+		}
 
-        $seed = mt_rand();
-        if (isset($args[1]) && is_numeric($args[1])) {
-            $seed = (int)$args[1];
-        }
+		$seed = mt_rand();
+		if(isset($args[1]) && is_numeric($args[1])) {
+			$seed = (int)$args[1];
+		}
 
-        $generator = WorldUtils::getGeneratorByName($generatorName = $args[2] ?? "");
-        if ($generator === null) {
-            $sender->sendMessage(LanguageManager::translateMessage($sender, "create-gennotexists", [$generatorName]));
-            return;
-        }
+		$generator = WorldUtils::getGeneratorByName($generatorName = $args[2] ?? "");
+		if($generator === null) {
+			$sender->sendMessage(LanguageManager::translateMessage($sender, "create-gennotexists", [$generatorName]));
+			return;
+		}
 
-        Server::getInstance()->generateLevel($args[0], $seed, $generator);
-        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "create-done", [$args[0], (string)$seed, $generatorName]));
-    }
+		Server::getInstance()->generateLevel($args[0], $seed, $generator);
+		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "create-done", [$args[0], (string)$seed, $generatorName]));
+	}
 }

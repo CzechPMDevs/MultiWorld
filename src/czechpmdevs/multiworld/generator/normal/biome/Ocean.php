@@ -27,18 +27,18 @@ use pocketmine\block\Block;
 
 class Ocean extends Biome {
 
-    public function __construct() {
-        parent::__construct(0.5, 0.5);
+	public function __construct() {
+		parent::__construct(0.5, 0.5);
 
-        $this->setGroundCover([
-            Block::get(Block::GRAVEL),
-            Block::get(Block::GRAVEL)
-        ]);
+		$this->setGroundCover([
+			Block::get(Block::GRAVEL),
+			Block::get(Block::GRAVEL)
+		]);
 
-        $this->setElevation(55, 57);
-    }
+		$this->setElevation(55, 57);
+	}
 
-    public function getName(): string {
-        return "Ocean";
-    }
+	public function getName(): string {
+		return "Ocean";
+	}
 }

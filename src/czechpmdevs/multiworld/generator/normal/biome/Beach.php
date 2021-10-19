@@ -27,14 +27,14 @@ use czechpmdevs\multiworld\generator\normal\populator\impl\LakePopulator;
 
 class Beach extends SandyBiome {
 
-    public function __construct() {
-        parent::__construct(0.8, 0.4);
+	public function __construct() {
+		parent::__construct(0.8, 0.4);
 
-        $this->setElevation(62, 65);
-        $this->addPopulator(new LakePopulator());
-    }
+		$this->setElevation(62, 65);
+		$this->addPopulator(new LakePopulator());
+	}
 
-    public function getName(): string {
-        return "Beach";
-    }
+	public function getName(): string {
+		return "Beach";
+	}
 }

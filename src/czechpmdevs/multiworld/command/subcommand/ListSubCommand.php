@@ -33,15 +33,15 @@ use function implode;
 
 class ListSubCommand implements SubCommand {
 
-    public function execute(CommandSender $sender, array $args, string $name): void {
-        $worlds = array_values(array_map(static function (string $file): string {
-            if (Server::getInstance()->isLevelLoaded($file)) {
-                return "§7$file > §aLoaded§7, " . count(WorldUtils::getLevelByNameNonNull($file)->getPlayers()) . " Players";
-            } else {
-                return "§7$file > §cUnloaded";
-            }
-        }, WorldUtils::getAllLevels()));
+	public function execute(CommandSender $sender, array $args, string $name): void {
+		$worlds = array_values(array_map(static function(string $file): string {
+			if(Server::getInstance()->isLevelLoaded($file)) {
+				return "§7$file > §aLoaded§7, " . count(WorldUtils::getLevelByNameNonNull($file)->getPlayers()) . " Players";
+			} else {
+				return "§7$file > §cUnloaded";
+			}
+		}, WorldUtils::getAllLevels()));
 
-        $sender->sendMessage(LanguageManager::translateMessage($sender, "list-done", [(string)count($worlds)]) . "\n" . implode("\n", $worlds));
-    }
+		$sender->sendMessage(LanguageManager::translateMessage($sender, "list-done", [(string)count($worlds)]) . "\n" . implode("\n", $worlds));
+	}
 }

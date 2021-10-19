@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "603b6a44602571f55b677a168881348e",
+    "content-hash": "7f52aecab13b56fb8931a7dce2545bdf",
     "packages": [
         {
             "name": "adhocore/json-comment",
@@ -63,7 +63,7 @@
         },
         {
             "name": "czechpmdevs/libpmform",
-            "version": "dev-main",
+            "version": "dev-stable",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CzechPMDevs/libpmform.git",
@@ -82,7 +82,6 @@
                 "phpstan/phpstan": "0.12.82",
                 "pocketmine/pocketmine-mp": "3.18.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -101,23 +100,23 @@
             ],
             "description": "Simple form library",
             "support": {
-                "source": "https://github.com/CzechPMDevs/libpmform/tree/main",
+                "source": "https://github.com/CzechPMDevs/libpmform/tree/stable",
                 "issues": "https://github.com/CzechPMDevs/libpmform/issues"
             },
             "time": "2021-07-05T19:32:46+00:00"
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.83",
+            "version": "0.12.99",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "4a967cec6efb46b500dd6d768657336a3ffe699f"
+                "reference": "b4d40f1d759942f523be267a1bab6884f46ca3f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/4a967cec6efb46b500dd6d768657336a3ffe699f",
-                "reference": "4a967cec6efb46b500dd6d768657336a3ffe699f",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b4d40f1d759942f523be267a1bab6884f46ca3f7",
+                "reference": "b4d40f1d759942f523be267a1bab6884f46ca3f7",
                 "shasum": ""
             },
             "require": {
@@ -148,11 +147,15 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/0.12.83"
+                "source": "https://github.com/phpstan/phpstan/tree/0.12.99"
             },
             "funding": [
                 {
                     "url": "https://github.com/ondrejmirtes",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/phpstan",
                     "type": "github"
                 },
                 {
@@ -164,7 +167,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-04-03T15:35:45+00:00"
+            "time": "2021-09-12T20:09:55+00:00"
         },
         {
             "name": "pocketmine/binaryutils",
@@ -470,16 +473,16 @@
         },
         {
             "name": "pocketmine/pocketmine-mp",
-            "version": "3.20.0",
+            "version": "3.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pmmp/PocketMine-MP.git",
-                "reference": "99964709c932089189f921f62c6474a67fb94c9c"
+                "reference": "f48b703533e0ced4e8ff9e118c5fe3889ccaf23e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pmmp/PocketMine-MP/zipball/99964709c932089189f921f62c6474a67fb94c9c",
-                "reference": "99964709c932089189f921f62c6474a67fb94c9c",
+                "url": "https://api.github.com/repos/pmmp/PocketMine-MP/zipball/f48b703533e0ced4e8ff9e118c5fe3889ccaf23e",
+                "reference": "f48b703533e0ced4e8ff9e118c5fe3889ccaf23e",
                 "shasum": ""
             },
             "require": {
@@ -502,7 +505,7 @@
                 "ext-yaml": ">=2.0.0",
                 "ext-zip": "*",
                 "ext-zlib": ">=1.2.11",
-                "php": "^7.3 || ^8.0",
+                "php": "^8.0",
                 "php-64bit": "*",
                 "pocketmine/binaryutils": "^0.1.9",
                 "pocketmine/callback-validator": "^1.0.2",
@@ -516,7 +519,7 @@
                 "pocketmine/spl": "^0.4.0"
             },
             "require-dev": {
-                "phpstan/phpstan": "0.12.88",
+                "phpstan/phpstan": "0.12.99",
                 "phpstan/phpstan-phpunit": "^0.12.6",
                 "phpstan/phpstan-strict-rules": "^0.12.2",
                 "phpunit/phpunit": "^9.2"
@@ -538,11 +541,11 @@
             "license": [
                 "LGPL-3.0"
             ],
-            "description": "A server software for Minecraft: Pocket Edition written in PHP",
+            "description": "A server software for Minecraft: Bedrock Edition written in PHP",
             "homepage": "https://pmmp.io",
             "support": {
                 "issues": "https://github.com/pmmp/PocketMine-MP/issues",
-                "source": "https://github.com/pmmp/PocketMine-MP/tree/3.20.0"
+                "source": "https://github.com/pmmp/PocketMine-MP/tree/3.25.0"
             },
             "funding": [
                 {
@@ -554,7 +557,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2021-06-08T19:21:55+00:00"
+            "time": "2021-10-19T17:27:26+00:00"
         },
         {
             "name": "pocketmine/raklib",

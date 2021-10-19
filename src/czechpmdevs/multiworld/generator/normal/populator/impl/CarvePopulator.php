@@ -32,47 +32,47 @@ use pocketmine\utils\Random;
 
 class CarvePopulator extends Populator {
 
-    /** @const int */
-    public const CHECK_AREA_SIZE = 6; // originally 8
+	/** @const int */
+	public const CHECK_AREA_SIZE = 6; // originally 8
 
-    /** @var Random */
-    private Random $random;
-    /** @var Carve[] */
-    private array $carves = [];
+	/** @var Random */
+	private Random $random;
+	/** @var Carve[] */
+	private array $carves = [];
 
-    public function __construct() {
-        $this->random = new Random(0);
+	public function __construct() {
+		$this->random = new Random(0);
 
-        $this->carves[] = new Canyon($this->random);
-        $this->carves[] = new Cave($this->random);
-    }
+		$this->carves[] = new Canyon($this->random);
+		$this->carves[] = new Cave($this->random);
+	}
 
-    public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random) {
-        $localRandom = new Random($level->getSeed());
-        $xSeed = $localRandom->nextInt();
-        $zSeed = $localRandom->nextInt();
+	public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random) {
+		$localRandom = new Random($level->getSeed());
+		$xSeed = $localRandom->nextInt();
+		$zSeed = $localRandom->nextInt();
 
-        /** @var Chunk $chunk */
-        $chunk = $level->getChunk($chunkX, $chunkZ);
+		/** @var Chunk $chunk */
+		$chunk = $level->getChunk($chunkX, $chunkZ);
 
-        $minX = $chunkX - CarvePopulator::CHECK_AREA_SIZE;
-        $maxX = $chunkX + CarvePopulator::CHECK_AREA_SIZE;
-        $minZ = $chunkX - CarvePopulator::CHECK_AREA_SIZE;
-        $maxZ = $chunkZ + CarvePopulator::CHECK_AREA_SIZE;
+		$minX = $chunkX - CarvePopulator::CHECK_AREA_SIZE;
+		$maxX = $chunkX + CarvePopulator::CHECK_AREA_SIZE;
+		$minZ = $chunkX - CarvePopulator::CHECK_AREA_SIZE;
+		$maxZ = $chunkZ + CarvePopulator::CHECK_AREA_SIZE;
 
-        for ($x = $minX; $x <= $maxX; ++$x) {
-            $randomX = $xSeed * $x;
-            for ($z = $minZ; $z <= $maxZ; ++$z) {
-                $randomZ = $zSeed * $z;
+		for($x = $minX; $x <= $maxX; ++$x) {
+			$randomX = $xSeed * $x;
+			for($z = $minZ; $z <= $maxZ; ++$z) {
+				$randomZ = $zSeed * $z;
 
-                $seed = $randomX ^ $randomZ ^ $level->getSeed();
-                foreach ($this->carves as $carve) {
-                    $this->random->setSeed($seed);
-                    if($carve->canCarve($this->random, $chunkX, $chunkZ)) {
-                        $carve->carve($chunk, $x, $z);
-                    }
-                }
-            }
-        }
-    }
+				$seed = $randomX ^ $randomZ ^ $level->getSeed();
+				foreach($this->carves as $carve) {
+					$this->random->setSeed($seed);
+					if($carve->canCarve($this->random, $chunkX, $chunkZ)) {
+						$carve->carve($chunk, $x, $z);
+					}
+				}
+			}
+		}
+	}
 }

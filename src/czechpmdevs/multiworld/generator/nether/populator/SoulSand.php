@@ -30,56 +30,56 @@ use pocketmine\utils\Random;
 
 class SoulSand extends Populator {
 
-    public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random) {
-        if ($random->nextRange(0, 6) !== 0) return;
+	public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random) {
+		if($random->nextRange(0, 6) !== 0) return;
 
-        $x = $random->nextRange($chunkX << 4, ($chunkX << 4) + 15);
-        $z = $random->nextRange($chunkZ << 4, ($chunkZ << 4) + 15);
+		$x = $random->nextRange($chunkX << 4, ($chunkX << 4) + 15);
+		$z = $random->nextRange($chunkZ << 4, ($chunkZ << 4) + 15);
 
-        $sphereY = 0;
+		$sphereY = 0;
 
-        for ($y = 45; $y > 0; $y--) {
-            if ($level->getBlockIdAt($x, $y, $z) == 0) {
-                $sphereY = $y;
-            }
-        }
+		for($y = 45; $y > 0; $y--) {
+			if($level->getBlockIdAt($x, $y, $z) == 0) {
+				$sphereY = $y;
+			}
+		}
 
-        if ($sphereY - 3 < 2) {
-            return;
-        }
+		if($sphereY - 3 < 2) {
+			return;
+		}
 
-        if ($level->getBlockIdAt($x, $sphereY - 3, $z) != Block::NETHERRACK) {
-            return;
-        }
+		if($level->getBlockIdAt($x, $sphereY - 3, $z) != Block::NETHERRACK) {
+			return;
+		}
 
-        $this->placeSoulSand($level, $random, new Vector3($x, $sphereY - $random->nextRange(2, 4), $z));
-    }
+		$this->placeSoulSand($level, $random, new Vector3($x, $sphereY - $random->nextRange(2, 4), $z));
+	}
 
-    public function placeSoulSand(ChunkManager $level, Random $random, Vector3 $position): void {
-        $radiusX = $random->nextRange(8, 15);
-        $radiusZ = $random->nextRange(8, 15);
-        $radiusY = $random->nextRange(5, 8);
-        for ($x = $position->getX() - $radiusX; $x < $position->getX() + $radiusX; $x++) {
-            $xsqr = ($position->getX() - $x) * ($position->getX() - $x);
-            for ($y = $position->getY() - $radiusY; $y < $position->getY() + $radiusY; $y++) {
-                $ysqr = ($position->getY() - $y) * ($position->getY() - $y);
-                for ($z = $position->getZ() - $radiusZ; $z < $position->getZ() + $radiusZ; $z++) {
-                    $zsqr = ($position->getZ() - $z) * ($position->getZ() - $z);
-                    if (($xsqr + $ysqr + $zsqr) < (pow(2, $random->nextRange(3, 6)))) {
-                        /** @phpstan-ignore-next-line */
-                        if ($level->getBlockIdAt($x, $y, $z) == Block::NETHERRACK) {
-                            /** @phpstan-ignore-next-line */
-                            $level->setBlockIdAt($x, $y, $z, Block::SOUL_SAND);
-                            /** @phpstan-ignore-next-line */
-                            if ($random->nextRange(0, 3) == 3 && $level->getBlockIdAt($x, $y + 1, $z) == Block::AIR) {
-                                /** @phpstan-ignore-next-line */
-                                $level->setBlockIdAt($x, $y + 1, $z, Block::NETHER_WART_PLANT);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+	public function placeSoulSand(ChunkManager $level, Random $random, Vector3 $position): void {
+		$radiusX = $random->nextRange(8, 15);
+		$radiusZ = $random->nextRange(8, 15);
+		$radiusY = $random->nextRange(5, 8);
+		for($x = $position->getX() - $radiusX; $x < $position->getX() + $radiusX; $x++) {
+			$xsqr = ($position->getX() - $x) * ($position->getX() - $x);
+			for($y = $position->getY() - $radiusY; $y < $position->getY() + $radiusY; $y++) {
+				$ysqr = ($position->getY() - $y) * ($position->getY() - $y);
+				for($z = $position->getZ() - $radiusZ; $z < $position->getZ() + $radiusZ; $z++) {
+					$zsqr = ($position->getZ() - $z) * ($position->getZ() - $z);
+					if(($xsqr + $ysqr + $zsqr) < (pow(2, $random->nextRange(3, 6)))) {
+						/** @phpstan-ignore-next-line */
+						if($level->getBlockIdAt($x, $y, $z) == Block::NETHERRACK) {
+							/** @phpstan-ignore-next-line */
+							$level->setBlockIdAt($x, $y, $z, Block::SOUL_SAND);
+							/** @phpstan-ignore-next-line */
+							if($random->nextRange(0, 3) == 3 && $level->getBlockIdAt($x, $y + 1, $z) == Block::AIR) {
+								/** @phpstan-ignore-next-line */
+								$level->setBlockIdAt($x, $y + 1, $z, Block::NETHER_WART_PLANT);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 
 }

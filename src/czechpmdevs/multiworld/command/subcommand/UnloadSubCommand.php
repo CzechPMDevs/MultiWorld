@@ -30,23 +30,23 @@ use pocketmine\Server;
 
 class UnloadSubCommand implements SubCommand {
 
-    public function execute(CommandSender $sender, array $args, string $name): void {
-        if (!isset($args[0])) {
-            $sender->sendMessage(LanguageManager::translateMessage($sender, "unload-usage"));
-            return;
-        }
+	public function execute(CommandSender $sender, array $args, string $name): void {
+		if(!isset($args[0])) {
+			$sender->sendMessage(LanguageManager::translateMessage($sender, "unload-usage"));
+			return;
+		}
 
-        if (!Server::getInstance()->isLevelGenerated($args[0])) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "unload-levelnotexists", [$args[0]]));
-            return;
-        }
+		if(!Server::getInstance()->isLevelGenerated($args[0])) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "unload-levelnotexists", [$args[0]]));
+			return;
+		}
 
-        if (!Server::getInstance()->isLevelLoaded($args[0])) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "unload-unloaded"));
-            return;
-        }
+		if(!Server::getInstance()->isLevelLoaded($args[0])) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "unload-unloaded"));
+			return;
+		}
 
-        Server::getInstance()->unloadLevel(WorldUtils::getLevelByNameNonNull($args[0]));
-        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "unload-done"));
-    }
+		Server::getInstance()->unloadLevel(WorldUtils::getLevelByNameNonNull($args[0]));
+		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "unload-done"));
+	}
 }

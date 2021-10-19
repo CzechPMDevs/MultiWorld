@@ -29,13 +29,13 @@ use czechpmdevs\multiworld\generator\normal\populator\impl\TreePopulator;
 
 class IcePlains extends GrassyBiome implements SnowyBiome {
 
-    public function __construct() {
-        parent::__construct(0, 0.5);
-        $this->addPopulator(new TreePopulator(2, 2, 90, Tree::SPRUCE));
-        $this->setElevation(100, 106);
-    }
+	public function __construct() {
+		parent::__construct(0, 0.5);
+		$this->addPopulator(new TreePopulator(2, 2, 90, Tree::SPRUCE));
+		$this->setElevation(100, 106);
+	}
 
-    public function getName(): string {
-        return "Ice Plains";
-    }
+	public function getName(): string {
+		return "Ice Plains";
+	}
 }

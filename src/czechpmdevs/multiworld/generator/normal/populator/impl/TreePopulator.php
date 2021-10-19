@@ -30,28 +30,28 @@ use pocketmine\utils\Random;
 
 class TreePopulator extends AmountPopulator {
 
-    /** @var int */
-    private int $type;
-    /** @var bool */
-    private bool $vines;
+	/** @var int */
+	private int $type;
+	/** @var bool */
+	private bool $vines;
 
-    public function __construct(int $baseAmount, int $randomAmount, int $spawnPercentage = 100, int $type = Tree::OAK, bool $vines = false) {
-        $this->type = $type;
-        $this->vines = $vines;
+	public function __construct(int $baseAmount, int $randomAmount, int $spawnPercentage = 100, int $type = Tree::OAK, bool $vines = false) {
+		$this->type = $type;
+		$this->vines = $vines;
 
-        parent::__construct($baseAmount, $randomAmount, $spawnPercentage);
-    }
+		parent::__construct($baseAmount, $randomAmount, $spawnPercentage);
+	}
 
-    public function populateObject(ChunkManager $level, int $chunkX, int $chunkZ, Random $random): void {
-        $this->getRandomSpawnPosition($level, $chunkX, $chunkZ, $random, $x, $y, $z);
-        if ($y === -1) {
-            return;
-        }
+	public function populateObject(ChunkManager $level, int $chunkX, int $chunkZ, Random $random): void {
+		$this->getRandomSpawnPosition($level, $chunkX, $chunkZ, $random, $x, $y, $z);
+		if($y === -1) {
+			return;
+		}
 
-        if (!in_array($level->getBlockIdAt($x, $y - 1, $z), [BlockIds::GRASS, BlockIds::MYCELIUM])) {
-            return;
-        }
+		if(!in_array($level->getBlockIdAt($x, $y - 1, $z), [BlockIds::GRASS, BlockIds::MYCELIUM])) {
+			return;
+		}
 
-        Tree::growTree($level, $x, $y, $z, $random, $this->type, $this->vines);
-    }
+		Tree::growTree($level, $x, $y, $z, $random, $this->type, $this->vines);
+	}
 }

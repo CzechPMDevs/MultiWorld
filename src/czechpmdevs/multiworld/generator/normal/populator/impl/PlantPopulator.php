@@ -33,39 +33,39 @@ use function in_array;
 
 class PlantPopulator extends AmountPopulator {
 
-    /** @var Plant[] */
-    private array $plants = [];
-    /** @var int[] */
-    private array $allowedBlocks = [];
+	/** @var Plant[] */
+	private array $plants = [];
+	/** @var int[] */
+	private array $allowedBlocks = [];
 
-    public function addPlant(Plant $plant): void {
-        $this->plants[] = $plant;
-    }
+	public function addPlant(Plant $plant): void {
+		$this->plants[] = $plant;
+	}
 
-    public function allowBlockToStayAt(int $blockId): void {
-        $this->allowedBlocks[] = $blockId;
-    }
+	public function allowBlockToStayAt(int $blockId): void {
+		$this->allowedBlocks[] = $blockId;
+	}
 
-    public function populateObject(ChunkManager $level, int $chunkX, int $chunkZ, Random $random): void {
-        if (count($this->plants) === 0) {
-            return;
-        }
+	public function populateObject(ChunkManager $level, int $chunkX, int $chunkZ, Random $random): void {
+		if(count($this->plants) === 0) {
+			return;
+		}
 
-        $this->getRandomSpawnPosition($level, $chunkX, $chunkZ, $random, $x, $y, $z);
+		$this->getRandomSpawnPosition($level, $chunkX, $chunkZ, $random, $x, $y, $z);
 
-        if ($y !== -1 and $this->canPlantStay($level, $x, $y, $z)) {
-            $plant = $random->nextRange(0, count($this->plants) - 1);
-            $pY = $y;
-            foreach ($this->plants[$plant]->blocks as $block) {
-                $level->setBlockIdAt($x, $pY, $z, $block->getId());
-                $level->setBlockDataAt($x, $pY, $z, $block->getDamage());
-                $pY++;
-            }
-        }
-    }
+		if($y !== -1 and $this->canPlantStay($level, $x, $y, $z)) {
+			$plant = $random->nextRange(0, count($this->plants) - 1);
+			$pY = $y;
+			foreach($this->plants[$plant]->blocks as $block) {
+				$level->setBlockIdAt($x, $pY, $z, $block->getId());
+				$level->setBlockDataAt($x, $pY, $z, $block->getDamage());
+				$pY++;
+			}
+		}
+	}
 
-    private function canPlantStay(ChunkManager $level, int $x, int $y, int $z): bool {
-        $b = $level->getBlockIdAt($x, $y, $z);
-        return ($b === BlockIds::AIR or $b === BlockIds::SNOW_LAYER or $b === BlockIds::WATER) and in_array($level->getBlockIdAt($x, $y - 1, $z), array_merge([BlockIds::GRASS], $this->allowedBlocks));
-    }
+	private function canPlantStay(ChunkManager $level, int $x, int $y, int $z): bool {
+		$b = $level->getBlockIdAt($x, $y, $z);
+		return ($b === BlockIds::AIR or $b === BlockIds::SNOW_LAYER or $b === BlockIds::WATER) and in_array($level->getBlockIdAt($x, $y - 1, $z), array_merge([BlockIds::GRASS], $this->allowedBlocks));
+	}
 }

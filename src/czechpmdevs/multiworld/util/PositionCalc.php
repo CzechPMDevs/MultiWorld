@@ -28,27 +28,27 @@ use pocketmine\utils\Random;
 
 trait PositionCalc {
 
-    /**
-     * Returns random spawn position based on Random class for
-     * specified Chunk
-     */
-    public function getRandomSpawnPosition(ChunkManager $level, int $chunkX, int $chunkZ, Random $random, ?int &$x, ?int &$y, ?int &$z): void {
-        $x = ($chunkX << 4) + $random->nextBoundedInt(16);
-        $z = ($chunkZ << 4) + $random->nextBoundedInt(16);
-        $y = $this->getHighestWorkableBlock($level, $x, $z);
-    }
+	/**
+	 * Returns random spawn position based on Random class for
+	 * specified Chunk
+	 */
+	public function getRandomSpawnPosition(ChunkManager $level, int $chunkX, int $chunkZ, Random $random, ?int &$x, ?int &$y, ?int &$z): void {
+		$x = ($chunkX << 4) + $random->nextBoundedInt(16);
+		$z = ($chunkZ << 4) + $random->nextBoundedInt(16);
+		$y = $this->getHighestWorkableBlock($level, $x, $z);
+	}
 
-    /**
-     * Returns Y coordinate of highest block at X:Z coordinates in the level
-     */
-    public function getHighestWorkableBlock(ChunkManager $level, int $x, int $z): int {
-        for ($y = 127; $y >= 0; --$y) {
-            $b = $level->getBlockIdAt($x, $y, $z);
-            if ($b !== BlockIds::AIR and $b !== BlockIds::LEAVES and $b !== BlockIds::LEAVES2 and $b !== BlockIds::SNOW_LAYER) {
-                break;
-            }
-        }
+	/**
+	 * Returns Y coordinate of highest block at X:Z coordinates in the level
+	 */
+	public function getHighestWorkableBlock(ChunkManager $level, int $x, int $z): int {
+		for($y = 127; $y >= 0; --$y) {
+			$b = $level->getBlockIdAt($x, $y, $z);
+			if($b !== BlockIds::AIR and $b !== BlockIds::LEAVES and $b !== BlockIds::LEAVES2 and $b !== BlockIds::SNOW_LAYER) {
+				break;
+			}
+		}
 
-        return $y === 0 ? -1 : ++$y;
-    }
+		return $y === 0 ? -1 : ++$y;
+	}
 }

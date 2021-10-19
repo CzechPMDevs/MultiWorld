@@ -40,101 +40,101 @@ use function abs;
 
 class NetherGenerator extends Generator {
 
-    /** @var Populator[] */
-    private array $populators = [];
-    /** @var int */
-    private int $waterHeight = 32;
-    /** @var int */
-    private int $emptyHeight = 64;
-    /** @var int */
-    private int $emptyAmplitude = 1;
-    /** @var float */
-    private float $density = 0.5;
+	/** @var Populator[] */
+	private array $populators = [];
+	/** @var int */
+	private int $waterHeight = 32;
+	/** @var int */
+	private int $emptyHeight = 64;
+	/** @var int */
+	private int $emptyAmplitude = 1;
+	/** @var float */
+	private float $density = 0.5;
 
-    /** @var Populator[] */
-    private array $generationPopulators = [];
-    /** @var Simplex $noiseBase */
-    private Simplex $noiseBase;
+	/** @var Populator[] */
+	private array $generationPopulators = [];
+	/** @var Simplex $noiseBase */
+	private Simplex $noiseBase;
 
-    /** @phpstan-ignore-next-line */
-    public function __construct(array $options = []) {
-    }
+	/** @phpstan-ignore-next-line */
+	public function __construct(array $options = []) {
+	}
 
-    public function init(ChunkManager $level, Random $random): void {
-        parent::init($level, $random);
-        $this->random->setSeed($this->level->getSeed());
-        $this->noiseBase = new Simplex($this->random, 4, 1 / 4, 1 / 64);
-        $this->random->setSeed($this->level->getSeed());
+	public function init(ChunkManager $level, Random $random): void {
+		parent::init($level, $random);
+		$this->random->setSeed($this->level->getSeed());
+		$this->noiseBase = new Simplex($this->random, 4, 1 / 4, 1 / 64);
+		$this->random->setSeed($this->level->getSeed());
 
-        $ores = new Ore();
-        $ores->setOreTypes([
-            new OreType(new NetherQuartzOre(), 50, 14, 0, 128)
-        ]);
-        $this->populators[] = $ores;
-        $this->populators[] = new GlowstoneSphere();
-        $this->populators[] = new SoulSand();
-    }
+		$ores = new Ore();
+		$ores->setOreTypes([
+			new OreType(new NetherQuartzOre(), 50, 14, 0, 128)
+		]);
+		$this->populators[] = $ores;
+		$this->populators[] = new GlowstoneSphere();
+		$this->populators[] = new SoulSand();
+	}
 
-    public function generateChunk(int $chunkX, int $chunkZ): void {
-        $this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
+	public function generateChunk(int $chunkX, int $chunkZ): void {
+		$this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
 
-        /** @phpstan-var Chunk $chunk */
-        $chunk = $this->level->getChunk($chunkX, $chunkZ);
-        $noise = $this->noiseBase->getFastNoise3D(16, 128, 16, 4, 8, 4, $chunkX * 16, 0, $chunkZ * 16);
+		/** @phpstan-var Chunk $chunk */
+		$chunk = $this->level->getChunk($chunkX, $chunkZ);
+		$noise = $this->noiseBase->getFastNoise3D(16, 128, 16, 4, 8, 4, $chunkX * 16, 0, $chunkZ * 16);
 
-        for ($x = 0; $x < 16; ++$x) {
-            for ($z = 0; $z < 16; ++$z) {
+		for($x = 0; $x < 16; ++$x) {
+			for($z = 0; $z < 16; ++$z) {
 
-                $biome = Biome::getBiome(Biome::HELL);
-                $chunk->setBiomeId($x, $z, $biome->getId());
+				$biome = Biome::getBiome(Biome::HELL);
+				$chunk->setBiomeId($x, $z, $biome->getId());
 
-                for ($y = 0; $y < 128; ++$y) {
-                    if ($y === 0 or $y === 127) {
-                        $chunk->setBlockId($x, $y, $z, BlockIds::BEDROCK);
-                        continue;
-                    }
-                    if ($y === 126) {
-                        $chunk->setBlockId($x, $y, $z, BlockIds::NETHERRACK);
-                        continue;
-                    }
-                    $noiseValue = (abs($this->emptyHeight - $y) / $this->emptyHeight) * $this->emptyAmplitude - $noise[$x][$z][$y];
-                    $noiseValue -= 1 - $this->density;
+				for($y = 0; $y < 128; ++$y) {
+					if($y === 0 or $y === 127) {
+						$chunk->setBlockId($x, $y, $z, BlockIds::BEDROCK);
+						continue;
+					}
+					if($y === 126) {
+						$chunk->setBlockId($x, $y, $z, BlockIds::NETHERRACK);
+						continue;
+					}
+					$noiseValue = (abs($this->emptyHeight - $y) / $this->emptyHeight) * $this->emptyAmplitude - $noise[$x][$z][$y];
+					$noiseValue -= 1 - $this->density;
 
-                    if ($noiseValue > 0) {
-                        $chunk->setBlockId($x, $y, $z, BlockIds::NETHERRACK);
-                    } elseif ($y <= $this->waterHeight) {
-                        $chunk->setBlockId($x, $y, $z, BlockIds::STILL_LAVA);
-                    }
-                }
-            }
-        }
+					if($noiseValue > 0) {
+						$chunk->setBlockId($x, $y, $z, BlockIds::NETHERRACK);
+					} elseif($y <= $this->waterHeight) {
+						$chunk->setBlockId($x, $y, $z, BlockIds::STILL_LAVA);
+					}
+				}
+			}
+		}
 
-        foreach ($this->generationPopulators as $populator) {
-            $populator->populate($this->level, $chunkX, $chunkZ, $this->random);
-        }
-    }
+		foreach($this->generationPopulators as $populator) {
+			$populator->populate($this->level, $chunkX, $chunkZ, $this->random);
+		}
+	}
 
-    public function populateChunk(int $chunkX, int $chunkZ): void {
-        $this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
-        foreach ($this->populators as $populator) {
-            $populator->populate($this->level, $chunkX, $chunkZ, $this->random);
-        }
+	public function populateChunk(int $chunkX, int $chunkZ): void {
+		$this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->level->getSeed());
+		foreach($this->populators as $populator) {
+			$populator->populate($this->level, $chunkX, $chunkZ, $this->random);
+		}
 
-        /** @phpstan-var Chunk $chunk */
-        $chunk = $this->level->getChunk($chunkX, $chunkZ);
-        $biome = Biome::getBiome($chunk->getBiomeId(7, 7));
-        $biome->populateChunk($this->level, $chunkX, $chunkZ, $this->random);
-    }
+		/** @phpstan-var Chunk $chunk */
+		$chunk = $this->level->getChunk($chunkX, $chunkZ);
+		$biome = Biome::getBiome($chunk->getBiomeId(7, 7));
+		$biome->populateChunk($this->level, $chunkX, $chunkZ, $this->random);
+	}
 
-    public function getName(): string {
-        return "nether";
-    }
+	public function getName(): string {
+		return "nether";
+	}
 
-    public function getSpawn(): Vector3 {
-        return new Vector3(127.5, 128, 127.5);
-    }
+	public function getSpawn(): Vector3 {
+		return new Vector3(127.5, 128, 127.5);
+	}
 
-    public function getSettings(): array {
-        return [];
-    }
+	public function getSettings(): array {
+		return [];
+	}
 }

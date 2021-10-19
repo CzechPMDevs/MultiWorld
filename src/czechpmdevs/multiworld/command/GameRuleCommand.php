@@ -42,88 +42,88 @@ use function strtolower;
 
 class GameRuleCommand extends Command implements PluginIdentifiableCommand {
 
-    public function __construct() {
-        parent::__construct("gamerule", "Edit level gamerules", null, []);
-        $this->setPermission("multiworld.command.gamerule");
-    }
+	public function __construct() {
+		parent::__construct("gamerule", "Edit level gamerules", null, []);
+		$this->setPermission("multiworld.command.gamerule");
+	}
 
-    public function execute(CommandSender $sender, string $commandLabel, array $args) {
-        if (!$this->testPermission($sender)) {
-            return;
-        }
+	public function execute(CommandSender $sender, string $commandLabel, array $args) {
+		if(!$this->testPermission($sender)) {
+			return;
+		}
 
-        if (!isset($args[0])) {
-            $sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
-            return;
-        }
+		if(!isset($args[0])) {
+			$sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
+			return;
+		}
 
-        $gameRules = GameRules::getDefaultGameRules()->getGameRules();
-        if ($args[0] == "list") {
-            $sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-list", [implode(", ", array_keys($gameRules))]));
-            return;
-        }
+		$gameRules = GameRules::getDefaultGameRules()->getGameRules();
+		if($args[0] == "list") {
+			$sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-list", [implode(", ", array_keys($gameRules))]));
+			return;
+		}
 
-        if ((!isset($args[1])) || (!isset($args[2]) && (!$sender instanceof Player))) {
-            $sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
-            return;
-        }
+		if((!isset($args[1])) || (!isset($args[2]) && (!$sender instanceof Player))) {
+			$sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
+			return;
+		}
 
-        /** @var string[] $gameRulesMap */
-        $gameRulesMap = array_combine(
-            array_map(fn(string $rule) => strtolower($rule), array_keys($gameRules)),
-            array_keys($gameRules)
-        );
+		/** @var string[] $gameRulesMap */
+		$gameRulesMap = array_combine(
+			array_map(fn(string $rule) => strtolower($rule), array_keys($gameRules)),
+			array_keys($gameRules)
+		);
 
-        if (!array_key_exists($args[0] = $gameRulesMap[strtolower($args[0])] ?? "unknownRule", $gameRules)) {
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-notexists", [$args[0]]));
-            return;
-        }
+		if(!array_key_exists($args[0] = $gameRulesMap[strtolower($args[0])] ?? "unknownRule", $gameRules)) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-notexists", [$args[0]]));
+			return;
+		}
 
-        /** @var bool|int|null $value */
-        $value = $args[1] == "true" ? true : (
-            $args[1] == "false" ? false : (
-                is_numeric($args[1]) ? (int)$args[1] : null
-            )
-        );
+		/** @var bool|int|null $value */
+		$value = $args[1] == "true" ? true : (
+		$args[1] == "false" ? false : (
+		is_numeric($args[1]) ? (int)$args[1] : null
+		)
+		);
 
-        if ($value === null || GameRules::getPropertyType($value) != GameRules::getPropertyType($gameRules[$args[0]])) {
-            $sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
-            return;
-        }
+		if($value === null || GameRules::getPropertyType($value) != GameRules::getPropertyType($gameRules[$args[0]])) {
+			$sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
+			return;
+		}
 
-        if (isset($args[2])) {
-            $level = WorldUtils::getLoadedLevelByName($args[2]);
-            if ($level === null) {
-                $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-levelnotfound", [$args[2]]));
-                return;
-            }
+		if(isset($args[2])) {
+			$level = WorldUtils::getLoadedLevelByName($args[2]);
+			if($level === null) {
+				$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-levelnotfound", [$args[2]]));
+				return;
+			}
 
-            if (is_bool($value)) {
-                MultiWorld::getGameRules($level)->setBool($args[0], $value);
-            } else {
-                MultiWorld::getGameRules($level)->setInteger($args[1], (int)$value);
-            }
+			if(is_bool($value)) {
+				MultiWorld::getGameRules($level)->setBool($args[0], $value);
+			} else {
+				MultiWorld::getGameRules($level)->setInteger($args[1], (int)$value);
+			}
 
-            MultiWorld::getGameRules($level)->applyToLevel($level);
-            $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-done", [$args[0], $level->getName(), $args[1]]));
-            return;
-        }
+			MultiWorld::getGameRules($level)->applyToLevel($level);
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-done", [$args[0], $level->getName(), $args[1]]));
+			return;
+		}
 
-        /** @var Player $sender */
-        if (is_bool($value)) {
-            MultiWorld::getGameRules($sender->getLevelNonNull())->setBool($args[0], $value);
-        } else {
-            MultiWorld::getGameRules($sender->getLevelNonNull())->setInteger($args[0], (int)$value);
-        }
+		/** @var Player $sender */
+		if(is_bool($value)) {
+			MultiWorld::getGameRules($sender->getLevelNonNull())->setBool($args[0], $value);
+		} else {
+			MultiWorld::getGameRules($sender->getLevelNonNull())->setInteger($args[0], (int)$value);
+		}
 
-        MultiWorld::getGameRules($sender->getLevelNonNull())->applyToLevel($sender->getLevelNonNull());
-        $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-done", [$args[0], $sender->getLevelNonNull()->getName(), $args[1]]));
-    }
+		MultiWorld::getGameRules($sender->getLevelNonNull())->applyToLevel($sender->getLevelNonNull());
+		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-done", [$args[0], $sender->getLevelNonNull()->getName(), $args[1]]));
+	}
 
-    /**
-     * @return MultiWorld
-     */
-    public function getPlugin(): Plugin {
-        return MultiWorld::getInstance();
-    }
+	/**
+	 * @return MultiWorld
+	 */
+	public function getPlugin(): Plugin {
+		return MultiWorld::getInstance();
+	}
 }

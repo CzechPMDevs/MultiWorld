@@ -36,32 +36,32 @@ use pocketmine\block\RedMushroom;
 
 class BirchForest extends GrassyBiome {
 
-    public function __construct() {
-        parent::__construct(0.6, 0.6);
+	public function __construct() {
+		parent::__construct(0.6, 0.6);
 
-        $mushrooms = new PlantPopulator(2, 2, 95);
-        $mushrooms->addPlant(new Plant(new BrownMushroom()));
-        $mushrooms->addPlant(new Plant(new RedMushroom()));
+		$mushrooms = new PlantPopulator(2, 2, 95);
+		$mushrooms->addPlant(new Plant(new BrownMushroom()));
+		$mushrooms->addPlant(new Plant(new RedMushroom()));
 
-        $flowers = new PlantPopulator(6, 7, 80);
-        $flowers->addPlant(new Plant(new Dandelion()));
-        $flowers->addPlant(new Plant(new Flower()));
+		$flowers = new PlantPopulator(6, 7, 80);
+		$flowers->addPlant(new Plant(new Dandelion()));
+		$flowers->addPlant(new Plant(new Flower()));
 
-        $roses = new PlantPopulator(5, 4, 80);
-        $roses->addPlant(new Plant(new DoublePlant(4), new DoublePlant(12)));
+		$roses = new PlantPopulator(5, 4, 80);
+		$roses->addPlant(new Plant(new DoublePlant(4), new DoublePlant(12)));
 
-        $peonys = new PlantPopulator(5, 4, 80);
-        $peonys->addPlant(new Plant(new DoublePlant(1), new DoublePlant(9)));
+		$peonys = new PlantPopulator(5, 4, 80);
+		$peonys->addPlant(new Plant(new DoublePlant(1), new DoublePlant(9)));
 
-        $birch = new TreePopulator(5, 4, 100, Tree::BIRCH);
-        $grass = new TallGrassPopulator(56, 20);
+		$birch = new TreePopulator(5, 4, 100, Tree::BIRCH);
+		$grass = new TallGrassPopulator(56, 20);
 
-        $this->addPopulators([$birch, $flowers, $peonys, $roses, $mushrooms, $grass]);
+		$this->addPopulators([$birch, $flowers, $peonys, $roses, $mushrooms, $grass]);
 
-        $this->setElevation(63, 70);
-    }
+		$this->setElevation(63, 70);
+	}
 
-    public function getName(): string {
-        return "Birch Forest";
-    }
+	public function getName(): string {
+		return "Birch Forest";
+	}
 }

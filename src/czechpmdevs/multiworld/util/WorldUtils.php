@@ -54,185 +54,185 @@ use function unlink;
 
 class WorldUtils {
 
-    public static function removeLevel(string $name): int {
-        if (Server::getInstance()->isLevelLoaded($name)) {
-            $level = WorldUtils::getLevelByNameNonNull($name);
-            if (count($level->getPlayers()) > 0) {
-                foreach ($level->getPlayers() as $player) {
-                    $player->teleport(WorldUtils::getDefaultLevelNonNull()->getSpawnLocation());
-                }
-            }
+	public static function removeLevel(string $name): int {
+		if(Server::getInstance()->isLevelLoaded($name)) {
+			$level = WorldUtils::getLevelByNameNonNull($name);
+			if(count($level->getPlayers()) > 0) {
+				foreach($level->getPlayers() as $player) {
+					$player->teleport(WorldUtils::getDefaultLevelNonNull()->getSpawnLocation());
+				}
+			}
 
-            Server::getInstance()->unloadLevel($level);
-        }
+			Server::getInstance()->unloadLevel($level);
+		}
 
-        $removedFiles = 1;
+		$removedFiles = 1;
 
-        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($worldPath = Server::getInstance()->getDataPath() . "/worlds/$name", RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
-        /** @var SplFileInfo $fileInfo */
-        foreach ($files as $fileInfo) {
-            if ($filePath = $fileInfo->getRealPath()) {
-                if ($fileInfo->isFile()) {
-                    unlink($filePath);
-                } else {
-                    rmdir($filePath);
-                }
+		$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($worldPath = Server::getInstance()->getDataPath() . "/worlds/$name", RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST);
+		/** @var SplFileInfo $fileInfo */
+		foreach($files as $fileInfo) {
+			if($filePath = $fileInfo->getRealPath()) {
+				if($fileInfo->isFile()) {
+					unlink($filePath);
+				} else {
+					rmdir($filePath);
+				}
 
-                $removedFiles++;
-            }
-        }
+				$removedFiles++;
+			}
+		}
 
-        rmdir($worldPath);
-        return $removedFiles;
-    }
+		rmdir($worldPath);
+		return $removedFiles;
+	}
 
-    /**
-     * WARNING: This method should be used only in the case, when we
-     * know, that the level is generated and loaded.
-     */
-    public static function getLevelByNameNonNull(string $name): Level {
-        $level = Server::getInstance()->getLevelByName($name);
-        if ($level === null) {
-            throw new AssumptionFailedError("Required level $name is null");
-        }
+	/**
+	 * WARNING: This method should be used only in the case, when we
+	 * know, that the level is generated and loaded.
+	 */
+	public static function getLevelByNameNonNull(string $name): Level {
+		$level = Server::getInstance()->getLevelByName($name);
+		if($level === null) {
+			throw new AssumptionFailedError("Required level $name is null");
+		}
 
-        return $level;
-    }
+		return $level;
+	}
 
-    public static function getDefaultLevelNonNull(): Level {
-        $level = Server::getInstance()->getDefaultLevel();
-        if ($level === null) {
-            throw new AssumptionFailedError("Default level is null");
-        }
+	public static function getDefaultLevelNonNull(): Level {
+		$level = Server::getInstance()->getDefaultLevel();
+		if($level === null) {
+			throw new AssumptionFailedError("Default level is null");
+		}
 
-        return $level;
-    }
+		return $level;
+	}
 
-    public static function renameLevel(string $oldName, string $newName): void {
-        WorldUtils::lazyUnloadLevel($oldName);
+	public static function renameLevel(string $oldName, string $newName): void {
+		WorldUtils::lazyUnloadLevel($oldName);
 
-        $from = Server::getInstance()->getDataPath() . "/worlds/" . $oldName;
-        $to = Server::getInstance()->getDataPath() . "/worlds/" . $newName;
+		$from = Server::getInstance()->getDataPath() . "/worlds/" . $oldName;
+		$to = Server::getInstance()->getDataPath() . "/worlds/" . $newName;
 
-        rename($from, $to);
+		rename($from, $to);
 
-        WorldUtils::lazyLoadLevel($newName);
-        $newLevel = Server::getInstance()->getLevelByName($newName);
-        if (!$newLevel instanceof Level) {
-            return;
-        }
+		WorldUtils::lazyLoadLevel($newName);
+		$newLevel = Server::getInstance()->getLevelByName($newName);
+		if(!$newLevel instanceof Level) {
+			return;
+		}
 
-        $provider = $newLevel->getProvider();
-        if (!$provider instanceof BaseLevelProvider) {
-            return;
-        }
+		$provider = $newLevel->getProvider();
+		if(!$provider instanceof BaseLevelProvider) {
+			return;
+		}
 
-        $provider->getLevelData()->setString("LevelName", $newName);
-        $provider->saveLevelData();
+		$provider->getLevelData()->setString("LevelName", $newName);
+		$provider->saveLevelData();
 
-        Server::getInstance()->unloadLevel($newLevel);
-        WorldUtils::lazyLoadLevel($newName); // reloading the level
-    }
+		Server::getInstance()->unloadLevel($newLevel);
+		WorldUtils::lazyLoadLevel($newName); // reloading the level
+	}
 
-    public static function duplicateLevel(string $levelName, string $duplicateName): void {
-        if(Server::getInstance()->isLevelLoaded($levelName)) {
-            WorldUtils::getLevelByNameNonNull($levelName)->save(false);
-        }
+	public static function duplicateLevel(string $levelName, string $duplicateName): void {
+		if(Server::getInstance()->isLevelLoaded($levelName)) {
+			WorldUtils::getLevelByNameNonNull($levelName)->save(false);
+		}
 
-        mkdir(Server::getInstance()->getDataPath() . "/worlds/$duplicateName");
+		mkdir(Server::getInstance()->getDataPath() . "/worlds/$duplicateName");
 
-        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(Server::getInstance()->getDataPath() . "/worlds/$levelName", RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
-        /** @var SplFileInfo $fileInfo */
-        foreach ($files as $fileInfo) {
-            if ($filePath = $fileInfo->getRealPath()) {
-                if ($fileInfo->isFile()) {
-                    copy($filePath, str_replace($levelName, $duplicateName, $filePath));
-                } else {
-                    mkdir(str_replace($levelName, $duplicateName, $filePath));
-                }
-            }
-        }
-    }
+		$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(Server::getInstance()->getDataPath() . "/worlds/$levelName", RecursiveDirectoryIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
+		/** @var SplFileInfo $fileInfo */
+		foreach($files as $fileInfo) {
+			if($filePath = $fileInfo->getRealPath()) {
+				if($fileInfo->isFile()) {
+					copy($filePath, str_replace($levelName, $duplicateName, $filePath));
+				} else {
+					mkdir(str_replace($levelName, $duplicateName, $filePath));
+				}
+			}
+		}
+	}
 
-    /**
-     * @return bool Returns if the level was unloaded with the function.
-     * If it has already been unloaded before calling this function, returns FALSE!
-     */
-    public static function lazyUnloadLevel(string $name, bool $force = false): bool {
-        if (($level = Server::getInstance()->getLevelByName($name)) !== null) {
-            return Server::getInstance()->unloadLevel($level, $force);
-        }
-        return false;
-    }
+	/**
+	 * @return bool Returns if the level was unloaded with the function.
+	 * If it has already been unloaded before calling this function, returns FALSE!
+	 */
+	public static function lazyUnloadLevel(string $name, bool $force = false): bool {
+		if(($level = Server::getInstance()->getLevelByName($name)) !== null) {
+			return Server::getInstance()->unloadLevel($level, $force);
+		}
+		return false;
+	}
 
-    /**
-     * @return bool Returns if the level was loaded with the function.
-     * If it has already been loaded before calling this function, returns FALSE!
-     */
-    public static function lazyLoadLevel(string $name): bool {
-        return !Server::getInstance()->isLevelLoaded($name) && Server::getInstance()->loadLevel($name);
-    }
+	/**
+	 * @return bool Returns if the level was loaded with the function.
+	 * If it has already been loaded before calling this function, returns FALSE!
+	 */
+	public static function lazyLoadLevel(string $name): bool {
+		return !Server::getInstance()->isLevelLoaded($name) && Server::getInstance()->loadLevel($name);
+	}
 
-    /**
-     * @return string[] Returns all the levels on the server including
-     * unloaded ones
-     */
-    public static function getAllLevels(): array {
-        $files = scandir(Server::getInstance()->getDataPath() . "/worlds/");
-        if (!$files) {
-            return [];
-        }
+	/**
+	 * @return string[] Returns all the levels on the server including
+	 * unloaded ones
+	 */
+	public static function getAllLevels(): array {
+		$files = scandir(Server::getInstance()->getDataPath() . "/worlds/");
+		if(!$files) {
+			return [];
+		}
 
-        return array_values(array_filter($files, function (string $fileName): bool {
-            return Server::getInstance()->isLevelGenerated($fileName) &&
-                $fileName != "." && $fileName != ".."; // Server->isLevelGenerated detects '.' and '..' as world, TODO - make pull request
-        }));
-    }
+		return array_values(array_filter($files, function(string $fileName): bool {
+			return Server::getInstance()->isLevelGenerated($fileName) &&
+				$fileName != "." && $fileName != ".."; // Server->isLevelGenerated detects '.' and '..' as world, TODO - make pull request
+		}));
+	}
 
-    /**
-     * @return Level|null Loads and returns level, if it is generated.
-     */
-    public static function getLoadedLevelByName(string $name): ?Level {
-        WorldUtils::lazyLoadLevel($name);
+	/**
+	 * @return Level|null Loads and returns level, if it is generated.
+	 */
+	public static function getLoadedLevelByName(string $name): ?Level {
+		WorldUtils::lazyLoadLevel($name);
 
-        return Server::getInstance()->getLevelByName($name);
-    }
+		return Server::getInstance()->getLevelByName($name);
+	}
 
-    /**
-     * @phpstan-return class-string<Generator>|null
-     */
-    public static function getGeneratorByName(string $name): ?string {
-        switch (strtolower($name)) {
-            case "normal":
-            case "classic":
-            case "basic":
-                return Normal::class;
-            case "custom":
-                return NormalGenerator::class;
-            case "flat":
-            case "superflat":
-                return Flat::class;
-            case "nether":
-            case "hell":
-                return NetherGenerator::class;
-            case "ender":
-            case "end":
-                return EnderGenerator::class;
-            case "void":
-                return VoidGenerator::class;
-            case "skyblock":
-            case "sb":
-            case "sky":
-                return SkyBlockGenerator::class;
-            case "nether_old":
-                return Nether::class;
-        }
+	/**
+	 * @phpstan-return class-string<Generator>|null
+	 */
+	public static function getGeneratorByName(string $name): ?string {
+		switch(strtolower($name)) {
+			case "normal":
+			case "classic":
+			case "basic":
+				return Normal::class;
+			case "custom":
+				return NormalGenerator::class;
+			case "flat":
+			case "superflat":
+				return Flat::class;
+			case "nether":
+			case "hell":
+				return NetherGenerator::class;
+			case "ender":
+			case "end":
+				return EnderGenerator::class;
+			case "void":
+				return VoidGenerator::class;
+			case "skyblock":
+			case "sb":
+			case "sky":
+				return SkyBlockGenerator::class;
+			case "nether_old":
+				return Nether::class;
+		}
 
-        try {
-            return GeneratorManager::getGenerator($name, true);
-        } catch (InvalidArgumentException $e) {
-        }
+		try {
+			return GeneratorManager::getGenerator($name, true);
+		} catch(InvalidArgumentException $e) {
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

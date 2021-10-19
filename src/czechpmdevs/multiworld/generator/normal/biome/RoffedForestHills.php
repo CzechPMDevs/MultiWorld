@@ -24,12 +24,12 @@ namespace czechpmdevs\multiworld\generator\normal\biome;
 
 class RoffedForestHills extends RoofedForest {
 
-    public function __construct() {
-        parent::__construct();
-        $this->setElevation(64, 84);
-    }
+	public function __construct() {
+		parent::__construct();
+		$this->setElevation(64, 84);
+	}
 
-    public function getName(): string {
-        return "Dark Forest Hills";
-    }
+	public function getName(): string {
+		return "Dark Forest Hills";
+	}
 }

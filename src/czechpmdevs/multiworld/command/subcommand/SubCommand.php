@@ -26,8 +26,8 @@ use pocketmine\command\CommandSender;
 
 interface SubCommand {
 
-    /**
-     * @param string[] $args
-     */
-    public function execute(CommandSender $sender, array $args, string $name): void;
+	/**
+	 * @param string[] $args
+	 */
+	public function execute(CommandSender $sender, array $args, string $name): void;
 }

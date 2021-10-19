@@ -2,11 +2,11 @@ name: MultiWorld
 author: CzechPMDevs
 authors: [VixikCZ, fuyutsuki, kaliiks]
 api: 3.20.0
-version: 1.6.0-beta4
+version: 1.6.0-beta5
 main: czechpmdevs\multiworld\MultiWorld
 description: Plugin that manage with worlds
 website: https://github.com/CzechPMDevs/MultiWorld
-mcpe-protocol: [440, 448, 465]
+mcpe-protocol: [440, 448, 465, 471]
 extensions:
   Core: '>=7.4'
 

@@ -29,32 +29,32 @@ use function strtolower;
 
 class Dimension {
 
-    public const OVERWORLD = 0;
-    public const NETHER = 1;
-    public const END = 2;
+	public const OVERWORLD = 0;
+	public const NETHER = 1;
+	public const END = 2;
 
-    public static function getDimensionByLevel(Level $level): int {
-        return Dimension::getDimensionByGeneratorName($level->getProvider()->getGenerator());
-    }
+	public static function getDimensionByLevel(Level $level): int {
+		return Dimension::getDimensionByGeneratorName($level->getProvider()->getGenerator());
+	}
 
-    public static function getDimensionByGeneratorName(string $generatorName): int {
-        $generatorName = strtolower($generatorName);
-        if ($generatorName == "nether" || $generatorName == "hell") {
-            return Dimension::NETHER;
-        }
-        if ($generatorName == "end" || $generatorName == "ender") {
-            return Dimension::END;
-        }
+	public static function getDimensionByGeneratorName(string $generatorName): int {
+		$generatorName = strtolower($generatorName);
+		if($generatorName == "nether" || $generatorName == "hell") {
+			return Dimension::NETHER;
+		}
+		if($generatorName == "end" || $generatorName == "ender") {
+			return Dimension::END;
+		}
 
-        return Dimension::OVERWORLD;
-    }
+		return Dimension::OVERWORLD;
+	}
 
-    public static function sendDimensionToPlayer(Player $player, int $dimension, bool $respawn = false): void {
-        $pk = new ChangeDimensionPacket();
-        $pk->position = $player->asVector3();
-        $pk->dimension = $dimension;
-        $pk->respawn = $respawn;
+	public static function sendDimensionToPlayer(Player $player, int $dimension, bool $respawn = false): void {
+		$pk = new ChangeDimensionPacket();
+		$pk->position = $player->asVector3();
+		$pk->dimension = $dimension;
+		$pk->respawn = $respawn;
 
-        $player->dataPacket($pk);
-    }
+		$player->dataPacket($pk);
+	}
 }

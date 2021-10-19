@@ -31,63 +31,63 @@ use pocketmine\utils\Random;
 
 class Island extends Populator {
 
-    public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random) {
-        $center = new Vector3(256, 68, 256);
+	public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random) {
+		$center = new Vector3(256, 68, 256);
 
-        for ($x = -1; $x <= 1; $x++) {
-            /** @phpstan-var float $x */
-            for ($y = -1; $y <= 1; $y++) {
-                /** @phpstan-var float $y */
-                for ($z = -1; $z <= 1; $z++) {
-                    /** @phpstan-var float $z */
+		for($x = -1; $x <= 1; $x++) {
+			/** @phpstan-var float $x */
+			for($y = -1; $y <= 1; $y++) {
+				/** @phpstan-var float $y */
+				for($z = -1; $z <= 1; $z++) {
+					/** @phpstan-var float $z */
 
-                    // center
-                    $centerVec = $center->add($x, $y, $z);
-                    if ($centerVec->getY() == 69) {
-                        /** @phpstan-ignore-next-line */
-                        $level->setBlockIdAt($centerVec->getX(), $centerVec->getY(), $centerVec->getZ(), BlockIds::GRASS);
-                    } else {
-                        /** @phpstan-ignore-next-line */
-                        $level->setBlockIdAt($centerVec->getX(), $centerVec->getY(), $centerVec->getZ(), BlockIds::DIRT);
-                    }
+					// center
+					$centerVec = $center->add($x, $y, $z);
+					if($centerVec->getY() == 69) {
+						/** @phpstan-ignore-next-line */
+						$level->setBlockIdAt($centerVec->getX(), $centerVec->getY(), $centerVec->getZ(), BlockIds::GRASS);
+					} else {
+						/** @phpstan-ignore-next-line */
+						$level->setBlockIdAt($centerVec->getX(), $centerVec->getY(), $centerVec->getZ(), BlockIds::DIRT);
+					}
 
-                    // left
-                    $leftVec = $center->add(3)->add($x, $y, $z);
-                    if ($leftVec->getY() == 69) {
-                        /** @phpstan-ignore-next-line */
-                        $level->setBlockIdAt($leftVec->getX(), $leftVec->getY(), $leftVec->getZ(), BlockIds::GRASS);
-                    } else {
-                        /** @phpstan-ignore-next-line */
-                        $level->setBlockIdAt($leftVec->getX(), $leftVec->getY(), $leftVec->getZ(), BlockIds::DIRT);
-                    }
+					// left
+					$leftVec = $center->add(3)->add($x, $y, $z);
+					if($leftVec->getY() == 69) {
+						/** @phpstan-ignore-next-line */
+						$level->setBlockIdAt($leftVec->getX(), $leftVec->getY(), $leftVec->getZ(), BlockIds::GRASS);
+					} else {
+						/** @phpstan-ignore-next-line */
+						$level->setBlockIdAt($leftVec->getX(), $leftVec->getY(), $leftVec->getZ(), BlockIds::DIRT);
+					}
 
-                    // down
-                    $downVec = $center->subtract(0, 0, 3)->add($x, $y, $z);
-                    if ($leftVec->getY() == 69) {
-                        /** @phpstan-ignore-next-line */
-                        $level->setBlockIdAt($downVec->getX(), $downVec->getY(), $downVec->getZ(), BlockIds::GRASS);
-                    } else {
-                        /** @phpstan-ignore-next-line */
-                        $level->setBlockIdAt($downVec->getX(), $downVec->getY(), $downVec->getZ(), BlockIds::DIRT);
-                    }
-                }
-            }
-        }
+					// down
+					$downVec = $center->subtract(0, 0, 3)->add($x, $y, $z);
+					if($leftVec->getY() == 69) {
+						/** @phpstan-ignore-next-line */
+						$level->setBlockIdAt($downVec->getX(), $downVec->getY(), $downVec->getZ(), BlockIds::GRASS);
+					} else {
+						/** @phpstan-ignore-next-line */
+						$level->setBlockIdAt($downVec->getX(), $downVec->getY(), $downVec->getZ(), BlockIds::DIRT);
+					}
+				}
+			}
+		}
 
-        // chest
-        $chestVec = $center->add(0, 2, -4);
-        /** @phpstan-ignore-next-line */
-        $level->setBlockIdAt($chestVec->getX(), $chestVec->getY(), $chestVec->getZ(), BlockIds::CHEST);
+		// chest
+		$chestVec = $center->add(0, 2, -4);
+		/** @phpstan-ignore-next-line */
+		$level->setBlockIdAt($chestVec->getX(), $chestVec->getY(), $chestVec->getZ(), BlockIds::CHEST);
 
-        // tree
-        $treeVec = $center->add(4, 2, 1);
-        $tree = new OakTree;
+		// tree
+		$treeVec = $center->add(4, 2, 1);
+		$tree = new OakTree;
 
-        /** @phpstan-ignore-next-line */
-        $tree->placeObject($level, $treeVec->getX(), $treeVec->getY(), $treeVec->getZ(), $random);
+		/** @phpstan-ignore-next-line */
+		$tree->placeObject($level, $treeVec->getX(), $treeVec->getY(), $treeVec->getZ(), $random);
 
-        // bedrock
-        /** @phpstan-ignore-next-line */
-        $level->setBlockIdAt($center->getX(), $center->getY(), $center->getZ(), BlockIds::BEDROCK);
-    }
+		// bedrock
+		/** @phpstan-ignore-next-line */
+		$level->setBlockIdAt($center->getX(), $center->getY(), $center->getZ(), BlockIds::BEDROCK);
+	}
 }

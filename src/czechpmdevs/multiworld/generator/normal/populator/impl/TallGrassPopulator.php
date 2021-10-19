@@ -29,30 +29,30 @@ use pocketmine\utils\Random;
 
 class TallGrassPopulator extends AmountPopulator {
 
-    /** @var bool */
-    private bool $allowDoubleGrass = true;
+	/** @var bool */
+	private bool $allowDoubleGrass = true;
 
-    public function populateObject(ChunkManager $level, int $chunkX, int $chunkZ, Random $random): void {
-        $this->getRandomSpawnPosition($level, $chunkX, $chunkZ, $random, $x, $y, $z);
+	public function populateObject(ChunkManager $level, int $chunkX, int $chunkZ, Random $random): void {
+		$this->getRandomSpawnPosition($level, $chunkX, $chunkZ, $random, $x, $y, $z);
 
-        if ($y !== -1 and $this->canTallGrassStay($level, $x, $y, $z)) {
-            $id = ($this->allowDoubleGrass && $random->nextBoundedInt(5) == 4) ? BlockIds::DOUBLE_PLANT : BlockIds::TALL_GRASS;
-            $level->setBlockIdAt($x, $y, $z, $id);
+		if($y !== -1 and $this->canTallGrassStay($level, $x, $y, $z)) {
+			$id = ($this->allowDoubleGrass && $random->nextBoundedInt(5) == 4) ? BlockIds::DOUBLE_PLANT : BlockIds::TALL_GRASS;
+			$level->setBlockIdAt($x, $y, $z, $id);
 
-            if ($id == BlockIds::DOUBLE_PLANT) {
-                $level->setBlockDataAt($x, $y, $z, 2);
-                $level->setBlockIdAt($x, $y + 1, $z, $id);
-                $level->setBlockDataAt($x, $y + 1, $z, 10);
-            }
-        }
-    }
+			if($id == BlockIds::DOUBLE_PLANT) {
+				$level->setBlockDataAt($x, $y, $z, 2);
+				$level->setBlockIdAt($x, $y + 1, $z, $id);
+				$level->setBlockDataAt($x, $y + 1, $z, 10);
+			}
+		}
+	}
 
-    private function canTallGrassStay(ChunkManager $level, int $x, int $y, int $z): bool {
-        $b = $level->getBlockIdAt($x, $y, $z);
-        return ($b === BlockIds::AIR or $b === BlockIds::SNOW_LAYER) and $level->getBlockIdAt($x, $y - 1, $z) === BlockIds::GRASS;
-    }
+	private function canTallGrassStay(ChunkManager $level, int $x, int $y, int $z): bool {
+		$b = $level->getBlockIdAt($x, $y, $z);
+		return ($b === BlockIds::AIR or $b === BlockIds::SNOW_LAYER) and $level->getBlockIdAt($x, $y - 1, $z) === BlockIds::GRASS;
+	}
 
-    public function setDoubleGrassAllowed(bool $allowed = true): void {
-        $this->allowDoubleGrass = $allowed;
-    }
+	public function setDoubleGrassAllowed(bool $allowed = true): void {
+		$this->allowDoubleGrass = $allowed;
+	}
 }

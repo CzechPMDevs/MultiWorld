@@ -35,69 +35,69 @@ use function strtolower;
 
 class UpdateSubCommand implements SubCommand {
 
-    public function execute(CommandSender $sender, array $args, string $name): void {
-        if (!isset($args[0])) {
-            $sender->sendMessage(LanguageManager::translateMessage($sender, "update-usage"));
-            return;
-        }
+	public function execute(CommandSender $sender, array $args, string $name): void {
+		if(!isset($args[0])) {
+			$sender->sendMessage(LanguageManager::translateMessage($sender, "update-usage"));
+			return;
+		}
 
-        switch (strtolower($args[0])) {
-            case "spawn":
-                if (!isset($args[1]) && ($sender instanceof Player)) {
-                    $sender->getLevelNonNull()->setSpawnLocation($sender->asVector3());
-                    $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "update-spawn-done", [$sender->getLevelNonNull()->getName()]));
-                    break;
-                }
+		switch(strtolower($args[0])) {
+			case "spawn":
+				if(!isset($args[1]) && ($sender instanceof Player)) {
+					$sender->getLevelNonNull()->setSpawnLocation($sender->asVector3());
+					$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "update-spawn-done", [$sender->getLevelNonNull()->getName()]));
+					break;
+				}
 
-                if (count($args) < 5 || !is_numeric($args[2]) || !is_numeric($args[3]) || !is_numeric($args[4])) {
-                    $sender->sendMessage(LanguageManager::translateMessage($sender, "update-usage"));
-                    break;
-                }
+				if(count($args) < 5 || !is_numeric($args[2]) || !is_numeric($args[3]) || !is_numeric($args[4])) {
+					$sender->sendMessage(LanguageManager::translateMessage($sender, "update-usage"));
+					break;
+				}
 
-                if (!$sender->getServer()->isLevelGenerated($args[1])) {
-                    $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "update-levelnotexists"));
-                    break;
-                }
+				if(!$sender->getServer()->isLevelGenerated($args[1])) {
+					$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "update-levelnotexists"));
+					break;
+				}
 
-                WorldUtils::lazyLoadLevel($args[1]);
-                WorldUtils::getLevelByNameNonNull($args[1])->setSpawnLocation(new Vector3((int)$args[2], (int)$args[3], (int)$args[4]));
+				WorldUtils::lazyLoadLevel($args[1]);
+				WorldUtils::getLevelByNameNonNull($args[1])->setSpawnLocation(new Vector3((int)$args[2], (int)$args[3], (int)$args[4]));
 
-                $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "update-done"));
-                break;
-            case "lobby":
-            case "hub":
-                if (!$sender instanceof Player) {
-                    $sender->sendMessage(LanguageManager::translateMessage($sender, "update-notsupported"));
-                    break;
-                }
+				$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "update-done"));
+				break;
+			case "lobby":
+			case "hub":
+				if(!$sender instanceof Player) {
+					$sender->sendMessage(LanguageManager::translateMessage($sender, "update-notsupported"));
+					break;
+				}
 
-                $sender->getLevelNonNull()->setSpawnLocation($sender->asVector3());
-                $sender->getServer()->setDefaultLevel($sender->getLevelNonNull());
+				$sender->getLevelNonNull()->setSpawnLocation($sender->asVector3());
+				$sender->getServer()->setDefaultLevel($sender->getLevelNonNull());
 
-                $sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "update-lobby-done", [$sender->getLevelNonNull()->getFolderName()]));
-                break;
-            case "default":
-            case "defaultlevel":
-                if (!isset($args[1])) {
-                    $sender->sendMessage(LanguageManager::translateMessage($sender, "update-usage"));
-                    break;
-                }
+				$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "update-lobby-done", [$sender->getLevelNonNull()->getFolderName()]));
+				break;
+			case "default":
+			case "defaultlevel":
+				if(!isset($args[1])) {
+					$sender->sendMessage(LanguageManager::translateMessage($sender, "update-usage"));
+					break;
+				}
 
-                if (!$sender->getServer()->isLevelGenerated($args[1])) {
-                    $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[1], LanguageManager::translateMessage($sender, "update-levelnotexists")));
-                    break;
-                }
+				if(!$sender->getServer()->isLevelGenerated($args[1])) {
+					$sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[1], LanguageManager::translateMessage($sender, "update-levelnotexists")));
+					break;
+				}
 
-                if (!$sender->getServer()->isLevelLoaded($args[1])) {
-                    $sender->getServer()->loadLevel($args[1]);
-                }
+				if(!$sender->getServer()->isLevelLoaded($args[1])) {
+					$sender->getServer()->loadLevel($args[1]);
+				}
 
-                $sender->getServer()->setDefaultLevel(WorldUtils::getLevelByNameNonNull($args[1]));
-                $sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[1], LanguageManager::translateMessage($sender, "update-default-done")));
-                break;
-            default:
-                $sender->sendMessage(LanguageManager::translateMessage($sender, "update-usage"));
-                break;
-        }
-    }
+				$sender->getServer()->setDefaultLevel(WorldUtils::getLevelByNameNonNull($args[1]));
+				$sender->sendMessage(MultiWorld::getPrefix() . str_replace("%1", $args[1], LanguageManager::translateMessage($sender, "update-default-done")));
+				break;
+			default:
+				$sender->sendMessage(LanguageManager::translateMessage($sender, "update-usage"));
+				break;
+		}
+	}
 }

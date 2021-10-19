@@ -39,44 +39,44 @@ use function ord;
  */
 class GroundCoverPopulator extends Populator {
 
-    public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random) {
-        /** @var Chunk $chunk */
-        $chunk = $level->getChunk($chunkX, $chunkZ);
-        for ($x = 0; $x < 16; ++$x) {
-            for ($z = 0; $z < 16; ++$z) {
-                $biome = BiomeFactory::getInstance()->getBiome($chunk->getBiomeId($x, $z));
-                $cover = $biome->getGroundCover();
-                if (count($cover) > 0) {
-                    $diffY = 0;
-                    if (!$cover[0]->isSolid()) {
-                        $diffY = 1;
-                    }
+	public function populate(ChunkManager $level, int $chunkX, int $chunkZ, Random $random) {
+		/** @var Chunk $chunk */
+		$chunk = $level->getChunk($chunkX, $chunkZ);
+		for($x = 0; $x < 16; ++$x) {
+			for($z = 0; $z < 16; ++$z) {
+				$biome = BiomeFactory::getInstance()->getBiome($chunk->getBiomeId($x, $z));
+				$cover = $biome->getGroundCover();
+				if(count($cover) > 0) {
+					$diffY = 0;
+					if(!$cover[0]->isSolid()) {
+						$diffY = 1;
+					}
 
-                    $column = $chunk->getBlockIdColumn($x, $z);
-                    $startY = 127;
-                    for (; $startY > 0; --$startY) {
-                        if ($column[$startY] !== "\x00" and !BlockFactory::get(ord($column[$startY]))->isTransparent()) {
-                            break;
-                        }
-                    }
-                    $startY = min(127, $startY + $diffY);
-                    $endY = $startY - count($cover);
-                    for ($y = $startY; $y > $endY and $y >= 0; --$y) {
-                        $b = $cover[$startY - $y];
-                        if ($column[$y] === "\x00" and $b->isSolid()) {
-                            break;
-                        }
-                        if ($b->canBeFlowedInto() and BlockFactory::get(ord($column[$y])) instanceof Liquid) {
-                            continue;
-                        }
-                        if ($b->getDamage() === 0) {
-                            $chunk->setBlockId($x, $y, $z, $b->getId());
-                        } else {
-                            $chunk->setBlock($x, $y, $z, $b->getId(), $b->getDamage());
-                        }
-                    }
-                }
-            }
-        }
-    }
+					$column = $chunk->getBlockIdColumn($x, $z);
+					$startY = 127;
+					for(; $startY > 0; --$startY) {
+						if($column[$startY] !== "\x00" and !BlockFactory::get(ord($column[$startY]))->isTransparent()) {
+							break;
+						}
+					}
+					$startY = min(127, $startY + $diffY);
+					$endY = $startY - count($cover);
+					for($y = $startY; $y > $endY and $y >= 0; --$y) {
+						$b = $cover[$startY - $y];
+						if($column[$y] === "\x00" and $b->isSolid()) {
+							break;
+						}
+						if($b->canBeFlowedInto() and BlockFactory::get(ord($column[$y])) instanceof Liquid) {
+							continue;
+						}
+						if($b->getDamage() === 0) {
+							$chunk->setBlockId($x, $y, $z, $b->getId());
+						} else {
+							$chunk->setBlock($x, $y, $z, $b->getId(), $b->getDamage());
+						}
+					}
+				}
+			}
+		}
+	}
 }

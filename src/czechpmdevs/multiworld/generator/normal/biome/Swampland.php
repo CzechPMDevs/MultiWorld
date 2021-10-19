@@ -35,26 +35,26 @@ use pocketmine\block\Sapling;
 
 class Swampland extends GrassyBiome {
 
-    public function __construct() {
-        parent::__construct(0.8, 0.5);
+	public function __construct() {
+		parent::__construct(0.8, 0.5);
 
-        $mushrooms = new PlantPopulator(4, 2, 95);
-        $mushrooms->addPlant(new Plant(new BrownMushroom()));
-        $mushrooms->addPlant(new Plant(new RedMushroom()));
+		$mushrooms = new PlantPopulator(4, 2, 95);
+		$mushrooms->addPlant(new Plant(new BrownMushroom()));
+		$mushrooms->addPlant(new Plant(new RedMushroom()));
 
-        $flowers = new PlantPopulator(6, 7, 80);
-        $flowers->addPlant(new Plant(new Dandelion()));
-        $flowers->addPlant(new Plant(new Flower()));
+		$flowers = new PlantPopulator(6, 7, 80);
+		$flowers->addPlant(new Plant(new Dandelion()));
+		$flowers->addPlant(new Plant(new Flower()));
 
-        $oak = new TreePopulator(2, 2, 100, Sapling::OAK, true);
-        $tallGrass = new TallGrassPopulator(56, 12);
+		$oak = new TreePopulator(2, 2, 100, Sapling::OAK, true);
+		$tallGrass = new TallGrassPopulator(56, 12);
 
-        $this->addPopulators([$mushrooms, $flowers, $oak, $tallGrass]);
+		$this->addPopulators([$mushrooms, $flowers, $oak, $tallGrass]);
 
-        $this->setElevation(60, 65);
-    }
+		$this->setElevation(60, 65);
+	}
 
-    public function getName(): string {
-        return "Swampland";
-    }
+	public function getName(): string {
+		return "Swampland";
+	}
 }
