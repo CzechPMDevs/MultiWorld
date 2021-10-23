@@ -8,8 +8,8 @@
     "ext-yaml": "*",
     "ext-pthreads": "*",
     "ext-json": "*",
-    "czechpmdevs/libpmform": "dev-api/4.0.0-beta5",
-    "pocketmine/pocketmine-mp": "4.0.0-beta5"
+    "czechpmdevs/libpmform": "dev-api/4.0.0-beta6",
+    "pocketmine/pocketmine-mp": "4.0.0-beta6"
   },
   "require-dev": {
     "phpstan/phpstan": "0.12.99"
