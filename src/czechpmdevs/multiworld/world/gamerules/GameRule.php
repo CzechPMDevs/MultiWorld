@@ -24,6 +24,7 @@ namespace czechpmdevs\multiworld\world\gamerules;
 
 use czechpmdevs\multiworld\world\gamerules\type\BoolGameRule;
 use czechpmdevs\multiworld\world\gamerules\type\IntGameRule;
+use pocketmine\network\mcpe\protocol\types\GameRule as PMGameRule;
 use InvalidStateException;
 use pocketmine\utils\EnumTrait;
 
@@ -60,7 +61,7 @@ use pocketmine\utils\EnumTrait;
  * @method static IntGameRule SPAWN_RADIUS()
  * @method static BoolGameRule TNT_EXPLODES()
  */
-abstract class GameRule extends \pocketmine\network\mcpe\protocol\types\GameRule {
+abstract class GameRule extends PMGameRule {
 	use EnumTrait {
 		__construct as Enum___construct;
 	}
@@ -114,7 +115,7 @@ abstract class GameRule extends \pocketmine\network\mcpe\protocol\types\GameRule
 		return $this->ruleName;
 	}
 
-	public function getType(): int {
+	public function getTypeId(): int {
 		return $this->type;
 	}
 
