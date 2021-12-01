@@ -56,8 +56,8 @@ class Canyon extends Carve {
 		$localRandom = new Random($seed);
 
 		$baseSize = 1.0;
-		for ($i = 0; $i < World::Y_MAX; ++$i) {
-			if ($i == 0 || $this->random->nextBoundedInt(3) == 0) {
+		for($i = 0; $i < World::Y_MAX; ++$i) {
+			if($i == 0 || $this->random->nextBoundedInt(3) == 0) {
 				$baseSize = 1.0 + $localRandom->nextFloat() * $localRandom->nextFloat();
 			}
 
@@ -67,7 +67,7 @@ class Canyon extends Carve {
 		$horizontalOffset = 0.0;
 		$verticalOffset = 0.0;
 
-		for ($node = 0; $node < $nodeCount; ++$node) {
+		for($node = 0; $node < $nodeCount; ++$node) {
 			$horizontalSize = 1.5 + (MathHelper::getInstance()->sin((float)$node * M_PI / (float)$nodeCount) * $horizontalScale);
 			$verticalSize = $horizontalSize * 3.0;
 
@@ -89,8 +89,8 @@ class Canyon extends Carve {
 			$horizontalOffset += ($localRandom->nextFloat() - $localRandom->nextFloat()) * $localRandom->nextFloat() * 4.0;
 			$verticalOffset += ($localRandom->nextFloat() - $localRandom->nextFloat()) * $localRandom->nextFloat() * 2.0;
 
-			if ($localRandom->nextBoundedInt(4) != 0) {
-				if (!$this->canReach($chunkX, $chunkZ, $x, $z, $node, $nodeCount, $horizontalScale)) {
+			if($localRandom->nextBoundedInt(4) != 0) {
+				if(!$this->canReach($chunkX, $chunkZ, $x, $z, $node, $nodeCount, $horizontalScale)) {
 					return;
 				}
 

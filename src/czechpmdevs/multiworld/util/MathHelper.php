@@ -32,7 +32,7 @@ class MathHelper {
 	private array $sinTable = [];
 
 	private function __construct() {
-		for ($i = 0; $i < 65536; ++$i) {
+		for($i = 0; $i < 65536; ++$i) {
 			$this->sinTable[$i] = sin((float)$i * M_PI * 2.0 / 65536.0);
 		}
 	}

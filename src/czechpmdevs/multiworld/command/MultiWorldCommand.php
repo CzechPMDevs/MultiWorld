@@ -72,24 +72,24 @@ class MultiWorldCommand extends Command implements PluginOwned {
 	}
 
 	public function execute(CommandSender $sender, string $commandLabel, array $args) {
-		if (!isset($args[0])) {
+		if(!isset($args[0])) {
 			$sender->sendMessage(LanguageManager::translateMessage($sender, "not-perms"));
 			return;
 		}
 
 		$subCommandName = $this->getSubCommandNameByAlias($args[0]);
-		if ($subCommandName === null) {
+		if($subCommandName === null) {
 			$sender->sendMessage(LanguageManager::translateMessage($sender, "default-usage"));
 			return;
 		}
 
 		$subCommand = $this->subcommands[$subCommandName] ?? null;
-		if ($subCommand === null) {
+		if($subCommand === null) {
 			$sender->sendMessage(LanguageManager::translateMessage($sender, "default-usage"));
 			return;
 		}
 
-		if (!$this->checkPermissions($sender, $args[0])) {
+		if(!$this->checkPermissions($sender, $args[0])) {
 			$sender->sendMessage(LanguageManager::translateMessage($sender, "not-perms"));
 			return;
 		}
@@ -99,7 +99,7 @@ class MultiWorldCommand extends Command implements PluginOwned {
 	}
 
 	public function getSubCommandNameByAlias(string $alias): ?string {
-		switch ($alias) {
+		switch($alias) {
 			case "help":
 			case "?":
 				return "help";
@@ -154,7 +154,7 @@ class MultiWorldCommand extends Command implements PluginOwned {
 	}
 
 	public function checkPermissions(CommandSender $sender, string $command): bool {
-		if ($sender instanceof Player && !$sender->hasPermission("multiworld.command.{$this->getSubCommandNameByAlias($command)}")) {
+		if($sender instanceof Player && !$sender->hasPermission("multiworld.command.{$this->getSubCommandNameByAlias($command)}")) {
 			$sender->sendMessage(LanguageManager::translateMessage($sender, "not-perms"));
 			return false;
 		}

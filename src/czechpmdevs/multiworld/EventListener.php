@@ -84,16 +84,16 @@ class EventListener implements Listener {
 	/** @noinspection PhpUnused */
 	public function onWorldChange(EntityTeleportEvent $event): void {
 		$player = $event->getEntity();
-		if (!$player instanceof Player) {
+		if(!$player instanceof Player) {
 			return;
 		}
-		if ($event->getFrom()->getWorld()->getId() == $event->getTo()->getWorld()->getId()) {
+		if($event->getFrom()->getWorld()->getId() == $event->getTo()->getWorld()->getId()) {
 			return;
 		}
 
 		MultiWorld::getGameRules($event->getTo()->getWorld())->applyToPlayer($player);
 
-		if (Dimension::getDimensionByWorld($event->getFrom()->getWorld()) != ($targetDimension = Dimension::getDimensionByWorld($event->getTo()->getWorld())) && $this->plugin->getConfig()->get("handle-dimensions")) {
+		if(Dimension::getDimensionByWorld($event->getFrom()->getWorld()) != ($targetDimension = Dimension::getDimensionByWorld($event->getTo()->getWorld())) && $this->plugin->getConfig()->get("handle-dimensions")) {
 			Dimension::sendDimensionToPlayer($player, $targetDimension);
 		}
 	}
@@ -102,12 +102,12 @@ class EventListener implements Listener {
 	public function onPlayerDeath(PlayerDeathEvent $event): void {
 		$player = $event->getPlayer();
 
-		if (MultiWorld::getGameRules($player->getWorld())->getRule(GameRule::KEEP_INVENTORY())->getValue()) {
+		if(MultiWorld::getGameRules($player->getWorld())->getRule(GameRule::KEEP_INVENTORY())->getValue()) {
 			$this->deathSessions[$player->getId()] = new PlayerInventorySession($player);
 			$event->setDrops([]);
 		}
 
-		if ($this->plugin->getConfig()->get("handle-dimensions")) {
+		if($this->plugin->getConfig()->get("handle-dimensions")) {
 			$this->dimensionData[$player->getId()] = Dimension::getDimensionByWorld($player->getWorld());
 		}
 	}
@@ -116,12 +116,12 @@ class EventListener implements Listener {
 	public function onPlayerRespawn(PlayerRespawnEvent $event): void {
 		$player = $event->getPlayer();
 
-		if (array_key_exists($player->getId(), $this->dimensionData) && $this->dimensionData[$player->getId()] != ($currentDimension = Dimension::getDimensionByWorld($player->getWorld()))) {
+		if(array_key_exists($player->getId(), $this->dimensionData) && $this->dimensionData[$player->getId()] != ($currentDimension = Dimension::getDimensionByWorld($player->getWorld()))) {
 			Dimension::sendDimensionToPlayer($player, $currentDimension, true);
 		}
 		unset($this->dimensionData[$player->getId()]);
 
-		if (array_key_exists($player->getId(), $this->deathSessions)) {
+		if(array_key_exists($player->getId(), $this->deathSessions)) {
 			$this->deathSessions[$player->getId()]->close();
 			unset($this->deathSessions[$player->getId()]);
 		}
@@ -129,7 +129,7 @@ class EventListener implements Listener {
 
 	/** @noinspection PhpUnused */
 	public function onBreak(BlockBreakEvent $event): void {
-		if (!MultiWorld::getGameRules($event->getPlayer()->getWorld())->getRule(GameRule::DO_TILE_DROPS())->getValue()) {
+		if(!MultiWorld::getGameRules($event->getPlayer()->getWorld())->getRule(GameRule::DO_TILE_DROPS())->getValue()) {
 			$event->setDrops([]);
 		}
 	}
@@ -137,10 +137,10 @@ class EventListener implements Listener {
 	/** @noinspection PhpUnused */
 	public function onRegenerate(EntityRegainHealthEvent $event): void {
 		$entity = $event->getEntity();
-		if (!$entity instanceof Living) return;
-		if ($entity->getEffects()->has(VanillaEffects::REGENERATION())) return;
+		if(!$entity instanceof Living) return;
+		if($entity->getEffects()->has(VanillaEffects::REGENERATION())) return;
 
-		if (!MultiWorld::getGameRules($entity->getWorld())->getRule(GameRule::NATURAL_REGENERATION())->getValue()) {
+		if(!MultiWorld::getGameRules($entity->getWorld())->getRule(GameRule::NATURAL_REGENERATION())->getValue()) {
 			$event->cancel();
 		}
 	}
@@ -149,7 +149,7 @@ class EventListener implements Listener {
 	public function onDamage(EntityDamageEvent $event): void {
 		$entity = $event->getEntity();
 
-		if (
+		if(
 			$entity instanceof Player &&
 			$event instanceof EntityDamageByEntityEvent &&
 			$event->getDamager() instanceof Player &&
@@ -161,7 +161,7 @@ class EventListener implements Listener {
 
 	/** @noinspection PhpUnused */
 	public function onExplode(EntityExplodeEvent $event): void {
-		if (!MultiWorld::getGameRules($event->getEntity()->getWorld())->getRule(GameRule::TNT_EXPLODES())->getValue()) {
+		if(!MultiWorld::getGameRules($event->getEntity()->getWorld())->getRule(GameRule::TNT_EXPLODES())->getValue()) {
 			$event->cancel();
 		}
 	}
@@ -171,9 +171,9 @@ class EventListener implements Listener {
 		$packet = $event->getPacket();
 
 		// Changing game rules from the menu
-		if ($packet instanceof SettingsCommandPacket) {
+		if($packet instanceof SettingsCommandPacket) {
 			$player = $event->getOrigin()->getPlayer();
-			if ($player === null) {
+			if($player === null) {
 				return;
 			}
 

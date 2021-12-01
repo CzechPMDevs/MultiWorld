@@ -35,20 +35,20 @@ class GlowstoneSphere implements Populator {
 
 	public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
 		$world->getChunk($chunkX, $chunkZ);
-		if ($random->nextRange(0, 10) !== 0) return;
+		if($random->nextRange(0, 10) !== 0) return;
 
 		$x = $random->nextRange($chunkX << 4, ($chunkX << 4) + 15);
 		$z = $random->nextRange($chunkZ << 4, ($chunkZ << 4) + 15);
 
 		$sphereY = 0;
 
-		for ($y = 0; $y < 127; $y++) {
-			if ($world->getBlockAt($x, $y, $z)->isSameType(VanillaBlocks::AIR())) {
+		for($y = 0; $y < 127; $y++) {
+			if($world->getBlockAt($x, $y, $z)->isSameType(VanillaBlocks::AIR())) {
 				$sphereY = $y;
 			}
 		}
 
-		if ($sphereY < 80) {
+		if($sphereY < 80) {
 			return;
 		}
 
@@ -56,14 +56,14 @@ class GlowstoneSphere implements Populator {
 	}
 
 	public function placeGlowStoneSphere(ChunkManager $world, Random $random, Vector3 $position): void {
-		for ($x = $position->getX() - $this->getRandomRadius($random); $x < $position->getX() + $this->getRandomRadius($random); $x++) {
+		for($x = $position->getX() - $this->getRandomRadius($random); $x < $position->getX() + $this->getRandomRadius($random); $x++) {
 			$xsqr = ($position->getX() - $x) * ($position->getX() - $x);
-			for ($y = $position->getY() - $this->getRandomRadius($random); $y < $position->getY() + $this->getRandomRadius($random); $y++) {
+			for($y = $position->getY() - $this->getRandomRadius($random); $y < $position->getY() + $this->getRandomRadius($random); $y++) {
 				$ysqr = ($position->getY() - $y) * ($position->getY() - $y);
-				for ($z = $position->getZ() - $this->getRandomRadius($random); $z < $position->getZ() + $this->getRandomRadius($random); $z++) {
+				for($z = $position->getZ() - $this->getRandomRadius($random); $z < $position->getZ() + $this->getRandomRadius($random); $z++) {
 					$zsqr = ($position->getZ() - $z) * ($position->getZ() - $z);
-					if (($xsqr + $ysqr + $zsqr) < (pow(2, $this->getRandomRadius($random)))) {
-						if ($random->nextRange(0, 4) !== 0) {
+					if(($xsqr + $ysqr + $zsqr) < (pow(2, $this->getRandomRadius($random)))) {
+						if($random->nextRange(0, 4) !== 0) {
 							/** @phpstan-ignore-next-line */
 							$world->setBlockAt($x, $y, $z, VanillaBlocks::GLOWSTONE());
 						}

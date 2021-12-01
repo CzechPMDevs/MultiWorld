@@ -34,7 +34,7 @@ class Plant {
 		private Block $block,
 		private array $allowedUnderground = []
 	) {
-		if (empty($this->allowedUnderground)) {
+		if(empty($this->allowedUnderground)) {
 			$this->allowedUnderground = [VanillaBlocks::GRASS()];
 		}
 	}

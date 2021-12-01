@@ -34,16 +34,16 @@ class Island implements Populator {
 	public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
 		$center = new Vector3(256, 68, 256);
 
-		for ($x = -1; $x <= 1; $x++) {
+		for($x = -1; $x <= 1; $x++) {
 			/** @phpstan-var float $x */
-			for ($y = -1; $y <= 1; $y++) {
+			for($y = -1; $y <= 1; $y++) {
 				/** @phpstan-var float $y */
-				for ($z = -1; $z <= 1; $z++) {
+				for($z = -1; $z <= 1; $z++) {
 					/** @phpstan-var float $z */
 
 					// center
 					$centerVec = $center->add($x, $y, $z);
-					if ($centerVec->getY() == 69) {
+					if($centerVec->getY() == 69) {
 						/** @phpstan-ignore-next-line */
 						$world->setBlockAt($centerVec->getX(), $centerVec->getY(), $centerVec->getZ(), VanillaBlocks::GRASS());
 					} else {
@@ -53,7 +53,7 @@ class Island implements Populator {
 
 					// left
 					$leftVec = $center->add(3, 0, 0)->add($x, $y, $z);
-					if ($leftVec->getY() == 69) {
+					if($leftVec->getY() == 69) {
 						/** @phpstan-ignore-next-line */
 						$world->setBlockAt($leftVec->getX(), $leftVec->getY(), $leftVec->getZ(), VanillaBlocks::GRASS());
 					} else {
@@ -63,7 +63,7 @@ class Island implements Populator {
 
 					// down
 					$downVec = $center->subtract(0, 0, 3)->add($x, $y, $z);
-					if ($leftVec->getY() == 69) {
+					if($leftVec->getY() == 69) {
 						/** @phpstan-ignore-next-line */
 						$world->setBlockAt($downVec->getX(), $downVec->getY(), $downVec->getZ(), VanillaBlocks::GRASS());
 					} else {

@@ -48,19 +48,19 @@ class EnderPilar implements Populator {
 	}
 
 	public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
-		if ($random->nextRange(0, 100) < 10) {
+		if($random->nextRange(0, 100) < 10) {
 			$this->world = $world;
 			$amount = $random->nextRange(0, $this->randomAmount + 1) + $this->baseAmount;
-			for ($i = 0; $i < $amount; ++$i) {
+			for($i = 0; $i < $amount; ++$i) {
 				$x = $random->nextRange($chunkX * 16, $chunkX * 16 + 15);
 				$z = $random->nextRange($chunkZ * 16, $chunkZ * 16 + 15);
 				$y = $this->getHighestWorkableBlock($x, $z);
-				if ($this->world->getBlockAt($x, $y, $z)->getId() == BlockLegacyIds::END_STONE) {
+				if($this->world->getBlockAt($x, $y, $z)->getId() == BlockLegacyIds::END_STONE) {
 					$height = $random->nextRange(28, 50);
-					for ($ny = $y; $ny < $y + $height; $ny++) {
-						for ($r = 0.5; $r < 5; $r += 0.5) {
+					for($ny = $y; $ny < $y + $height; $ny++) {
+						for($r = 0.5; $r < 5; $r += 0.5) {
 							$nd = 180 / (M_PI * $r);
-							for ($d = 0; $d < 360; $d += $nd) {
+							for($d = 0; $d < 360; $d += $nd) {
 								$world->setBlockAt((int)($x + (MathHelper::getInstance()->cos(deg2rad($d)) * $r)), $ny, (int)($z + (MathHelper::getInstance()->sin(deg2rad($d)) * $r)), VanillaBlocks::OBSIDIAN());
 							}
 						}
@@ -71,9 +71,9 @@ class EnderPilar implements Populator {
 	}
 
 	private function getHighestWorkableBlock(int $x, int $z): int {
-		for ($y = 127; $y >= 0; --$y) {
+		for($y = 127; $y >= 0; --$y) {
 			$b = $this->world->getBlockAt($x, $y, $z)->getId();
-			if ($b == BlockLegacyIds::END_STONE) {
+			if($b == BlockLegacyIds::END_STONE) {
 				break;
 			}
 		}

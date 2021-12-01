@@ -24,7 +24,7 @@ namespace czechpmdevs\multiworld\world\gamerules;
 
 use czechpmdevs\multiworld\world\gamerules\type\BoolGameRule;
 use czechpmdevs\multiworld\world\gamerules\type\IntGameRule;
-use InvalidStateException;
+use LogicException;
 use pocketmine\utils\EnumTrait;
 
 /**
@@ -131,16 +131,16 @@ abstract class GameRule extends \pocketmine\network\mcpe\protocol\types\GameRule
 	}
 
 	public function isPlayerModifiable(): bool {
-		return true;
+		return $this->isPlayerModifiable;
 	}
 
 	public static function fromRuleName(string $name): GameRule {
-		foreach (self::getAll() as $rule) {
-			if ($rule->getRuleName() == $name) {
+		foreach(self::getAll() as $rule) {
+			if($rule->getRuleName() == $name) {
 				return $rule;
 			}
 		}
 
-		throw new InvalidStateException("Requested unknown rule $name");
+		throw new LogicException("Requested unknown rule $name");
 	}
 }

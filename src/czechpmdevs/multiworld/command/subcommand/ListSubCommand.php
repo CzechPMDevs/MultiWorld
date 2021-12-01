@@ -34,8 +34,8 @@ use function implode;
 class ListSubCommand implements SubCommand {
 
 	public function execute(CommandSender $sender, array $args, string $name): void {
-		$worlds = array_values(array_map(static function (string $file): string {
-			if (Server::getInstance()->getWorldManager()->isWorldLoaded($file)) {
+		$worlds = array_values(array_map(static function(string $file): string {
+			if(Server::getInstance()->getWorldManager()->isWorldLoaded($file)) {
 				return "§7$file > §aLoaded§7, " . count(WorldUtils::getWorldByNameNonNull($file)->getPlayers()) . " Players";
 			} else {
 				return "§7$file > §cUnloaded";

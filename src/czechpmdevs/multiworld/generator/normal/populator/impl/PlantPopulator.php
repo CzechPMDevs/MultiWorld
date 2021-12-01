@@ -38,12 +38,12 @@ class PlantPopulator extends AmountPopulator {
 	}
 
 	public function populateObject(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
-		if (count($this->plants) === 0) {
+		if(count($this->plants) === 0) {
 			return;
 		}
 
 		$plant = $this->plants[$random->nextBoundedInt(count($this->plants))];
-		if ($this->getSpawnPositionOn($world->getChunk($chunkX, $chunkZ), $random, $plant->getAllowedUnderground(), $x, $y, $z)) {
+		if($this->getSpawnPositionOn($world->getChunk($chunkX, $chunkZ), $random, $plant->getAllowedUnderground(), $x, $y, $z)) {
 			$world->setBlockAt($chunkX * 16 + $x, $y, $chunkZ * 16 + $z, $plant->getBlock());
 		}
 	}

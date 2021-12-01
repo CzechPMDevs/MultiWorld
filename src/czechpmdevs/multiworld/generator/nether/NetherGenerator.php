@@ -87,35 +87,35 @@ class NetherGenerator extends Generator {
 		$netherrack = VanillaBlocks::NETHERRACK()->getFullId();
 		$stillLava = VanillaBlocks::LAVA()->getFullId();
 
-		for ($x = 0; $x < 16; ++$x) {
-			for ($z = 0; $z < 16; ++$z) {
+		for($x = 0; $x < 16; ++$x) {
+			for($z = 0; $z < 16; ++$z) {
 				$chunk->setBiomeId($x, $z, BiomeIds::NETHER);
 
-				for ($y = 0; $y < 128; ++$y) {
-					if ($y === 0 or $y === 127) {
+				for($y = 0; $y < 128; ++$y) {
+					if($y === 0 or $y === 127) {
 						$chunk->setFullBlock($x, $y, $z, $bedrock);
 						continue;
 					}
 					$noiseValue = (abs($this->emptyHeight - $y) / $this->emptyHeight) * $this->emptyAmplitude - $noise[$x][$z][$y];
 					$noiseValue -= 1 - $this->density;
 
-					if ($noiseValue > 0) {
+					if($noiseValue > 0) {
 						$chunk->setFullBlock($x, $y, $z, $netherrack);
-					} elseif ($y <= $this->waterHeight) {
+					} elseif($y <= $this->waterHeight) {
 						$chunk->setFullBlock($x, $y, $z, $stillLava);
 					}
 				}
 			}
 		}
 
-		foreach ($this->generationPopulators as $populator) {
+		foreach($this->generationPopulators as $populator) {
 			$populator->populate($world, $chunkX, $chunkZ, $this->random);
 		}
 	}
 
 	public function populateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {
 		$this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->seed);
-		foreach ($this->populators as $populator) {
+		foreach($this->populators as $populator) {
 			$populator->populate($world, $chunkX, $chunkZ, $this->random);
 		}
 

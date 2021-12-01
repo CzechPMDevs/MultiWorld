@@ -62,15 +62,15 @@ class CarvePopulator extends Populator {
 		$minZ = $chunkX - CarvePopulator::CHECK_AREA_SIZE;
 		$maxZ = $chunkZ + CarvePopulator::CHECK_AREA_SIZE;
 
-		for ($x = $minX; $x <= $maxX; ++$x) {
+		for($x = $minX; $x <= $maxX; ++$x) {
 			$randomX = $xSeed * $x;
-			for ($z = $minZ; $z <= $maxZ; ++$z) {
+			for($z = $minZ; $z <= $maxZ; ++$z) {
 				$randomZ = $zSeed * $z;
 
 				$seed = $randomX ^ $randomZ ^ $this->seed;
-				foreach ($this->carves as $carve) {
+				foreach($this->carves as $carve) {
 					$this->random->setSeed($seed);
-					if ($carve->canCarve($this->random, $chunkX, $chunkZ)) {
+					if($carve->canCarve($this->random, $chunkX, $chunkZ)) {
 						$carve->carve($chunk, $chunkX, $chunkZ, $x, $z);
 					}
 				}

@@ -38,7 +38,7 @@ abstract class AmountPopulator extends Populator {
 		$this->baseAmount = $baseAmount;
 		$this->randomAmount = $randomAmount;
 
-		if (!is_null($spawnPercentage)) {
+		if(!is_null($spawnPercentage)) {
 			$this->spawnPercentage = $spawnPercentage;
 		}
 	}
@@ -56,12 +56,12 @@ abstract class AmountPopulator extends Populator {
 	}
 
 	public final function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
-		if ($random->nextRange($this->spawnPercentage, 100) != 100) {
+		if($random->nextRange($this->spawnPercentage, 100) != 100) {
 			return;
 		}
 
 		$amount = $random->nextBoundedInt($this->randomAmount + 1) + $this->baseAmount;
-		for ($i = 0; $i < $amount; $i++) {
+		for($i = 0; $i < $amount; $i++) {
 			$this->populateObject($world, $chunkX, $chunkZ, $random);
 		}
 	}

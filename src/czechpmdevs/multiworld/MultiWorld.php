@@ -55,16 +55,16 @@ class MultiWorld extends PluginBase {
 		$start = !isset(MultiWorld::$instance);
 		MultiWorld::$instance = $this;
 
-		if ($start) {
+		if($start) {
 			$generators = [
 				"ender" => EnderGenerator::class,
 				"void" => VoidGenerator::class,
 				"skyblock" => SkyBlockGenerator::class,
-				"nether" => NetherGenerator::class,
+				"nether_mw" => NetherGenerator::class,
 				"normal_mw" => NormalGenerator::class
 			];
 
-			foreach ($generators as $name => $class) {
+			foreach($generators as $name => $class) {
 				GeneratorManager::getInstance()->addGenerator($class, $name, fn() => null, true);
 			}
 		}
@@ -79,7 +79,7 @@ class MultiWorld extends PluginBase {
 			"gamerule" => new GameRuleCommand()
 		];
 
-		foreach ($this->commands as $command) {
+		foreach($this->commands as $command) {
 			$this->getServer()->getCommandMap()->register("MultiWorld", $command);
 		}
 

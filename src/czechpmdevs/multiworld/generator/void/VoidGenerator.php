@@ -37,7 +37,7 @@ class VoidGenerator extends Generator {
 		/** @phpstan-var Chunk $chunk */
 		$chunk = $world->getChunk($chunkX, $chunkZ);
 
-		if ($chunkX == 16 && $chunkZ == 16) {
+		if($chunkX == 16 && $chunkZ == 16) {
 			$chunk->setFullBlock(0, 64, 0, BlockLegacyIds::GRASS << 4);
 		}
 	}

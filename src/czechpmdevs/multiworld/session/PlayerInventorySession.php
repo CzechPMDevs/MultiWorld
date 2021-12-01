@@ -52,7 +52,7 @@ class PlayerInventorySession {
 	}
 
 	public function close(): void {
-		if (!$this->player->isOnline()) {
+		if(!$this->player->isOnline()) {
 			return;
 		}
 

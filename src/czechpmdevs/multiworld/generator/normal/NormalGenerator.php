@@ -100,9 +100,9 @@ class NormalGenerator extends Generator {
 
 		$baseX = $chunkX * 16;
 		$baseZ = $chunkZ * 16;
-		for ($x = 0; $x < 16; ++$x) {
+		for($x = 0; $x < 16; ++$x) {
 			$absoluteX = $baseX + $x;
-			for ($z = 0; $z < 16; ++$z) {
+			for($z = 0; $z < 16; ++$z) {
 				$absoluteZ = $baseZ + $z;
 				$minSum = 0;
 				$maxSum = 0;
@@ -111,16 +111,16 @@ class NormalGenerator extends Generator {
 				$biome = $this->pickBiome($absoluteX, $absoluteZ);
 				$chunk->setBiomeId($x, $z, $biome->getId());
 
-				for ($sx = -$this->gaussian->smoothSize; $sx <= $this->gaussian->smoothSize; ++$sx) {
-					for ($sz = -$this->gaussian->smoothSize; $sz <= $this->gaussian->smoothSize; ++$sz) {
+				for($sx = -$this->gaussian->smoothSize; $sx <= $this->gaussian->smoothSize; ++$sx) {
+					for($sz = -$this->gaussian->smoothSize; $sz <= $this->gaussian->smoothSize; ++$sz) {
 
 						$weight = $this->gaussian->kernel[$sx + $this->gaussian->smoothSize][$sz + $this->gaussian->smoothSize];
 
-						if ($sx === 0 and $sz === 0) {
+						if($sx === 0 and $sz === 0) {
 							$adjacent = $biome;
 						} else {
 							$index = World::chunkHash($absoluteX + $sx, $absoluteZ + $sz);
-							if (isset($biomeCache[$index])) {
+							if(isset($biomeCache[$index])) {
 								$adjacent = $biomeCache[$index];
 							} else {
 								$biomeCache[$index] = $adjacent = $this->pickBiome($absoluteX + $sx, $absoluteZ + $sz);
@@ -139,23 +139,23 @@ class NormalGenerator extends Generator {
 
 				$smoothHeight = ($maxSum - $minSum) / 2;
 
-				for ($y = 0; $y < 128; ++$y) {
-					if ($y === 0) {
+				for($y = 0; $y < 128; ++$y) {
+					if($y === 0) {
 						$chunk->setFullBlock($x, $y, $z, $bedrock);
 						continue;
 					}
 					$noiseValue = $noise[$x][$z][$y] - 1 / $smoothHeight * ($y - $smoothHeight - $minSum);
 
-					if ($noiseValue > 0) {
+					if($noiseValue > 0) {
 						$chunk->setFullBlock($x, $y, $z, $stone);
-					} elseif ($y <= 60) {
+					} elseif($y <= 60) {
 						$chunk->setFullBlock($x, $y, $z, $stillWater);
 					}
 				}
 			}
 		}
 
-		foreach ($this->generationPopulators as $populator) {
+		foreach($this->generationPopulators as $populator) {
 			$populator->populate($world, $chunkX, $chunkZ, $this->random);
 		}
 	}
@@ -165,10 +165,10 @@ class NormalGenerator extends Generator {
 		$hash *= $hash + 223;
 		$xNoise = $hash >> 20 & 3;
 		$zNoise = $hash >> 22 & 3;
-		if ($xNoise == 3) {
+		if($xNoise == 3) {
 			$xNoise = 1;
 		}
-		if ($zNoise == 3) {
+		if($zNoise == 3) {
 			$zNoise = 1;
 		}
 
@@ -176,7 +176,7 @@ class NormalGenerator extends Generator {
 	}
 
 	public function populateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {
-		foreach ($this->populators as $populator) {
+		foreach($this->populators as $populator) {
 			$this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->seed);
 			$populator->populate($world, $chunkX, $chunkZ, $this->random);
 		}

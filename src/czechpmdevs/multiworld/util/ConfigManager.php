@@ -23,9 +23,9 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\util;
 
 use czechpmdevs\multiworld\MultiWorld;
-use function array_key_exists;
 use function is_dir;
 use function is_file;
+use function is_string;
 use function mkdir;
 use function rename;
 use function unlink;
@@ -46,58 +46,58 @@ class ConfigManager {
 	}
 
 	public function initConfig(bool $forceUpdate = false): void {
-		if (!is_dir(ConfigManager::getDataFolder())) {
+		if(!is_dir(ConfigManager::getDataFolder())) {
 			@mkdir(ConfigManager::getDataFolder());
 		}
-		if (!is_dir(ConfigManager::getDataFolder() . "data")) {
+		if(!is_dir(ConfigManager::getDataFolder() . "data")) {
 			@mkdir(ConfigManager::getDataFolder() . "data");
 		}
-		if (!is_file(ConfigManager::getDataFolder() . "data/gamerules.yml")) {
+		if(!is_file(ConfigManager::getDataFolder() . "data/gamerules.yml")) {
 			MultiWorld::getInstance()->saveResource("data/gamerules.yml");
 		}
-		if (!is_dir(ConfigManager::getDataFolder() . "languages")) {
+		if(!is_dir(ConfigManager::getDataFolder() . "languages")) {
 			@mkdir(ConfigManager::getDataFolder() . "languages");
 		}
-		if (!is_file(ConfigManager::getDataFolder() . "languages/cs_CZ.yml") || $forceUpdate) {
+		if(!is_file(ConfigManager::getDataFolder() . "languages/cs_CZ.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/cs_CZ.yml", $forceUpdate);
 		}
-		if (!is_file(ConfigManager::getDataFolder() . "languages/de_DE.yml") || $forceUpdate) {
+		if(!is_file(ConfigManager::getDataFolder() . "languages/de_DE.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/de_DE.yml", $forceUpdate);
 		}
-		if (!is_file(ConfigManager::getDataFolder() . "languages/en_US.yml") || $forceUpdate) {
+		if(!is_file(ConfigManager::getDataFolder() . "languages/en_US.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/en_US.yml", $forceUpdate);
 		}
-		if (!is_file(ConfigManager::getDataFolder() . "languages/es_ES.yml") || $forceUpdate) {
+		if(!is_file(ConfigManager::getDataFolder() . "languages/es_ES.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/es_ES.yml", $forceUpdate);
 		}
-		if (!is_file(ConfigManager::getDataFolder() . "languages/ina_IND.yml") || $forceUpdate) {
+		if(!is_file(ConfigManager::getDataFolder() . "languages/ina_IND.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/ina_IND.yml", $forceUpdate);
 		}
-		if (!is_file(ConfigManager::getDataFolder() . "languages/ja_JP.yml") || $forceUpdate) {
+		if(!is_file(ConfigManager::getDataFolder() . "languages/ja_JP.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/ja_JP.yml", $forceUpdate);
 		}
-		if (!is_file(ConfigManager::getDataFolder() . "languages/ko_KR.yml") || $forceUpdate) {
+		if(!is_file(ConfigManager::getDataFolder() . "languages/ko_KR.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/ko_KR.yml", $forceUpdate);
 		}
-		if (!is_file(ConfigManager::getDataFolder() . "languages/pt_BR.yml") || $forceUpdate) {
+		if(!is_file(ConfigManager::getDataFolder() . "languages/pt_BR.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/pt_BR.yml", $forceUpdate);
 		}
-		if (!is_file(ConfigManager::getDataFolder() . "languages/ru_RU.yml") || $forceUpdate) {
+		if(!is_file(ConfigManager::getDataFolder() . "languages/ru_RU.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/ru_RU.yml", $forceUpdate);
 		}
-		if (!is_file(ConfigManager::getDataFolder() . "languages/tl_PH.yml") || $forceUpdate) {
+		if(!is_file(ConfigManager::getDataFolder() . "languages/tl_PH.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/tl_PH.yml", $forceUpdate);
 		}
-		if (!is_file(ConfigManager::getDataFolder() . "languages/tr_TR.yml") || $forceUpdate) {
+		if(!is_file(ConfigManager::getDataFolder() . "languages/tr_TR.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/tr_TR.yml", $forceUpdate);
 		}
-		if (!is_file(ConfigManager::getDataFolder() . "languages/vi_VN.yml") || $forceUpdate) {
+		if(!is_file(ConfigManager::getDataFolder() . "languages/vi_VN.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/vi_VN.yml", $forceUpdate);
 		}
-		if (!is_file(ConfigManager::getDataFolder() . "languages/zh_CN.yml") || $forceUpdate) {
+		if(!is_file(ConfigManager::getDataFolder() . "languages/zh_CN.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/zh_CN.yml", $forceUpdate);
 		}
-		if (!is_file(ConfigManager::getDataFolder() . "/config.yml")) {
+		if(!is_file(ConfigManager::getDataFolder() . "/config.yml")) {
 			MultiWorld::getInstance()->saveResource("/config.yml");
 		}
 	}
@@ -108,9 +108,10 @@ class ConfigManager {
 
 	public function checkConfigUpdates(): bool {
 		$configuration = MultiWorld::getInstance()->getConfig()->getAll();
-		if (
-			!array_key_exists("config-version", $configuration) ||
-			version_compare((string)$configuration["config-version"], ConfigManager::CONFIG_VERSION) < 0
+		$configVersion = $configuration["config-version"] ?? null;
+		if(
+			!is_string($configVersion) ||
+			version_compare($configVersion, ConfigManager::CONFIG_VERSION) < 0
 		) {
 			// Update is required
 			@unlink($this->getDataFolder() . "config.yml.old");

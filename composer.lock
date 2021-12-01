@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae44032b754dcc2b1ec968bce9f5c03c",
+    "content-hash": "57e05123ae239f5c20a041f313c6aea7",
     "packages": [
         {
             "name": "adhocore/json-comment",
@@ -123,25 +123,26 @@
         },
         {
             "name": "czechpmdevs/libpmform",
-            "version": "dev-api/4.0.0-beta6",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CzechPMDevs/libpmform.git",
-                "reference": "b9a38568e6277794877318a35aaa130c2e4d4d8e"
+                "reference": "a725381160f4fd1014eecef4a2e3c43448ffa05d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CzechPMDevs/libpmform/zipball/b9a38568e6277794877318a35aaa130c2e4d4d8e",
-                "reference": "b9a38568e6277794877318a35aaa130c2e4d4d8e",
+                "url": "https://api.github.com/repos/CzechPMDevs/libpmform/zipball/a725381160f4fd1014eecef4a2e3c43448ffa05d",
+                "reference": "a725381160f4fd1014eecef4a2e3c43448ffa05d",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.4 || ^8.0",
-                "pocketmine/pocketmine-mp": "4.0.0-beta6"
+                "pocketmine/pocketmine-mp": "4.0.0-BETA15"
             },
             "require-dev": {
-                "phpstan/phpstan": "0.12.99"
+                "phpstan/phpstan": "1.2.0"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -160,10 +161,10 @@
             ],
             "description": "Simple form library",
             "support": {
-                "source": "https://github.com/CzechPMDevs/libpmform/tree/api/4.0.0-beta6",
+                "source": "https://github.com/CzechPMDevs/libpmform/tree/main",
                 "issues": "https://github.com/CzechPMDevs/libpmform/issues"
             },
-            "time": "2021-10-20T11:37:04+00:00"
+            "time": "2021-12-01T14:01:33+00:00"
         },
         {
             "name": "fgrosse/phpasn1",
@@ -292,17 +293,43 @@
             "time": "2020-12-01T19:48:11+00:00"
         },
         {
-            "name": "pocketmine/bedrock-protocol",
-            "version": "3.0.0+bedrock1.17.40",
+            "name": "pocketmine/bedrock-data",
+            "version": "1.5.0+bedrock-1.18.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/pmmp/BedrockProtocol.git",
-                "reference": "ea9e22563b3d56f3b94b4a132c725912d029c101"
+                "url": "https://github.com/pmmp/BedrockData.git",
+                "reference": "482c679aa5ed0b81c088c2b1ff0b8110a94c8a6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pmmp/BedrockProtocol/zipball/ea9e22563b3d56f3b94b4a132c725912d029c101",
-                "reference": "ea9e22563b3d56f3b94b4a132c725912d029c101",
+                "url": "https://api.github.com/repos/pmmp/BedrockData/zipball/482c679aa5ed0b81c088c2b1ff0b8110a94c8a6c",
+                "reference": "482c679aa5ed0b81c088c2b1ff0b8110a94c8a6c",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "description": "Blobs of data generated from Minecraft: Bedrock Edition, used by PocketMine-MP",
+            "support": {
+                "issues": "https://github.com/pmmp/BedrockData/issues",
+                "source": "https://github.com/pmmp/BedrockData/tree/bedrock-1.18.0"
+            },
+            "time": "2021-11-30T18:30:46+00:00"
+        },
+        {
+            "name": "pocketmine/bedrock-protocol",
+            "version": "7.0.0+bedrock-1.18.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pmmp/BedrockProtocol.git",
+                "reference": "040a883a4abb8c9b93114d5278cb5fecc635da82"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pmmp/BedrockProtocol/zipball/040a883a4abb8c9b93114d5278cb5fecc635da82",
+                "reference": "040a883a4abb8c9b93114d5278cb5fecc635da82",
                 "shasum": ""
             },
             "require": {
@@ -311,14 +338,14 @@
                 "php": "^8.0",
                 "pocketmine/binaryutils": "^0.2.0",
                 "pocketmine/color": "^0.2.0",
-                "pocketmine/math": "^0.3.0",
+                "pocketmine/math": "^0.3.0 || ^0.4.0",
                 "pocketmine/nbt": "^0.3.0",
                 "ramsey/uuid": "^4.1"
             },
             "require-dev": {
-                "phpstan/phpstan": "0.12.99",
-                "phpstan/phpstan-phpunit": "^0.12.21",
-                "phpstan/phpstan-strict-rules": "^0.12.10",
+                "phpstan/phpstan": "1.2.0",
+                "phpstan/phpstan-phpunit": "^1.0.0",
+                "phpstan/phpstan-strict-rules": "^1.0.0",
                 "phpunit/phpunit": "^9.5"
             },
             "type": "library",
@@ -334,9 +361,9 @@
             "description": "An implementation of the Minecraft: Bedrock Edition protocol in PHP",
             "support": {
                 "issues": "https://github.com/pmmp/BedrockProtocol/issues",
-                "source": "https://github.com/pmmp/BedrockProtocol/tree/bedrock-1.17.40"
+                "source": "https://github.com/pmmp/BedrockProtocol/tree/7.0.0+bedrock-1.18.0"
             },
-            "time": "2021-10-19T17:28:41+00:00"
+            "time": "2021-11-30T19:02:41+00:00"
         },
         {
             "name": "pocketmine/binaryutils",
@@ -430,31 +457,31 @@
         },
         {
             "name": "pocketmine/classloader",
-            "version": "dev-master",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pmmp/ClassLoader.git",
-                "reference": "80226e0917be79ac3230606113e25134a31e6a85"
+                "reference": "49ea303993efdfb39cd302e2156d50aa78209e78"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pmmp/ClassLoader/zipball/80226e0917be79ac3230606113e25134a31e6a85",
-                "reference": "80226e0917be79ac3230606113e25134a31e6a85",
+                "url": "https://api.github.com/repos/pmmp/ClassLoader/zipball/49ea303993efdfb39cd302e2156d50aa78209e78",
+                "reference": "49ea303993efdfb39cd302e2156d50aa78209e78",
                 "shasum": ""
             },
             "require": {
-                "ext-pthreads": "~3.2.0",
+                "ext-pthreads": "~3.2.0 || ^4.0",
                 "ext-reflection": "*",
-                "php": "^7.2 || ^8.0"
+                "php": "^8.0"
             },
             "conflict": {
                 "pocketmine/spl": "<0.4"
             },
             "require-dev": {
                 "phpstan/extension-installer": "^1.0",
-                "phpstan/phpstan": "0.12.80",
+                "phpstan/phpstan": "0.12.99",
                 "phpstan/phpstan-strict-rules": "^0.12.4",
-                "phpunit/phpunit": "^8.5 || ^9.5"
+                "phpunit/phpunit": "^9.5"
             },
             "type": "library",
             "autoload": {
@@ -469,9 +496,9 @@
             "description": "Ad-hoc autoloading components used by PocketMine-MP",
             "support": {
                 "issues": "https://github.com/pmmp/ClassLoader/issues",
-                "source": "https://github.com/pmmp/ClassLoader/tree/master"
+                "source": "https://github.com/pmmp/ClassLoader/tree/0.2.0"
             },
-            "time": "2021-05-29T23:09:32+00:00"
+            "time": "2021-11-01T20:17:27+00:00"
         },
         {
             "name": "pocketmine/color",
@@ -550,17 +577,40 @@
             "time": "2021-02-12T18:56:22+00:00"
         },
         {
-            "name": "pocketmine/log",
-            "version": "0.3.0",
+            "name": "pocketmine/locale-data",
+            "version": "2.0.20",
             "source": {
                 "type": "git",
-                "url": "https://github.com/pmmp/Log.git",
-                "reference": "03ab1316da0b1978a7a1c8dd73e1c2a973cb62ec"
+                "url": "https://github.com/pmmp/Language.git",
+                "reference": "a6e4eb22587e0014f6d658732cf633262723f8d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pmmp/Log/zipball/03ab1316da0b1978a7a1c8dd73e1c2a973cb62ec",
-                "reference": "03ab1316da0b1978a7a1c8dd73e1c2a973cb62ec",
+                "url": "https://api.github.com/repos/pmmp/Language/zipball/a6e4eb22587e0014f6d658732cf633262723f8d3",
+                "reference": "a6e4eb22587e0014f6d658732cf633262723f8d3",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Language resources used by PocketMine-MP",
+            "support": {
+                "issues": "https://github.com/pmmp/Language/issues",
+                "source": "https://github.com/pmmp/Language/tree/2.0.20"
+            },
+            "time": "2021-11-25T20:56:12+00:00"
+        },
+        {
+            "name": "pocketmine/log",
+            "version": "0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pmmp/Log.git",
+                "reference": "e6c912c0f9055c81d23108ec2d179b96f404c043"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pmmp/Log/zipball/e6c912c0f9055c81d23108ec2d179b96f404c043",
+                "reference": "e6c912c0f9055c81d23108ec2d179b96f404c043",
                 "shasum": ""
             },
             "require": {
@@ -570,7 +620,7 @@
                 "pocketmine/spl": "<0.4"
             },
             "require-dev": {
-                "phpstan/phpstan": "0.12.80",
+                "phpstan/phpstan": "0.12.88",
                 "phpstan/phpstan-strict-rules": "^0.12.2"
             },
             "type": "library",
@@ -586,28 +636,28 @@
             "description": "Logging components used by PocketMine-MP and related projects",
             "support": {
                 "issues": "https://github.com/pmmp/Log/issues",
-                "source": "https://github.com/pmmp/Log/tree/0.3.0"
+                "source": "https://github.com/pmmp/Log/tree/0.4.0"
             },
-            "time": "2021-05-18T21:00:49+00:00"
+            "time": "2021-06-18T19:08:09+00:00"
         },
         {
             "name": "pocketmine/log-pthreads",
-            "version": "0.2.0",
+            "version": "0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pmmp/LogPthreads.git",
-                "reference": "6be3445c48c62eba3922f987f000bb20c81d161f"
+                "reference": "61f709e8cf36bcc24e4efe02acded680a1ce23cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pmmp/LogPthreads/zipball/6be3445c48c62eba3922f987f000bb20c81d161f",
-                "reference": "6be3445c48c62eba3922f987f000bb20c81d161f",
+                "url": "https://api.github.com/repos/pmmp/LogPthreads/zipball/61f709e8cf36bcc24e4efe02acded680a1ce23cd",
+                "reference": "61f709e8cf36bcc24e4efe02acded680a1ce23cd",
                 "shasum": ""
             },
             "require": {
-                "ext-pthreads": "~3.2.0",
+                "ext-pthreads": "~3.2.0 || ^4.0",
                 "php": "^7.4 || ^8.0",
-                "pocketmine/log": "^0.2.0 || ^0.3.0"
+                "pocketmine/log": "^0.4.0"
             },
             "conflict": {
                 "pocketmine/spl": "<0.4"
@@ -630,32 +680,32 @@
             "description": "Logging components specialized for pthreads used by PocketMine-MP and related projects",
             "support": {
                 "issues": "https://github.com/pmmp/LogPthreads/issues",
-                "source": "https://github.com/pmmp/LogPthreads/tree/0.2.0"
+                "source": "https://github.com/pmmp/LogPthreads/tree/0.4.0"
             },
-            "time": "2021-05-18T22:15:28+00:00"
+            "time": "2021-11-01T21:42:09+00:00"
         },
         {
             "name": "pocketmine/math",
-            "version": "0.3.0",
+            "version": "0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pmmp/Math.git",
-                "reference": "83ec067b12c066fc61d9fb129daf7e61ef3b1d63"
+                "reference": "6d64e2555bd2e95ed024574f75d1cefc135c89fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pmmp/Math/zipball/83ec067b12c066fc61d9fb129daf7e61ef3b1d63",
-                "reference": "83ec067b12c066fc61d9fb129daf7e61ef3b1d63",
+                "url": "https://api.github.com/repos/pmmp/Math/zipball/6d64e2555bd2e95ed024574f75d1cefc135c89fc",
+                "reference": "6d64e2555bd2e95ed024574f75d1cefc135c89fc",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.4 || ^8.0",
+                "php": "^8.0",
                 "php-64bit": "*"
             },
             "require-dev": {
                 "irstea/phpunit-shim": "^8.5 || ^9.5",
                 "phpstan/extension-installer": "^1.0",
-                "phpstan/phpstan": "0.12.90",
+                "phpstan/phpstan": "0.12.99",
                 "phpstan/phpstan-strict-rules": "^0.12.4"
             },
             "type": "library",
@@ -671,9 +721,9 @@
             "description": "PHP library containing math related code used in PocketMine-MP",
             "support": {
                 "issues": "https://github.com/pmmp/Math/issues",
-                "source": "https://github.com/pmmp/Math/tree/0.3.0"
+                "source": "https://github.com/pmmp/Math/tree/0.4.0"
             },
-            "time": "2021-07-14T18:39:31+00:00"
+            "time": "2021-10-29T20:33:10+00:00"
         },
         {
             "name": "pocketmine/nbt",
@@ -719,22 +769,22 @@
         },
         {
             "name": "pocketmine/pocketmine-mp",
-            "version": "4.0.0-BETA6",
+            "version": "4.0.0-BETA15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pmmp/PocketMine-MP.git",
-                "reference": "46920818b5de1632991c29620b4822fd87f7946b"
+                "reference": "d560cf17fc2496161c375324ec3fb52f17057c25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pmmp/PocketMine-MP/zipball/46920818b5de1632991c29620b4822fd87f7946b",
-                "reference": "46920818b5de1632991c29620b4822fd87f7946b",
+                "url": "https://api.github.com/repos/pmmp/PocketMine-MP/zipball/d560cf17fc2496161c375324ec3fb52f17057c25",
+                "reference": "d560cf17fc2496161c375324ec3fb52f17057c25",
                 "shasum": ""
             },
             "require": {
                 "adhocore/json-comment": "^1.1",
                 "composer-runtime-api": "^2.0",
-                "ext-chunkutils2": "^0.3.0",
+                "ext-chunkutils2": "^0.3.1",
                 "ext-crypto": "^0.3.1",
                 "ext-ctype": "*",
                 "ext-curl": "*",
@@ -749,7 +799,7 @@
                 "ext-openssl": "*",
                 "ext-pcre": "*",
                 "ext-phar": "*",
-                "ext-pthreads": "~3.2.0",
+                "ext-pthreads": "^4.0",
                 "ext-reflection": "*",
                 "ext-simplexml": "*",
                 "ext-sockets": "*",
@@ -761,27 +811,28 @@
                 "netresearch/jsonmapper": "^4.0",
                 "php": "^8.0",
                 "php-64bit": "*",
-                "pocketmine/bedrock-protocol": "3.0.0+bedrock1.17.40",
+                "pocketmine/bedrock-data": "^1.5.0+bedrock-1.18.0",
+                "pocketmine/bedrock-protocol": "^7.0.0+bedrock-1.18.0",
                 "pocketmine/binaryutils": "^0.2.1",
                 "pocketmine/callback-validator": "^1.0.2",
-                "pocketmine/classloader": "dev-master",
+                "pocketmine/classloader": "^0.2.0",
                 "pocketmine/color": "^0.2.0",
                 "pocketmine/errorhandler": "^0.3.0",
-                "pocketmine/log": "^0.3.0",
-                "pocketmine/log-pthreads": "^0.2.0",
-                "pocketmine/math": "^0.3.0",
+                "pocketmine/locale-data": "^2.0.16",
+                "pocketmine/log": "^0.4.0",
+                "pocketmine/log-pthreads": "^0.4.0",
+                "pocketmine/math": "^0.4.0",
                 "pocketmine/nbt": "^0.3.0",
                 "pocketmine/raklib": "^0.14.2",
                 "pocketmine/raklib-ipc": "^0.1.0",
                 "pocketmine/snooze": "^0.3.0",
-                "pocketmine/spl": "dev-master",
                 "ramsey/uuid": "^4.1",
                 "webmozart/path-util": "^2.3"
             },
             "require-dev": {
-                "phpstan/phpstan": "0.12.99",
-                "phpstan/phpstan-phpunit": "^0.12.6",
-                "phpstan/phpstan-strict-rules": "^0.12.2",
+                "phpstan/phpstan": "1.2.0",
+                "phpstan/phpstan-phpunit": "^1.0.0",
+                "phpstan/phpstan-strict-rules": "^1.0.0",
                 "phpunit/phpunit": "^9.2"
             },
             "type": "project",
@@ -801,7 +852,7 @@
             "homepage": "https://pmmp.io",
             "support": {
                 "issues": "https://github.com/pmmp/PocketMine-MP/issues",
-                "source": "https://github.com/pmmp/PocketMine-MP/tree/4.0.0-BETA6"
+                "source": "https://github.com/pmmp/PocketMine-MP/tree/4.0.0-BETA15"
             },
             "funding": [
                 {
@@ -813,7 +864,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2021-10-19T18:13:43+00:00"
+            "time": "2021-11-30T19:27:04+00:00"
         },
         {
             "name": "pocketmine/raklib",
@@ -901,25 +952,25 @@
         },
         {
             "name": "pocketmine/snooze",
-            "version": "0.3.0",
+            "version": "0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pmmp/Snooze.git",
-                "reference": "fe5b1dbf0d6267da882d1f67924772bd93db833d"
+                "reference": "0ac8fc2a781c419a1f64ebca4d5835028f59e29b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pmmp/Snooze/zipball/fe5b1dbf0d6267da882d1f67924772bd93db833d",
-                "reference": "fe5b1dbf0d6267da882d1f67924772bd93db833d",
+                "url": "https://api.github.com/repos/pmmp/Snooze/zipball/0ac8fc2a781c419a1f64ebca4d5835028f59e29b",
+                "reference": "0ac8fc2a781c419a1f64ebca4d5835028f59e29b",
                 "shasum": ""
             },
             "require": {
-                "ext-pthreads": ">=3.1.7dev",
+                "ext-pthreads": "~3.2.0 || ^4.0",
                 "php-64bit": "^7.3 || ^8.0"
             },
             "require-dev": {
                 "phpstan/extension-installer": "^1.0",
-                "phpstan/phpstan": "0.12.88",
+                "phpstan/phpstan": "0.12.99",
                 "phpstan/phpstan-strict-rules": "^0.12.4"
             },
             "type": "library",
@@ -935,46 +986,9 @@
             "description": "Thread notification management library for code using the pthreads extension",
             "support": {
                 "issues": "https://github.com/pmmp/Snooze/issues",
-                "source": "https://github.com/pmmp/Snooze/tree/0.3.0"
+                "source": "https://github.com/pmmp/Snooze/tree/0.3.1"
             },
-            "time": "2021-06-13T13:57:47+00:00"
-        },
-        {
-            "name": "pocketmine/spl",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pmmp/SPL.git",
-                "reference": "b7a8904f912c1f6d38ad867ff1120614ccb80171"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pmmp/SPL/zipball/b7a8904f912c1f6d38ad867ff1120614ccb80171",
-                "reference": "b7a8904f912c1f6d38ad867ff1120614ccb80171",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2 || ^8.0"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "^0.12.8"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "./src"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-3.0"
-            ],
-            "description": "Standard library files required by PocketMine-MP and related projects",
-            "support": {
-                "issues": "https://github.com/pmmp/SPL/issues",
-                "source": "https://github.com/pmmp/SPL/tree/master"
-            },
-            "time": "2021-01-15T15:19:34+00:00"
+            "time": "2021-11-01T20:50:08+00:00"
         },
         {
             "name": "ramsey/collection",
@@ -1508,22 +1522,23 @@
                 "issues": "https://github.com/webmozart/path-util/issues",
                 "source": "https://github.com/webmozart/path-util/tree/2.3.0"
             },
+            "abandoned": "symfony/filesystem",
             "time": "2015-12-17T08:42:14+00:00"
         }
     ],
     "packages-dev": [
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.99",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "b4d40f1d759942f523be267a1bab6884f46ca3f7"
+                "reference": "cbe085f9fdead5b6d62e4c022ca52dc9427a10ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b4d40f1d759942f523be267a1bab6884f46ca3f7",
-                "reference": "b4d40f1d759942f523be267a1bab6884f46ca3f7",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/cbe085f9fdead5b6d62e4c022ca52dc9427a10ee",
+                "reference": "cbe085f9fdead5b6d62e4c022ca52dc9427a10ee",
                 "shasum": ""
             },
             "require": {
@@ -1539,7 +1554,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.12-dev"
+                    "dev-master": "1.2-dev"
                 }
             },
             "autoload": {
@@ -1552,7 +1567,7 @@
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
-                "source": "https://github.com/phpstan/phpstan/tree/0.12.99",
+                "source": "https://github.com/phpstan/phpstan/tree/1.2.0",
                 "issues": "https://github.com/phpstan/phpstan/issues"
             },
             "funding": [
@@ -1573,7 +1588,7 @@
                     "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan"
                 }
             ],
-            "time": "2021-09-12T20:09:55+00:00"
+            "time": "2021-11-18T14:09:01+00:00"
         }
     ],
     "aliases": [],

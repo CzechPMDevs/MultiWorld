@@ -29,12 +29,12 @@ use function is_numeric;
 class HelpSubCommand implements SubCommand {
 
 	public function execute(CommandSender $sender, array $args, string $name): void {
-		if (!isset($args[0])) {
+		if(!isset($args[0])) {
 			$sender->sendMessage($this->getHelpMessage($sender, 1));
 			return;
 		}
 
-		if (!is_numeric($args[0])) {
+		if(!is_numeric($args[0])) {
 			$sender->sendMessage($this->getHelpMessage($sender, 1));
 			return;
 		}
@@ -43,12 +43,12 @@ class HelpSubCommand implements SubCommand {
 	}
 
 	public function getHelpMessage(CommandSender $sender, int $page): string {
-		if ($page < 1 || $page > 3) {
+		if($page < 1 || $page > 3) {
 			return $this->getHelpMessage($sender, 1);
 		}
 
 		$message = LanguageManager::translateMessage($sender, "help", [(string)$page, "3"]);
-		for ($i = $j = (($page - 1) * 5) + 1, $j = $j + 5; $i < $j; ++$i) {
+		for($i = $j = (($page - 1) * 5) + 1, $j = $j + 5; $i < $j; ++$i) {
 			$message .= "\n" . LanguageManager::translateMessage($sender, "help-$i");
 		}
 		return $message;

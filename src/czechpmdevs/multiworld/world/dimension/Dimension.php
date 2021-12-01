@@ -39,10 +39,10 @@ class Dimension {
 
 	public static function getDimensionByGeneratorName(string $generatorName): int {
 		$generatorName = strtolower($generatorName);
-		if ($generatorName == "nether" || $generatorName == "hell") {
+		if($generatorName == "nether" || $generatorName == "hell") {
 			return Dimension::NETHER;
 		}
-		if ($generatorName == "end" || $generatorName == "ender") {
+		if($generatorName == "end" || $generatorName == "ender") {
 			return Dimension::END;
 		}
 

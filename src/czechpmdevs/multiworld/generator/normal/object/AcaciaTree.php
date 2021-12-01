@@ -39,7 +39,7 @@ class AcaciaTree extends Tree {
 		$down = $position->down();
 		$block = $world->getBlockAt($down->getFloorX(), $down->getFloorY(), $down->getFloorZ())->getId();
 
-		if (($block == BlockLegacyIds::GRASS || $block == BlockLegacyIds::DIRT) && $position->getY() < 256 - $i - 1) {
+		if(($block == BlockLegacyIds::GRASS || $block == BlockLegacyIds::DIRT) && $position->getY() < 256 - $i - 1) {
 			/** @phpstan-ignore-next-line */
 			$world->setBlockAt($position->getX(), $position->getY() - 1, $position->getZ(), VanillaBlocks::DIRT());
 			$face = $random->nextRange(0, 3);
@@ -49,10 +49,10 @@ class AcaciaTree extends Tree {
 			$j1 = $position->getFloorZ();
 			$k1 = 0;
 
-			for ($l1 = 0; $l1 < $i; ++$l1) {
+			for($l1 = 0; $l1 < $i; ++$l1) {
 				$i2 = $position->getFloorY() + $l1;
 
-				if ($l1 >= $k2 && $l2 > 0) {
+				if($l1 >= $k2 && $l2 > 0) {
 					$i3 += $this->getXYFromDirection($face)->getX();
 					$j1 += $this->getXYFromDirection($face)->getY();
 					--$l2;
@@ -61,7 +61,7 @@ class AcaciaTree extends Tree {
 				$blockpos = new Vector3($i3, $i2, $j1);
 				$material = $world->getBlockAt($blockpos->getFloorX(), $blockpos->getFloorY(), $blockpos->getFloorZ())->getId();
 
-				if ($material == BlockLegacyIds::AIR || $material == BlockLegacyIds::LEAVES) {
+				if($material == BlockLegacyIds::AIR || $material == BlockLegacyIds::LEAVES) {
 					$this->placeLogAt($world, $blockpos);
 					$k1 = $i2;
 				}
@@ -69,9 +69,9 @@ class AcaciaTree extends Tree {
 
 			$blockpos2 = new Vector3($i3, $k1, $j1);
 
-			for ($j3 = -3; $j3 <= 3; ++$j3) {
-				for ($i4 = -3; $i4 <= 3; ++$i4) {
-					if (abs($j3) != 3 || abs($i4) != 3) {
+			for($j3 = -3; $j3 <= 3; ++$j3) {
+				for($i4 = -3; $i4 <= 3; ++$i4) {
+					if(abs($j3) != 3 || abs($i4) != 3) {
 						$this->placeLeafAt($world, $blockpos2->add($j3, 0, $i4));
 					}
 				}
@@ -79,8 +79,8 @@ class AcaciaTree extends Tree {
 
 			$blockpos2 = $blockpos2->up();
 
-			for ($k3 = -1; $k3 <= 1; ++$k3) {
-				for ($j4 = -1; $j4 <= 1; ++$j4) {
+			for($k3 = -1; $k3 <= 1; ++$k3) {
+				for($j4 = -1; $j4 <= 1; ++$j4) {
 					$this->placeLeafAt($world, $blockpos2->add($k3, 0, $j4));
 				}
 			}
@@ -93,20 +93,20 @@ class AcaciaTree extends Tree {
 			$j1 = $position->getFloorZ();
 			$face1 = $random->nextRange(0, 3);
 
-			if ($face1 != $face) {
+			if($face1 != $face) {
 				$l3 = $k2 - $random->nextBoundedInt(2) - 1;
 				$k4 = 1 + $random->nextBoundedInt(3);
 				$k1 = 0;
 
-				for ($l4 = $l3; $l4 < $i && $k4 > 0; --$k4) {
-					if ($l4 >= 1) {
+				for($l4 = $l3; $l4 < $i && $k4 > 0; --$k4) {
+					if($l4 >= 1) {
 						$j2 = $position->getFloorY() + $l4;
 						$i3 += $this->getXYFromDirection($face)->getX();
 						$j1 += $this->getXYFromDirection($face)->getY();
 						$blockpos1 = new Vector3($i3, $j2, $j1);
 						$material1 = $world->getBlockAt($blockpos1->getFloorX(), $blockpos1->getFloorY(), $blockpos1->getFloorZ())->getId();
 
-						if ($material1 == BlockLegacyIds::AIR || $material1 == BlockLegacyIds::LEAVES) {
+						if($material1 == BlockLegacyIds::AIR || $material1 == BlockLegacyIds::LEAVES) {
 							$this->placeLogAt($world, $blockpos1);
 							$k1 = $j2;
 						}
@@ -115,12 +115,12 @@ class AcaciaTree extends Tree {
 					++$l4;
 				}
 
-				if ($k1 > 0) {
+				if($k1 > 0) {
 					$blockpos3 = new Vector3($i3, $k1, $j1);
 
-					for ($i5 = -2; $i5 <= 2; ++$i5) {
-						for ($k5 = -2; $k5 <= 2; ++$k5) {
-							if (abs($i5) != 2 || abs($k5) != 2) {
+					for($i5 = -2; $i5 <= 2; ++$i5) {
+						for($k5 = -2; $k5 <= 2; ++$k5) {
+							if(abs($i5) != 2 || abs($k5) != 2) {
 								$this->placeLeafAt($world, $blockpos3->add($i5, 0, $k5));
 							}
 						}
@@ -128,8 +128,8 @@ class AcaciaTree extends Tree {
 
 					$blockpos3 = $blockpos3->up();
 
-					for ($j5 = -1; $j5 <= 1; ++$j5) {
-						for ($l5 = -1; $l5 <= 1; ++$l5) {
+					for($j5 = -1; $j5 <= 1; ++$j5) {
+						for($l5 = -1; $l5 <= 1; ++$l5) {
 							$this->placeLeafAt($world, $blockpos3->add($j5, 0, $l5));
 						}
 					}
@@ -140,7 +140,7 @@ class AcaciaTree extends Tree {
 	}
 
 	private function getXYFromDirection(int $direction): Vector2 {
-		switch ($direction) {
+		switch($direction) {
 			case 0:
 				return new Vector2(1, 0);
 			case 1:
@@ -159,7 +159,7 @@ class AcaciaTree extends Tree {
 	private function placeLeafAt(ChunkManager $worldIn, Vector3 $pos): void {
 		$material = $worldIn->getBlockAt($pos->getFloorX(), $pos->getFloorY(), $pos->getFloorZ())->getId();
 
-		if ($material == BlockLegacyIds::AIR || $material == BlockLegacyIds::LEAVES) {
+		if($material == BlockLegacyIds::AIR || $material == BlockLegacyIds::LEAVES) {
 			$worldIn->setBlockAt((int)$pos->getX(), (int)$pos->getY(), (int)$pos->getZ(), VanillaBlocks::ACACIA_LEAVES());
 		}
 	}

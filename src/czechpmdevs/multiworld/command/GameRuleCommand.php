@@ -37,6 +37,9 @@ use function array_keys;
 use function array_map;
 use function gettype;
 use function implode;
+use function is_bool;
+use function is_float;
+use function is_int;
 use function json_decode;
 use function strtolower;
 
@@ -48,11 +51,11 @@ class GameRuleCommand extends Command implements PluginOwned {
 	}
 
 	public function execute(CommandSender $sender, string $commandLabel, array $args) {
-		if (!$this->testPermission($sender)) {
+		if(!$this->testPermission($sender)) {
 			return;
 		}
 
-		if (!isset($args[0])) {
+		if(!isset($args[0])) {
 			$sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
 			return;
 		}
@@ -63,12 +66,12 @@ class GameRuleCommand extends Command implements PluginOwned {
 			GameRule::getAll()
 		);
 
-		if ($args[0] == "list") {
+		if($args[0] == "list") {
 			$sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-list", [implode(", ", array_keys($gameRules))]));
 			return;
 		}
 
-		if ((!isset($args[1])) || ((!isset($args[2]) && (!$sender instanceof Player)))) {
+		if((!isset($args[1])) || ((!isset($args[2]) && (!$sender instanceof Player)))) {
 			$sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
 			return;
 		}
@@ -79,21 +82,21 @@ class GameRuleCommand extends Command implements PluginOwned {
 			array_keys($gameRules)
 		);
 
-		if (!array_key_exists($args[0] = $gameRulesMap[strtolower($args[0])] ?? "unknownRule", $gameRules)) {
+		if(!array_key_exists($args[0] = $gameRulesMap[strtolower($args[0])] ?? "unknownRule", $gameRules)) {
 			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-notexists", [$args[0]]));
 			return;
 		}
 
 		$rule = $gameRules[$args[0]];
 		$value = json_decode($args[1]);
-		if (gettype($rule->getValue()) != gettype($value)) {
+		if(gettype($rule->getValue()) != gettype($value) || (!is_bool($value) && !is_int($value) && !is_float($value))) {
 			$sender->sendMessage(LanguageManager::translateMessage($sender, "gamerule-usage"));
 			return;
 		}
 
-		if (isset($args[2])) {
+		if(isset($args[2])) {
 			$world = WorldUtils::getLoadedWorldByName($args[2]);
-			if ($world === null) {
+			if($world === null) {
 				$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "gamerule-levelnotfound", [$args[2]]));
 				return;
 			}

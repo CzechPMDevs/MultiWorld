@@ -50,7 +50,7 @@ abstract class Carve {
 		$realChunkX = $populatedChunkX * 16;
 		$realChunkZ = $populatedChunkZ * 16;
 
-		if (
+		if(
 			($centerX < $realChunkX - 8.0 - $horizontalSize * 2.0) ||
 			($centerZ < $realChunkZ - 8.0 - $horizontalSize * 2.0) ||
 			($centerX > $realChunkX + 24.0 + $horizontalSize * 2.0) ||
@@ -64,30 +64,30 @@ abstract class Carve {
 		$minZ = (int)max(0, (int)floor($centerZ - $horizontalSize) - $realChunkZ - 1);
 		$maxZ = (int)min(16, (int)floor($centerZ + $horizontalSize) - $realChunkZ + 1);
 
-		if ($this->collidesWithLiquids($chunk, $minX, $maxX, $minY, $maxY, $minZ, $maxZ)) {
+		if($this->collidesWithLiquids($chunk, $minX, $maxX, $minY, $maxY, $minZ, $maxZ)) {
 			return;
 		}
 
-		for ($x = $minX; $x < $maxX; ++$x) {
+		for($x = $minX; $x < $maxX; ++$x) {
 			$modX = ($x + $realChunkX + 0.5 - $centerX) / $horizontalSize;
-			for ($z = $minZ; $z < $maxZ; ++$z) {
+			for($z = $minZ; $z < $maxZ; ++$z) {
 				$modZ = ($z + $realChunkZ + 0.5 - $centerZ) / $horizontalSize;
 
-				if (($modXZ = ($modX ** 2) + ($modZ ** 2)) < 1.0) {
-					for ($y = $maxY; $y > $minY; --$y) {
+				if(($modXZ = ($modX ** 2) + ($modZ ** 2)) < 1.0) {
+					for($y = $maxY; $y > $minY; --$y) {
 						$modY = ($y - 0.5 - $centerY) / $verticalSize;
 
-						if ($this->continue($modXZ, $modY, $y)) {
-							if ($chunk->getFullBlock($x, $y, $z) >> 4 == BlockLegacyIds::WATER || $chunk->getFullBlock($x, $y + 1, $z) >> 4 == BlockLegacyIds::WATER) {
+						if($this->continue($modXZ, $modY, $y)) {
+							if($chunk->getFullBlock($x, $y, $z) >> 4 == BlockLegacyIds::WATER || $chunk->getFullBlock($x, $y + 1, $z) >> 4 == BlockLegacyIds::WATER) {
 								continue;
 							}
 
-							if ($y < 11) {
+							if($y < 11) {
 								$chunk->setFullBlock($x, $y, $z, BlockLegacyIds::STILL_LAVA << 4);
 								continue;
 							}
 
-							if (
+							if(
 								$chunk->getFullBlock($x, $y - 1, $z) >> 4 == BlockLegacyIds::DIRT &&
 								$chunk->getFullBlock($x, $y + 1, $z) >> 4 == BlockLegacyIds::AIR &&
 								$y > 62
@@ -104,11 +104,11 @@ abstract class Carve {
 	}
 
 	private function collidesWithLiquids(Chunk $chunk, int $minX, int $maxX, int $minY, int $maxY, int $minZ, int $maxZ): bool {
-		for ($x = $minX; $x < $maxX; ++$x) {
-			for ($z = $minZ; $z < $maxZ; ++$z) {
-				for ($y = $minY - 1; $y < $maxY + 1; ++$y) {
+		for($x = $minX; $x < $maxX; ++$x) {
+			for($z = $minZ; $z < $maxZ; ++$z) {
+				for($y = $minY - 1; $y < $maxY + 1; ++$y) {
 					$id = $chunk->getFullBlock($x, $y, $z) << 4;
-					if (
+					if(
 						$id == BlockLegacyIds::FLOWING_WATER ||
 						$id == BlockLegacyIds::STILL_LAVA ||
 						$id == BlockLegacyIds::FLOWING_LAVA ||
@@ -117,7 +117,7 @@ abstract class Carve {
 						return true;
 					}
 
-					if ($y != $maxY + 1 && $x != $minX && $x != $maxX - 1 && $z != $minZ && $z != $maxZ - 1) {
+					if($y != $maxY + 1 && $x != $minX && $x != $maxX - 1 && $z != $minZ && $z != $maxZ - 1) {
 						$y = $maxY;
 					}
 				}

@@ -40,22 +40,22 @@ class SwampTree extends Tree {
 		$down = $position->down();
 		$block = $world->getBlockAt($down->getFloorX(), $down->getFloorY(), $down->getFloorZ())->getId();
 
-		if (($block == BlockLegacyIds::GRASS || $block == BlockLegacyIds::DIRT) && $position->getY() < 256 - $i - 1) {
+		if(($block == BlockLegacyIds::GRASS || $block == BlockLegacyIds::DIRT) && $position->getY() < 256 - $i - 1) {
 			$world->setBlockAt($down->getFloorX(), $down->getFloorY(), $down->getFloorZ(), VanillaBlocks::DIRT());
 
-			for ($k1 = $position->getY() - 3 + $i; $k1 <= $position->getY() + $i; ++$k1) {
+			for($k1 = $position->getY() - 3 + $i; $k1 <= $position->getY() + $i; ++$k1) {
 				$j2 = $k1 - ($position->getY() + $i);
 				$l2 = 2 - $j2 / 2;
 
-				for ($j3 = $position->getX() - $l2; $j3 <= $position->getX() + $l2; ++$j3) {
+				for($j3 = $position->getX() - $l2; $j3 <= $position->getX() + $l2; ++$j3) {
 					$k3 = $j3 - $position->getX();
 
-					for ($i4 = $position->getZ() - $l2; $i4 <= $position->getZ() + $l2; ++$i4) {
+					for($i4 = $position->getZ() - $l2; $i4 <= $position->getZ() + $l2; ++$i4) {
 						$j1 = $i4 - $position->getZ();
 
-						if (abs($k3) != $l2 || abs($j1) != $l2 || $random->nextBoundedInt(2) != 0 && $j2 != 0) {
+						if(abs($k3) != $l2 || abs($j1) != $l2 || $random->nextBoundedInt(2) != 0 && $j2 != 0) {
 							$id = $world->getBlockAt((int)$j3, (int)$k1, (int)$i4)->getId();
-							if ($id == BlockLegacyIds::AIR || $id == BlockLegacyIds::LEAVES || $id == BlockLegacyIds::VINE) {
+							if($id == BlockLegacyIds::AIR || $id == BlockLegacyIds::LEAVES || $id == BlockLegacyIds::VINE) {
 								$world->setBlockAt((int)$j3, (int)$k1, (int)$i4, VanillaBlocks::OAK_LEAVES());
 							}
 						}
@@ -63,42 +63,42 @@ class SwampTree extends Tree {
 				}
 			}
 
-			for ($l1 = 0; $l1 < $i; ++$l1) {
+			for($l1 = 0; $l1 < $i; ++$l1) {
 				$up = $position->up($l1);
 				$id = $world->getBlockAt($position->getFloorX(), $up->getFloorY(), $position->getFloorZ())->getId();
 
-				if ($id == BlockLegacyIds::AIR || $id == BlockLegacyIds::LEAVES || $id == BlockLegacyIds::WATER || $id == BlockLegacyIds::STILL_WATER) {
+				if($id == BlockLegacyIds::AIR || $id == BlockLegacyIds::LEAVES || $id == BlockLegacyIds::WATER || $id == BlockLegacyIds::STILL_WATER) {
 					$world->setBlockAt((int)$up->getX(), (int)$up->getY(), (int)$up->getZ(), VanillaBlocks::OAK_WOOD());
 				}
 			}
 
-			for ($i2 = $position->getY() - 3 + $i; $i2 <= $position->getY() + $i; ++$i2) {
+			for($i2 = $position->getY() - 3 + $i; $i2 <= $position->getY() + $i; ++$i2) {
 				$k2 = $i2 - ($position->getY() + $i);
 				$i3 = 2 - $k2 / 2;
 
-				for ($l3 = $position->getX() - $i3; $l3 <= $position->getX() + $i3; ++$l3) {
-					for ($j4 = $position->getZ() - $i3; $j4 <= $position->getZ() + $i3; ++$j4) {
+				for($l3 = $position->getX() - $i3; $l3 <= $position->getX() + $i3; ++$l3) {
+					for($j4 = $position->getZ() - $i3; $j4 <= $position->getZ() + $i3; ++$j4) {
 						$pos2 = new Vector3($l3, $i2, $j4);
 
-						if ($world->getBlockAt((int)$pos2->x, (int)$pos2->y, (int)$pos2->z)->getId() == BlockLegacyIds::LEAVES) {
+						if($world->getBlockAt((int)$pos2->x, (int)$pos2->y, (int)$pos2->z)->getId() == BlockLegacyIds::LEAVES) {
 							$blockpos2 = $pos2->west();
 							$blockpos3 = $pos2->east();
 							$blockpos4 = $pos2->north();
 							$blockpos1 = $pos2->south();
 
-							if ($random->nextBoundedInt(4) == 0 && $world->getBlockAt((int)$blockpos2->x, (int)$blockpos2->y, (int)$blockpos2->z)->getId() == BlockLegacyIds::AIR) {
+							if($random->nextBoundedInt(4) == 0 && $world->getBlockAt((int)$blockpos2->x, (int)$blockpos2->y, (int)$blockpos2->z)->getId() == BlockLegacyIds::AIR) {
 								$this->addHangingVine($world, $blockpos2);
 							}
 
-							if ($random->nextBoundedInt(4) == 0 && $world->getBlockAt((int)$blockpos3->x, (int)$blockpos3->y, (int)$blockpos3->z)->getId() == BlockLegacyIds::AIR) {
+							if($random->nextBoundedInt(4) == 0 && $world->getBlockAt((int)$blockpos3->x, (int)$blockpos3->y, (int)$blockpos3->z)->getId() == BlockLegacyIds::AIR) {
 								$this->addHangingVine($world, $blockpos3);
 							}
 
-							if ($random->nextBoundedInt(4) == 0 && $world->getBlockAt((int)$blockpos4->x, (int)$blockpos4->y, (int)$blockpos4->z)->getId() == BlockLegacyIds::AIR) {
+							if($random->nextBoundedInt(4) == 0 && $world->getBlockAt((int)$blockpos4->x, (int)$blockpos4->y, (int)$blockpos4->z)->getId() == BlockLegacyIds::AIR) {
 								$this->addHangingVine($world, $blockpos4);
 							}
 
-							if ($random->nextBoundedInt(4) == 0 && $world->getBlockAt((int)$blockpos1->x, (int)$blockpos1->y, (int)$blockpos1->z)->getId() == BlockLegacyIds::AIR) {
+							if($random->nextBoundedInt(4) == 0 && $world->getBlockAt((int)$blockpos1->x, (int)$blockpos1->y, (int)$blockpos1->z)->getId() == BlockLegacyIds::AIR) {
 								$this->addHangingVine($world, $blockpos1);
 							}
 						}
@@ -112,7 +112,7 @@ class SwampTree extends Tree {
 		$this->addVine($worldIn, $pos);
 		$i = 4;
 
-		for ($pos = $pos->down(); $i > 0 && $worldIn->getBlockAt((int)$pos->x, (int)$pos->y, (int)$pos->z)->getId() == BlockLegacyIds::AIR; --$i) {
+		for($pos = $pos->down(); $i > 0 && $worldIn->getBlockAt((int)$pos->x, (int)$pos->y, (int)$pos->z)->getId() == BlockLegacyIds::AIR; --$i) {
 			$this->addVine($worldIn, $pos);
 			$pos = $pos->down();
 		}

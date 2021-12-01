@@ -32,11 +32,11 @@ class TallGrassPopulator extends AmountPopulator {
 	private bool $allowDoubleGrass = true;
 
 	public function populateObject(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
-		if (!$this->getSpawnPositionOn($world->getChunk($chunkX, $chunkZ), $random, [VanillaBlocks::GRASS()], $x, $y, $z)) {
+		if(!$this->getSpawnPositionOn($world->getChunk($chunkX, $chunkZ), $random, [VanillaBlocks::GRASS()], $x, $y, $z)) {
 			return;
 		}
 
-		if ($this->allowDoubleGrass && $random->nextBoundedInt(5) == 0) {
+		if($this->allowDoubleGrass && $random->nextBoundedInt(5) == 0) {
 			$world->setBlockAt($chunkX * 16 + $x, $y, $chunkZ * 16 + $z, VanillaBlocks::DOUBLE_TALLGRASS());
 			return;
 		}

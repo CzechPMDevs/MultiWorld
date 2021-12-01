@@ -59,26 +59,26 @@ class BiomeSelector {
 		$hills = $this->hills->noise2D($x, $z, true);
 		$smallHills = $this->smallHills->noise2D($x, $z, true);
 
-		if ($ocean < -0.2) {
-			if ($temperature < 0) {
+		if($ocean < -0.2) {
+			if($temperature < 0) {
 				return BiomeFactory::getInstance()->getBiome(BiomeIds::FROZEN_OCEAN);
 			}
 
-			if ($ocean > -0.4) {
-				if ($temperature > 0.5 && $rainfall > 0.5 && $hills < 0) {
+			if($ocean > -0.4) {
+				if($temperature > 0.5 && $rainfall > 0.5 && $hills < 0) {
 					return BiomeFactory::getInstance()->getBiome(BiomeIds::SWAMP);
 				}
 			}
 
-			if ($ocean > -0.2687) {
-				if ($temperature > -0.2 && $temperature < 0.6 && $smallHills > -0.4) {
+			if($ocean > -0.2687) {
+				if($temperature > -0.2 && $temperature < 0.6 && $smallHills > -0.4) {
 					return BiomeFactory::getInstance()->getBiome(BiomeIds::BEACH);
 				}
 			}
 
-			if ($ocean < -0.55) {
-				if ($ocean < -0.7 && $rainfall < 0 && $temperature > 0) {
-					if ($ocean > -0.68) {
+			if($ocean < -0.55) {
+				if($ocean < -0.7 && $rainfall < 0 && $temperature > 0) {
+					if($ocean > -0.68) {
 						return BiomeFactory::getInstance()->getBiome(BiomeIds::MUSHROOM_ISLAND_SHORE);
 					}
 
@@ -91,17 +91,17 @@ class BiomeSelector {
 			return BiomeFactory::getInstance()->getBiome(BiomeIds::OCEAN);
 		}
 
-		if (abs($river) < 0.03) {
-			if ($temperature < 0) {
+		if(abs($river) < 0.03) {
+			if($temperature < 0) {
 				return BiomeFactory::getInstance()->getBiome(BiomeIds::FROZEN_RIVER);
 			}
 
 			return BiomeFactory::getInstance()->getBiome(BiomeIds::RIVER);
 		}
 
-		if ($temperature < -0.7) {
-			if ($rainfall > 0) {
-				if ($hills > 0) {
+		if($temperature < -0.7) {
+			if($rainfall > 0) {
+				if($hills > 0) {
 					return BiomeFactory::getInstance()->getBiome(BiomeIds::EXTREME_HILLS_MUTATED);
 				}
 
@@ -111,72 +111,72 @@ class BiomeSelector {
 			return BiomeFactory::getInstance()->getBiome(BiomeIds::EXTREME_HILLS);
 		}
 
-		if ($temperature < -0.4) {
-			if ($rainfall > 0) {
-				if ($smallHills > 0.1) {
+		if($temperature < -0.4) {
+			if($rainfall > 0) {
+				if($smallHills > 0.1) {
 					return BiomeFactory::getInstance()->getBiome(BiomeIds::TAIGA_HILLS);
 				}
 				return BiomeFactory::getInstance()->getBiome(BiomeIds::TAIGA);
 			}
 
-			if ($hills > 0.1) {
+			if($hills > 0.1) {
 				return BiomeFactory::getInstance()->getBiome(BiomeIds::ICE_MOUNTAINS);
 			}
 
 			return BiomeFactory::getInstance()->getBiome(BiomeIds::ICE_PLAINS);
 		}
 
-		if ($temperature < -0.1) {
-			if ($rainfall < -0.1) {
-				if ($hills > 0) {
+		if($temperature < -0.1) {
+			if($rainfall < -0.1) {
+				if($hills > 0) {
 					return BiomeFactory::getInstance()->getBiome(BiomeIds::BADLANDS);
 				}
 
 				return BiomeFactory::getInstance()->getBiome(BiomeIds::BADLANDS_PLATEAU);
 			}
 
-			if ($smallHills > 0.1) {
+			if($smallHills > 0.1) {
 				return BiomeFactory::getInstance()->getBiome(BiomeIds::ROOFED_FOREST_HILLS);
 			}
 
 			return BiomeFactory::getInstance()->getBiome(BiomeIds::ROOFED_FOREST);
 		}
 
-		if ($temperature < 0.17) {
-			if ($rainfall < -0.1) {
+		if($temperature < 0.17) {
+			if($rainfall < -0.1) {
 //                if($smallHills > 0.1) {
 //                    return BiomeFactory::getInstance()->getBiome(BiomeIds::BIRCH_FOREST_HILLS);
 //                }
-				if ($rainfall < -0.6 && $temperature > 0.15) {
+				if($rainfall < -0.6 && $temperature > 0.15) {
 					return BiomeFactory::getInstance()->getBiome(BiomeIds::TALL_BIRCH_FOREST);
 				}
 				return BiomeFactory::getInstance()->getBiome(BiomeIds::BIRCH_FOREST);
 			}
 
-			if ($smallHills > 0.2) {
+			if($smallHills > 0.2) {
 				return BiomeFactory::getInstance()->getBiome(BiomeIds::FOREST_HILLS);
 			}
 
 			return BiomeFactory::getInstance()->getBiome(BiomeIds::FOREST);
 		}
 
-		if ($temperature < 0.6) {
-			if ($rainfall > 0) {
-				if ($hills > 0.5 && $smallHills > 0.1) {
+		if($temperature < 0.6) {
+			if($rainfall > 0) {
+				if($hills > 0.5 && $smallHills > 0.1) {
 					return BiomeFactory::getInstance()->getBiome(BiomeIds::SUNFLOWER_PLAINS);
 				}
 
 				return BiomeFactory::getInstance()->getBiome(BiomeIds::PLAINS);
 			}
 
-			if ($hills > 0) {
+			if($hills > 0) {
 				return BiomeFactory::getInstance()->getBiome(BiomeIds::SAVANNA_PLATEAU);
 			}
 
 			return BiomeFactory::getInstance()->getBiome(BiomeIds::SAVANNA);
 		}
 
-		if ($rainfall > 0.2) {
+		if($rainfall > 0.2) {
 //            if($smallHills > 0.1) {
 //                return BiomeFactory::getInstance()->getBiome(BiomeIds::JUNGLE_HILLS);
 //            }
@@ -184,7 +184,7 @@ class BiomeSelector {
 			return BiomeFactory::getInstance()->getBiome(BiomeIds::JUNGLE);
 		}
 
-		if ($hills > 0.2 && $smallHills > 0.1) {
+		if($hills > 0.2 && $smallHills > 0.1) {
 			return BiomeFactory::getInstance()->getBiome(BiomeIds::DESERT_HILLS);
 		}
 

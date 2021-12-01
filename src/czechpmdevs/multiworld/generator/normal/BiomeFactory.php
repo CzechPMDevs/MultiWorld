@@ -55,7 +55,7 @@ use czechpmdevs\multiworld\generator\normal\biome\TaigaHills;
 use czechpmdevs\multiworld\generator\normal\biome\TallBirchForest;
 use czechpmdevs\multiworld\generator\normal\biome\types\Biome;
 use czechpmdevs\multiworld\world\data\BiomeIds;
-use InvalidStateException;
+use InvalidArgumentException;
 use function array_key_exists;
 
 class BiomeFactory implements BiomeIds {
@@ -72,8 +72,8 @@ class BiomeFactory implements BiomeIds {
 	}
 
 	public function getBiome(int $id): Biome {
-		if (!array_key_exists($id, $this->biomes)) {
-			throw new InvalidStateException("Biome with id $id is not registered.");
+		if(!array_key_exists($id, $this->biomes)) {
+			throw new InvalidArgumentException("Biome with id $id is not registered.");
 		}
 
 		return $this->biomes[$id];
@@ -124,7 +124,7 @@ class BiomeFactory implements BiomeIds {
 	}
 
 	public static function getInstance(): BiomeFactory {
-		if (!isset(BiomeFactory::$instance)) {
+		if(!isset(BiomeFactory::$instance)) {
 			BiomeFactory::init();
 		}
 

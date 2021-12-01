@@ -22,7 +22,8 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\world\gamerules;
 
-use InvalidStateException;
+use InvalidArgumentException;
+use LogicException;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\network\mcpe\protocol\GameRulesChangedPacket;
@@ -34,7 +35,9 @@ use pocketmine\world\format\io\data\BaseNbtWorldData;
 use pocketmine\world\World;
 use UnexpectedValueException;
 use function array_key_exists;
-use function array_map;
+use function is_bool;
+use function is_float;
+use function is_int;
 use function json_decode;
 use function json_encode;
 
@@ -54,8 +57,8 @@ final class GameRules {
 	}
 
 	private function addMissingRules(): void {
-		foreach (GameRule::getAll() as $rule) {
-			if (!array_key_exists($rule->getRuleName(), $this->gameRules)) {
+		foreach(GameRule::getAll() as $rule) {
+			if(!array_key_exists($rule->getRuleName(), $this->gameRules)) {
 				$this->gameRules[$rule->getRuleName()] = $rule;
 			}
 		}
@@ -79,16 +82,16 @@ final class GameRules {
 
 	public static function loadFromWorld(World $world): GameRules {
 		$worldData = $world->getProvider()->getWorldData();
-		if (!$worldData instanceof BaseNbtWorldData) {
+		if(!$worldData instanceof BaseNbtWorldData) {
 			return new GameRules();
 		}
 
 		$nbt = $worldData->getCompoundTag()->getCompoundTag("GameRules");
-		if ($nbt === null) {
+		if($nbt === null) {
 			return new GameRules();
 		}
 
-		if ($nbt->count() == 0) { // PocketMine creates GameRules nbt, but without any rules
+		if($nbt->count() == 0) { // PocketMine creates GameRules nbt, but without any rules
 			return new GameRules();
 		}
 
@@ -97,7 +100,7 @@ final class GameRules {
 
 	public static function saveForWorld(World $world, GameRules $gameRules): bool {
 		$worldData = $world->getProvider()->getWorldData();
-		if (!$worldData instanceof BaseNbtWorldData) {
+		if(!$worldData instanceof BaseNbtWorldData) {
 			return false;
 		}
 
@@ -111,8 +114,8 @@ final class GameRules {
 	public static function serializeGameRules(GameRules $gameRules): CompoundTag {
 		$nbt = new CompoundTag();
 		/** @var BoolGameRule|IntGameRule|FloatGameRule $gameRule */
-		foreach ($gameRules->getRules() as $name => $gameRule) {
-			if ($value = json_encode($gameRule->getValue())) {
+		foreach($gameRules->getRules() as $name => $gameRule) {
+			if($value = json_encode($gameRule->getValue())) {
 				$nbt->setString($name, $value);
 				continue;
 			}
@@ -127,8 +130,14 @@ final class GameRules {
 	 */
 	public static function unserializeGameRules(CompoundTag $nbt): GameRules {
 		$rules = [];
-		foreach ($nbt->getValue() as $index => $value) {
-			$rule = GameRule::fromRuleName($index)->setValue(json_decode($value->getValue()));
+		/** @var StringTag $value */
+		foreach($nbt->getValue() as $index => $value) {
+			$ruleValue = json_decode($value->getValue());
+			if(!is_bool($ruleValue) && !is_int($ruleValue) && !is_float($ruleValue)) {
+				throw new LogicException("Invalid game rule value for $index");
+			}
+
+			$rule = GameRule::fromRuleName($index)->setValue($ruleValue);
 			$rules[$rule->getRuleName()] = $rule;
 		}
 
@@ -136,8 +145,8 @@ final class GameRules {
 	}
 
 	public function getRuleValue(string $name): GameRule {
-		if (!array_key_exists($name, $this->gameRules)) {
-			throw new InvalidStateException("Requested invalid game rule $name.");
+		if(!array_key_exists($name, $this->gameRules)) {
+			throw new InvalidArgumentException("Requested invalid game rule $name.");
 		}
 
 		return $this->gameRules[$name]; // TODO - Find better way to make the analyser happy
@@ -156,7 +165,7 @@ final class GameRules {
 		$pk = new GameRulesChangedPacket();
 		$pk->gameRules = $this->gameRules;
 
-		foreach ($world->getPlayers() as $player) {
+		foreach($world->getPlayers() as $player) {
 			$player->getNetworkSession()->sendDataPacket($pk);
 		}
 

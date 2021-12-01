@@ -33,13 +33,13 @@ use function count;
 class InfoSubCommand implements SubCommand {
 
 	public function execute(CommandSender $sender, array $args, string $name): void {
-		if (!$sender instanceof Player) {
+		if(!$sender instanceof Player) {
 			$sender->sendMessage("§cThis command can be used only in-game!");
 			return;
 		}
 
-		if (isset($args[0])) {
-			if (!Server::getInstance()->getWorldManager()->isWorldGenerated($args[0])) {
+		if(isset($args[0])) {
+			if(!Server::getInstance()->getWorldManager()->isWorldGenerated($args[0])) {
 				$sender->sendMessage(LanguageManager::translateMessage($sender, "info.levelnotexists", [$args[0]]));
 				return;
 			}

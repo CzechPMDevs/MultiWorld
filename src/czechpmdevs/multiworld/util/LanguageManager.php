@@ -24,11 +24,14 @@ namespace czechpmdevs\multiworld\util;
 
 use czechpmdevs\multiworld\MultiWorld;
 use Exception;
+use LogicException;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
 use function base64_decode;
 use function basename;
 use function glob;
+use function is_array;
+use function is_string;
 use function json_decode;
 use function str_replace;
 use function yaml_parse_file;
@@ -50,19 +53,30 @@ class LanguageManager {
 
 	public function __construct() {
 		$configuration = MultiWorld::getInstance()->getConfig()->getAll();
+		$defaultLang = $configuration["language"];
+		if(!is_string($defaultLang)) {
+			throw new LogicException("Could not fetch default language from config.yml");
+		}
 
-		LanguageManager::$defaultLang = $configuration["language"];
-		if ($langResources = glob(ConfigManager::getDataFolder() . "/languages/*.yml")) {
-			foreach ($langResources as $langResource) {
-				LanguageManager::$languages[basename($langResource, ".yml")] = yaml_parse_file($langResource);
+		LanguageManager::$defaultLang = $defaultLang;
+		if($langResources = glob(ConfigManager::getDataFolder() . "/languages/*.yml")) {
+			foreach($langResources as $langResource) {
+				$fileContents = yaml_parse_file($langResource);
+				if(!is_array($fileContents)) {
+					MultiWorld::getInstance()->getLogger()->debug("Could not load language file ($langResource) - invalid data given");
+					continue;
+				}
+
+				LanguageManager::$languages[basename($langResource, ".yml")] = $fileContents;
 			}
 		}
 
-		if (!isset(LanguageManager::$languages[LanguageManager::$defaultLang])) {
+		if(!isset(LanguageManager::$languages[LanguageManager::$defaultLang])) {
+			// @phpstan-ignore-next-line
 			LanguageManager::$languages[LanguageManager::$defaultLang] = json_decode((string)base64_decode(LanguageManager::DEFAULT_LANGUAGE, true), true); // it should fix bug
 		}
 
-		if (isset($configuration["force-default-language"])) {
+		if(isset($configuration["force-default-language"])) {
 			LanguageManager::$forceDefaultLang = (bool)$configuration["force-default-language"];
 		}
 	}
@@ -73,25 +87,25 @@ class LanguageManager {
 	public static function translateMessage(CommandSender $sender, string $messageIndex, array $params = []): string {
 		try {
 			$lang = LanguageManager::$defaultLang;
-			if ($sender instanceof Player && isset(LanguageManager::$players[$sender->getName()])) {
+			if($sender instanceof Player && isset(LanguageManager::$players[$sender->getName()])) {
 				$lang = LanguageManager::$players[$sender->getName()];
 			}
 
-			if (empty(LanguageManager::$languages[$lang]) || LanguageManager::$forceDefaultLang) {
+			if(empty(LanguageManager::$languages[$lang]) || LanguageManager::$forceDefaultLang) {
 				$lang = LanguageManager::$defaultLang;
 			}
 
-			if (empty(LanguageManager::$languages[$lang])) {
+			if(empty(LanguageManager::$languages[$lang])) {
 				$lang = "en_US";
 			}
 
 			$message = LanguageManager::$languages[$lang][$messageIndex];
 
-			foreach ($params as $index => $param) {
+			foreach($params as $index => $param) {
 				$message = str_replace("{%$index}", $param, $message);
 			}
 
-		} catch (Exception $exception) {
+		} catch(Exception $exception) {
 			MultiWorld::getInstance()->getLogger()->error("LanguageManager error: " . $exception->getMessage() . " Try remove language resources and restart the server.");
 			return "";
 		}

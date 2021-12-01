@@ -47,7 +47,7 @@ abstract class Biome extends \pocketmine\world\biome\Biome {
 	 * @param Populator[] $populators
 	 */
 	public function addPopulators(array $populators = []): void {
-		foreach ($populators as $populator) {
+		foreach($populators as $populator) {
 			$this->addPopulator($populator);
 		}
 	}
