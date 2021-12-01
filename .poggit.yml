@@ -1,9 +1,7 @@
 ---
 branches:
-  - master
-  - feature/pm-3.20.0
-  - feature/pm-4.0.0
-  - feature/generators
+  - main
+  - api/pm3
 projects:
   MultiWorld:
     path: ""
@@ -11,7 +9,7 @@ projects:
     libs:
       libpmform:
         src: CzechPMDevs/libpmform/libpmform
-        version: ^1.0.1
+        version: ^1.1.0
     lint:
       phpstan: false
       syntaxError: false
