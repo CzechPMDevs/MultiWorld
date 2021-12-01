@@ -11,8 +11,8 @@ help: '§2--- §fMultiWorld ヘルプ ページ({%0}/{%1}) §2---'
 help-1: '§2/mw create §fワールドを生成'
 help-2: '§2/mw teleport §fワールドにテレポート'
 help-3: '§2/mw list §f全てのワールドをリスト表示'
-help-4: '§2/mw load §fLoads a world'
-help-5: '§2/mw unload §fUnloads a world'
+help-4: '§2/mw load §fワールドを読み込む'
+help-5: '§2/mw unload §fワールドの読み込みを解除'
 
 help-6: '§2/mw delete §fワールドを削除'
 help-7: '§2/mw info §fワールドの情報を表示'
@@ -59,7 +59,7 @@ delete-levelnotexists: '§cワールド {%0} は存在しません!'
 delete-done: '§aワールドを削除しました ({%0} つのファイルを削除しました)'
 
 # Update Command:
-update-usage: '§c使用方法: §7/mw update <spawn|lobby|default> [(ワールド名) (x座標) (y座標) (z座標)]'
+update-usage: '§c使用方法: §7/mw update <spawn|lobby|default> [(ワールド名)|(x座標) (y座標) (z座標)]'
 update-levelnotexists: '§cワールド {%0} は存在しません!'
 update-spawn-done: '§aワールド {%0} のスポーン位置を変更しました'
 update-lobby-done: '§aワールド {%0} のロビーの位置を変更しました'
@@ -79,7 +79,7 @@ info-time: '§7ワールド内時間: {%0}'
 
 # Gamerule Command:
 gamerule-usage: '§c使用方法: §7/mw gamerule <list|gamerule> [true|false] [ワールド名]'
-gamerule-list: '§aAvailable game rules: {%0}'
+gamerule-list: '§a使用可能なゲームルールの一覧: {%0}'
 gamerule-levelnotfound: '§cワールド {%0} は存在しません'
 gamerule-notexists: '§cゲームルール {%0} は存在しません'
 gamerule-done: '§aワールド {%1} のゲームルール {%0} を {%2} に変更しました'
@@ -91,10 +91,10 @@ rename-levelnotfound: '§cワールド {%0} は存在しません!'
 rename-done: '§aワールド名 {%0} を {%1} に変更しました'
 
 # Duplicate Command
-duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
-duplicate-exists: '§cWorld with name {%0} already exists.'
-duplicate-levelnotfound: '§cLevel {%0} does not exist.'
-duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+duplicate-usage: '§c使用方法: §7/mw duplicate <ワールド名> [コピーワールド名]'
+duplicate-exists: '§c{%0} という名前のワールドは既に存在します'
+duplicate-levelnotfound: '§cワールド {%0} は存在しません!'
+duplicate-done: 'ワールド名 {%0} のコピー {%1} を作成しました'
 
 # Forms
 forms-invalid: '§cフォームに入力した値が異常です'

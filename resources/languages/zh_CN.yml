@@ -1,6 +1,6 @@
 ---
-### 中文（简体）翻译由蛋黄酱（abc1460132901）制作 内容较为粗糙需要修改和更新。
-### Chinese language by abc1460132901
+### Simplified Chinese (简体中文) language by @abc1460132901 and @lixworth
+
 ## Commands:
 
 not-perms: '§c你没有使用这个命令的相应权限!'
@@ -10,22 +10,22 @@ default-usage: '§c输入: §7/mw help'
 help: '§2--- §fMultiWorld 帮助页码 ({%0}/{%1}) §2---'
 help-1: '§2/mw create §f新建一个世界'
 help-2: '§2/mw teleport §f传送到指定世界'
-help-3: '§2/mw list §f 列出所有世界清单'
-help-4: '§2/mw load §fLoads a world'
-help-5: '§2/mw unload §fUnloads a world'
+help-3: '§2/mw list §f列出所有世界清单'
+help-4: '§2/mw load §f加载世界'
+help-5: '§2/mw unload §f卸载世界'
 
 help-6: '§2/mw delete §f删除一个世界'
-help-7: '§2/mw info §fDisplays 关于世界的信息'
-help-8: '§2/mw gamerule §f管理世界的模式'
-help-9: '§2/mw manage §fDisplays form for managing with worlds'
-help-10: '§2/mw rename §fRenames the world'
+help-7: '§2/mw info §f显示关于世界的信息'
+help-8: '§2/mw gamerule §f管理世界的游戏规则'
+help-9: '§2/mw manage §f显示管理世界的GUI'
+help-10: '§2/mw rename §f重命名世界'
 
-help-11: '§2/mw duplicate §fDuplicates a world'
+help-11: '§2/mw duplicate §f复制一个世界'
 help-12: '§2/mw update §f更新 lobby, spawn or default 世界'
 
 # Create Command:
 create-usage: '§c输入: §7/mw create <世界名> [种子] [生成器]'
-create-exists: '§cLevel {%0} is already generated!'
+create-exists: '§c世界 {%0} 已村庄!'
 create-gennotexists: '§c世界生成器 {%0} 不存在.'
 create-generating: '§a正在生成世界 {%0}'
 create-done: '世界 {%0} 被使用种子: {%1} 和相应世界生成器: {%2}.'
@@ -49,7 +49,7 @@ load-done: '§a该世界被成功加载!'
 
 # Unload Command:
 unload-usage: '§c输入: §7/mw unload <世界名>'
-unload-levelnotexists: '§c世界 {%0} 不存在!'
+unload-levelnotexists: '§c世界 {%0}不存在!'
 unload-unloaded: '§c不能卸载这个世界!'
 unload-done: '§a该世界被卸载成功!'
 
@@ -60,42 +60,42 @@ delete-done: '§a世界已经被删除! ({%0} 文件已经被删除.)'
 
 # Update Command:
 update-usage: '§c输入: §7/mw update <mod: spawn|lobby|default> [options: (世界名) (x) (y) (z)]'
-update-levelnotexists: '§c世界 {%0} 不存在!'
-update-spawn-done: '§aSpawn 在如下世界 {%0} 被更改.'
-update-lobby-done: '§aLobby 在如下世界 {%0} 被更改.'
-update-default-usage: '§c输入: §7/mw update default <world>'
+update-levelnotexists: '§c世界 {%0}不存在!'
+update-spawn-done: '§aSpawn 在如下世界 {%0}被更改.'
+update-lobby-done: '§aLobby 在如下世界 {%0}被更改.'
+update-default-usage: '§c输入: §7/mw update default <level>'
 update-default-done: '§a默认世界被更改为 {%0}.'
 update-notsupported: '§c这个命令不支持控制台'
 
 # Info Command:
-info-levelnotexists: '§c{%0} does not exist.'
+info-levelnotexists: '§c{%0} 不存在,'
 info: '§a--- {%0} ---'
 info-name: '§7名字: {%0}'
-info-folderName: '§7Folder 名字: {%0}'
-info-players: '§7玩家 count: {%0}'
+info-folderName: '§7文件夹名: {%0}'
+info-players: '§7在线玩家数量: {%0}'
 info-generator: '§7世界生成器: {%0}'
 info-seed: '§7种子: {%0}'
 info-time: '§7时间: {%0}'
 
 # Gamerule Command:
-gamerule-usage: '§c输入: §7/mw gamerule <list|gamerule> [true|false] [世界名]'
-gamerule-list: '§aAvailable game rules: {%0}'
+gamerule-usage: '§c用法: §7/mw gamerule <list|gamerule> [true|false] [世界名]'
+gamerule-list: '§a可用游戏规则: {%0}'
 gamerule-levelnotfound: '§c世界 {%0} 不存在.'
 gamerule-notexists: '§此游戏模式 {%0} 不存在.'
 gamerule-done: '§游戏模式 {%0} 在如下世界 {%1} 被更改为 {%2}.'
 
 # Rename Command
-rename-usage: '§cUsage: §7/mw rename <from> <to>'
-rename-exists: '§cLevel with name {%0} already exists.'
-rename-levelnotfound: '§cLevel {%0} does not exists.'
-rename-done: '§aName of world {%0} was changed to {%1}.'
+rename-usage: '§c用法: §7/mw rename <from> <to>'
+rename-exists: '§c地图 {%0} 已存在.'
+rename-levelnotfound: '§c地图 {%0} 不存在.'
+rename-done: '§a地图 {%0} 重命名为 {%1}.'
 
 # Duplicate Command
-duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
-duplicate-exists: '§cWorld with name {%0} already exists.'
-duplicate-levelnotfound: '§cLevel {%0} does not exist.'
-duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+duplicate-usage: '§c用法: §7/mw duplicate <world> [newName]'
+duplicate-exists: '§c世界 {%0}已存在.'
+duplicate-levelnotfound: '§c地图 {%0}不村庄.'
+duplicate-done: '世界 {%0} 已复制为 {%1}'
 
 # Forms
-forms-invalid: '§cInvalid result.'
+forms-invalid: '§c无效结果.'
 ...

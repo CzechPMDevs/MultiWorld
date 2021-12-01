@@ -63,7 +63,7 @@ update-usage: '§c사용법: §7/mw update <모드:spawn|lobby|default> [옵션:
 update-levelnotexists: '§c월드 {%0} 가 존재하지 않습니다.'
 update-spawn-done: '§c {%0} 월드의 스폰이 바뀌었습니다.'
 update-lobby-done: '§a{%0} 의 로비가 바뀌었습니다.'
-update-default-usage: '§c사용법: §7/mw update default <world>'
+update-default-usage: '§c사용법: §7/mw update default <level>'
 update-default-done: '§a기본세계가 {%0}로 변경됨.'
 update-notsupported: '§4이 커맨드를 게임내에서 입력해주세요'
 
@@ -78,7 +78,7 @@ info-seed: '§7시드: {%0}'
 info-time: '§7시간: {%0}'
 
 # Gamerule Command:
-gamerule-usage: '§c사용법: §7/mw gamerule <list|gamerule> [true|false] [world]'
+gamerule-usage: '§c사용법: §7/mw gamerule <list|gamerule> [true|false] [level]'
 gamerule-list: '§aAvailable game rules: {%0}'
 gamerule-levelnotfound: '§c월드 {%0} 를 찾을 수 없습니다.'
 gamerule-notexists: '§c게임룰 {%0} 을 찾을 수 없습니다.'

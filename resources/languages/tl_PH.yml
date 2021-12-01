@@ -16,7 +16,7 @@ help-5: '§2/mw unload §fUnloads a world'
 
 help-6: '§2/mw delete §fTanggalin ang mundo'
 help-7: '§2/mw info §fIpapakita ang impormasyon tunkol sa mundo'
-help-8: '§2/mw gamerule §fI-Manage ang mga gamerules sa world'
+help-8: '§2/mw gamerule §fI-Manage ang mga gamerules sa level'
 help-9: '§2/mw manage §fI-papakita ang form para ma-manage ang mga mundo'
 help-10: '§2/mw rename §fI-pangalan ulit ang mundo'
 
@@ -63,7 +63,7 @@ update-usage: '§cPaggamit: §7/mw update <mod: spawn|lobby|default> [options: (
 update-levelnotexists: '§cAng Mundo {%0} ay hindi umiiral.'
 update-spawn-done: '§aSpawn sa mundo {%0} ay na-iba.'
 update-lobby-done: '§aLobby sa mundo {%0} ay na-iba.'
-update-default-usage: '§cPaggamit: §7/mw update default <world>'
+update-default-usage: '§cPaggamit: §7/mw update default <level>'
 update-default-done: '§aDefault na mundo ay na-iba ng {%0}.'
 update-notsupported: '§4I-run ang command sa laro'
 
@@ -78,7 +78,7 @@ info-seed: '§7Seed: {%0}'
 info-time: '§7Oras: {%0}'
 
 # Gamerule Command:
-gamerule-usage: '§cPaggamit: §7/mw gamerule <list|gamerule> [true|false] [world]'
+gamerule-usage: '§cPaggamit: §7/mw gamerule <list|gamerule> [true|false] [level]'
 gamerule-list: '§aAvailable game rules: {%0}'
 gamerule-levelnotfound: '§cAng Mundo {%0} ay hindi na hanap.'
 gamerule-notexists: '§cGamerule {%0} ay hindi umiiral.'
@@ -88,7 +88,7 @@ gamerule-done: '§aGamerule {%0} sa mundo {%1} ay na-iba ng {%2}.'
 rename-usage: '§cPaggamit: §7/mw rename <from> <to>'
 rename-exists: '§cLevel na may pangalan {%0} ay meron na.'
 rename-levelnotfound: '§cLevel {%0} ay hindi umiiral.'
-rename-done: '§aPangalan ng world {%0} ay na-iba ng {%1}.'
+rename-done: '§aPangalan ng level {%0} ay na-iba ng {%1}.'
 
 # Duplicate Command
 duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'

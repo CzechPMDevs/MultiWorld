@@ -63,7 +63,7 @@ update-usage: '§cPoužij: §7/mw update <mód: spawn|lobby|default> [nastavení
 update-levelnotexists: 'Svět {%0} nebyl nalezen'
 update-spawn-done: '§aSpawn ve světě {%0} byl změněn.'
 update-lobby-done: '§aLobby ve světě {%0} bylo změněno.'
-update-default-usage: '§cPoužij: §7/mw update default <world>'
+update-default-usage: '§cPoužij: §7/mw update default <level>'
 update-default-done: '§aHlavní svět byl změněn.'
 update-notsupported: '§cTento příkaz není v konzoli podporován.'
 
@@ -78,7 +78,7 @@ info-seed: '§7Seed: {%0}'
 info-time: '§7Čas: {%0}'
 
 # Gamerule Command:
-gamerule-usage: '§cPoužij: §7/mw gamerule <list|gamerule> [true|false] [world]'
+gamerule-usage: '§cPoužij: §7/mw gamerule <list|gamerule> [true|false] [level]'
 gamerule-list: '§aVe světě můžete upravit tyto pravidla: {%0}'
 gamerule-levelnotfound: '§cSvět {%0} nebyl nalezen.'
 gamerule-notexists: '§cGame rule {%0} neexistuje'

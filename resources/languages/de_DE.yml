@@ -64,7 +64,7 @@ update-levelnotexists: '§cDie Welt {%0} existiert nicht!'
 update-spawn-done: '§aSpawn in der Welt {%0} wurde geändert.'
 update-lobby-done: '§aLobby in der Welt {%0} wurde geändert.'
 update-default-done: '§aStandardwelt wurde auf {%0} geändert.'
-update-default-usage: '§cBenutzung: §7/mw update default <world>'
+update-default-usage: '§cBenutzung: §7/mw update default <level>'
 update-notsupported: '§cBitte führe den Command in-game aus.'
 
 # Info Command:
