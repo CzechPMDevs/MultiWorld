@@ -114,7 +114,7 @@ abstract class GameRule extends \pocketmine\network\mcpe\protocol\types\GameRule
 		return $this->ruleName;
 	}
 
-	public function getType(): int {
+	public function getTypeId(): int {
 		return $this->type;
 	}
 
