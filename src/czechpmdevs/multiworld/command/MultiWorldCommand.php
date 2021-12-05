@@ -73,7 +73,7 @@ class MultiWorldCommand extends Command implements PluginOwned {
 
 	public function execute(CommandSender $sender, string $commandLabel, array $args) {
 		if(!isset($args[0])) {
-			$sender->sendMessage(LanguageManager::translateMessage($sender, "not-perms"));
+			$sender->sendMessage(LanguageManager::translateMessage($sender, "default-usage"));
 			return;
 		}
 

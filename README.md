@@ -17,7 +17,7 @@
 		<img src="https://poggit.pmmp.io/ci.shield/CzechPMDevs/MultiWorld/MultiWorld?style=flat-square">
 	</a>
 <br><br>
-    ✔️ Passing PHPStan Level 8
+    ✔️ Passing PHPStan Level 9
     <br>
     ✔️ Simple world management commands
     <br>
@@ -36,29 +36,31 @@
 </p>
 
 
-## 👍 1.5.2 Update:
+## 👍 1.7.0 Update:
 
 > - Bug fixes
-> - New biomes in Custom world generator
-> - Custom generator added to Form world manager
+> - Update to PocketMine 4.x api
 
 
 ## ⬇️ Downloads:
 
-| Version | Phar Download | Zip Download | API | Stable | Pre release |
-| --- | --- | --- | --- | --- | --- |
-| 1.5.2 | [Poggit releases](https://poggit.pmmp.io/p/MultiWorld/1.5.2) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/5ab655846002e4ce9cfd9768b519c2da6e84a8d4.zip) | 3.x.x | ✔️ | ❌ |
-| 1.5.1 | [Poggit releases](https://poggit.pmmp.io/p/MultiWorld/1.5.2) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/7070892a1b272eab0152f188670150228fc57959.zip) | 3.x.x | ✔️ | ❌ |
-| 1.5.0 | [Poggit releases](https://poggit.pmmp.io/p/MultiWorld/1.5.0) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.5.0) | 3.0.0, 3.1.0 | ✔️ | ❌ |
-| 1.5.0-beta2 | [GitHub](https://github.com/CzechPMDevs/MultiWorld/releases/download/1.5.0-beta1/MultiWorld_v1.5.0-beta1.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.5.0-beta1.zip) | 3.0.0, 3.1.0 | ✔️ |✔️ |
-| 1.5.0-beta1 | [GitHub](https://github.com/CzechPMDevs/MultiWorld/releases/download/1.5.0-beta1/MultiWorld_v1.5.0-beta1.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.5.0-beta1.zip) | 3.0.0, 3.1.0 | ❌ |✔️ |
-| 1.4.3 | [Poggit Releases](https://poggit.pmmp.io/r/34104/MultiWorld.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/ef6f73109c0438ab2a5c404ccdd288e2d73b5002.zip) | 3.0.0-ALPHA7 - 3.0.0 | ✔️ | ❌ |
-| 1.4.2 | [Poggit Releases](https://poggit.pmmp.io/r/28962/MultiWorld.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.4.2.zip) | 3.0.0-ALPHA7 - 3.0.0-ALPHA12 | ✔️ | ❌ |
-| 1.4.1 | [Poggit-CI Downloads](https://poggit.pmmp.io/r/27881/MultiWorld_dev-99.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.4.1.zip) | 3.0.0-ALPHA7 - 3.0.0-ALPHA12 | ✔️ | ❌ |
-| 1.4.0 | [Poggit Releases](https://poggit.pmmp.io/r/25218/MultiWorld.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/be4083eae06adc249e3d4a8968ea0992d42f929c.zip) | 3.0.0-ALPHA7 - 3.0.0-ALPHA11 | ✔️ | ❌ |
-| 1.3.2 | [Poggit-CI Downloads](https://poggit.pmmp.io/r/11536/MultiWorld_dev-86.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/5237db27b69fbf9a9aac66075fd81e9e804f180c.zip) | 3.0.0-ALPHA7 | ❌ | ❌ |
-| 1.3.1 | [GitHub](https://github.com/CzechPMDevs/MultiWorld/releases/download/1.3.1/MultiWorld.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.3.1.zip) | 3.0.0-ALPHA7 | ✔️ | ❌ |
-| 1.3.0 | [Poggit-CI Downloads](https://poggit.pmmp.io/r/10889/MultiWorld.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.3.0.zip) | 3.0.0-ALPHA7 | ❌ | ❌ |
+| Version     | Phar Download                                                                                                  | Zip Download                                                                                             | API                          | Stable | Pre release |
+|-------------|----------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|------------------------------|--------|-------------|
+| 1.7.0-beta2 | [Poggit CI](https://poggit.pmmp.io/r/149254/MultiWorld_dev-236.phar)                                           | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/af347f880fc32422962b6d6a7dea73007ccc5232.zip) | 4.0.0                        | ❌      | ✔           |
+| 1.6.0-beta6 | [Poggit releases](https://poggit.pmmp.io/p/MultiWorld/1.6.0-beta6)                                             | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/77c593081c15a11795431c1dfb8cd8b26906c5bc.zip) | 3.20.0+                      | ✔      | ✔           |
+| 1.5.3       | [Poggit releases](https://poggit.pmmp.io/p/MultiWorld/1.5.3)                                                   | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/97901625970449e6fbc0825ef663217b1d31b8be.zip) | 3.20.0+                      | ✔      | ❌           |
+| 1.5.2       | [Poggit releases](https://poggit.pmmp.io/p/MultiWorld/1.5.2)                                                   | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/5ab655846002e4ce9cfd9768b519c2da6e84a8d4.zip) | 3.x.x                        | ✔️     | ❌           |
+| 1.5.1       | [Poggit releases](https://poggit.pmmp.io/p/MultiWorld/1.5.1)                                                   | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/7070892a1b272eab0152f188670150228fc57959.zip) | 3.x.x                        | ✔️     | ❌           |
+| 1.5.0       | [Poggit releases](https://poggit.pmmp.io/p/MultiWorld/1.5.0)                                                   | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.5.0)                                        | 3.0.0, 3.1.0                 | ✔️     | ❌           |
+| 1.5.0-beta2 | [GitHub](https://github.com/CzechPMDevs/MultiWorld/releases/download/1.5.0-beta1/MultiWorld_v1.5.0-beta1.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.5.0-beta1.zip)                              | 3.0.0, 3.1.0                 | ✔️     | ✔️          |
+| 1.5.0-beta1 | [GitHub](https://github.com/CzechPMDevs/MultiWorld/releases/download/1.5.0-beta1/MultiWorld_v1.5.0-beta1.phar) | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.5.0-beta1.zip)                              | 3.0.0, 3.1.0                 | ❌      | ✔️          |
+| 1.4.3       | [Poggit Releases](https://poggit.pmmp.io/r/34104/MultiWorld.phar)                                              | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/ef6f73109c0438ab2a5c404ccdd288e2d73b5002.zip) | 3.0.0-ALPHA7 - 3.0.0         | ✔️     | ❌           |
+| 1.4.2       | [Poggit Releases](https://poggit.pmmp.io/r/28962/MultiWorld.phar)                                              | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.4.2.zip)                                    | 3.0.0-ALPHA7 - 3.0.0-ALPHA12 | ✔️     | ❌           |
+| 1.4.1       | [Poggit-CI Downloads](https://poggit.pmmp.io/r/27881/MultiWorld_dev-99.phar)                                   | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.4.1.zip)                                    | 3.0.0-ALPHA7 - 3.0.0-ALPHA12 | ✔️     | ❌           |
+| 1.4.0       | [Poggit Releases](https://poggit.pmmp.io/r/25218/MultiWorld.phar)                                              | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/be4083eae06adc249e3d4a8968ea0992d42f929c.zip) | 3.0.0-ALPHA7 - 3.0.0-ALPHA11 | ✔️     | ❌           |
+| 1.3.2       | [Poggit-CI Downloads](https://poggit.pmmp.io/r/11536/MultiWorld_dev-86.phar)                                   | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/5237db27b69fbf9a9aac66075fd81e9e804f180c.zip) | 3.0.0-ALPHA7                 | ❌      | ❌           |
+| 1.3.1       | [GitHub](https://github.com/CzechPMDevs/MultiWorld/releases/download/1.3.1/MultiWorld.phar)                    | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.3.1.zip)                                    | 3.0.0-ALPHA7                 | ✔️     | ❌           |
+| 1.3.0       | [Poggit-CI Downloads](https://poggit.pmmp.io/r/10889/MultiWorld.phar)                                          | [GitHub](https://github.com/CzechPMDevs/MultiWorld/archive/1.3.0.zip)                                    | 3.0.0-ALPHA7                 | ❌      | ❌           |
 
 <br>
 
@@ -93,20 +95,20 @@
 
 **All MultiWorld Commands:**
 
-| **Command** | **Description** |
-| --- | --- |
-| **/mw help** | **Displays list of all MultiWorld commands** <br><br> Alias: `/mw ?` <br>Usage: `/mw help <page: 0-1>`|
-| **/mw create** | **Generate new world using seed and generator** <br><br> Aliases: `/mw new`, `/mw generate` <br> Usage: `/mw create <levelName> [seed] [generator]` <br><br> Seed is value seed is the initial value by which the world is generated, when you set it empty, world will be generated by random number. You can use 6 generators (`Normal`, `Nether`, `End`, `Void`, `SkyBock` and `Nether_Old` = Nether generator without glowstone and quartz ore) |
-| **/mw teleport** | **Teleports you or seleced player to world spawn** <br><br> Aliases: `/mw tp`, `/tp move` <br> Usage: `/mw tp <levelName> [player]` <br><br> If you are using [Slapper](https://poggit.pmmp.io/p/Slapper/) plugin and after you click on the npc you want to move the player to another world, you can use `/slapper edit <id> addcommand mw tp <world> {player}` command |
-| **/mw list** |**Displays list of all levels** <br><br> Alias: `/mw ls` <br> Usage: `/mw list` |
-| **/mw info** | **Displays level information** <br><br> Alias: `/mw i` <br> Usage: `/mw info` <br><br> This command can be used only in game |
-| **/mw delete** | **Remove level** <br><br> Aliases: `/mw del`, `/mw dl`, `/mw remove`, `/mw rm` <br>Usage: `/mw remove <level>` <br><br> Default level can not be deleted |
-| **/mw update** | **Change spawn, lobby or default level** <br><br> Aliases: `/mw ue` <br> Usage: `/mw update <spawn|lobby|default> [x] [y] [z] [world]` <br><br> In game enough type `/mw update <...>` without `[x] [y] [z] [world]`, subcommand `lobby` can be used only in game |
-| **/mw load** | **Loads level** <br><br> Aliases: `/mw ld` <br> Usage: `/mw load <level>` |
-| **/mw unload** | **Unloads level** <br><br> Aliases: `/mw unld` <br> Usage: `/mw unload <level>` |
-| **/mw gamerule** | **Manage with level game rules** <br><br>Aliases: `/gamerule`, `/mw gr`, `/mw gamer`, `/mw grule` <br> Usage: `/gamerule <list|gamerule> [bool|false]` <br><br> Level game rules can be changed in server settings, implemented game rules: `doDaylightCycle`, `doMobLoot`, `doTileDrops`, `keepInventory`, `naturalRegeneration`, `pvp`, `showcoordinates` and `tntexplodes` more informations can be found on [WorldGameRulesAPI documentation]() |
-| **/mw rename** | **Renames level** <br><br>Aliases: `/mw rnm`, `/mw re` <br> Usage: `/mw rename <levelName> <newName>` <br><br> This command changes name of the folder and of nbt too. |
-| **/mw manage** | **Opens world form manager** <br><br>Aliases: `/mw mng`, `/mw mg` <br> Usage: `/mw manage` <br><br> The form manager just dispatches command as a player, so player needs also permission for the command. |
+| **Command**      | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+|------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **/mw help**     | **Displays list of all MultiWorld commands** <br><br> Alias: `/mw ?` <br>Usage: `/mw help <page: 0-1>`                                                                                                                                                                                                                                                                                                                                              |
+| **/mw create**   | **Generate new world using seed and generator** <br><br> Aliases: `/mw new`, `/mw generate` <br> Usage: `/mw create <levelName> [seed] [generator]` <br><br> Seed is value seed is the initial value by which the world is generated, when you set it empty, world will be generated by random number. You can use 6 generators (`Normal`, `Nether`, `End`, `Void`, `SkyBock` and `Nether_Old` = Nether generator without glowstone and quartz ore) |
+| **/mw teleport** | **Teleports you or seleced player to world spawn** <br><br> Aliases: `/mw tp`, `/tp move` <br> Usage: `/mw tp <levelName> [player]` <br><br> If you are using [Slapper](https://poggit.pmmp.io/p/Slapper/) plugin and after you click on the npc you want to move the player to another world, you can use `/slapper edit <id> addcommand mw tp <world> {player}` command                                                                           |
+| **/mw list**     | **Displays list of all levels** <br><br> Alias: `/mw ls` <br> Usage: `/mw list`                                                                                                                                                                                                                                                                                                                                                                     |
+| **/mw info**     | **Displays level information** <br><br> Alias: `/mw i` <br> Usage: `/mw info` <br><br> This command can be used only in game                                                                                                                                                                                                                                                                                                                        |
+| **/mw delete**   | **Remove level** <br><br> Aliases: `/mw del`, `/mw dl`, `/mw remove`, `/mw rm` <br>Usage: `/mw remove <level>` <br><br> Default level can not be deleted                                                                                                                                                                                                                                                                                            |
+| **/mw update**   | **Change spawn, lobby or default level** <br><br> Aliases: `/mw ue` <br> Usage: `/mw update <spawn or lobby or default> [x] [y] [z] [world]` <br><br> In game enough type `/mw update <...>` without `[x] [y] [z] [world]`, subcommand `lobby` can be used only in game                                                                                                                                                                             |
+| **/mw load**     | **Loads level** <br><br> Aliases: `/mw ld` <br> Usage: `/mw load <level>`                                                                                                                                                                                                                                                                                                                                                                           |
+| **/mw unload**   | **Unloads level** <br><br> Aliases: `/mw unld` <br> Usage: `/mw unload <level>`                                                                                                                                                                                                                                                                                                                                                                     |
+| **/mw gamerule** | **Manage with level game rules** <br><br>Aliases: `/gamerule`, `/mw gr`, `/mw gamer`, `/mw grule` <br> Usage: `/gamerule <list or gamerule> [bool]` <br><br> Level game rules can be changed in server settings, implemented game rules: `doDaylightCycle`, `doMobLoot`, `doTileDrops`, `keepInventory`, `naturalRegeneration`, `pvp`, `showcoordinates` and `tntexplodes` more informations can be found on [WorldGameRulesAPI documentation]()    |
+| **/mw rename**   | **Renames level** <br><br>Aliases: `/mw rnm`, `/mw re` <br> Usage: `/mw rename <levelName> <newName>` <br><br> This command changes name of the folder and of nbt too.                                                                                                                                                                                                                                                                              |
+| **/mw manage**   | **Opens world form manager** <br><br>Aliases: `/mw mng`, `/mw mg` <br> Usage: `/mw manage` <br><br> The form manager just dispatches command as a player, so player needs also permission for the command.                                                                                                                                                                                                                                          |
 
 
 ## 📃  Permissions:
@@ -116,20 +118,20 @@
 
 **All MultiWorlds Permissions:**
 
-| Permission | Command | Operator |
-| --- | --- | --- | 
-| mw.cmd.help | `/mw help` | ✔️ |
-| mw.cmd.create | `/mw create` | ✔️ |
-| mw.cmd.teleport | `/mw teleport` | ✔️ |
-| mw.cmd.list | `/mw list` | ✔️ |
-| mw.cmd.info | `/mw info` | ✔️ |
-| mw.cmd.delete | `/mw delete` | ✔️ |
-| mw.cmd.update | `/mw update` | ✔️ |
-| mw.cmd.load | `/mw load` | ✔️ |
-| mw.cmd.unload | `/mw unload` | ✔️ |
-| mw.cmd.gamerule | `/mw gamerule` | ✔️ |
-| mw.cmd.rename | `/mw rename` | ✔️ |
-| mw.cmd.manage | `/mw manage` | ✔️ |
+| Permission      | Command        | Operator |
+|-----------------|----------------|----------|
+| mw.cmd.help     | `/mw help`     | ✔️       |
+| mw.cmd.create   | `/mw create`   | ✔️       |
+| mw.cmd.teleport | `/mw teleport` | ✔️       |
+| mw.cmd.list     | `/mw list`     | ✔️       |
+| mw.cmd.info     | `/mw info`     | ✔️       |
+| mw.cmd.delete   | `/mw delete`   | ✔️       |
+| mw.cmd.update   | `/mw update`   | ✔️       |
+| mw.cmd.load     | `/mw load`     | ✔️       |
+| mw.cmd.unload   | `/mw unload`   | ✔️       |
+| mw.cmd.gamerule | `/mw gamerule` | ✔️       |
+| mw.cmd.rename   | `/mw rename`   | ✔️       |
+| mw.cmd.manage   | `/mw manage`   | ✔️       |
 
 
 ## ⛰️ Generators
