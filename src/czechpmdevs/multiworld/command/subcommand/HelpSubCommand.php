@@ -49,7 +49,9 @@ class HelpSubCommand implements SubCommand {
 
 		$message = LanguageManager::translateMessage($sender, "help", [(string)$page, "3"]);
 		for($i = $j = (($page - 1) * 5) + 1, $j = $j + 5; $i < $j; ++$i) {
-			$message .= "\n" . LanguageManager::translateMessage($sender, "help-$i");
+			if (1 <= $i && $i <= 12) {
+				$message .= "\n" . LanguageManager::translateMessage($sender, "help-$i");
+			}
 		}
 		return $message;
 	}
