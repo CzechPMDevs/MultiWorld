@@ -52,23 +52,14 @@ class MultiWorld extends PluginBase {
 	public array $commands = [];
 
 	public function onLoad(): void {
-		$start = !isset(MultiWorld::$instance);
 		MultiWorld::$instance = $this;
 
-		if($start) {
-			$generators = [
-				"ender" => EnderGenerator::class,
-				"void" => VoidGenerator::class,
-				"skyblock" => SkyBlockGenerator::class,
-				"nether_mw" => NetherGenerator::class,
-				"normal_mw" => NormalGenerator::class
-			];
-
-			foreach($generators as $name => $class) {
-				GeneratorManager::getInstance()->addGenerator($class, $name, fn() => null, true);
-			}
+		$generators = ["ender" => EnderGenerator::class, "void" => VoidGenerator::class, "skyblock" => SkyBlockGenerator::class, "nether_mw" => NetherGenerator::class, "normal_mw" => NormalGenerator::class];
+		foreach($generators as $name => $class) {
+			GeneratorManager::getInstance()->addGenerator($class, $name, fn() => null, true);
 		}
 	}
+
 
 	public function onEnable(): void {
 		$this->configManager = new ConfigManager();

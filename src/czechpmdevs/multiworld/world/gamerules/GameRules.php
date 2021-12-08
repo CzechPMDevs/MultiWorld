@@ -25,6 +25,8 @@ namespace czechpmdevs\multiworld\world\gamerules;
 use InvalidArgumentException;
 use LogicException;
 use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\FloatTag;
+use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\StringTag;
 use pocketmine\network\mcpe\protocol\GameRulesChangedPacket;
 use pocketmine\network\mcpe\protocol\types\BoolGameRule;
@@ -130,9 +132,9 @@ final class GameRules {
 	 */
 	public static function unserializeGameRules(CompoundTag $nbt): GameRules {
 		$rules = [];
-		/** @var StringTag $value */
+		/** @var StringTag|IntTag|FloatTag $value */
 		foreach($nbt->getValue() as $index => $value) {
-			$ruleValue = json_decode($value->getValue());
+			$ruleValue = json_decode((string)$value->getValue());
 			if(!is_bool($ruleValue) && !is_int($ruleValue) && !is_float($ruleValue)) {
 				throw new LogicException("Invalid game rule value for $index");
 			}

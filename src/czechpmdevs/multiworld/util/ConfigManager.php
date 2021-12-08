@@ -23,6 +23,7 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\util;
 
 use czechpmdevs\multiworld\MultiWorld;
+use pocketmine\network\mcpe\protocol\ProtocolInfo;
 use function is_dir;
 use function is_file;
 use function is_string;
@@ -33,13 +34,24 @@ use function version_compare;
 
 class ConfigManager {
 
-	public const CONFIG_VERSION = "1.6.0.1";
+	public const CONFIG_VERSION = "1.6.0.2";
 
 	public static string $prefix;
 
 	public function __construct() {
 		// Saves required resources, checks for resource updates
 		$this->initConfig($this->checkConfigUpdates());
+
+		// HACK!
+		// This has to be turned off due to PM hasn't implemented dimensions yet.
+		// Having this turned on causes client to expect minimum Y in all the dimensions expect OVERWORLD
+		// at 0. However, PocketMine handles all the dimensions the same way (as OVERWORLD) and adds empty
+		// subchunks to the world under Y=0. However, this is really needed only in OVERWORLD dimension and
+		// causes unexpected behaviour in other dimensions
+		if(ProtocolInfo::CURRENT_PROTOCOL >= 475) {
+			MultiWorld::getInstance()->getConfig()->set("handle-dimensions", false);
+			MultiWorld::getInstance()->getLogger()->error("Unable to enable dimensions handling (https://github.com/CzechPMDevs/MultiWorld/issues/237)");
+		}
 
 		// Loads prefix
 		ConfigManager::$prefix = MultiWorld::getInstance()->getConfig()->get("prefix") . " §a";
@@ -48,12 +60,6 @@ class ConfigManager {
 	public function initConfig(bool $forceUpdate = false): void {
 		if(!is_dir(ConfigManager::getDataFolder())) {
 			@mkdir(ConfigManager::getDataFolder());
-		}
-		if(!is_dir(ConfigManager::getDataFolder() . "data")) {
-			@mkdir(ConfigManager::getDataFolder() . "data");
-		}
-		if(!is_file(ConfigManager::getDataFolder() . "data/gamerules.yml")) {
-			MultiWorld::getInstance()->saveResource("data/gamerules.yml");
 		}
 		if(!is_dir(ConfigManager::getDataFolder() . "languages")) {
 			@mkdir(ConfigManager::getDataFolder() . "languages");

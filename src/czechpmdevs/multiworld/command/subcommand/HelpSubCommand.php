@@ -43,15 +43,13 @@ class HelpSubCommand implements SubCommand {
 	}
 
 	public function getHelpMessage(CommandSender $sender, int $page): string {
-		if($page < 1 || $page > 3) {
+		if($page < 1 || $page >= 3) {
 			return $this->getHelpMessage($sender, 1);
 		}
 
 		$message = LanguageManager::translateMessage($sender, "help", [(string)$page, "3"]);
 		for($i = $j = (($page - 1) * 5) + 1, $j = $j + 5; $i < $j; ++$i) {
-			if (1 <= $i && $i <= 12) {
-				$message .= "\n" . LanguageManager::translateMessage($sender, "help-$i");
-			}
+			$message .= "\n" . LanguageManager::translateMessage($sender, "help-$i");
 		}
 		return $message;
 	}
