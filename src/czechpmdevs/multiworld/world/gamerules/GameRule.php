@@ -26,6 +26,7 @@ use czechpmdevs\multiworld\world\gamerules\type\BoolGameRule;
 use czechpmdevs\multiworld\world\gamerules\type\IntGameRule;
 use LogicException;
 use pocketmine\utils\EnumTrait;
+use function strtolower;
 
 /**
  * This doc-block is generated automatically, do not modify it manually.
@@ -136,7 +137,7 @@ abstract class GameRule extends \pocketmine\network\mcpe\protocol\types\GameRule
 
 	public static function fromRuleName(string $name): GameRule {
 		foreach(self::getAll() as $rule) {
-			if($rule->getRuleName() == $name) {
+			if(strtolower($rule->getRuleName()) === strtolower($name)) {
 				return $rule;
 			}
 		}
