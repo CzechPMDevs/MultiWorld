@@ -9,7 +9,7 @@
     "ext-pthreads": "*",
     "ext-json": "*",
     "czechpmdevs/libpmform": "dev-main",
-    "pocketmine/pocketmine-mp": "4.0.0-beta15"
+    "pocketmine/pocketmine-mp": "4.0.0"
   },
   "require-dev": {
     "phpstan/phpstan": "1.2.0"
