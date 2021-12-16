@@ -48,7 +48,7 @@ class ConfigManager {
 		// at 0. However, PocketMine handles all the dimensions the same way (as OVERWORLD) and adds empty
 		// subchunks to the world under Y=0. However, this is really needed only in OVERWORLD dimension and
 		// causes unexpected behaviour in other dimensions
-		if(ProtocolInfo::CURRENT_PROTOCOL >= 475) { // @phpstan-ignore-line
+		if(ProtocolInfo::CURRENT_PROTOCOL >= 475 && MultiWorld::getInstance()->getConfig()->get("handle-dimensions", true)) { // @phpstan-ignore-line
 			MultiWorld::getInstance()->getConfig()->set("handle-dimensions", false);
 			MultiWorld::getInstance()->getLogger()->error("Unable to enable dimensions handling (https://github.com/CzechPMDevs/MultiWorld/issues/237)");
 		}
