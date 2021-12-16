@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\biome\types;
 
-use czechpmdevs\multiworld\generator\normal\populator\Populator;
+use pocketmine\world\generator\populator\Populator;
 
 abstract class Biome extends \pocketmine\world\biome\Biome {
 

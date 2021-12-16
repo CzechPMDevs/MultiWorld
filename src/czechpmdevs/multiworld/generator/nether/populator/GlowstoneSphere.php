@@ -56,11 +56,17 @@ class GlowstoneSphere implements Populator {
 	}
 
 	public function placeGlowStoneSphere(ChunkManager $world, Random $random, Vector3 $position): void {
-		for($x = $position->getX() - $this->getRandomRadius($random); $x < $position->getX() + $this->getRandomRadius($random); $x++) {
+		$minX = $position->getX() - $this->getRandomRadius($random);
+		$maxX = $position->getX() + $this->getRandomRadius($random);
+		$minY = $position->getY() - $this->getRandomRadius($random);
+		$maxY = $position->getY() + $this->getRandomRadius($random);
+		$minZ = $position->getZ() - $this->getRandomRadius($random);
+		$maxZ = $position->getZ() + $this->getRandomRadius($random);
+		for($x = $minX; $x < $maxX; ++$x) {
 			$xsqr = ($position->getX() - $x) * ($position->getX() - $x);
-			for($y = $position->getY() - $this->getRandomRadius($random); $y < $position->getY() + $this->getRandomRadius($random); $y++) {
+			for($y = $minY; $y < $maxY; ++$y) {
 				$ysqr = ($position->getY() - $y) * ($position->getY() - $y);
-				for($z = $position->getZ() - $this->getRandomRadius($random); $z < $position->getZ() + $this->getRandomRadius($random); $z++) {
+				for($z = $minZ; $z < $maxZ; ++$z) {
 					$zsqr = ($position->getZ() - $z) * ($position->getZ() - $z);
 					if(($xsqr + $ysqr + $zsqr) < (pow(2, $this->getRandomRadius($random)))) {
 						if($random->nextRange(0, 4) !== 0) {

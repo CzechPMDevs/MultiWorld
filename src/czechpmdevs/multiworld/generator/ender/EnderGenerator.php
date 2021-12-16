@@ -35,8 +35,6 @@ use function abs;
 
 class EnderGenerator extends Generator {
 
-	/** @var ChunkManager */
-	protected ChunkManager $world;
 	/** @var Random */
 	protected $random;
 
@@ -69,7 +67,7 @@ class EnderGenerator extends Generator {
 		$this->random->setSeed(0xa6fe78dc ^ ($chunkX << 8) ^ $chunkZ ^ $this->seed);
 
 		/** @phpstan-var Chunk $chunk */
-		$chunk = $this->world->getChunk($chunkX, $chunkZ);
+		$chunk = $world->getChunk($chunkX, $chunkZ);
 		$noise = $this->noiseBase->getFastNoise3D(16, 128, 16, 4, 8, 4, $chunkX * 16, 0, $chunkZ * 16);
 
 		for($x = 0; $x < 16; ++$x) {
@@ -88,14 +86,14 @@ class EnderGenerator extends Generator {
 			}
 		}
 		foreach($this->generationPopulators as $populator) {
-			$populator->populate($this->world, $chunkX, $chunkZ, $this->random);
+			$populator->populate($world, $chunkX, $chunkZ, $this->random);
 		}
 	}
 
 	public function populateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {
 		$this->random->setSeed(0xa6fe78dc ^ ($chunkX << 8) ^ $chunkZ ^ $this->seed);
 		foreach($this->populators as $populator) {
-			$populator->populate($this->world, $chunkX, $chunkZ, $this->random);
+			$populator->populate($world, $chunkX, $chunkZ, $this->random);
 		}
 	}
 }

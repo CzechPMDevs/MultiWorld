@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\nether;
 
 use czechpmdevs\multiworld\generator\nether\populator\GlowstoneSphere;
-use czechpmdevs\multiworld\generator\nether\populator\Ore;
 use czechpmdevs\multiworld\generator\nether\populator\SoulSand;
 use czechpmdevs\multiworld\world\data\BiomeIds;
 use pocketmine\block\VanillaBlocks;
@@ -34,6 +33,7 @@ use pocketmine\world\format\Chunk;
 use pocketmine\world\generator\Generator;
 use pocketmine\world\generator\noise\Simplex;
 use pocketmine\world\generator\object\OreType;
+use pocketmine\world\generator\populator\Ore;
 use pocketmine\world\generator\populator\Populator;
 use function abs;
 
@@ -42,8 +42,7 @@ class NetherGenerator extends Generator {
 	/** @var Populator[] */
 	private array $populators = [];
 
-	private int $waterHeight = 32;
-
+	private int $lavaHeight = 32;
 	private int $emptyHeight = 64;
 
 	private int $emptyAmplitude = 1;
@@ -64,8 +63,9 @@ class NetherGenerator extends Generator {
 
 		$ores = new Ore();
 		$ores->setOreTypes([
-			new OreType(VanillaBlocks::NETHER_QUARTZ_ORE(), VanillaBlocks::NETHERRACK(), 14, 0, 0, 128)
+			new OreType(VanillaBlocks::NETHER_QUARTZ_ORE(), VanillaBlocks::NETHERRACK(), 20, 14, 0, 128)
 		]);
+
 		$this->populators[] = $ores;
 		$this->populators[] = new GlowstoneSphere();
 		$this->populators[] = new SoulSand();
@@ -101,7 +101,7 @@ class NetherGenerator extends Generator {
 
 					if($noiseValue > 0) {
 						$chunk->setFullBlock($x, $y, $z, $netherrack);
-					} elseif($y <= $this->waterHeight) {
+					} elseif($y <= $this->lavaHeight) {
 						$chunk->setFullBlock($x, $y, $z, $stillLava);
 					}
 				}

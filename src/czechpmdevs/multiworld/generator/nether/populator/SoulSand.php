@@ -60,11 +60,19 @@ class SoulSand implements Populator {
 		$radiusX = $random->nextRange(8, 15);
 		$radiusZ = $random->nextRange(8, 15);
 		$radiusY = $random->nextRange(5, 8);
-		for($x = $position->getX() - $radiusX; $x < $position->getX() + $radiusX; $x++) {
+		
+		$minX = $position->getX() - $radiusX;
+		$maxX = $position->getX() + $radiusX;
+		$minY = $position->getY() - $radiusY;
+		$maxY = $position->getY() + $radiusY;
+		$minZ = $position->getZ() - $radiusZ;
+		$maxZ = $position->getZ() + $radiusZ;
+
+		for($x = $minX; $x < $maxX; ++$x) {
 			$xsqr = ($position->getX() - $x) * ($position->getX() - $x);
-			for($y = $position->getY() - $radiusY; $y < $position->getY() + $radiusY; $y++) {
+			for($y = $minY; $y < $maxY; ++$y) {
 				$ysqr = ($position->getY() - $y) * ($position->getY() - $y);
-				for($z = $position->getZ() - $radiusZ; $z < $position->getZ() + $radiusZ; $z++) {
+				for($z = $minZ; $z < $maxZ; ++$z) {
 					$zsqr = ($position->getZ() - $z) * ($position->getZ() - $z);
 					if(($xsqr + $ysqr + $zsqr) < (pow(2, $random->nextRange(3, 6)))) {
 						/** @phpstan-ignore-next-line */
