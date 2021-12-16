@@ -23,77 +23,84 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\ender;
 
 use czechpmdevs\multiworld\generator\ender\populator\EnderPilar;
-use pocketmine\block\BlockLegacyIds;
-use pocketmine\math\Vector3 as Vector3;
-use pocketmine\utils\Random;
+use czechpmdevs\multiworld\world\data\BiomeIds;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\world\ChunkManager;
 use pocketmine\world\format\Chunk;
 use pocketmine\world\generator\Generator;
 use pocketmine\world\generator\noise\Simplex;
 use pocketmine\world\generator\populator\Populator;
-use function abs;
 
 class EnderGenerator extends Generator {
+	private const MIN_BASE_ISLAND_HEIGHT = 54;
+	private const MAX_BASE_ISLAND_HEIGHT = 55;
+	private const NOISE_SIZE = 12;
 
-	/** @var Random */
-	protected $random;
+	private const CENTER_X = 255;
+	private const CENTER_Z = 255;
+	private const ISLAND_RADIUS = 86;
 
 	private Simplex $noiseBase;
 
 	/** @var Populator[] */
-	private array $populators = [];
-	/** @var Populator[] */
 	private array $generationPopulators = [];
-
-	private int $emptyHeight = 32;
-
-	private float $emptyAmplitude = 1;
-
-	private float $density = 0.6;
 
 	public function __construct(int $seed, string $preset) {
 		parent::__construct($seed, $preset);
 
-		$this->random->setSeed($this->seed);
-		$this->noiseBase = new Simplex($this->random, 4, 1 / 4, 1 / 64);
-		$this->random->setSeed($this->seed);
+		$this->noiseBase = new Simplex($this->random, 4, 1 / 16, 1 / 64);
+
 		$pilar = new EnderPilar;
 		$pilar->setBaseAmount(0);
 		$pilar->setRandomAmount(0);
-		$this->populators[] = $pilar;
+
+		$this->generationPopulators[] = $pilar;
 	}
 
 	public function generateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {
-		$this->random->setSeed(0xa6fe78dc ^ ($chunkX << 8) ^ $chunkZ ^ $this->seed);
+		$this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->seed);
 
 		/** @phpstan-var Chunk $chunk */
 		$chunk = $world->getChunk($chunkX, $chunkZ);
-		$noise = $this->noiseBase->getFastNoise3D(16, 128, 16, 4, 8, 4, $chunkX * 16, 0, $chunkZ * 16);
+		$noise = $this->noiseBase->getFastNoise2D(16, 16, 2, $chunkX * 16, 0, $chunkZ * 16);
 
+		$endStone = VanillaBlocks::END_STONE()->getFullId();
+
+		$baseX = $chunkX * Chunk::EDGE_LENGTH;
+		$baseZ = $chunkZ * Chunk::EDGE_LENGTH;
 		for($x = 0; $x < 16; ++$x) {
+			$absoluteX = $baseX + $x;
 			for($z = 0; $z < 16; ++$z) {
-				// 9 = biome end
-				$chunk->setBiomeId($x, $z, 9);
-				for($y = 0; $y < 128; ++$y) {
-					$noiseValue = (abs($this->emptyHeight - $y) / $this->emptyHeight) * $this->emptyAmplitude - $noise[$x][$z][$y];
-					$noiseValue -= 1 - $this->density;
-					$distance = new Vector3(0, 64, 0);
-					$distance = $distance->distance(new Vector3($chunkX * 16 + $x, ($y / 1.3), $chunkZ * 16 + $z));
-					if($noiseValue < 0 && $distance < 100 or $noiseValue < -0.2 && $distance > 400) {
-						$chunk->setFullBlock($x, $y, $z, BlockLegacyIds::END_STONE << 4);
-					}
+				$absoluteZ = $baseZ + $z;
+
+				$chunk->setBiomeId($x, $z, BiomeIds::THE_END);
+
+				if(($absoluteX - self::CENTER_X) ** 2 + ($absoluteZ - self::CENTER_Z) ** 2 > self::ISLAND_RADIUS ** 2) {
+					continue;
+				}
+
+				// @phpstan-ignore-next-line
+				$noiseValue = (int)abs($noise[$x][$z] * self::NOISE_SIZE); // wtf
+				for($y = 0; $y < $noiseValue; ++$y) {
+					$chunk->setFullBlock($x, self::MAX_BASE_ISLAND_HEIGHT + $y, $z, $endStone);
+				}
+
+				$reversedNoiseValue = self::NOISE_SIZE - $noiseValue;
+				for($y = 0; $y < $reversedNoiseValue; ++$y) {
+					$chunk->setFullBlock($x, self::MIN_BASE_ISLAND_HEIGHT - $y, $z, $endStone);
+				}
+
+				for($y = self::MIN_BASE_ISLAND_HEIGHT; $y < self::MAX_BASE_ISLAND_HEIGHT; ++$y) {
+					$chunk->setFullBlock($x, $y, $z, $endStone);
 				}
 			}
 		}
+
 		foreach($this->generationPopulators as $populator) {
+			$this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->seed);
 			$populator->populate($world, $chunkX, $chunkZ, $this->random);
 		}
 	}
 
-	public function populateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {
-		$this->random->setSeed(0xa6fe78dc ^ ($chunkX << 8) ^ $chunkZ ^ $this->seed);
-		foreach($this->populators as $populator) {
-			$populator->populate($world, $chunkX, $chunkZ, $this->random);
-		}
-	}
+	public function populateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void { }
 }
