@@ -29,8 +29,6 @@ use pocketmine\world\World;
 use const M_PI;
 
 class Canyon extends Carve {
-
-	/** @const int */
 	private const CANYON_RANGE = 4;
 
 	/** @var float[] */
@@ -49,15 +47,15 @@ class Canyon extends Carve {
 		$nodeCountBound = (Canyon::CANYON_RANGE * 2 - 1) * 16;
 		$nodeCount = $nodeCountBound - $this->random->nextBoundedInt($nodeCountBound);
 
-		$this->generateCanyon($populatedChunk, $this->random->nextInt(), $chunkX, $chunkZ, $x, $y, $z, $horizontalScale, $horizontalAngle, $verticalAngle, $nodeCount);
+		$this->generateCanyon($populatedChunk, $populatedChunkX, $populatedChunkZ, $this->random->nextInt(), $chunkX, $chunkZ, $x, $y, $z, $horizontalScale, $horizontalAngle, $verticalAngle, $nodeCount);
 	}
 
-	private function generateCanyon(Chunk $chunk, int $seed, int $chunkX, int $chunkZ, float $x, float $y, float $z, float $horizontalScale, float $horizontalAngle, float $verticalAngle, int $nodeCount): void {
+	private function generateCanyon(Chunk $populatedChunk, int $populatedChunkX, int $populatedChunkZ, int $seed, int $chunkX, int $chunkZ, float $x, float $y, float $z, float $horizontalScale, float $horizontalAngle, float $verticalAngle, int $nodeCount): void {
 		$localRandom = new Random($seed);
 
 		$baseSize = 1.0;
-		for($i = 0; $i < World::Y_MAX; ++$i) {
-			if($i == 0 || $this->random->nextBoundedInt(3) == 0) {
+		for($i = World::Y_MIN; $i < World::Y_MAX; ++$i) {
+			if($i === World::Y_MIN || $this->random->nextBoundedInt(3) == 0) {
 				$baseSize = 1.0 + $localRandom->nextFloat() * $localRandom->nextFloat();
 			}
 
@@ -89,12 +87,12 @@ class Canyon extends Carve {
 			$horizontalOffset += ($localRandom->nextFloat() - $localRandom->nextFloat()) * $localRandom->nextFloat() * 4.0;
 			$verticalOffset += ($localRandom->nextFloat() - $localRandom->nextFloat()) * $localRandom->nextFloat() * 2.0;
 
-			if($localRandom->nextBoundedInt(4) != 0) {
+			if($localRandom->nextBoundedInt(4) !== 0) {
 				if(!$this->canReach($chunkX, $chunkZ, $x, $z, $node, $nodeCount, $horizontalScale)) {
 					return;
 				}
 
-				$this->carveSphere($chunk, $chunkX, $chunkZ, $x, $y, $z, $horizontalSize, $verticalSize);
+				$this->carveSphere($populatedChunk, $populatedChunkX, $populatedChunkZ, $x, $y, $z, $horizontalSize, $verticalSize);
 			}
 		}
 	}

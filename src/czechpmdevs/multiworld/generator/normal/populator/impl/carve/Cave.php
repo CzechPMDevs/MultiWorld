@@ -115,7 +115,7 @@ class Cave extends Carve {
 
 	private function getRandomScale(Random $random): float {
 		$thickness = $random->nextFloat() * 2.0 + $random->nextFloat();
-		if($random->nextBoundedInt(10) == 0) {
+		if($random->nextBoundedInt(10) === 0) {
 			$thickness *= $random->nextFloat() * $random->nextFloat() * 3.0 + 1.0;
 		}
 

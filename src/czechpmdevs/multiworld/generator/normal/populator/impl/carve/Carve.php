@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\populator\impl\carve;
 
-use pocketmine\block\BlockLegacyIds;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\utils\Random;
 use pocketmine\world\format\Chunk;
 use pocketmine\world\World;
@@ -68,6 +68,13 @@ abstract class Carve {
 			return;
 		}
 
+		$air = VanillaBlocks::AIR()->getFullId();
+		$lava = VanillaBlocks::LAVA()->getFullId();
+		$water = VanillaBlocks::WATER()->getFullId();
+
+		$dirt = VanillaBlocks::DIRT()->getFullId();
+		$grass = VanillaBlocks::GRASS()->getFullId();
+
 		for($x = $minX; $x < $maxX; ++$x) {
 			$modX = ($x + $realChunkX + 0.5 - $centerX) / $horizontalSize;
 			for($z = $minZ; $z < $maxZ; ++$z) {
@@ -78,24 +85,24 @@ abstract class Carve {
 						$modY = ($y - 0.5 - $centerY) / $verticalSize;
 
 						if($this->continue($modXZ, $modY, $y)) {
-							if($chunk->getFullBlock($x, $y, $z) >> 4 == BlockLegacyIds::WATER || $chunk->getFullBlock($x, $y + 1, $z) >> 4 == BlockLegacyIds::WATER) {
+							if($chunk->getFullBlock($x, $y, $z) === $water || $chunk->getFullBlock($x, $y + 1, $z) >> 4 === $water) {
 								continue;
 							}
 
 							if($y < 11) {
-								$chunk->setFullBlock($x, $y, $z, BlockLegacyIds::STILL_LAVA << 4);
+								$chunk->setFullBlock($x, $y, $z, $lava);
 								continue;
 							}
 
 							if(
-								$chunk->getFullBlock($x, $y - 1, $z) >> 4 == BlockLegacyIds::DIRT &&
-								$chunk->getFullBlock($x, $y + 1, $z) >> 4 == BlockLegacyIds::AIR &&
+								$chunk->getFullBlock($x, $y - 1, $z) === $dirt &&
+								$chunk->getFullBlock($x, $y + 1, $z) === $air &&
 								$y > 62
 							) {
-								$chunk->setFullBlock($x, $y - 1, $z, BlockLegacyIds::GRASS << 4);
+								$chunk->setFullBlock($x, $y - 1, $z, $grass);
 							}
 
-							$chunk->setFullBlock($x, $y, $z, BlockLegacyIds::AIR);
+							$chunk->setFullBlock($x, $y, $z, $air);
 						}
 					}
 				}
@@ -104,15 +111,15 @@ abstract class Carve {
 	}
 
 	private function collidesWithLiquids(Chunk $chunk, int $minX, int $maxX, int $minY, int $maxY, int $minZ, int $maxZ): bool {
+		$water = VanillaBlocks::WATER()->getFullId();
+		$lava = VanillaBlocks::LAVA()->getFullId();
 		for($x = $minX; $x < $maxX; ++$x) {
 			for($z = $minZ; $z < $maxZ; ++$z) {
 				for($y = $minY - 1; $y < $maxY + 1; ++$y) {
-					$id = $chunk->getFullBlock($x, $y, $z) << 4;
+					$id = $chunk->getFullBlock($x, $y, $z);
 					if(
-						$id == BlockLegacyIds::FLOWING_WATER ||
-						$id == BlockLegacyIds::STILL_LAVA ||
-						$id == BlockLegacyIds::FLOWING_LAVA ||
-						$id == BlockLegacyIds::STILL_LAVA
+						$id === $lava ||
+						$id === $water
 					) {
 						return true;
 					}
