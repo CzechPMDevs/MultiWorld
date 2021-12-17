@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\util;
 
 use FilesystemIterator;
-use InvalidArgumentException;
 use pocketmine\Server;
 use pocketmine\utils\AssumptionFailedError;
 use pocketmine\world\format\io\data\BaseNbtWorldData;
@@ -200,15 +199,12 @@ class WorldUtils {
 			"superflat" => "flat",
 			"nether", "hell" => "nether_mw",
 			"nether_old" => "nether",
+			"ender", "end" => "ender",
 			"sb" => "skyblock",
 			"empty", "emptyworld" => "void",
 			default => strtolower($name)
 		};
 
-		try {
-			return GeneratorManager::getInstance()->getGenerator($name);
-		} catch(InvalidArgumentException) {
-			return null;
-		}
+		return GeneratorManager::getInstance()->getGenerator($name);
 	}
 }
