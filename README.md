@@ -67,8 +67,11 @@
 > **Download latest version [here](https://poggit.pmmp.io/r/34104/MultiWorld.phar)**
 
 > **All released versions [here](https://github.com/CzechPMDevs/MultiWorld/releases)**
+
 > **All development builds on [Poggit](https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld)**
+
 > **Latest released version on [Poggit](https://poggit.pmmp.io/p/MultiWorld)**
+
 > **Other plugins by CzechPMDevs [here](https://poggit.pmmp.io/plugins/by/CzechPMDevs)**
 
 <br>
