@@ -4,7 +4,7 @@ branches:
   - api/pm3
 projects:
   MultiWorld:
-    path: ""
+    path: ''
     icon: icon.png
     libs:
       libpmform:
