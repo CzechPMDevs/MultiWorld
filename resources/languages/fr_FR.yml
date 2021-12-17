@@ -1,0 +1,100 @@
+---
+### Français/French language file by @wrathxz, updates may be needed.
+### French in Canada and France are spoken differently.
+## Commands:
+
+not-perms: '§cVous n’avez pas la permission d’utiliser cette commande!'
+default-usage: '§cUsage: §7/mw help'
+
+# Help Command:
+help: '§2--- Afficher les pages d’aide MultiWorld {%0} of {%1} (/mw help <page>) ---'
+help-1: '§2/mw create §fCréer un monde'
+help-2: '§2/mw teleport §fTéléportate dans un monde'
+help-3: '§2/mw list §fAffiche une liste de tous les mondes'
+help-4: '§2/mw load §fCharges un monde'
+help-5: '§2/mw unload §fDécharge un monde'
+
+help-6: '§2/mw delete §fSupprime un monde'
+help-7: '§2/mw info §fAffiche des informations sur un monde'
+help-8: '§2/mw gamerule §fGère les règles de jeu d’un niveau'
+help-9: '§2/mw manage §fAffiche le formulaire de gestion des mondes'
+help-10: '§2/mw rename §fRenomme le monde'
+
+help-11: '§2/mw duplicate §fDuplique le monde'
+help-12: '§2/mw update §fMettre à jour le lobby, frayer dans un monde ou changer le monde par défaut'
+
+# Create Command:
+create-usage: '§cUsage: §7/mw create <nomme> [semence] [générateur]'
+create-exists: '§cMonde {%0} est déjà généré!'
+create-gennotexists: '§cGénérateur {%0} non trouvé.'
+create-generating: '§aGénérer monde {%0}'
+create-done: '§aMonde {%0} a été générée en utilisant semmence: {%1} et généré: {%2}.'
+
+# Teleport Command:
+teleport-usage: '§cUsage: §7/mw teleport <monde> [joueur]'
+teleport-levelnotexists: '§cMonde {%0} n’a pas encore été créé. Essayez /mw create pour créer un monde.'
+teleport-load: 'Monde de chargement {%0}...'
+teleport-done-1: '§aTu were teleported to {%0}.'
+teleport-done-2: '§aPlayer {%1} was teleported to {%0}.'
+teleport-playernotexists: '§cPlayer does not exist.'
+
+# List Command:
+list-done: '§aWorlds ({%0}):'
+
+# Load Command:
+load-usage: '§cUsage: §7/mw load <monde>'
+load-notexists: '§cMonde {%0} nexiste pas.'
+load-loaded: '§cIncapable de charger le monde.'
+load-done: '§aMonde chargé.'
+
+# Unload Command:
+unload-usage: '§cUsage: §7/mw unload <world>'
+unload-levelnotexists: '§c{%0} nexiste pas.'
+unload-unloaded: '§cIncapable de décharger le monde.'
+unload-done: '§aMonde déchargé.'
+
+# Delete Command:
+delete-usage: '§cUsage: §7/mw delete <monde>'
+delete-levelnotexists: '§cMonde nexiste pas.'
+delete-done: '§aMonde supprimé. ({%0} fichiers supprimés.)'
+
+# Update Command:
+update-usage: '§cUsage: §7/mw update <mod: spawn|lobby|default> [options: (world) (x) (y) (z)]'
+update-levelnotexists: '§cMonde {%0} nexiste pas.'
+update-spawn-done: '§aFrayer dans le monde {%0} a été changé.'
+update-lobby-done: '§aLobby dans le monde {%0} a été changé.'
+update-default-usage: '§cUsage: §7/mw update default <level>'
+update-default-done: '§aLe monde par défaut a été modifié pour {%0}.'
+update-notsupported: '§4Veuillez exécuter cette commande dans le jeu!'
+
+# Info Command:
+info-levelnotexists: '§c{%0} nexiste pas.'
+info: '§a--- {%0} ---'
+info-name: '§7Nomme: {%0}'
+info-folderName: '§7Nom de Dossier: {%0}'
+info-players: '§7Nombre de Joueurs: {%0}'
+info-generator: '§7Générateur: {%0}'
+info-seed: '§7Semence: {%0}'
+info-time: '§7Heure: {%0}'
+
+# Gamerule Command:
+gamerule-usage: '§cUsage: §7/mw gamerule <liste|gamerule> [vrai|faux] [monde]'
+gamerule-list: '§aRègles de jeu disponibles: {%0}'
+gamerule-levelnotfound: '§cMonde {%0} introuvable.'
+gamerule-notexists: '§cRègle de jeu {%0} nexiste pas.'
+gamerule-done: '§aRègle de jeu {%0} en monde {%1} a été modifié pour {%2}.'
+# Rename Command
+rename-usage: '§cUsage: §7/mw rename <from> <to>'
+rename-exists: '§cMonde avec nom {%0} existe déjà.'
+rename-levelnotfound: '§cMonde {%0} nexiste pas.'
+rename-done: '§aMonde avec nom {%0} was changed to {%1}.'
+
+# Duplicate Command
+duplicate-usage: '§cUsage: §7/mw duplicate <monde> [nouveauNom]'
+duplicate-exists: '§cMonde avec nom {%0} existe déjà.'
+duplicate-levelnotfound: '§cMonde {%0} nexiste pas.'
+duplicate-done: 'Monde {%0} dupliqué, le nom du duplicata est {%1}'
+
+# Forms
+forms-invalid: '§cRésultat non valide.'
+...
