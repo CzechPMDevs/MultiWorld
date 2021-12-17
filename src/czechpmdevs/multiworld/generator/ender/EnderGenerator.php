@@ -32,29 +32,24 @@ use pocketmine\world\generator\noise\Simplex;
 use pocketmine\world\generator\populator\Populator;
 
 class EnderGenerator extends Generator {
-	private const MIN_BASE_ISLAND_HEIGHT = 54;
-	private const MAX_BASE_ISLAND_HEIGHT = 55;
-	private const NOISE_SIZE = 12;
+	public const MIN_BASE_ISLAND_HEIGHT = 54;
+	public const MAX_BASE_ISLAND_HEIGHT = 55;
+	public const NOISE_SIZE = 12;
 
-	private const CENTER_X = 255;
-	private const CENTER_Z = 255;
-	private const ISLAND_RADIUS = 86;
+	public const CENTER_X = 255;
+	public const CENTER_Z = 255;
+	public const ISLAND_RADIUS = 100;
 
 	private Simplex $noiseBase;
 
 	/** @var Populator[] */
-	private array $generationPopulators = [];
+	private array $populators = [];
 
 	public function __construct(int $seed, string $preset) {
 		parent::__construct($seed, $preset);
 
 		$this->noiseBase = new Simplex($this->random, 4, 1 / 16, 1 / 64);
-
-		$pilar = new EnderPilar;
-		$pilar->setBaseAmount(0);
-		$pilar->setRandomAmount(0);
-
-		$this->generationPopulators[] = $pilar;
+		$this->populators[] = new EnderPilar();
 	}
 
 	public function generateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {
@@ -95,12 +90,12 @@ class EnderGenerator extends Generator {
 				}
 			}
 		}
+	}
 
-		foreach($this->generationPopulators as $populator) {
+	public function populateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {
+		foreach($this->populators as $populator) {
 			$this->random->setSeed(0xdeadbeef ^ ($chunkX << 8) ^ $chunkZ ^ $this->seed);
 			$populator->populate($world, $chunkX, $chunkZ, $this->random);
 		}
 	}
-
-	public function populateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void { }
 }

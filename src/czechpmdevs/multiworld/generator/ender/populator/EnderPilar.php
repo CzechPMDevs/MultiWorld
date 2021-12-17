@@ -22,61 +22,74 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\ender\populator;
 
-use czechpmdevs\multiworld\util\MathHelper;
-use pocketmine\block\BlockLegacyIds;
+use czechpmdevs\multiworld\generator\ender\EnderGenerator;
 use pocketmine\block\VanillaBlocks;
+use pocketmine\utils\AssumptionFailedError;
 use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
+use pocketmine\world\format\Chunk;
+use pocketmine\world\format\SubChunk;
 use pocketmine\world\generator\populator\Populator;
-use function deg2rad;
-use const M_PI;
 
 class EnderPilar implements Populator {
-
-	private ChunkManager $world;
-
-	private int $randomAmount;
-
-	private int $baseAmount;
-
-	public function setRandomAmount(int $amount): void {
-		$this->randomAmount = $amount;
-	}
-
-	public function setBaseAmount(int $amount): void {
-		$this->baseAmount = $amount;
-	}
+	public const MIN_RADIUS = 3;
+	public const MAX_RADIUS = 5;
 
 	public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
-		if($random->nextRange(0, 100) < 10) {
-			$this->world = $world;
-			$amount = $random->nextRange(0, $this->randomAmount + 1) + $this->baseAmount;
-			for($i = 0; $i < $amount; ++$i) {
-				$x = $random->nextRange($chunkX * 16, $chunkX * 16 + 15);
-				$z = $random->nextRange($chunkZ * 16, $chunkZ * 16 + 15);
-				$y = $this->getHighestWorkableBlock($x, $z);
-				if($this->world->getBlockAt($x, $y, $z)->getId() == BlockLegacyIds::END_STONE) {
-					$height = $random->nextRange(28, 50);
-					for($ny = $y; $ny < $y + $height; $ny++) {
-						for($r = 0.5; $r < 5; $r += 0.5) {
-							$nd = 180 / (M_PI * $r);
-							for($d = 0; $d < 360; $d += $nd) {
-								$world->setBlockAt((int)($x + (MathHelper::getInstance()->cos(deg2rad($d)) * $r)), $ny, (int)($z + (MathHelper::getInstance()->sin(deg2rad($d)) * $r)), VanillaBlocks::OBSIDIAN());
-							}
-						}
-					}
+		if($random->nextBoundedInt(10) > 0) {
+			return;
+		}
+
+		$chunk = $world->getChunk($chunkX, $chunkZ);
+		if($chunk === null) {
+			throw new AssumptionFailedError("Populated chunk is null");
+		}
+
+		$bound = 16 - self::MAX_RADIUS * 2;
+
+		$relativeX = self::MAX_RADIUS + $random->nextBoundedInt($bound);
+		$relativeZ = self::MAX_RADIUS + $random->nextBoundedInt($bound);
+
+		$centerY = $this->getWorkableBlockAt($chunk, $relativeX, $relativeZ) - 1;
+
+		$air = VanillaBlocks::AIR()->getFullId();
+		if($chunk->getFullBlock($relativeX, $centerY, $relativeZ) === $air) {
+			return;
+		}
+
+		$centerX = $chunkX * SubChunk::EDGE_LENGTH + $relativeX;
+		$centerZ = $chunkZ * SubChunk::EDGE_LENGTH + $relativeZ;
+
+		$height = $random->nextRange(28, 50);
+		$radius = $random->nextRange(3, 5);
+		$radiusSquared = ($radius ** 2) - 1;
+
+		$obsidian = VanillaBlocks::OBSIDIAN();
+		for($x = 0; $x <= $radius; ++$x) {
+			$xSquared = $x ** 2;
+			for($z = 0; $z <= $radius; ++$z) {
+				if($xSquared + $z ** 2 >= $radiusSquared) {
+					break;
+				}
+
+				for($y = 0; $y < $height; ++$y) {
+					$world->setBlockAt($centerX + $x, $centerY + $y, $centerZ + $z, $obsidian);
+					$world->setBlockAt($centerX - $x, $centerY + $y, $centerZ + $z, $obsidian);
+					$world->setBlockAt($centerX + $x, $centerY + $y, $centerZ - $z, $obsidian);
+					$world->setBlockAt($centerX - $x, $centerY + $y, $centerZ - $z, $obsidian);
 				}
 			}
 		}
 	}
 
-	private function getHighestWorkableBlock(int $x, int $z): int {
-		for($y = 127; $y >= 0; --$y) {
-			$b = $this->world->getBlockAt($x, $y, $z)->getId();
-			if($b == BlockLegacyIds::END_STONE) {
-				break;
+	private function getWorkableBlockAt(Chunk $chunk, int $x, int $z): int {
+		$air = VanillaBlocks::AIR()->getFullId();
+		for($y = EnderGenerator::MAX_BASE_ISLAND_HEIGHT, $maxY = EnderGenerator::MAX_BASE_ISLAND_HEIGHT + EnderGenerator::NOISE_SIZE; $y <= $maxY; ++$y ) {
+			if($chunk->getFullBlock($x, $y, $z) === $air) {
+				return $y;
 			}
 		}
-		return $y === 0 ? -1 : $y;
+
+		return $y;
 	}
 }
