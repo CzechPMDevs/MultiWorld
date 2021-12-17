@@ -76,6 +76,9 @@ class ConfigManager {
 		if(!is_file(ConfigManager::getDataFolder() . "languages/es_ES.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/es_ES.yml", $forceUpdate);
 		}
+		if(!is_file(ConfigManager::getDataFolder() . "languages/fr_FR.yml") || $forceUpdate) {
+			MultiWorld::getInstance()->saveResource("languages/fr_FR.yml", $forceUpdate);
+		}
 		if(!is_file(ConfigManager::getDataFolder() . "languages/ina_IND.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/ina_IND.yml", $forceUpdate);
 		}

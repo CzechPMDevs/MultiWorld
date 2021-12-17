@@ -50,7 +50,7 @@ load-done: '§aSvět byl načten!'
 # Unload Command:
 unload-usage: '§cPoužij: §7/mw unload <svět>'
 unload-levelnotexists: '§cSvět {%0} neexistuje!'
-unload-unloaded: '§cNelze odnačíst odnačtený svět!'
+unload-unloaded: '§cNelze odnačíst nenačtený svět!'
 unload-done: '§aSvět byl odnačten!'
 
 # Delete Command:
@@ -64,7 +64,7 @@ update-levelnotexists: 'Svět {%0} nebyl nalezen'
 update-spawn-done: '§aSpawn ve světě {%0} byl změněn.'
 update-lobby-done: '§aLobby ve světě {%0} bylo změněno.'
 update-default-usage: '§cPoužij: §7/mw update default <level>'
-update-default-done: '§aHlavní svět byl změněn.'
+update-default-done: '§aVýchozí svět byl změněn.'
 update-notsupported: '§cTento příkaz není v konzoli podporován.'
 
 # Info Command:
@@ -81,8 +81,8 @@ info-time: '§7Čas: {%0}'
 gamerule-usage: '§cPoužij: §7/mw gamerule <list|gamerule> [true|false] [level]'
 gamerule-list: '§aVe světě můžete upravit tyto pravidla: {%0}'
 gamerule-levelnotfound: '§cSvět {%0} nebyl nalezen.'
-gamerule-notexists: '§cGame rule {%0} neexistuje'
-gamerule-done: '§aGame rule {%0} ve světě {%1} bylo změněno na {%2}.'
+gamerule-notexists: '§cPravidlo {%0} neexistuje'
+gamerule-done: '§aPravidlo {%0} ve světě {%1} bylo změněno na {%2}.'
 
 # Rename Command
 rename-usage: '§cPoužij: §7/mw rename <svět> <novýNázev>'
@@ -93,8 +93,8 @@ rename-done: '§aJméno bylo změněno z {%0} na {%1}!'
 # Duplicate Command
 duplicate-usage: '§cPoužij: §7/mw duplicate <svět> [novýNázev]'
 duplicate-exists: '§cSvět s tímto jménem ({%0}) již existuje.'
-duplicate-levelnotfound: '§cSvět {%0} does not exist.'
-duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+duplicate-levelnotfound: '§cSvět {%0} neexistuje.'
+duplicate-done: 'Svět {%0} byl úspěšně zduplikován, jméno zduplikovaného světa: {%1}'
 
 # Forms
 forms-invalid: '§cPlugin nedostal správnou odpověď.'
