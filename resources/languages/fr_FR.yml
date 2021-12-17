@@ -85,9 +85,9 @@ gamerule-notexists: '§cRègle de jeu {%0} nexiste pas.'
 gamerule-done: '§aRègle de jeu {%0} en monde {%1} a été modifié pour {%2}.'
 # Rename Command
 rename-usage: '§cUsage: §7/mw rename <from> <to>'
-rename-exists: '§cLevel with name {%0} already exists.'
-rename-levelnotfound: '§cLevel {%0} does not exist.'
-rename-done: '§aName of level {%0} was changed to {%1}.'
+rename-exists: '§cMonde avec nom {%0} existe déjà.'
+rename-levelnotfound: '§cMonde {%0} nexiste pas.'
+rename-done: '§aMonde avec nom {%0} was changed to {%1}.'
 
 # Duplicate Command
 duplicate-usage: '§cUsage: §7/mw duplicate <monde> [nouveauNom]'
