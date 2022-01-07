@@ -21,7 +21,7 @@
 declare(strict_types=1);
 
 // For example C:/pmmp-server/plugins/MultiWorld.phar
-const CUSTOM_OUTPUT_PATH = "";
+const CUSTOM_OUTPUT_PATH = "../../Plocha/pmmp/plugins/MultiWorld.phar";
 const COMPRESS_FILES = true;
 const COMPRESSION = Phar::GZ;
 

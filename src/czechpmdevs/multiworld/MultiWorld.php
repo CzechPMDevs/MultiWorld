@@ -45,7 +45,6 @@ class MultiWorld extends PluginBase {
 	private static MultiWorld $instance;
 
 	public LanguageManager $languageManager;
-
 	public ConfigManager $configManager;
 
 	/** @var Command[] */

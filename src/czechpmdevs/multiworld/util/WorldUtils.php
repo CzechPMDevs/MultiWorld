@@ -33,6 +33,9 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
 use function array_filter;
+use function array_map;
+use function array_merge;
+use function array_unique;
 use function array_values;
 use function copy;
 use function count;
@@ -173,6 +176,13 @@ class WorldUtils {
 		if(!$files) {
 			return [];
 		}
+
+		// This is not necessary in case only clean PocketMine without other plugins is used,
+		// however, due to compatibility with plugins such as NativeDimensions it's needed to keep this.
+		$files = array_unique(array_merge(
+			array_map(fn(World $world) => $world->getFolderName(), Server::getInstance()->getWorldManager()->getWorlds(), $files),
+			$files
+		));
 
 		return array_values(array_filter($files, function(string $fileName): bool {
 			return Server::getInstance()->getWorldManager()->isWorldGenerated($fileName) &&
