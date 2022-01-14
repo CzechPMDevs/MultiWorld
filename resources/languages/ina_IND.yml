@@ -31,7 +31,7 @@ create-generating: '§aMenghasilkan dunia {%0}'
 create-done: 'Dunia {%0} sukses dibuat menggunakan benih: {%1} dan generator: {%2}.'
 
 # Perintah Teleport:
-teleport-usage: '§cPenggunaan: §7/mw teleport <nama dunia> [pemain]'
+teleport-usage: '§cPenggunaan: §7/mw teleport <dunia> [pemain]'
 teleport-levelnotexists: '§cDunia {%0} belum dibuat. Coba /mw create untuk membuat dunia.'
 teleport-load: 'Memuat dunia {%0} ...'
 teleport-done-1: '§aAnda telah diteleportasikan ke {%0}.'
@@ -42,13 +42,13 @@ teleport-playernotexists: '§cPemain tidak ada.'
 list-done: '§aDunia ({%0}):'
 
 # Muat Perintah:
-load-usage: '§cPenggunaan: §7/mw load <nama dunia>'
+load-usage: '§cPenggunaan: §7/mw load <dunia>'
 load-notexists: '§cDunia {%0} tidak ada.'
 load-loaded: '§cTidak dapat memuat dunia.'
 load-done: '§aDunia dimuat.'
 
 # Bongkar Perintah:
-unload-usage: '§cPenggunaan: §7/mw unload <nama dunia>'
+unload-usage: '§cPenggunaan: §7/mw unload <dunia>'
 unload-levelnotexists: '§cDunia {%0} tidak ada.'
 unload-unloaded: '§cTidak dapat membongkar dunia.'
 unload-done: '§aDunia di bongkar.'
@@ -78,7 +78,7 @@ info-seed: '§7Benih: {%0}'
 info-time: '§7Waktu: {%0}'
 
 # Perintah Gamerule:
-gamerule-usage: '§cPenggunaan: §7/mw gamerule <daftar|gamerule> [true|false] [namadunia]'
+gamerule-usage: '§cPenggunaan: §7/mw gamerule <daftar|gamerule> [true|false] [level]'
 gamerule-list: '§aAturan permainan yang tersedia: {%0}'
 gamerule-levelnotfound: '§cDunia {%0} tidak ditemukan.'
 gamerule-notexists: '§cAturan main {%0} tidak ada.'
