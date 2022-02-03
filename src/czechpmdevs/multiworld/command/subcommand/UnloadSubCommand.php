@@ -35,6 +35,11 @@ class UnloadSubCommand implements SubCommand {
 			$sender->sendMessage(LanguageManager::translateMessage($sender, "unload-usage"));
 			return;
 		}
+		
+		if(!Server::getInstance()->getWorldManager()->getDefaultWorld()->getFolderName() == $args[0]) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "unload-unloaded"));
+			return;
+		}
 
 		if(!Server::getInstance()->getWorldManager()->isWorldGenerated($args[0])) {
 			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "unload-levelnotexists", [$args[0]]));
