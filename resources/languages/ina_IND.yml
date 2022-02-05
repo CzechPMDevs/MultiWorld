@@ -1,38 +1,38 @@
 ---
-### Bahasa Indonesia file oleh @WooWBoom, @brokiem, perubahan mungkin diperlukan.
-
+### Bahasa Indonesia file oleh @WooWBoom, @brokiem, @keenanyafiqy, perubahan mungkin diperlukan.
 
 ## Perintah:
+
 not-perms: '§cAnda tidak memiliki izin untuk menggunakan perintah ini'
 default-usage: '§cCara penggunaan: §7/mw help'
 
 # Perintah Bantuan:
-help: '§2--- Menampilkan halaman bantuan MultiWorld {%0} dari {%1} (/ mw help <page>) ---'
+help: '§2--- Menampilkan halaman bantuan MultiWorld {%0} dari {%1} (/mw help <page>) ---'
 help-1: '§2/mw help §fCiptakan dunia'
 help-2: '§2/mw teleport §fTeleportasi ke dunia'
 help-3: '§2/mw list §fMenampilkan daftar semua dunia'
-help-4: '§2/mw load §fLoads a world'
-help-5: '§2/mw unload §fUnloads a world'
+help-4: '§2/mw load §fMemuat dunia'
+help-5: '§2/mw unload §fMembongkar dunia'
 
 help-6: '§2/mw remove §fHapus dunia'
 help-7: '§2/mw info §fMenampilkan informasi tentang dunia'
-help-8: '§2/mw gamerule §mengelola gamerules dari dunia'
+help-8: '§2/mw gamerule §fMengatur aturan main dunia'
 help-9: '§2/mw manage §fMenampilkan form untuk mengelola dengan dunia'
 help-10: '§2/mw rename §fUbah nama dunia'
 
-help-11: '§2/mw duplicate §fDuplicates a world'
-help-12: '§2/mw update §fPerbaharui lobi, titik kemunculan di dunia atau ubah dunia default'
+help-11: '§2/mw duplicate §fMenduplikat dunia'
+help-12: '§2/mw update §fPerbarui lobi, titik kemunculan di dunia atau ubah dunia default'
 
 # Buat Perintah:
-create-usage: '§cPenggunaan: §7/mw create <nama dunia> [seed] [generator]'
+create-usage: '§cPenggunaan: §7/mw create <nama dunia> [benih] [generator]'
 create-exist: '§cDunia {%0} sudah dibuat!'
 create-gennotexists: '§cGenerator {%0} tidak ditemukan.'
 create-generating: '§aMenghasilkan dunia {%0}'
-create-done: 'Dunia {%0} telah dihasilkan menggunakan benih: {%1} dan generator: {%2}.'
+create-done: 'Dunia {%0} sukses dibuat menggunakan benih: {%1} dan generator: {%2}.'
 
 # Perintah Teleport:
-teleport-usage: '§cPenggunaan: §7/mw teleport <dama dunia> [pemain]'
-teleport-levelnotexists: '§cDunia {%0} belum dibuat. Coba /mw create untuk membuat dunia. '
+teleport-usage: '§cPenggunaan: §7/mw teleport <dunia> [pemain]'
+teleport-levelnotexists: '§cDunia {%0} belum dibuat. Coba /mw create untuk membuat dunia.'
 teleport-load: 'Memuat dunia {%0} ...'
 teleport-done-1: '§aAnda telah diteleportasikan ke {%0}.'
 teleport-done-2: '§aPemain {%1} diteleportasikan ke {%0}.'
@@ -41,14 +41,14 @@ teleport-playernotexists: '§cPemain tidak ada.'
 # Daftar Perintah:
 list-done: '§aDunia ({%0}):'
 
-# Perintah Load:
-load-usage: '§cPenggunaan: §7/mw load <nama dunia>'
+# Muat Perintah:
+load-usage: '§cPenggunaan: §7/mw load <dunia>'
 load-notexists: '§cDunia {%0} tidak ada.'
 load-loaded: '§cTidak dapat memuat dunia.'
 load-done: '§aDunia dimuat.'
 
 # Bongkar Perintah:
-unload-usage: '§cPenggunaan: §7/mw unload <nama dunia>'
+unload-usage: '§cPenggunaan: §7/mw unload <dunia>'
 unload-levelnotexists: '§cDunia {%0} tidak ada.'
 unload-unloaded: '§cTidak dapat membongkar dunia.'
 unload-default: '§cUnable to unload default level.'
@@ -60,15 +60,15 @@ delete-levelnotexists: '§cDunia tidak ada.'
 delete-done: '§aDunia dihapus. ({%0} file dihapus.) '
 
 # Perbarui Perintah:
-update-usage: '§cPenggunaan: §7/mw <mod: spawn|lobby|default> [opsi: (nama dunia) (x) (y) (z)]'
+update-usage: '§cPenggunaan: §7/mw <mod: muncul|lobi|default> [opsi: (nama dunia) (x) (y) (z)]'
 update-levelnotexists: '§cDunia {%0} tidak ada.'
 update-spawn-done: '§aKemunculan di dunia {%0} telah diubah.'
 update-lobby-done: '§aLobi di dunia {%0} telah diubah.'
-update-default-usage: '§Penggunaan: §7/mw update default <nama dunia>'
+update-default-usage: '§cPenggunaan: §7/mw update default <nama dunia>'
 update-default-done: '§aDunia default diubah menjadi {%0}.'
-update-notsupported: '§4Silakan jalankan perintah ini dalam permainan'
+update-notsupported: '§4Mohon jalankan perintah ini dalam permainan'
 
-# Info Command:
+# Perintah Info:
 info-levelnotexists: '§cDunia {%0} tidak ada.'
 info: '§a--- {%0} ---'
 info-name: '§7Nama Dunia: {%0}'
@@ -79,24 +79,24 @@ info-seed: '§7Benih: {%0}'
 info-time: '§7Waktu: {%0}'
 
 # Perintah Gamerule:
-gamerule-usage: '§cPenggunaan: §7/mw gamerule <list|gamerule> [true|false] [nama dunia]'
-gamerule-list: '§aAvailable game rules: {%0}'
+gamerule-usage: '§cPenggunaan: §7/mw gamerule <daftar|gamerule> [true|false] [level]'
+gamerule-list: '§aAturan permainan yang tersedia: {%0}'
 gamerule-levelnotfound: '§cDunia {%0} tidak ditemukan.'
-gamerule-notexists: '§cGamerule {%0} tidak ada.'
-gamerule-done: '§aGamerule {%0} di dunia {%1} diubah menjadi {%2}.'
+gamerule-notexists: '§cAturan main {%0} tidak ada.'
+gamerule-done: '§aAturan main {%0} di dunia {%1} diubah menjadi {%2}.'
 
-# Ganti nama Command
-rename-usage: '§cUsage: §7/mw rename <dari> <ke>'
+# Ganti Nama Perintah:
+rename-usage: '§cPenggunaan: §7/mw rename <dari> <ke>'
 rename-exist: '§cDunia dengan nama {%0} sudah ada.'
 rename-levelnotfound: '§cDunia {%0} tidak ada.'
 rename-done: '§aNama dunia {%0} diubah menjadi {%1}.'
 
-# Duplicate Command
-duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
-duplicate-exists: '§cWorld with name {%0} already exists.'
-duplicate-levelnotfound: '§cLevel {%0} does not exist.'
-duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+# Perintah Duplikat:
+duplicate-usage: '§cPenggunaan: §7/mw duplicate <dunia> [namaBaru]'
+duplicate-exists: '§cDunia dengan nama {%0} sudah ada.'
+duplicate-levelnotfound: '§cLevel {%0} tidak ada.'
+duplicate-done: 'Dunia {%0} berhasil terduplikat, nama duplikatnya adalah {%1}'
 
-# Formulir
+# Formulir:
 forms-invalid: '§cHasil tidak valid.'
 ...

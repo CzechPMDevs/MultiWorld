@@ -82,8 +82,8 @@ info-time: '§7时间: {%0}'
 gamerule-usage: '§c用法: §7/mw gamerule <list|gamerule> [true|false] [世界名]'
 gamerule-list: '§a可用游戏规则: {%0}'
 gamerule-levelnotfound: '§c世界 {%0} 不存在.'
-gamerule-notexists: '§此游戏模式 {%0} 不存在.'
-gamerule-done: '§游戏模式 {%0} 在如下世界 {%1} 被更改为 {%2}.'
+gamerule-notexists: '§c此游戏模式 {%0} 不存在.'
+gamerule-done: '§a游戏模式 {%0} 在如下世界 {%1} 被更改为 {%2}.'
 
 # Rename Command
 rename-usage: '§c用法: §7/mw rename <from> <to>'
