@@ -51,6 +51,7 @@ load-done: '§aDunia dimuat.'
 unload-usage: '§cPenggunaan: §7/mw unload <nama dunia>'
 unload-levelnotexists: '§cDunia {%0} tidak ada.'
 unload-unloaded: '§cTidak dapat membongkar dunia.'
+unload-default: '§cUnable to unload default level.'
 unload-done: '§aDunia di bongkar.'
 
 # Hapus Perintah:

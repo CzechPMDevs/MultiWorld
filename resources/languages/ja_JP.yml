@@ -51,6 +51,7 @@ load-done: '§aワールドを読み込みました'
 unload-usage: '§c使用方法: §7/mw unload <ワールド名>'
 unload-levelnotexists: '§cワールド {%0} は存在しません!'
 unload-unloaded: '§c読み込まれていないワールドを読み込み解除することはできません!'
+unload-default: '§cUnable to unload default level.'
 unload-done: '§aワールドの読み込みを解除しました'
 
 # Delete Command:

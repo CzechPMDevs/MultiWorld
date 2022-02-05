@@ -51,6 +51,7 @@ load-done: '§aМир был загружен!'
 unload-usage: '§cИспользование: §7/mw unload <мир>'
 unload-levelnotexists: '§cМир {%0} не существует!'
 unload-unloaded: '§cМир уже выгружен!'
+unload-default: '§cUnable to unload default level.'
 unload-done: '§aМир был выгружен!'
 
 # Delete Command:

@@ -51,6 +51,7 @@ load-done: '§aMundo carregado.'
 unload-usage: '§cUse: §7/mw unload <mundo>'
 unload-levelnotexists: '§c{%0} não existe.'
 unload-unloaded: '§cIncapaz de descarregar o mundo.'
+unload-default: '§cUnable to unload default level.'
 unload-done: '§aMundo descarregado.'
 
 # Delete Command:

@@ -51,6 +51,7 @@ load-done: '§aThế giới đã được tải lại.'
 unload-usage: '§cSử dụng: §7/mw unload <Tên thế giới>'
 unload-levelnotexists: '§cThế giới {%0} không tồn tại.'
 unload-unloaded: '§cKhông thể hủy tải thế giới.'
+unload-default: '§cUnable to unload default level.'
 unload-done: '§aTHế giới đã được hủy tải.'
 
 # Delete Command:

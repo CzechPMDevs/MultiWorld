@@ -46,7 +46,13 @@ class UnloadSubCommand implements SubCommand {
 			return;
 		}
 
-		Server::getInstance()->getWorldManager()->unloadWorld(WorldUtils::getWorldByNameNonNull($args[0]));
+		$world = WorldUtils::getWorldByNameNonNull($args[0]);
+		if($world->getId() === Server::getInstance()->getWorldManager()->getDefaultWorld()?->getId()) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "unload-default"));
+			return;
+		}
+
+		Server::getInstance()->getWorldManager()->unloadWorld($world);
 		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "unload-done"));
 	}
 }

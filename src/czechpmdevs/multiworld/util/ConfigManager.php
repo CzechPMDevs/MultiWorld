@@ -34,7 +34,7 @@ use function version_compare;
 
 class ConfigManager {
 
-	public const CONFIG_VERSION = "1.6.0.2";
+	public const CONFIG_VERSION = "1.7.0.0";
 
 	public static string $prefix;
 

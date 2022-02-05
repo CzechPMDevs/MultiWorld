@@ -51,6 +51,7 @@ load-done: '§aWelt geladen!'
 unload-usage: '§cBenutzung: §7/mw unload <welt>'
 unload-levelnotexists: '§cDie Welt {%0} existiert nicht!'
 unload-unloaded: '§cWelt konnte nicht entladen werden!'
+unload-default: '§cUnable to unload default level.'
 unload-done: '§aWelt entladen!'
 
 # Befehl löschen:

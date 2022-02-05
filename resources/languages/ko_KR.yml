@@ -51,6 +51,7 @@ load-done: '§aWorld loaded.'
 unload-usage: '§c사용법: §7/mw unload <월드이름>'
 unload-levelnotexists: '§c{%0} 는 존재하지 않습니다.'
 unload-unloaded: '§c월드를 언로드 할수 없습니다.'
+unload-default: '§cUnable to unload default level.'
 unload-done: '§a월드가 언로드 되었습니다.'
 
 # Delete Command:

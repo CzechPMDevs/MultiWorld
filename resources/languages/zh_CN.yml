@@ -51,6 +51,7 @@ load-done: '§a该世界被成功加载!'
 unload-usage: '§c输入: §7/mw unload <世界名>'
 unload-levelnotexists: '§c世界 {%0}不存在!'
 unload-unloaded: '§c不能卸载这个世界!'
+unload-default: '§cUnable to unload default level.'
 unload-done: '§a该世界被卸载成功!'
 
 # Delete Command:

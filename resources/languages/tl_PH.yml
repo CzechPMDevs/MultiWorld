@@ -51,6 +51,7 @@ load-done: '§aAng Mundo Ay Na-Load na.'
 unload-usage: '§cPaggamit: §7/mw unload <world>'
 unload-levelnotexists: '§cAng Mundo {%0} ay hindi umiiral.'
 unload-unloaded: '§cHindi ma-unload ang mundo.'
+unload-default: '§cUnable to unload default level.'
 unload-done: '§aAng Mundo Ay Na-Unloaded na.'
 
 # Delete Command:

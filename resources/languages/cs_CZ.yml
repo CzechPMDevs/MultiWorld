@@ -51,6 +51,7 @@ load-done: '§aSvět byl načten!'
 unload-usage: '§cPoužij: §7/mw unload <svět>'
 unload-levelnotexists: '§cSvět {%0} neexistuje!'
 unload-unloaded: '§cNelze odnačíst nenačtený svět!'
+unload-default: '§cNelze odnačíst základní svět!'
 unload-done: '§aSvět byl odnačten!'
 
 # Delete Command:

@@ -2,7 +2,7 @@
 ## Main configuration file for MultiWorld
 
 # Do not change this!
-config-version: '1.6.0.2'
+config-version: '1.7.0.0'
 
 ## Option for modifying MultiWorld prefix
 prefix: '§7[MultiWorld]'

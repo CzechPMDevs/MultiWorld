@@ -51,6 +51,7 @@ load-done: '§aDünya yüklendi !'
 unload-usage: '§ckullanım: §7/mw unload <seviye>'
 unload-levelnotexists: '§cDünya{%0} mevcut değil!'
 unload-unloaded: '§cDünya taburcu edilemedi !'
+unload-default: '§cUnable to unload default level.'
 unload-done: '§aDünyayı boşaltın !'
 
 # komut dünya Silmek:
