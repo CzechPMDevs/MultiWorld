@@ -25,7 +25,7 @@ If applicable, add screenshots to help explain your problem.
 
 **System information (please complete the following information):**
 - OS: [e.g. linux]
-- PHP version: [e.g. 8.0]
+- PHP Version: [e.g. 8.0]
 - MultiWorld Version: [e.g. dev#142, Release 1.7.0-beta2]
 
 **Additional context**
