@@ -20,7 +20,7 @@ help-8: '§2/mw gamerule §fAdministra las reglas de un mundo.'
 help-9: '§2/mw manage §fMuestra el formulario para gestionar los mundos.'
 help-10: '§2/mw rename §fRenombrar el mundo'
 
-help-11: '§2/mw duplicate §fDuplicates a world'
+help-11: '§2/mw duplicate §fDuplicar un mundo'
 help-12: '§2/mw update §fActualice el lobby, cree un mundo o cambie el mundo estándar'
 
 # Create Command:
@@ -50,8 +50,8 @@ load-done: '§aMundo cargado.'
 # Unload Command:
 unload-usage: '§cUso: §7/mw unload <mundo>'
 unload-levelnotexists: '§c{%0} no existe.'
-unload-unloaded: '§cIncapaz de descargar el mundo.'
-unload-default: '§cUnable to unload default level.'
+unload-unloaded: '§cNo se ha podido descargar el mundo.'
+unload-default: '§cNo se ha podido descargar el mundo por defecto.'
 unload-done: '§aMundo descargado.'
 
 # Delete Command:
@@ -80,7 +80,7 @@ info-time: '§7Tiempo/Horas: {%0}'
 
 # Gamerule Command:
 gamerule-usage: '§cUso: §7/mw gamerule <list|gamerule> [true|false] [mundo]'
-gamerule-list: '§aAvailable game rules: {%0}'
+gamerule-list: '§aReglas de juego disponibles: {%0}'
 gamerule-levelnotfound: '§cMundo {%0} no encontrado.'
 gamerule-notexists: '§cLa regla {%0} no existe.'
 gamerule-done: '§aLa regla {%0} en el mundo {%1} se ha cambiado a {%2}.'
@@ -92,7 +92,7 @@ rename-levelnotfound: '§cEl nivel {%0} no existe.'
 rename-done: '§aEl nombre del nivel {%0} se ha cambiado a {%1}.'
 
 # Duplicate Command
-duplicate-usage: '§cUsa: §7/mw duplicate <mundo> [nuevoNombre]'
+duplicate-usage: '§cUso: §7/mw duplicate <mundo> [nuevoNombre]'
 duplicate-exists: '§cEl mundo con el nombre {%0} ya existe.'
 duplicate-levelnotfound: '§cEl mundo {%0} no existe.'
 duplicate-done: '§aEl mundo {%0} fue duplicado con el nombre de {%1}'
