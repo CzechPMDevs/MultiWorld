@@ -25,8 +25,8 @@ If applicable, add screenshots to help explain your problem.
 
 **System information (please complete the following information):**
 - OS: [e.g. linux]
-- php version [e.g. 8.0]
-- BuilderTools Version [e.g. dev#142, Release 1.7.0-beta3]
+- PHP Version: [e.g. 8.0]
+- MultiWorld Version: [e.g. dev#142, Release 1.7.0-beta2]
 
 **Additional context**
 Add any other context about the problem here.
