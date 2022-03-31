@@ -1,8 +1,8 @@
 ---
 ### Vietnamese language file by @Mcbeany.
-### Ngôn ngữ Tiếng Việt được tạo bởi @Mcbeany
 
 ## Commands:
+
 not-perms: '§cBạn không có quyền để sử dụng lệnh này'
 default-usage: '§cSử dụng: §7/mw help'
 
@@ -51,7 +51,7 @@ load-done: '§aThế giới đã được tải lại.'
 unload-usage: '§cSử dụng: §7/mw unload <Tên thế giới>'
 unload-levelnotexists: '§cThế giới {%0} không tồn tại.'
 unload-unloaded: '§cKhông thể hủy tải thế giới.'
-unload-default: '§cUnable to unload default level.'
+unload-default: '§cKhông thể tải thế giới mặc định.'
 unload-done: '§aTHế giới đã được hủy tải.'
 
 # Delete Command:
@@ -80,7 +80,7 @@ info-time: '§7Thời gian: {%0}'
 
 # Gamerule Command:
 gamerule-usage: '§cSử dụng: §7/mw gamerule <list|gamerule> [true|false] [Tên thế giới]'
-gamerule-list: '§aAvailable game rules: {%0}'
+gamerule-list: '§aCác quy tắc trò chơi có sẵn: {%0}'
 gamerule-levelnotfound: '§cThế giới {%0} không tìm thấy.'
 gamerule-notexists: '§cLuật lệ {%0} không tồn tại.'
 gamerule-done: '§aLuật lệ {%0} tại thế giới {%1} được chỉnh thành {%2}.'
@@ -92,10 +92,10 @@ rename-levelnotfound: '§cThế giới {%0} không tồn tại.'
 rename-done: '§aThế giới {%0} được đổi tên thành {%1}.'
 
 # Duplicate Command
-duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
-duplicate-exists: '§cWorld with name {%0} already exists.'
-duplicate-levelnotfound: '§cLevel {%0} does not exist.'
-duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+duplicate-usage: '§cSử dụng: §7/mw duplicate <Tên thế giới> [Tên mới]'
+duplicate-exists: '§cThế giới với tên {%0} đã tồn tại.'
+duplicate-levelnotfound: '§cThế giới {%0} không tồn tại.'
+duplicate-done: 'Thế giới {%0} đã được sao chép, tên của bản sao là {%1}'
 
 # Forms
 forms-invalid: '§cKết quả không hợp lệ.'
