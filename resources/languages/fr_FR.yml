@@ -1,6 +1,7 @@
 ---
-### Français/French language file by @wrathxz, updates may be needed.
+### Français/French language file by @Hydros01, updates may be needed.
 ### French in Canada and France are spoken differently.
+### Last Updated: 2022-03-13
 ## Commands:
 
 not-perms: '§cVous n’avez pas la permission d’utiliser cette commande!'
@@ -34,9 +35,9 @@ create-done: '§aMonde {%0} a été générée en utilisant semmence: {%1} et g�
 teleport-usage: '§cUsage: §7/mw teleport <monde> [joueur]'
 teleport-levelnotexists: '§cMonde {%0} n’a pas encore été créé. Essayez /mw create pour créer un monde.'
 teleport-load: 'Monde de chargement {%0}...'
-teleport-done-1: '§aTu were teleported to {%0}.'
-teleport-done-2: '§aPlayer {%1} was teleported to {%0}.'
-teleport-playernotexists: '§cPlayer does not exist.'
+teleport-done-1: '§aVous avez été téléporté à {%0}.'
+teleport-done-2: '§aLe joueur {%1} a été téléporté à {%0}.'
+teleport-playernotexists: '§cLe joueur n’existe pas.'
 
 # List Command:
 list-done: '§aWorlds ({%0}):'
@@ -85,10 +86,10 @@ gamerule-levelnotfound: '§cMonde {%0} introuvable.'
 gamerule-notexists: '§cRègle de jeu {%0} nexiste pas.'
 gamerule-done: '§aRègle de jeu {%0} en monde {%1} a été modifié pour {%2}.'
 # Rename Command
-rename-usage: '§cUsage: §7/mw rename <from> <to>'
+rename-usage: '§cUsage: §7/mw rename <de> <à>'
 rename-exists: '§cMonde avec nom {%0} existe déjà.'
 rename-levelnotfound: '§cMonde {%0} nexiste pas.'
-rename-done: '§aMonde avec nom {%0} was changed to {%1}.'
+rename-done: '§aMonde avec nom {%0} a été remplacé par {%1}.'
 
 # Duplicate Command
 duplicate-usage: '§cUsage: §7/mw duplicate <monde> [nouveauNom]'
