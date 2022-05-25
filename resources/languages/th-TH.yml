@@ -1,0 +1,102 @@
+---
+### Thai language file by @KohakuChanX, changes may be needed.
+
+## Commands:
+
+not-perms: '§cคุณไม่มีสิทธ์ใช้คำสั่งนี้'
+default-usage: '§cใช้: §7/mw help'
+
+# Help Command:
+help: '§2--- กำลังดูคำสั่ง MultiWorld หน้าที่ {%0} ทั้งหมด {%1} (/mw help <เลขหน้า>) ---'
+help-1: '§2/mw create §fสร้างโลก'
+help-2: '§2/mw teleport §fวาปไปที่โลกอื่น'
+help-3: '§2/mw list §f โชว์รายชื่อโลกทั้งหมด'
+help-4: '§2/mw load §fโหลดโลก'
+help-5: '§2/mw unload §fปลดโหลดโลก'
+
+help-6: '§2/mw delete §fลบโลก'
+help-7: '§2/mw info §fโชว์ข้อมูลของโลก'
+help-8: '§2/mw gamerule §fแก้ไข Gamerule ของโลกนั้นๆ'
+help-9: '§2/mw manage §fโชว์หน้าต่างตั้งค่าโลก'
+help-10: '§2/mw rename §fแก้ชื่อโลก'
+
+help-11: '§2/mw duplicate §fคัดลอกโลก'
+help-12: '§2/mw update §fอัพเดท ล็อบบี้, แก้จุดเกิดของโลกนั้นๆ'
+
+# Create Command:
+create-usage: '§cใช้: §7/mw create <ชื่อ> [ซีด] [Generator]'
+create-exists: '§cโลก {%0} ได้สร้างอยู่แล้ว!'
+create-gennotexists: '§cไม่เจอ Generator {%0} อยู่'
+create-generating: '§aกำลังสร้างโลก {%0}'
+create-done: 'โลก {%0} ได้สร้างสำเร็จและใช้ซีด: {%1} และ generator: {%2}'
+
+# Teleport Command:
+teleport-usage: '§cใช้: §7/mw teleport <ชื่อโลก> [ชื่อผู้เล่น]'
+teleport-levelnotexists: '§cโลก {%0} ยังไม่ได้สร้าง. ลอง /mw create เพื่อสร้างโลก'
+teleport-load: 'กำลังโหลดโลก {%0}...'
+teleport-done-1: '§aคุณได้วาปมาโลก {%0}'
+teleport-done-2: '§aผู้เล่น {%1} ได้วาปไป {%0}'
+teleport-playernotexists: '§cไม่เจอผู้เล่นชื่อนี้'
+
+# List Command:
+list-done: '§aรายชื่อโลก ({%0}):'
+
+# Load Command:
+load-usage: '§cใช้: §7/mw load <ชื่อโลก>'
+load-notexists: '§cไม่พบโลก {%0}'
+load-loaded: '§cไม่สามารถโหลดโลกนี้ได้'
+load-done: '§aโลกได้ถูกโหลด'
+
+# Unload Command:
+unload-usage: '§cใช้: §7/mw unload <ชื่อโลก>'
+unload-levelnotexists: '§cไม่พบโลก {%0}'
+unload-unloaded: '§cไม่สามารถปลดโหลดโลกนี้ได้'
+unload-default: '§cไม่สามารถโหลดโลกค่าเริ่มต้นได้'
+unload-done: '§cโลกได้ถูกปลดโหลด'
+
+# Delete Command:
+delete-usage: '§cใช้: §7/mw delete <ชื่อโลก>'
+delete-levelnotexists: '§cไม่พบโลก'
+delete-done: '§aโลกได้ถูกลบ. ({%0} จำนวนไฟล์ที่ถูกลบ)'
+
+# Update Command:
+update-usage: '§cใช้: §7/mw update <โหมด: spawn|lobby|default> [ตัวเลือก: (โลก) (x) (y) (z)]'
+update-levelnotexists: '§cไม่พบโ,ก {%0}'
+update-spawn-done: '§aตำแหน่งจุดเกิดของโลก {%0} ได้ถูกเปลี่ยน'
+update-lobby-done: '§aล็อบบี้ของโลก {%0} ได้ถูกเปลี่ยน'
+update-default-usage: '§cใช้: §7/mw update default <ชื่อโลก>'
+update-default-done: '§aโลกค่าเริ่มต้นได้ถูกตั้งไว้ที่โลก {%0}'
+update-notsupported: '§4โปรดใช้คำสั่งในเกม'
+
+# Info Command:
+info-levelnotexists: '§cไม่พบโลก {%0}'
+info: '§a--- {%0} ---'
+info-name: '§7ชื่อ: {%0}'
+info-folderName: '§7ชื่อโฟลเดอร์: {%0}'
+info-players: '§7จำนวนผู้เล่น: {%0}'
+info-generator: '§7Generator: {%0}'
+info-seed: '§7ซีด: {%0}'
+info-time: '§7เวลา: {%0}'
+
+# Gamerule Command:
+gamerule-usage: '§cใช้: §7/mw gamerule <list|gamerule> [true|false] [ชื่อโลก]'
+gamerule-list: '§aรายชื่อ Gamerule ที่มีอยู่: {%0}'
+gamerule-levelnotfound: '§cไม่พบโลก {%0}'
+gamerule-notexists: '§cGamerule {%0} ไม่มีอยู่'
+gamerule-done: '§aGame rule {%0} ในโลก {%1} ได้ถูกเปลี่ยนเป็น {%2}'
+
+# Rename Command
+rename-usage: '§cใช้: §7/mw rename <ชื่อโลก> <ชื่อที่จะเปลี่ยนใหม่>'
+rename-exists: '§cชื่อโลก {%0} มีอยู่แล้ว'
+rename-levelnotfound: '§cไม่พบโลก {%0}'
+rename-done: '§aชื่อของโลก {%0} ได้ถูกเปลี่ยนเป็น {%1}'
+
+# Duplicate Command
+duplicate-usage: '§cใช้: §7/mw duplicate <ชื่อโลก> [ชื่อโลกใหม่]'
+duplicate-exists: '§cชื่อโลก {%0} มีอยู่แล้ว'
+duplicate-levelnotfound: '§cไม่พบโลก {%0}'
+duplicate-done: 'โลก {%0} ได้ถูกคัดลอก, ชื่อโลกที่คัดลอก {%1}'
+
+# Forms
+forms-invalid: '§cผลลัพธ์ไม่ถูกต้อง'
+...
