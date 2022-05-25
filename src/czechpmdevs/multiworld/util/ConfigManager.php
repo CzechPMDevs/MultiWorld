@@ -34,7 +34,7 @@ use function version_compare;
 
 class ConfigManager {
 
-	public const CONFIG_VERSION = "1.7.0.0";
+	public const CONFIG_VERSION = "1.7.0.1";
 
 	public static string $prefix;
 
@@ -79,8 +79,8 @@ class ConfigManager {
 		if(!is_file(ConfigManager::getDataFolder() . "languages/fr_FR.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/fr_FR.yml", $forceUpdate);
 		}
-		if(!is_file(ConfigManager::getDataFolder() . "languages/ina_IND.yml") || $forceUpdate) {
-			MultiWorld::getInstance()->saveResource("languages/ina_IND.yml", $forceUpdate);
+		if(!is_file(ConfigManager::getDataFolder() . "languages/id_ID.yml") || $forceUpdate) {
+			MultiWorld::getInstance()->saveResource("languages/id_ID.yml", $forceUpdate);
 		}
 		if(!is_file(ConfigManager::getDataFolder() . "languages/ja_JP.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/ja_JP.yml", $forceUpdate);
@@ -93,6 +93,9 @@ class ConfigManager {
 		}
 		if(!is_file(ConfigManager::getDataFolder() . "languages/ru_RU.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/ru_RU.yml", $forceUpdate);
+		}
+		if(!is_file(ConfigManager::getDataFolder() . "languages/th_TH.yml") || $forceUpdate) {
+			MultiWorld::getInstance()->saveResource("languages/th_TH.yml", $forceUpdate);
 		}
 		if(!is_file(ConfigManager::getDataFolder() . "languages/tl_PH.yml") || $forceUpdate) {
 			MultiWorld::getInstance()->saveResource("languages/tl_PH.yml", $forceUpdate);
