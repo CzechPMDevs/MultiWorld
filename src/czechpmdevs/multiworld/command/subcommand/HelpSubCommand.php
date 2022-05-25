@@ -43,7 +43,7 @@ class HelpSubCommand implements SubCommand {
 	}
 
 	public function getHelpMessage(CommandSender $sender, int $page): string {
-		if($page < 1 || $page >= 3) {
+		if($page < 1 || $page > 3) {
 			return $this->getHelpMessage($sender, 1);
 		}
 
