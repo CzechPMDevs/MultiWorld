@@ -87,6 +87,9 @@ class EventListener implements Listener {
 		if(!$player instanceof Player) {
 			return;
 		}
+		if(!$player->isConnected()) {
+			return;
+		}
 		if($event->getFrom()->getWorld()->getId() == $event->getTo()->getWorld()->getId()) {
 			return;
 		}
