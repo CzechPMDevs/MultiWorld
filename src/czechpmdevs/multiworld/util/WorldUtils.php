@@ -140,7 +140,7 @@ class WorldUtils {
 		foreach($files as $fileInfo) {
 			if($filePath = $fileInfo->getRealPath()) {
 				if($fileInfo->isFile()) {
-					copy($filePath, str_replace($worldName, $duplicateName, $filePath));
+					@copy($filePath, str_replace($worldName, $duplicateName, $filePath));
 				} else {
 					mkdir(str_replace($worldName, $duplicateName, $filePath));
 				}
