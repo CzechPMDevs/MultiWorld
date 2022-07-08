@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\object;
 
-use pocketmine\block\BlockLegacyIds;
+use pocketmine\block\BlockTypeIds;
 use pocketmine\block\VanillaBlocks;
 use pocketmine\math\Vector3;
 use pocketmine\utils\Random;
@@ -106,7 +106,7 @@ class BigOakTree extends Tree {
 						$sizeZ = abs($zz) + 0.5;
 						if($sizeX * $sizeX + $sizeZ * $sizeZ <= $size * $size && $node->getY() + $yy - 3 >= $y) {
 							/** @phpstan-ignore-next-line */
-							if($world->getBlockAt($node->getX() + $xx, $node->getY() + $yy, $node->getZ() + $zz)->getId() == BlockLegacyIds::AIR) {
+							if($world->getBlockAt($node->getX() + $xx, $node->getY() + $yy, $node->getZ() + $zz)->getTypeId() == BlockTypeIds::AIR) {
 								/** @phpstan-ignore-next-line */
 								$world->setBlockAt($node->getX() + $xx, $node->getY() + $yy, $node->getZ() + $zz, VanillaBlocks::OAK_LEAVES());
 							}

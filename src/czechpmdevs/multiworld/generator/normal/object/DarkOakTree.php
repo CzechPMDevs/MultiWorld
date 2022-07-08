@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\normal\object;
 
-use pocketmine\block\BlockLegacyIds;
+use pocketmine\block\BlockTypeIds;
 use pocketmine\block\VanillaBlocks;
 use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
@@ -56,9 +56,16 @@ class DarkOakTree extends Tree {
 					}
 
 					$y2 = $y + $x2;
-					$material = $world->getBlockAt($x1, $y2, $z1)->getId();
+					$material = $world->getBlockAt($x1, $y2, $z1)->getTypeId();
 
-					if($material == BlockLegacyIds::AIR || $material == BlockLegacyIds::LEAVES) {
+					if($material == BlockTypeIds::AIR || in_array($material, [
+                    BlockTypeIds::ACACIA_LEAVES,
+                    BlockTypeIds::BIRCH_LEAVES,
+                    BlockTypeIds::JUNGLE_LEAVES,
+                    BlockTypeIds::OAK_LEAVES,
+                    BlockTypeIds::DARK_OAK_LEAVES,
+                    BlockTypeIds::SPRUCE_LEAVES
+                    ])) {
 						$world->setBlockAt($x1, $y2, $z1, VanillaBlocks::DARK_OAK_WOOD());
 						$world->setBlockAt($x1 + 1, $y2, $z1, VanillaBlocks::DARK_OAK_WOOD());
 						$world->setBlockAt($x1 + 1, $y2, $z1 + 1, VanillaBlocks::DARK_OAK_WOOD());

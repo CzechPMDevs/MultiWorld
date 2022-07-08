@@ -94,9 +94,9 @@ class NormalGenerator extends Generator {
 
 		$biomeCache = [];
 
-		$bedrock = VanillaBlocks::BEDROCK()->getFullId();
-		$stillWater = VanillaBlocks::WATER()->getFullId();
-		$stone = VanillaBlocks::STONE()->getFullId();
+		$bedrock = VanillaBlocks::BEDROCK()->getStateId();
+		$stillWater = VanillaBlocks::WATER()->getStateId();
+		$stone = VanillaBlocks::STONE()->getStateId();
 
 		$baseX = $chunkX * 16;
 		$baseZ = $chunkZ * 16;

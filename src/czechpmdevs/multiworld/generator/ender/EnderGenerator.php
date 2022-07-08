@@ -59,7 +59,7 @@ class EnderGenerator extends Generator {
 		$chunk = $world->getChunk($chunkX, $chunkZ);
 		$noise = $this->noiseBase->getFastNoise2D(16, 16, 2, $chunkX * 16, 0, $chunkZ * 16);
 
-		$endStone = VanillaBlocks::END_STONE()->getFullId();
+		$endStone = VanillaBlocks::END_STONE()->getStateId();
 
 		$baseX = $chunkX * Chunk::EDGE_LENGTH;
 		$baseZ = $chunkZ * Chunk::EDGE_LENGTH;
