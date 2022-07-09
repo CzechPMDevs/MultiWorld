@@ -137,7 +137,7 @@
             },
             "require": {
                 "php": "^7.4 || ^8.0",
-                "pocketmine/pocketmine-mp": "^4.0.0"
+                "pocketmine/pocketmine-mp": "^5.0.0"
             },
             "require-dev": {
                 "phpstan/phpstan": "1.2.0"
@@ -772,16 +772,16 @@
         },
         {
             "name": "pocketmine/pocketmine-mp",
-            "version": "4.4.0-BETA1",
+            "version": "5.0.0-ALPHA1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pmmp/PocketMine-MP.git",
-                "reference": "8a2ba584abb5abad46bce0b4681f90195cbc2c6c"
+                "reference": "30079f6fd0d5903315e12cbcff7abfe31c486536"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pmmp/PocketMine-MP/zipball/8a2ba584abb5abad46bce0b4681f90195cbc2c6c",
-                "reference": "8a2ba584abb5abad46bce0b4681f90195cbc2c6c",
+                "url": "https://api.github.com/repos/pmmp/PocketMine-MP/zipball/30079f6fd0d5903315e12cbcff7abfe31c486536",
+                "reference": "30079f6fd0d5903315e12cbcff7abfe31c486536",
                 "shasum": ""
             },
             "require": {
@@ -855,7 +855,7 @@
             "homepage": "https://pmmp.io",
             "support": {
                 "issues": "https://github.com/pmmp/PocketMine-MP/issues",
-                "source": "https://github.com/pmmp/PocketMine-MP/tree/4.4.0-BETA1"
+                "source": "https://github.com/pmmp/PocketMine-MP/tree/5.0.0-ALPHA1"
             },
             "funding": [
                 {

@@ -58,7 +58,7 @@ abstract class Populator implements \pocketmine\world\generator\populator\Popula
 			return false;
 		}
 
-		$requiredUnderground = array_map(fn(Block $block) => $block->getFullId(), $requiredUnderground);
+		$requiredUnderground = array_map(fn(Block $block) => $block->getStateId(), $requiredUnderground);
 
 		$i = 0;
 		do {

@@ -68,12 +68,12 @@ abstract class Carve {
 			return;
 		}
 
-		$air = VanillaBlocks::AIR()->getFullId();
-		$lava = VanillaBlocks::LAVA()->getFullId();
-		$water = VanillaBlocks::WATER()->getFullId();
+		$air = VanillaBlocks::AIR()->getStateId();
+		$lava = VanillaBlocks::LAVA()->getStateId();
+		$water = VanillaBlocks::WATER()->getStateId();
 
-		$dirt = VanillaBlocks::DIRT()->getFullId();
-		$grass = VanillaBlocks::GRASS()->getFullId();
+		$dirt = VanillaBlocks::DIRT()->getStateId();
+		$grass = VanillaBlocks::GRASS()->getStateId();
 
 		for($x = $minX; $x < $maxX; ++$x) {
 			$modX = ($x + $realChunkX + 0.5 - $centerX) / $horizontalSize;
@@ -111,8 +111,8 @@ abstract class Carve {
 	}
 
 	private function collidesWithLiquids(Chunk $chunk, int $minX, int $maxX, int $minY, int $maxY, int $minZ, int $maxZ): bool {
-		$water = VanillaBlocks::WATER()->getFullId();
-		$lava = VanillaBlocks::LAVA()->getFullId();
+		$water = VanillaBlocks::WATER()->getStateId();
+		$lava = VanillaBlocks::LAVA()->getStateId();
 		for($x = $minX; $x < $maxX; ++$x) {
 			for($z = $minZ; $z < $maxZ; ++$z) {
 				for($y = $minY - 1; $y < $maxY + 1; ++$y) {

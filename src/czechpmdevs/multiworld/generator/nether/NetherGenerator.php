@@ -83,9 +83,9 @@ class NetherGenerator extends Generator {
 		/** @var Chunk $chunk */
 		$chunk = $world->getChunk($chunkX, $chunkZ);
 
-		$bedrock = VanillaBlocks::BEDROCK()->getFullId();
-		$netherrack = VanillaBlocks::NETHERRACK()->getFullId();
-		$stillLava = VanillaBlocks::LAVA()->getFullId();
+		$bedrock = VanillaBlocks::BEDROCK()->getStateId();
+		$netherrack = VanillaBlocks::NETHERRACK()->getStateId();
+		$stillLava = VanillaBlocks::LAVA()->getStateId();
 
 		for($x = 0; $x < 16; ++$x) {
 			for($z = 0; $z < 16; ++$z) {

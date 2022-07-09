@@ -24,7 +24,7 @@ namespace czechpmdevs\multiworld\generator\normal\populator\impl;
 
 use czechpmdevs\multiworld\generator\normal\BiomeFactory;
 use pocketmine\block\BlockFactory;
-use pocketmine\block\BlockLegacyIds;
+use pocketmine\block\BlockTypeIds;
 use pocketmine\block\Liquid;
 use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
@@ -56,7 +56,7 @@ class GroundCoverPopulator implements Populator {
 
 					$startY = 127;
 					for(; $startY > 0; --$startY) {
-						if(!$factory->fromFullBlock($chunk->getFullBlock($x, $startY, $z))->isTransparent()) {
+						if(!$factory->fromStateId($chunk->getFullBlock($x, $startY, $z))->isTransparent()) {
 							break;
 						}
 					}
@@ -64,15 +64,15 @@ class GroundCoverPopulator implements Populator {
 					$endY = $startY - count($cover);
 					for($y = $startY; $y > $endY and $y >= 0; --$y) {
 						$b = $cover[$startY - $y];
-						$id = $factory->fromFullBlock($chunk->getFullBlock($x, $y, $z));
-						if($id->getId() === BlockLegacyIds::AIR and $b->isSolid()) {
+						$id = $factory->fromStateId($chunk->getFullBlock($x, $y, $z));
+						if($id->getTypeId() === BlockTypeIds::AIR and $b->isSolid()) {
 							break;
 						}
 						if($b->canBeFlowedInto() and $id instanceof Liquid) {
 							continue;
 						}
 
-						$chunk->setFullBlock($x, $y, $z, $b->getFullId());
+						$chunk->setFullBlock($x, $y, $z, $b->getStateId());
 					}
 				}
 			}

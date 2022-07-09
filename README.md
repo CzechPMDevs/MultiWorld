@@ -36,10 +36,12 @@
 </p>
 
 
-## 👍 1.7.0 Update:
+> **ALPHA VERSION!**
+> This is an alpha version. This version can contain bugs. Please report them to help MultiWorld to get better for PM5.
 
-> - Bug fixes
-> - Update to PocketMine 4.x api
+## 👍 1.8.0-ALPHA1 Update:
+
+> - Update to PocketMine 5.x api
 
 
 ## ⬇️ Downloads:

@@ -31,7 +31,7 @@ use function abs;
 class HugeMushroom extends Tree {
 
 //    public function __construct() {
-//        $this->overridable[BlockLegacyIds::MYCELIUM] = true;
+//        $this->overridable[BlockTypeIds::MYCELIUM] = true;
 //    }
 
 	public function placeObject(ChunkManager $world, int $spawnX, int $spawnY, int $spawnZ, Random $random): void {
