@@ -22,7 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\generator\void;
 
-use pocketmine\block\BlockTypeIds;
+use pocketmine\block\VanillaBlocks;
 use pocketmine\world\ChunkManager;
 use pocketmine\world\format\Chunk;
 use pocketmine\world\generator\Generator;
@@ -38,7 +38,7 @@ class VoidGenerator extends Generator {
 		$chunk = $world->getChunk($chunkX, $chunkZ);
 
 		if($chunkX == 16 && $chunkZ == 16) {
-			$chunk->setFullBlock(0, 64, 0, BlockTypeIds::GRASS << 4);
+			$chunk->setFullBlock(0, 64, 0, VanillaBlocks::GRASS()->getStateId());
 		}
 	}
 
