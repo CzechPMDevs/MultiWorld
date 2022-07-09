@@ -37,7 +37,7 @@
 
 
 > **ALPHA VERSION!**
-> This is an alpha version. This version can contain bugs. Please report them to help MultiWorld to get better for PM5.
+> This is an alpha version! This version can contain bugs. Please report them to help MultiWorld to get better for PM5.
 
 ## 👍 1.8.0-ALPHA1 Update:
 
