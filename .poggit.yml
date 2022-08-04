@@ -6,13 +6,13 @@ projects:
     path: ''
     icon: icon.png
     libs:
+      Commando:
+        src: CortexPE/Commando/Commando
+        version: ^3.0.0
       libpmform:
         src: CzechPMDevs/libpmform/libpmform
         version: ^1.1.0
       VanillaGenerator:
         src: CzechPMDevs/VanillaGenerator/VanillaGenerator
         version: ^0.0.5
-      Commando:
-        src: CortexPE/Commando
-        version: ^3.0.0
 ...
