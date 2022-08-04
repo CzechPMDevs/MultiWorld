@@ -13,6 +13,6 @@ projects:
         src: CzechPMDevs/VanillaGenerator/VanillaGenerator
         version: ^0.0.5
       Commando:
-        src: CortexPE/Commando/Commando
+        src: CortexPE/Commando
         version: ^3.0.0
 ...
