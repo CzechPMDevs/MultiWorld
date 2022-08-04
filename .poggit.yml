@@ -7,8 +7,8 @@ projects:
     icon: icon.png
     libs:
       Commando:
-        src: Paroxity/Commando/Commando
-        version: 3.0.0
+        src: KenCir/Commando/Commando
+        version: 3.1.0
       libpmform:
         src: CzechPMDevs/libpmform/libpmform
         version: ^1.1.0
