@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
+use CortexPE\Commando\BaseSubCommand;
 use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
@@ -31,9 +32,15 @@ use function array_values;
 use function count;
 use function implode;
 
-class ListSubCommand implements SubCommand {
+class ListSubCommand extends BaseSubCommand {
+	protected function prepare(): void {
+		$this->setPermission("multiworld.command.list");
+	}
 
-	public function execute(CommandSender $sender, array $args, string $name): void {
+	/**
+	 * @param array<string, mixed> $args
+	 */
+	public function onRun(CommandSender $sender, string $aliasUsed, array $args): void {
 		$worlds = array_values(array_map(static function(string $file): string {
 			if(Server::getInstance()->getWorldManager()->isWorldLoaded($file)) {
 				return "§7$file > §aLoaded§7, " . count(WorldUtils::getWorldByNameNonNull($file)->getPlayers()) . " Players";

@@ -22,46 +22,53 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
+use CortexPE\Commando\args\IntegerArgument;
+use CortexPE\Commando\args\RawStringArgument;
+use CortexPE\Commando\BaseSubCommand;
 use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
 use pocketmine\world\WorldCreationOptions;
-use function is_numeric;
 use function mt_rand;
 
-class CreateSubCommand implements SubCommand {
+class CreateSubCommand extends BaseSubCommand {
+	protected function prepare(): void {
+		$this->registerArgument(0, new RawStringArgument("name"));
+		$this->registerArgument(1, new IntegerArgument("seed", true));
+		$this->registerArgument(2, new RawStringArgument("generator", true));
 
-	public function execute(CommandSender $sender, array $args, string $name): void {
-		if(!isset($args[0])) {
-			$sender->sendMessage(LanguageManager::translateMessage($sender, "create-usage"));
+		$this->setPermission("multiworld.command.create");
+	}
+
+	/**
+	 * @param array<string, mixed> $args
+	 */
+	public function onRun(CommandSender $sender, string $aliasUsed, array $args): void {
+		/** @var string $name */
+		$name = $args["name"];
+		/** @var int $seed */
+		$seed = $args["seed"] ?? mt_rand();
+		/** @var string $generatorName */
+		$generatorName = $args["generator"] ?? "normal";
+
+		if(Server::getInstance()->getWorldManager()->isWorldGenerated($name)) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "create-exists", [$name]));
 			return;
 		}
 
-		if(MultiWorld::getInstance()->getServer()->getWorldManager()->isWorldGenerated($args[0])) {
-			$sender->sendMessage(LanguageManager::translateMessage($sender, "create-exists", [$args[0]]));
-			return;
-		}
-
-		$seed = mt_rand();
-		if(isset($args[1]) && is_numeric($args[1])) {
-			$seed = (int)$args[1];
-		}
-
-		$generator = WorldUtils::getGeneratorByName($generatorName = $args[2] ?? "normal");
+		$generator = WorldUtils::getGeneratorByName($generatorName);
 		if($generator === null) {
-			$sender->sendMessage(LanguageManager::translateMessage($sender, "create-gennotexists", [$generatorName]));
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "create-gennotexists", [$generatorName]));
 			return;
 		}
 
-		Server::getInstance()->getWorldManager()->generateWorld(
-			name: $args[0],
-			options: WorldCreationOptions::create()
-				->setSeed($seed)
-				->setGeneratorClass($generator->getGeneratorClass())
+		Server::getInstance()->getWorldManager()->generateWorld($name, WorldCreationOptions::create()
+			->setSeed($seed)
+			->setGeneratorClass($generator->getGeneratorClass())
 		);
 
-		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "create-done", [$args[0], (string)$seed, $generatorName]));
+		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "create-done", [$name, (string)$seed, $generatorName]));
 	}
 }

@@ -1,7 +1,6 @@
 ---
 branches:
-  - main
-  - api/pm3
+  - 2.0.0
 projects:
   MultiWorld:
     path: ''
@@ -10,4 +9,7 @@ projects:
       libpmform:
         src: CzechPMDevs/libpmform/libpmform
         version: ^1.1.0
+      VanillaGenerator:
+        src: CzechPMDevs/VanillaGenerator/VanillaGenerator
+        version: ^0.0.5
 ...

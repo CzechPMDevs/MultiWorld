@@ -8,22 +8,39 @@
     "ext-yaml": "*",
     "ext-pthreads": "*",
     "ext-json": "*",
-    "czechpmdevs/libpmform": "dev-main",
-    "pocketmine/pocketmine-mp": "^4.4.0-BETA1"
+    "czechpmdevs/libpmform": "*",
+    "muqsit/vanillagenerator": "*",
+    "muqsit/simplepackethandler": "*",
+    "cortexpe/commando": "*",
+    "pocketmine/pocketmine-mp": "^4.6.1"
   },
   "require-dev": {
-    "phpstan/phpstan": "1.7.1"
+    "phpstan/phpstan": "^1.8.2"
   },
   "repositories": [
     {
       "type": "vcs",
-      "name": "czechpmdevs/libpmform",
       "url": "https://github.com/CzechPMDevs/libpmform"
     },
     {
+      "type": "path",
+      "url": "../VanillaGenerator"
+    },
+    {
       "type": "vcs",
-      "name": "phpstan/phpstan",
-      "url": "https://github.com/phpstan/phpstan"
+      "url": "https://github.com/CortexPE/Commando/"
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "muqsit/simplepackethandler",
+        "version": "0.1.0",
+        "source": {
+          "url": "https://github.com/Muqsit/SimplePacketHandler",
+          "type": "git",
+          "reference": "master"
+        }
+      }
     }
   ],
   "autoload": {

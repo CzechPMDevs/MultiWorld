@@ -22,38 +22,46 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
+use CortexPE\Commando\args\RawStringArgument;
+use CortexPE\Commando\BaseSubCommand;
 use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
 
-class RenameSubCommand implements SubCommand {
+class RenameSubCommand extends BaseSubCommand {
+	protected function prepare(): void {
+		$this->registerArgument(0, new RawStringArgument("worldName"));
+		$this->registerArgument(1, new RawStringArgument("newName"));
 
-	public function execute(CommandSender $sender, array $args, string $name): void {
-		if(!isset($args[0]) || !isset($args[1])) {
-			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "rename-usage"));
+		$this->setPermission("multiworld.command.rename");
+	}
+	/**
+	 * @param array<string, mixed> $args
+	 */
+	public function onRun(CommandSender $sender, string $aliasUsed, array $args): void {
+		/** @var string $worldName */
+		$worldName = $args["worldName"];
+		/** @var string $newName */
+		$newName = $args["newName"];
+
+		if(Server::getInstance()->getWorldManager()->isWorldGenerated($newName)) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "rename-exists", [$newName]));
 			return;
 		}
 
-		if(Server::getInstance()->getWorldManager()->isWorldGenerated($args[1])) {
-			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "rename-exists", [$args[1]]));
+		if(!Server::getInstance()->getWorldManager()->isWorldGenerated($worldName)) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "rename-levelnotfound", [$worldName]));
 			return;
 		}
 
-		if(!Server::getInstance()->getWorldManager()->isWorldGenerated($args[0])) {
-			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "rename-levelnotfound", [$args[0]]));
-			return;
-		}
-
-		if(WorldUtils::getDefaultWorldNonNull()->getFolderName() == $args[0]) {
+		if(WorldUtils::getDefaultWorldNonNull()->getFolderName() === $worldName) {
 			$sender->sendMessage("§cCould not rename default world!");
 			return;
 		}
 
-		WorldUtils::lazyUnloadWorld($args[0], true);
-
-		WorldUtils::renameWorld($args[0], $args[1]);
-		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "rename-done", [$args[0], $args[1]]));
+		WorldUtils::renameWorld($worldName, $newName);
+		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "rename-done", [$worldName, $newName]));
 	}
 }

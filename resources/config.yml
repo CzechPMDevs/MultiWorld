@@ -2,7 +2,7 @@
 ## Main configuration file for MultiWorld
 
 # Do not change this!
-config-version: '1.7.0.1'
+config-version: '2.0.0.0'
 
 # Field with prefix
 prefix: '§7[MultiWorld]'
@@ -15,7 +15,4 @@ language: 'en_US'
 # Enabling this option will cause server to use forcefully language specified in
 # 'language' field.
 force-default-language: false
-
-# Enables handling dimensions when teleporting between worlds
-handle-dimensions: false
 ...

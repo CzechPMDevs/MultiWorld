@@ -22,30 +22,38 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
+use CortexPE\Commando\args\RawStringArgument;
+use CortexPE\Commando\BaseSubCommand;
 use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
 
-class LoadSubCommand implements SubCommand {
+class LoadSubCommand extends BaseSubCommand {
+	protected function prepare(): void {
+		$this->registerArgument(0, new RawStringArgument("worldName"));
 
-	public function execute(CommandSender $sender, array $args, string $name): void {
-		if(!isset($args[0])) {
-			$sender->sendMessage(LanguageManager::translateMessage($sender, "load-usage"));
+		$this->setPermission("multiworld.command.load");
+	}
+
+	/**
+	 * @param array<string, mixed> $args
+	 */
+	public function onRun(CommandSender $sender, string $aliasUsed, array $args): void {
+		/** @var string $worldName */
+		$worldName = $args["worldName"];
+
+		if(!Server::getInstance()->getWorldManager()->isWorldGenerated($worldName)) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "load-levelnotexists", [$worldName]));
 			return;
 		}
 
-		if(!Server::getInstance()->getWorldManager()->isWorldGenerated($args[0])) {
-			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "load-levelnotexists", [$args[0]]));
-			return;
-		}
-
-		if(Server::getInstance()->getWorldManager()->isWorldLoaded($args[0])) {
+		if(Server::getInstance()->getWorldManager()->isWorldLoaded($worldName)) {
 			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "load-loaded"));
 			return;
 		}
 
-		Server::getInstance()->getWorldManager()->loadWorld($args[0], true);
+		Server::getInstance()->getWorldManager()->loadWorld($worldName, true);
 		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "load-done"));
 	}
 }

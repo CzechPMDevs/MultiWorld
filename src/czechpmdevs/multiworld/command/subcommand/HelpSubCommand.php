@@ -22,29 +22,31 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
+use CortexPE\Commando\args\IntegerArgument;
+use CortexPE\Commando\BaseSubCommand;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
-use function is_numeric;
 
-class HelpSubCommand implements SubCommand {
+class HelpSubCommand extends BaseSubCommand {
+	protected function prepare(): void {
+		$this->registerArgument(0, new IntegerArgument("page", true));
 
-	public function execute(CommandSender $sender, array $args, string $name): void {
-		if(!isset($args[0])) {
-			$sender->sendMessage($this->getHelpMessage($sender, 1));
-			return;
-		}
+		$this->setPermission("multiworld.command.help");
+	}
 
-		if(!is_numeric($args[0])) {
-			$sender->sendMessage($this->getHelpMessage($sender, 1));
-			return;
-		}
+	/**
+	 * @param array<string, mixed> $args
+	 */
+	public function onRun(CommandSender $sender, string $aliasUsed, array $args): void {
+		/** @var int $page */
+		$page = $args["page"] ?? 1;
 
-		$sender->sendMessage($this->getHelpMessage($sender, (int)$args[0]));
+		$sender->sendMessage($this->getHelpMessage($sender, $page));
 	}
 
 	public function getHelpMessage(CommandSender $sender, int $page): string {
 		if($page < 1 || $page > 3) {
-			return $this->getHelpMessage($sender, 1);
+			$page = 1;
 		}
 
 		$message = LanguageManager::translateMessage($sender, "help", [(string)$page, "3"]);
@@ -53,4 +55,6 @@ class HelpSubCommand implements SubCommand {
 		}
 		return $message;
 	}
+
+
 }

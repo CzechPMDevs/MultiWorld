@@ -23,7 +23,6 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\util;
 
 use czechpmdevs\multiworld\MultiWorld;
-use pocketmine\network\mcpe\protocol\ProtocolInfo;
 use function is_dir;
 use function is_file;
 use function is_string;
@@ -33,25 +32,13 @@ use function unlink;
 use function version_compare;
 
 class ConfigManager {
-
-	public const CONFIG_VERSION = "1.7.0.1";
+	public const CONFIG_VERSION = "2.0.0.0";
 
 	public static string $prefix;
 
 	public function __construct() {
 		// Saves required resources, checks for resource updates
 		$this->initConfig($this->checkConfigUpdates());
-
-		// HACK!
-		// This has to be turned off due to PM hasn't implemented dimensions yet.
-		// Having this turned on causes client to expect minimum Y in all the dimensions expect OVERWORLD
-		// at 0. However, PocketMine handles all the dimensions the same way (as OVERWORLD) and adds empty
-		// subchunks to the world under Y=0. However, this is really needed only in OVERWORLD dimension and
-		// causes unexpected behaviour in other dimensions
-		if(ProtocolInfo::CURRENT_PROTOCOL >= 475 && MultiWorld::getInstance()->getConfig()->get("handle-dimensions", true)) { // @phpstan-ignore-line
-			MultiWorld::getInstance()->getConfig()->set("handle-dimensions", false);
-			MultiWorld::getInstance()->getLogger()->error("Unable to enable dimensions handling (https://github.com/CzechPMDevs/MultiWorld/issues/237)");
-		}
 
 		// Loads prefix
 		ConfigManager::$prefix = MultiWorld::getInstance()->getConfig()->get("prefix") . " §a";

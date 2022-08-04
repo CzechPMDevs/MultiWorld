@@ -22,32 +22,31 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
+use CortexPE\Commando\BaseSubCommand;
 use czechpmdevs\libpmform\response\FormResponse;
 use czechpmdevs\libpmform\type\CustomForm;
 use czechpmdevs\libpmform\type\SimpleForm;
-use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\WorldUtils;
-use czechpmdevs\multiworld\world\gamerules\type\BoolGameRule;
-use czechpmdevs\multiworld\world\gamerules\type\IntGameRule;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
 use pocketmine\Server;
 use function array_filter;
-use function array_key_exists;
-use function array_keys;
 use function array_map;
-use function array_shift;
 use function array_values;
 use function is_array;
-use function is_bool;
 use function is_numeric;
 use function time;
 use function trim;
 
-class ManageSubCommand implements SubCommand {
-
-	public function execute(CommandSender $sender, array $args, string $name): void {
+class ManageSubCommand extends BaseSubCommand {
+	protected function prepare(): void {
+		$this->setPermission("multiworld.command.manage");
+	}
+	/**
+	 * @param array<string, mixed> $args
+	 */
+	public function onRun(CommandSender $sender, string $aliasUsed, array $args): void {
 		if(!$sender instanceof Player) {
 			$sender->sendMessage("§cThis command can be used only in-game!");
 			return;
@@ -56,7 +55,6 @@ class ManageSubCommand implements SubCommand {
 		$form = new SimpleForm("World Manager", "Select action", true);
 		$form->addButton("Create a new world");
 		$form->addButton("Delete world");
-		$form->addButton("Update world game rules");
 		$form->addButton("Show world info");
 		$form->addButton("Load world");
 		$form->addButton("Unload world");
@@ -107,46 +105,6 @@ class ManageSubCommand implements SubCommand {
 					break;
 
 				case 2:
-					$customForm->addLabel("Update world GameRules");
-					$rules = MultiWorld::getGameRules($player->getWorld())->getRules();
-					foreach($rules as $rule => $value) {
-						if($value instanceof BoolGameRule) {
-							$customForm->addToggle($rule, $value->getValue());
-						} else {
-							/** @var IntGameRule $value */
-							$customForm->addInput($rule, (string)$value->getValue());
-						}
-					}
-
-					$customForm->setCallback(static function(Player $player, FormResponse $response) use ($rules): void {
-						$data = $response->getData();
-						if(!is_array($data)) {
-							$player->sendMessage(LanguageManager::translateMessage($player, "forms-invalid"));
-							return;
-						}
-
-						array_shift($data); // There's only label at index 0, we need to have first rule here.
-
-						$gameRules = array_keys($rules);
-						foreach($data as $index => $value) {
-							if(!array_key_exists($index, $gameRules)) {
-								continue;
-							}
-
-							$newValue = is_bool($value) ? $value : (int)$value;
-							if($rules[$gameRules[$index]]->getValue() == $newValue) {
-								continue;
-							}
-
-							$value = is_bool($value) ? ($value ? "true" : "false") : $value;
-							Server::getInstance()->dispatchCommand($player, "gamerule $gameRules[$index] $value");
-						}
-					});
-
-					$player->sendForm($customForm);
-					break;
-
-				case 3:
 					$customForm->addLabel("Get information about the world");
 					$customForm->addDropdown("Worlds", $worlds = WorldUtils::getAllWorlds());
 
@@ -163,7 +121,7 @@ class ManageSubCommand implements SubCommand {
 					$player->sendForm($customForm);
 					break;
 
-				case 4:
+				case 3:
 					$customForm->addLabel("Load world");
 					$customForm->addDropdown("World to load", $worlds = array_values(array_filter(WorldUtils::getAllWorlds(), fn(string $worldName) => !Server::getInstance()->getWorldManager()->isWorldLoaded($worldName))));
 
@@ -185,7 +143,7 @@ class ManageSubCommand implements SubCommand {
 					$player->sendForm($customForm);
 					break;
 
-				case 5:
+				case 4:
 					$customForm->addLabel("Unload world");
 					$customForm->addDropdown("World to unload", $worlds = array_values(array_filter(WorldUtils::getAllWorlds(), fn(string $worldName) => Server::getInstance()->getWorldManager()->isWorldLoaded($worldName))));
 
@@ -207,7 +165,7 @@ class ManageSubCommand implements SubCommand {
 					$player->sendForm($customForm);
 					break;
 
-				case 6:
+				case 5:
 					$customForm->addLabel("Teleport to world");
 					$customForm->addDropdown("World", $worlds = WorldUtils::getAllWorlds());
 
@@ -229,7 +187,7 @@ class ManageSubCommand implements SubCommand {
 					$player->sendForm($customForm);
 					break;
 
-				case 7:
+				case 6:
 					$customForm->addLabel("Teleport player to world");
 					$customForm->addDropdown("Player", $players = array_values(array_map(fn(Player $player) => $player->getName(), Server::getInstance()->getOnlinePlayers())));
 					$customForm->addDropdown("World", $worlds = WorldUtils::getAllWorlds());

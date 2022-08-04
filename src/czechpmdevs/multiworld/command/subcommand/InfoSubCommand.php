@@ -22,34 +22,50 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
+use CortexPE\Commando\args\RawStringArgument;
+use CortexPE\Commando\BaseSubCommand;
 use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
 use pocketmine\Server;
+use pocketmine\utils\AssumptionFailedError;
 use pocketmine\world\World;
 use function count;
 
-class InfoSubCommand implements SubCommand {
+class InfoSubCommand extends BaseSubCommand {
+	protected function prepare(): void {
+		$this->registerArgument(0, new RawStringArgument("worldName", true));
 
-	public function execute(CommandSender $sender, array $args, string $name): void {
-		if(!$sender instanceof Player) {
-			$sender->sendMessage("§cThis command can be used only in-game!");
+		$this->setPermission("multiworld.command.info");
+	}
+
+	/**
+	 * @param array<string, mixed> $args
+	 */
+	public function onRun(CommandSender $sender, string $aliasUsed, array $args): void {
+		/** @var string|null $worldName */
+		$worldName = $args["worldName"] ?? null;
+
+		if($worldName === null && !($sender instanceof Player)) {
+			$sender->sendMessage("§cUsage: §7/mw info <worldName>"); // This cannot be translated, because the sender is always console
 			return;
 		}
 
-		if(isset($args[0])) {
-			if(!Server::getInstance()->getWorldManager()->isWorldGenerated($args[0])) {
-				$sender->sendMessage(LanguageManager::translateMessage($sender, "info.levelnotexists", [$args[0]]));
+		$world = null;
+		if($worldName !== null) {
+			if(!Server::getInstance()->getWorldManager()->isWorldGenerated($worldName)) {
+				$sender->sendMessage(LanguageManager::translateMessage($sender, "info.levelnotexists", [$worldName]));
 				return;
 			}
 
-			WorldUtils::lazyLoadWorld($args[0]);
-
-			$sender->sendMessage($this->getInfoMessage($sender, WorldUtils::getWorldByNameNonNull($args[0])));
-			return;
+			WorldUtils::lazyLoadWorld($worldName);
+			$sender->sendMessage($this->getInfoMessage($sender, WorldUtils::getWorldByNameNonNull($worldName)));
+		} elseif($sender instanceof Player) {
+			$sender->sendMessage($this->getInfoMessage($sender, $sender->getWorld()));
+		} else {
+			throw new AssumptionFailedError("Sender is not a player");
 		}
-		$sender->sendMessage($this->getInfoMessage($sender, $sender->getWorld()));
 	}
 
 	private function getInfoMessage(CommandSender $sender, World $world): string {

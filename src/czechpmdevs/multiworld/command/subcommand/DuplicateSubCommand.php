@@ -22,32 +22,41 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
+use CortexPE\Commando\args\RawStringArgument;
+use CortexPE\Commando\BaseSubCommand;
 use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
 
-class DuplicateSubCommand implements SubCommand {
+class DuplicateSubCommand extends BaseSubCommand {
+	protected function prepare(): void {
+		$this->registerArgument(0, new RawStringArgument("worldName"));
+		$this->registerArgument(1, new RawStringArgument("duplicatedWorldName", true));
 
-	public function execute(CommandSender $sender, array $args, string $name): void {
-		if(!isset($args[0])) {
-			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "duplicate-usage"));
+		$this->setPermission("multiworld.command.duplicate");
+	}
+
+	/**
+	 * @param array<string, mixed> $args
+	 */
+	public function onRun(CommandSender $sender, string $aliasUsed, array $args): void {
+		/** @var string $worldName */
+		$worldName = $args["worldName"];
+		/** @var string $duplicatedWorldName */
+		$duplicatedWorldName = $args["duplicatedWorldName"] ?? $worldName . "_copy";
+		if(Server::getInstance()->getWorldManager()->isWorldGenerated($duplicatedWorldName)) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "duplicate-exists", [$duplicatedWorldName]));
 			return;
 		}
 
-		$newName = $args[1] ?? ($args[0] . "_copy");
-		if(Server::getInstance()->getWorldManager()->isWorldGenerated($newName)) {
-			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "duplicate-exists", [$args[1]]));
+		if(!Server::getInstance()->getWorldManager()->isWorldGenerated($worldName)) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "duplicate-levelnotfound", [$worldName]));
 			return;
 		}
 
-		if(!Server::getInstance()->getWorldManager()->isWorldGenerated($args[0])) {
-			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "duplicate-levelnotfound", [$args[0]]));
-			return;
-		}
-
-		WorldUtils::duplicateWorld($args[0], $newName);
-		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "duplicate-done", [$args[0], $newName]));
+		WorldUtils::duplicateWorld($worldName, $duplicatedWorldName);
+		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "duplicate-done", [$worldName, $duplicatedWorldName]));
 	}
 }

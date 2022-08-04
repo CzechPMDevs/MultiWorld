@@ -82,8 +82,8 @@ class WorldUtils {
 	}
 
 	/**
-	 * WARNING: This method should be used only in the case, when we
-	 * know, that the world is generated and loaded.
+	 * WARNING: This method should be used only in the case, when it is assured,
+	 * that the world is generated and loaded.
 	 */
 	public static function getWorldByNameNonNull(string $name): World {
 		$world = Server::getInstance()->getWorldManager()->getWorldByName($name);
@@ -104,7 +104,7 @@ class WorldUtils {
 	}
 
 	public static function renameWorld(string $oldName, string $newName): void {
-		WorldUtils::lazyUnloadWorld($oldName);
+		WorldUtils::lazyUnloadWorld($oldName, true);
 
 		$from = Server::getInstance()->getDataPath() . "/worlds/" . $oldName;
 		$to = Server::getInstance()->getDataPath() . "/worlds/" . $newName;
@@ -130,7 +130,7 @@ class WorldUtils {
 
 	public static function duplicateWorld(string $worldName, string $duplicateName): void {
 		if(Server::getInstance()->getWorldManager()->isWorldLoaded($worldName)) {
-			WorldUtils::getWorldByNameNonNull($worldName)->save(false);
+			WorldUtils::getWorldByNameNonNull($worldName)->save();
 		}
 
 		mkdir(Server::getInstance()->getDataPath() . "/worlds/$duplicateName");
@@ -186,7 +186,7 @@ class WorldUtils {
 
 		return array_values(array_filter($files, function(string $fileName): bool {
 			return Server::getInstance()->getWorldManager()->isWorldGenerated($fileName) &&
-				$fileName != "." && $fileName != ".."; // Server->isWorldGenerated detects '.' and '..' as world, TODO - make pull request
+				$fileName !== "." && $fileName !== ".."; // Server->isWorldGenerated detects '.' and '..' as world, TODO - make pull request
 		}));
 	}
 
@@ -203,15 +203,19 @@ class WorldUtils {
 	 * @phpstan-return GeneratorManagerEntry|null
 	 */
 	public static function getGeneratorByName(string $name): ?GeneratorManagerEntry {
-		$name = match (strtolower($name)) {
-			"classic", "basic" => "normal",
-			"custom" => "normal_mw",
-			"superflat" => "flat",
-			"nether", "hell" => "nether_mw",
-			"nether_old" => "nether",
+		$name = match(strtolower($name)) {
+			// 'Vanilla' generators...
+			"normal", "classic", "basic", "vanilla" => "vanilla_normal",
+			"nether", "hell" => "vanilla_nether",
 			"ender", "end" => "ender",
-			"sb" => "skyblock",
-			"empty", "emptyworld" => "void",
+			"superflat", "flat" => "flat",
+			// PocketMine generators
+			"nether_old" => "nether",
+			"normal_old" => "normal",
+			// Custom generators
+			"skyblock","sb" => "skyblock",
+			"void", "empty", "emptyworld" => "void",
+			// Other generators
 			default => strtolower($name)
 		};
 

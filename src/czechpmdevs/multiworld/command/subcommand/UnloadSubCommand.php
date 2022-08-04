@@ -22,31 +22,39 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\command\subcommand;
 
+use CortexPE\Commando\args\RawStringArgument;
+use CortexPE\Commando\BaseSubCommand;
 use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
 
-class UnloadSubCommand implements SubCommand {
+class UnloadSubCommand extends BaseSubCommand {
+	protected function prepare(): void {
+		$this->registerArgument(0, new RawStringArgument("world"));
 
-	public function execute(CommandSender $sender, array $args, string $name): void {
-		if(!isset($args[0])) {
-			$sender->sendMessage(LanguageManager::translateMessage($sender, "unload-usage"));
+		$this->setPermission("multiworld.command.unload");
+	}
+
+	/**
+	 * @param array<string, mixed> $args
+	 */
+	public function onRun(CommandSender $sender, string $aliasUsed, array $args): void {
+		/** @var string $worldName */
+		$worldName = $args["world"];
+		
+		if(!Server::getInstance()->getWorldManager()->isWorldGenerated($worldName)) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "unload-levelnotexists", [$worldName]));
 			return;
 		}
 
-		if(!Server::getInstance()->getWorldManager()->isWorldGenerated($args[0])) {
-			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "unload-levelnotexists", [$args[0]]));
-			return;
-		}
-
-		if(!Server::getInstance()->getWorldManager()->isWorldLoaded($args[0])) {
+		if(!Server::getInstance()->getWorldManager()->isWorldLoaded($worldName)) {
 			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "unload-unloaded"));
 			return;
 		}
 
-		$world = WorldUtils::getWorldByNameNonNull($args[0]);
+		$world = WorldUtils::getWorldByNameNonNull($worldName);
 		if($world->getId() === Server::getInstance()->getWorldManager()->getDefaultWorld()?->getId()) {
 			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "unload-default"));
 			return;
