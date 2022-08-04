@@ -7,7 +7,7 @@ projects:
     icon: icon.png
     libs:
       Commando:
-        src: CortexPE/Commando/Commando
+        src: Paroxity/Commando/Commando
         version: 3.0.0
       libpmform:
         src: CzechPMDevs/libpmform/libpmform
