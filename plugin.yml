@@ -2,7 +2,7 @@ name: MultiWorld
 author: CzechPMDevs
 authors: [VixikCZ, fuyutsuki, kaliiks]
 api: 4.0.0
-version: 2.0.0-dev
+version: 2.0.0-beta1
 main: czechpmdevs\multiworld\MultiWorld
 description: Plugin that manage with worlds
 website: https://github.com/CzechPMDevs/MultiWorld
@@ -11,19 +11,19 @@ extensions:
 
 permissions:
   multiworld.command:
-    description: Permssion nested for /multiworld
+    description: Permission nested for /multiworld
     default: op
   multiworld.command.create:
     description: Permission for /multiworld create
+    default: op
+  multiworld.command.debug:
+    description: Permission for /multiworld debug
     default: op
   multiworld.command.delete:
     description: Permission for /multiworld delete
     default: op
   multiworld.command.duplicate:
     description: Permission for /multiworld duplicate
-    default: op
-  multiworld.command.gamerule:
-    description: Permission for /multiworld gamerule
     default: op
   multiworld.command.help:
     description: Permission for /multiworld help
@@ -48,7 +48,4 @@ permissions:
     default: op
   multiworld.command.unload:
     description: Permission for /multiworld unload
-    default: op
-  multiworld.command.update:
-    description: Permission for /multiworld update
     default: op

@@ -24,6 +24,7 @@ namespace czechpmdevs\multiworld\command;
 
 use CortexPE\Commando\BaseCommand;
 use czechpmdevs\multiworld\command\subcommand\CreateSubCommand;
+use czechpmdevs\multiworld\command\subcommand\DebugSubCommand;
 use czechpmdevs\multiworld\command\subcommand\DeleteSubCommand;
 use czechpmdevs\multiworld\command\subcommand\DuplicateSubCommand;
 use czechpmdevs\multiworld\command\subcommand\HelpSubCommand;
@@ -40,6 +41,7 @@ use pocketmine\command\CommandSender;
 class MultiWorldCommand extends BaseCommand {
 	protected function prepare(): void {
 		$this->registerSubCommand(new CreateSubCommand("create", "Generate a new world", ["new", "c"]));
+		$this->registerSubCommand(new DebugSubCommand("debug", "Displays debug information"));
 		$this->registerSubCommand(new DeleteSubCommand("delete", "Remove world", ["remove", "rm", "del"]));
 		$this->registerSubCommand(new DuplicateSubCommand("duplicate", "Duplicate a world", ["dp"]));
 		$this->registerSubCommand(new HelpSubCommand("help", "Display all the MultiWorld commands", ["?"]));

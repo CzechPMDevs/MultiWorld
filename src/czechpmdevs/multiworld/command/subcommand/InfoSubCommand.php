@@ -52,7 +52,6 @@ class InfoSubCommand extends BaseSubCommand {
 			return;
 		}
 
-		$world = null;
 		if($worldName !== null) {
 			if(!Server::getInstance()->getWorldManager()->isWorldGenerated($worldName)) {
 				$sender->sendMessage(LanguageManager::translateMessage($sender, "info.levelnotexists", [$worldName]));
