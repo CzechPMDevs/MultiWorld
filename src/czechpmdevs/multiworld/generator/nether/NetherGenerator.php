@@ -35,6 +35,7 @@ use pocketmine\world\generator\noise\Simplex;
 use pocketmine\world\generator\object\OreType;
 use pocketmine\world\generator\populator\Ore;
 use pocketmine\world\generator\populator\Populator;
+use pocketmine\world\World;
 use function abs;
 
 class NetherGenerator extends Generator {
@@ -88,25 +89,27 @@ class NetherGenerator extends Generator {
 		$stillLava = VanillaBlocks::LAVA()->getStateId();
 
 		for($x = 0; $x < 16; ++$x) {
-			for($z = 0; $z < 16; ++$z) {
-				$chunk->setBiomeId($x, $z, BiomeIds::NETHER);
+            for ($z = 0; $z < 16; ++$z) {
+                for ($y = World::Y_MIN; $y < World::Y_MAX; $y++) {
+                    $chunk->setBiomeId($x, $y, $z, BiomeIds::NETHER);
 
-				for($y = 0; $y < 128; ++$y) {
-					if($y === 0 or $y === 127) {
-						$chunk->setFullBlock($x, $y, $z, $bedrock);
-						continue;
-					}
-					$noiseValue = (abs($this->emptyHeight - $y) / $this->emptyHeight) * $this->emptyAmplitude - $noise[$x][$z][$y];
-					$noiseValue -= 1 - $this->density;
+                    for ($y = 0; $y < 128; ++$y) {
+                        if ($y === 0 or $y === 127) {
+                            $chunk->setFullBlock($x, $y, $z, $bedrock);
+                            continue;
+                        }
+                        $noiseValue = (abs($this->emptyHeight - $y) / $this->emptyHeight) * $this->emptyAmplitude - $noise[$x][$z][$y];
+                        $noiseValue -= 1 - $this->density;
 
-					if($noiseValue > 0) {
-						$chunk->setFullBlock($x, $y, $z, $netherrack);
-					} elseif($y <= $this->lavaHeight) {
-						$chunk->setFullBlock($x, $y, $z, $stillLava);
-					}
-				}
-			}
-		}
+                        if ($noiseValue > 0) {
+                            $chunk->setFullBlock($x, $y, $z, $netherrack);
+                        } elseif ($y <= $this->lavaHeight) {
+                            $chunk->setFullBlock($x, $y, $z, $stillLava);
+                        }
+                    }
+                }
+            }
+        }
 
 		foreach($this->generationPopulators as $populator) {
 			$populator->populate($world, $chunkX, $chunkZ, $this->random);

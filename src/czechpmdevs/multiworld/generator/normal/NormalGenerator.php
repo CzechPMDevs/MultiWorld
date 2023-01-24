@@ -103,55 +103,57 @@ class NormalGenerator extends Generator {
 		for($x = 0; $x < 16; ++$x) {
 			$absoluteX = $baseX + $x;
 			for($z = 0; $z < 16; ++$z) {
-				$absoluteZ = $baseZ + $z;
-				$minSum = 0;
-				$maxSum = 0;
-				$weightSum = 0;
+                for($y = World::Y_MIN; $y < World::Y_MAX; $y++) {
+                    $absoluteZ = $baseZ + $z;
+                    $minSum = 0;
+                    $maxSum = 0;
+                    $weightSum = 0;
 
-				$biome = $this->pickBiome($absoluteX, $absoluteZ);
-				$chunk->setBiomeId($x, $z, $biome->getId());
+                    $biome = $this->pickBiome($absoluteX, $absoluteZ);
+                    $chunk->setBiomeId($x, $y, $z, $biome->getId());
 
-				for($sx = -$this->gaussian->smoothSize; $sx <= $this->gaussian->smoothSize; ++$sx) {
-					for($sz = -$this->gaussian->smoothSize; $sz <= $this->gaussian->smoothSize; ++$sz) {
+                    for ($sx = -$this->gaussian->smoothSize; $sx <= $this->gaussian->smoothSize; ++$sx) {
+                        for ($sz = -$this->gaussian->smoothSize; $sz <= $this->gaussian->smoothSize; ++$sz) {
 
-						$weight = $this->gaussian->kernel[$sx + $this->gaussian->smoothSize][$sz + $this->gaussian->smoothSize];
+                            $weight = $this->gaussian->kernel[$sx + $this->gaussian->smoothSize][$sz + $this->gaussian->smoothSize];
 
-						if($sx === 0 and $sz === 0) {
-							$adjacent = $biome;
-						} else {
-							$index = World::chunkHash($absoluteX + $sx, $absoluteZ + $sz);
-							if(isset($biomeCache[$index])) {
-								$adjacent = $biomeCache[$index];
-							} else {
-								$biomeCache[$index] = $adjacent = $this->pickBiome($absoluteX + $sx, $absoluteZ + $sz);
-							}
-						}
+                            if ($sx === 0 and $sz === 0) {
+                                $adjacent = $biome;
+                            } else {
+                                $index = World::chunkHash($absoluteX + $sx, $absoluteZ + $sz);
+                                if (isset($biomeCache[$index])) {
+                                    $adjacent = $biomeCache[$index];
+                                } else {
+                                    $biomeCache[$index] = $adjacent = $this->pickBiome($absoluteX + $sx, $absoluteZ + $sz);
+                                }
+                            }
 
-						$minSum += ($adjacent->getMinElevation() - 1) * $weight;
-						$maxSum += $adjacent->getMaxElevation() * $weight;
+                            $minSum += ($adjacent->getMinElevation() - 1) * $weight;
+                            $maxSum += $adjacent->getMaxElevation() * $weight;
 
-						$weightSum += $weight;
-					}
-				}
+                            $weightSum += $weight;
+                        }
+                    }
 
-				$minSum /= $weightSum;
-				$maxSum /= $weightSum;
+                    $minSum /= $weightSum;
+                    $maxSum /= $weightSum;
 
-				$smoothHeight = ($maxSum - $minSum) / 2;
+                    $smoothHeight = ($maxSum - $minSum) / 2;
 
-				for($y = 0; $y < 128; ++$y) {
-					if($y === 0) {
-						$chunk->setFullBlock($x, $y, $z, $bedrock);
-						continue;
-					}
-					$noiseValue = $noise[$x][$z][$y] - 1 / $smoothHeight * ($y - $smoothHeight - $minSum);
+                    for ($y = 0; $y < 128; ++$y) {
+                        if ($y === 0) {
+                            $chunk->setFullBlock($x, $y, $z, $bedrock);
+                            continue;
+                        }
+                        $noiseValue = $noise[$x][$z][$y] - 1 / $smoothHeight * ($y - $smoothHeight - $minSum);
 
-					if($noiseValue > 0) {
-						$chunk->setFullBlock($x, $y, $z, $stone);
-					} elseif($y <= 60) {
-						$chunk->setFullBlock($x, $y, $z, $stillWater);
-					}
-				}
+                        if ($noiseValue > 0) {
+                            $chunk->setFullBlock($x, $y, $z, $stone);
+                        } elseif ($y <= 60) {
+                            $chunk->setFullBlock($x, $y, $z, $stillWater);
+                        }
+                    }
+                }
 			}
 		}
 
@@ -185,7 +187,7 @@ class NormalGenerator extends Generator {
 
 		/** @phpstan-var Chunk $chunk */
 		$chunk = $world->getChunk($chunkX, $chunkZ);
-		$biome = BiomeFactory::getInstance()->getBiome($chunk->getBiomeId(7, 7));
+		$biome = BiomeFactory::getInstance()->getBiome($chunk->getBiomeId(7, 7, 7));
 		$biome->populateChunk($world, $chunkX, $chunkZ, $this->random);
 	}
 }

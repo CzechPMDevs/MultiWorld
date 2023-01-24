@@ -30,6 +30,7 @@ use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
 use pocketmine\world\format\Chunk;
 use pocketmine\world\generator\populator\Populator;
+use pocketmine\world\World;
 use function count;
 use function min;
 
@@ -46,35 +47,37 @@ class GroundCoverPopulator implements Populator {
 		$biomeRegistry = BiomeFactory::getInstance();
 		for($x = 0; $x < 16; ++$x) {
 			for($z = 0; $z < 16; ++$z) {
-				$biome = $biomeRegistry->getBiome($chunk->getBiomeId($x, $z));
-				$cover = $biome->getGroundCover();
-				if(count($cover) > 0) {
-					$diffY = 0;
-					if(!$cover[0]->isSolid()) {
-						$diffY = 1;
-					}
+                for($y = World::Y_MIN; $y < World::Y_MAX; $y++) {
+                    $biome = $biomeRegistry->getBiome($chunk->getBiomeId($x, $y, $z));
+                    $cover = $biome->getGroundCover();
+                    if (count($cover) > 0) {
+                        $diffY = 0;
+                        if (!$cover[0]->isSolid()) {
+                            $diffY = 1;
+                        }
 
-					$startY = 127;
-					for(; $startY > 0; --$startY) {
-						if(!$factory->fromStateId($chunk->getFullBlock($x, $startY, $z))->isTransparent()) {
-							break;
-						}
-					}
-					$startY = min(127, $startY + $diffY);
-					$endY = $startY - count($cover);
-					for($y = $startY; $y > $endY and $y >= 0; --$y) {
-						$b = $cover[$startY - $y];
-						$id = $factory->fromStateId($chunk->getFullBlock($x, $y, $z));
-						if($id->getTypeId() === BlockTypeIds::AIR and $b->isSolid()) {
-							break;
-						}
-						if($b->canBeFlowedInto() and $id instanceof Liquid) {
-							continue;
-						}
+                        $startY = 127;
+                        for (; $startY > 0; --$startY) {
+                            if (!$factory->fromStateId($chunk->getFullBlock($x, $startY, $z))->isTransparent()) {
+                                break;
+                            }
+                        }
+                        $startY = min(127, $startY + $diffY);
+                        $endY = $startY - count($cover);
+                        for ($y = $startY; $y > $endY and $y >= 0; --$y) {
+                            $b = $cover[$startY - $y];
+                            $id = $factory->fromStateId($chunk->getFullBlock($x, $y, $z));
+                            if ($id->getTypeId() === BlockTypeIds::AIR and $b->isSolid()) {
+                                break;
+                            }
+                            if ($b->canBeFlowedInto() and $id instanceof Liquid) {
+                                continue;
+                            }
 
-						$chunk->setFullBlock($x, $y, $z, $b->getStateId());
-					}
-				}
+                            $chunk->setFullBlock($x, $y, $z, $b->getStateId());
+                        }
+                    }
+                }
 			}
 		}
 	}
