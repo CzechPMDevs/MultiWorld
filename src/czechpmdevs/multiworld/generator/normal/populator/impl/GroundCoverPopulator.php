@@ -23,9 +23,9 @@ declare(strict_types=1);
 namespace czechpmdevs\multiworld\generator\normal\populator\impl;
 
 use czechpmdevs\multiworld\generator\normal\BiomeFactory;
-use pocketmine\block\BlockFactory;
 use pocketmine\block\BlockTypeIds;
 use pocketmine\block\Liquid;
+use pocketmine\block\RuntimeBlockStateRegistry;
 use pocketmine\utils\Random;
 use pocketmine\world\ChunkManager;
 use pocketmine\world\format\Chunk;
@@ -43,7 +43,7 @@ class GroundCoverPopulator implements Populator {
 	public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
 		/** @var Chunk $chunk */
 		$chunk = $world->getChunk($chunkX, $chunkZ);
-		$factory = BlockFactory::getInstance();
+		$factory = RuntimeBlockStateRegistry::getInstance();
 		$biomeRegistry = BiomeFactory::getInstance();
 		for($x = 0; $x < 16; ++$x) {
 			for($z = 0; $z < 16; ++$z) {
@@ -58,7 +58,7 @@ class GroundCoverPopulator implements Populator {
 
                         $startY = 127;
                         for (; $startY > 0; --$startY) {
-                            if (!$factory->fromStateId($chunk->getFullBlock($x, $startY, $z))->isTransparent()) {
+                            if (!$factory->fromStateId($chunk->getBlockStateId($x, $startY, $z))->isTransparent()) {
                                 break;
                             }
                         }
@@ -66,7 +66,7 @@ class GroundCoverPopulator implements Populator {
                         $endY = $startY - count($cover);
                         for ($y = $startY; $y > $endY and $y >= 0; --$y) {
                             $b = $cover[$startY - $y];
-                            $id = $factory->fromStateId($chunk->getFullBlock($x, $y, $z));
+                            $id = $factory->fromStateId($chunk->getBlockStateId($x, $y, $z));
                             if ($id->getTypeId() === BlockTypeIds::AIR and $b->isSolid()) {
                                 break;
                             }
@@ -74,7 +74,7 @@ class GroundCoverPopulator implements Populator {
                                 continue;
                             }
 
-                            $chunk->setFullBlock($x, $y, $z, $b->getStateId());
+                            $chunk->setBlockStateId($x, $y, $z, $b->getStateId());
                         }
                     }
                 }

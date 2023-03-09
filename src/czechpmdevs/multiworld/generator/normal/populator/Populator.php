@@ -41,7 +41,7 @@ abstract class Populator implements \pocketmine\world\generator\populator\Popula
 			$z = $random->nextBoundedInt(16);
 
 			for($y = 0; $y < 128; ++$y) {
-				if($chunk->getFullBlock($x, $y, $z) >> 4 == 0 && $chunk->getFullBlock($x, $y + 1, $z) >> 4 == 0) {
+				if($chunk->getBlockStateId($x, $y, $z) >> 4 == 0 && $chunk->getBlockStateId($x, $y + 1, $z) >> 4 == 0) {
 					return true;
 				}
 			}
@@ -66,7 +66,7 @@ abstract class Populator implements \pocketmine\world\generator\populator\Popula
 			$z = $random->nextBoundedInt(16);
 
 			for($y = 0; $y < 128; ++$y) {
-				if($chunk->getFullBlock($x, $y, $z) >> 4 == 0 && in_array($chunk->getFullBlock($x, $y - 1, $z), $requiredUnderground, true)) {
+				if($chunk->getBlockStateId($x, $y, $z) >> 4 == 0 && in_array($chunk->getBlockStateId($x, $y - 1, $z), $requiredUnderground, true)) {
 					return true;
 				}
 			}

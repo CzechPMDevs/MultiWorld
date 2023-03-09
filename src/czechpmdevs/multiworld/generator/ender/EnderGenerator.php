@@ -79,16 +79,16 @@ class EnderGenerator extends Generator {
                     // @phpstan-ignore-next-line
                     $noiseValue = (int)abs($noise[$x][$z] * self::NOISE_SIZE); // wtf
                     for ($y = 0; $y < $noiseValue; ++$y) {
-                        $chunk->setFullBlock($x, self::MAX_BASE_ISLAND_HEIGHT + $y, $z, $endStone);
+                        $chunk->setBlockStateId($x, self::MAX_BASE_ISLAND_HEIGHT + $y, $z, $endStone);
                     }
 
                     $reversedNoiseValue = self::NOISE_SIZE - $noiseValue;
                     for ($y = 0; $y < $reversedNoiseValue; ++$y) {
-                        $chunk->setFullBlock($x, self::MIN_BASE_ISLAND_HEIGHT - $y, $z, $endStone);
+                        $chunk->setBlockStateId($x, self::MIN_BASE_ISLAND_HEIGHT - $y, $z, $endStone);
                     }
 
                     for ($y = self::MIN_BASE_ISLAND_HEIGHT; $y < self::MAX_BASE_ISLAND_HEIGHT; ++$y) {
-                        $chunk->setFullBlock($x, $y, $z, $endStone);
+                        $chunk->setBlockStateId($x, $y, $z, $endStone);
                     }
                 }
 			}

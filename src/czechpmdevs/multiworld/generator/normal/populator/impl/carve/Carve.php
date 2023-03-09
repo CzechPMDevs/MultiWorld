@@ -85,24 +85,24 @@ abstract class Carve {
 						$modY = ($y - 0.5 - $centerY) / $verticalSize;
 
 						if($this->continue($modXZ, $modY, $y)) {
-							if($chunk->getFullBlock($x, $y, $z) === $water || $chunk->getFullBlock($x, $y + 1, $z) >> 4 === $water) {
+							if($chunk->getBlockStateId($x, $y, $z) === $water || $chunk->getBlockStateId($x, $y + 1, $z) >> 4 === $water) {
 								continue;
 							}
 
 							if($y < 11) {
-								$chunk->setFullBlock($x, $y, $z, $lava);
+								$chunk->setBlockStateId($x, $y, $z, $lava);
 								continue;
 							}
 
 							if(
-								$chunk->getFullBlock($x, $y - 1, $z) === $dirt &&
-								$chunk->getFullBlock($x, $y + 1, $z) === $air &&
+								$chunk->getBlockStateId($x, $y - 1, $z) === $dirt &&
+								$chunk->getBlockStateId($x, $y + 1, $z) === $air &&
 								$y > 62
 							) {
-								$chunk->setFullBlock($x, $y - 1, $z, $grass);
+								$chunk->setBlockStateId($x, $y - 1, $z, $grass);
 							}
 
-							$chunk->setFullBlock($x, $y, $z, $air);
+							$chunk->setBlockStateId($x, $y, $z, $air);
 						}
 					}
 				}
@@ -116,7 +116,7 @@ abstract class Carve {
 		for($x = $minX; $x < $maxX; ++$x) {
 			for($z = $minZ; $z < $maxZ; ++$z) {
 				for($y = $minY - 1; $y < $maxY + 1; ++$y) {
-					$id = $chunk->getFullBlock($x, $y, $z);
+					$id = $chunk->getBlockStateId($x, $y, $z);
 					if(
 						$id === $lava ||
 						$id === $water

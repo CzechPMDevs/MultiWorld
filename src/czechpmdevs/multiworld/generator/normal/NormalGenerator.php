@@ -142,15 +142,15 @@ class NormalGenerator extends Generator {
 
                     for ($y = 0; $y < 128; ++$y) {
                         if ($y === 0) {
-                            $chunk->setFullBlock($x, $y, $z, $bedrock);
+                            $chunk->setBlockStateId($x, $y, $z, $bedrock);
                             continue;
                         }
                         $noiseValue = $noise[$x][$z][$y] - 1 / $smoothHeight * ($y - $smoothHeight - $minSum);
 
                         if ($noiseValue > 0) {
-                            $chunk->setFullBlock($x, $y, $z, $stone);
+                            $chunk->setBlockStateId($x, $y, $z, $stone);
                         } elseif ($y <= 60) {
-                            $chunk->setFullBlock($x, $y, $z, $stillWater);
+                            $chunk->setBlockStateId($x, $y, $z, $stillWater);
                         }
                     }
                 }

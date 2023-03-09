@@ -38,7 +38,7 @@ class VoidGenerator extends Generator {
 		$chunk = $world->getChunk($chunkX, $chunkZ);
 
 		if($chunkX == 16 && $chunkZ == 16) {
-			$chunk->setFullBlock(0, 64, 0, VanillaBlocks::GRASS()->getStateId());
+			$chunk->setBlockStateId(0, 64, 0, VanillaBlocks::GRASS()->getStateId());
 		}
 	}
 
