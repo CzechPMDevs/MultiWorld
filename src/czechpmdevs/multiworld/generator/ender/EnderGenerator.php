@@ -30,6 +30,7 @@ use pocketmine\world\format\Chunk;
 use pocketmine\world\generator\Generator;
 use pocketmine\world\generator\noise\Simplex;
 use pocketmine\world\generator\populator\Populator;
+use pocketmine\world\World;
 
 class EnderGenerator extends Generator {
 	public const MIN_BASE_ISLAND_HEIGHT = 54;
@@ -59,7 +60,7 @@ class EnderGenerator extends Generator {
 		$chunk = $world->getChunk($chunkX, $chunkZ);
 		$noise = $this->noiseBase->getFastNoise2D(16, 16, 2, $chunkX * 16, 0, $chunkZ * 16);
 
-		$endStone = VanillaBlocks::END_STONE()->getFullId();
+		$endStone = VanillaBlocks::END_STONE()->getStateId();
 
 		$baseX = $chunkX * Chunk::EDGE_LENGTH;
 		$baseZ = $chunkZ * Chunk::EDGE_LENGTH;
@@ -68,7 +69,8 @@ class EnderGenerator extends Generator {
 			for($z = 0; $z < 16; ++$z) {
 				$absoluteZ = $baseZ + $z;
 
-				$chunk->setBiomeId($x, $z, BiomeIds::THE_END);
+				for($y = World::Y_MIN; $y < World::Y_MAX; ++$y)
+					$chunk->setBiomeId($x, $y, $z, BiomeIds::THE_END);
 
 				if(($absoluteX - self::CENTER_X) ** 2 + ($absoluteZ - self::CENTER_Z) ** 2 > self::ISLAND_RADIUS ** 2) {
 					continue;
@@ -77,16 +79,16 @@ class EnderGenerator extends Generator {
 				// @phpstan-ignore-next-line
 				$noiseValue = (int)abs($noise[$x][$z] * self::NOISE_SIZE); // wtf
 				for($y = 0; $y < $noiseValue; ++$y) {
-					$chunk->setFullBlock($x, self::MAX_BASE_ISLAND_HEIGHT + $y, $z, $endStone);
+					$chunk->setBlockStateId($x, self::MAX_BASE_ISLAND_HEIGHT + $y, $z, $endStone);
 				}
 
 				$reversedNoiseValue = self::NOISE_SIZE - $noiseValue;
 				for($y = 0; $y < $reversedNoiseValue; ++$y) {
-					$chunk->setFullBlock($x, self::MIN_BASE_ISLAND_HEIGHT - $y, $z, $endStone);
+					$chunk->setBlockStateId($x, self::MIN_BASE_ISLAND_HEIGHT - $y, $z, $endStone);
 				}
 
 				for($y = self::MIN_BASE_ISLAND_HEIGHT; $y < self::MAX_BASE_ISLAND_HEIGHT; ++$y) {
-					$chunk->setFullBlock($x, $y, $z, $endStone);
+					$chunk->setBlockStateId($x, $y, $z, $endStone);
 				}
 			}
 		}

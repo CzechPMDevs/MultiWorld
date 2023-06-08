@@ -39,6 +39,8 @@ use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
 
 class MultiWorldCommand extends BaseCommand {
+	private const BASE_PERMS = "multiworld.command";
+
 	protected function prepare(): void {
 		$this->registerSubCommand(new CreateSubCommand("create", "Generate a new world", ["new", "c"]));
 		$this->registerSubCommand(new DebugSubCommand("debug", "Displays debug information"));
@@ -52,6 +54,15 @@ class MultiWorldCommand extends BaseCommand {
 		$this->registerSubCommand(new RenameSubCommand("rename", "Rename world", ["rnm", "rn"]));
 		$this->registerSubCommand(new TeleportSubCommand("teleport", "Teleport player to target world", ["tp"]));
 		$this->registerSubCommand(new UnloadSubCommand("unload", "Unload world", ["uld"]));
+
+		$this->setPermission(self::BASE_PERMS);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getPermission() {
+		return self::BASE_PERMS;
 	}
 
 	/**

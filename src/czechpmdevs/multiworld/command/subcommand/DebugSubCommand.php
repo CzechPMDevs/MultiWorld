@@ -50,9 +50,9 @@ class DebugSubCommand extends BaseSubCommand {
 		$sender->sendMessage("Current chunk position: $chunkX, $chunkZ");
 
 		$chunk = $sender->getPosition()->getWorld()->getChunk($chunkX, $chunkZ);
-		$x = $position->getX() & 0xf;
-		$z = $position->getZ() & 0xf;
-		$id = $chunk?->getBiomeId($x, $z) ?? 0;
+		$x = $position->getFloorX() & 0xf;
+		$z = $position->getFloorZ() & 0xf;
+		$id = $chunk?->getBiomeId($x, $position->getFloorY(), $z) ?? 0;
 		$biome = BiomeRegistry::getInstance()->getBiome($id);
 		$sender->sendMessage("Current biome: [$id] {$biome->getName()}");
 	}

@@ -52,8 +52,8 @@ class EnderPilar implements Populator {
 
 		$centerY = $this->getWorkableBlockAt($chunk, $relativeX, $relativeZ) - 1;
 
-		$air = VanillaBlocks::AIR()->getFullId();
-		if($chunk->getFullBlock($relativeX, $centerY, $relativeZ) === $air) {
+		$air = VanillaBlocks::AIR()->getStateId();
+		if($chunk->getBlockStateId($relativeX, $centerY, $relativeZ) === $air) {
 			return;
 		}
 
@@ -83,9 +83,9 @@ class EnderPilar implements Populator {
 	}
 
 	private function getWorkableBlockAt(Chunk $chunk, int $x, int $z): int {
-		$air = VanillaBlocks::AIR()->getFullId();
+		$air = VanillaBlocks::AIR()->getStateId();
 		for($y = EnderGenerator::MAX_BASE_ISLAND_HEIGHT, $maxY = EnderGenerator::MAX_BASE_ISLAND_HEIGHT + EnderGenerator::NOISE_SIZE; $y <= $maxY; ++$y ) {
-			if($chunk->getFullBlock($x, $y, $z) === $air) {
+			if($chunk->getBlockStateId($x, $y, $z) === $air) {
 				return $y;
 			}
 		}
