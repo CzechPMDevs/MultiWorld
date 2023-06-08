@@ -7,7 +7,7 @@ projects:
     icon: icon.png
     libs:
       Commando:
-        src: KenCir/Commando/Commando
+        src: CortexPE/Commando/Commando
         version: 3.1.0
       libpmform:
         src: CzechPMDevs/libpmform/libpmform
