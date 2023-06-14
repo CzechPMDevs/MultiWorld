@@ -41,11 +41,11 @@
 
 ## ⬇️ Downloads:
 
-| Downloads                                             | API       | Downloads                                                                 |
-|-------------------------------------------------------|-----------|---------------------------------------------------------------------------|
-| Latest Stable Release (1.7.0)                         | 4.x       | [Poggit](https://poggit.pmmp.io/r/177396/MultiWorld.phar)                 |
-| Latest Beta Release (2.0.0-beta1)                     | 4.x       | [Poggit](https://poggit.pmmp.io/r/188977/MultiWorld.phar)                 |
-| Latest Dev Build  (2.0.0 for 4.x / 'api/pm5' for 5.x) | 4.x / 5.x | [Poggit CI](https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld/) |
+| Downloads                                         | API       | Downloads                                                                 |
+|---------------------------------------------------|-----------|---------------------------------------------------------------------------|
+| Latest Beta Release (2.1.0-beta2)                 | 5.x       | [Poggit](https://poggit.pmmp.io/r/211238/MultiWorld.phar)                 |
+| Latest Stable Release (1.7.0)                     | 4.x       | [Poggit](https://poggit.pmmp.io/r/177396/MultiWorld.phar)                 |
+| Latest Dev Build  (2.0.0 for 4.x / 2.1.0 for 5.x) | 4.x / 5.x | [Poggit CI](https://poggit.pmmp.io/ci/CzechPMDevs/MultiWorld/MultiWorld/) |
 <br>
 
 > **Other plugins by CzechPMDevs [here](https://poggit.pmmp.io/plugins/by/CzechPMDevs)**
