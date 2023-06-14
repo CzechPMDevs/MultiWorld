@@ -88,11 +88,11 @@
 
 ### Custom World Generator:
 
-<img src="https://github.com/CzechPMDevs/VanillaGenerator/blob/master/screenshots/Forest%20biomes,%20Plains,%20River.png?raw=true">
-<img src="https://github.com/CzechPMDevs/VanillaGenerator/blob/master/screenshots/Ice%20Plains,%20Tundra.png?raw=true">
-<img src="https://github.com/CzechPMDevs/VanillaGenerator/blob/master/screenshots/Savanna%20Mountains.png?raw=true">
-<img src="https://github.com/CzechPMDevs/VanillaGenerator/blob/master/screenshots/Savanna.png?raw=true">
-<img src="https://github.com/CzechPMDevs/VanillaGenerator/blob/master/screenshots/Swamp,%20Mountains.png?raw=true">
+<img src="https://github.com/CzechPMDevs/VanillaGenerator/blob/screenshots/screenshots/Forest%20biomes,%20Plains,%20River.png?raw=true">
+<img src="https://github.com/CzechPMDevs/VanillaGenerator/blob/screenshots/screenshots/Ice%20Plains,%20Tundra.png?raw=true">
+<img src="https://github.com/CzechPMDevs/VanillaGenerator/blob/screenshots/screenshots/Savanna%20Mountains.png?raw=true">
+<img src="https://github.com/CzechPMDevs/VanillaGenerator/blob/screenshots/screenshots/Savanna.png?raw=true">
+<img src="https://github.com/CzechPMDevs/VanillaGenerator/blob/screenshots/screenshots/Swamp,%20Mountains.png?raw=true">
 
 ###  Nether World Generator:
 <img src="https://i.ibb.co/1KXb8FX/image.png">
