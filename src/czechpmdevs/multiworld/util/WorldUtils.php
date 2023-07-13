@@ -129,6 +129,9 @@ class WorldUtils {
 	}
 
 	public static function duplicateWorld(string $worldName, string $duplicateName): void {
+		if(!Server::getInstance()->getWorldManager()->isWorldGenerated($worldName)) {
+			throw new AssumptionFailedError("World \"$worldName\" is not generated.");
+		}
 		if(Server::getInstance()->getWorldManager()->isWorldLoaded($worldName)) {
 			WorldUtils::getWorldByNameNonNull($worldName)->save();
 		}
