@@ -73,6 +73,7 @@ update-notsupported: '§cИспользуйте комманду в игре!'
 # Info Command:
 info-levelnotexists: '§cМир {%0} не существует!'
 info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'
+info: '§a--- {%0} ---'
 info-name: '§7Название мира: {%0}'
 info-folderName: '§7Название папки: {%0}'
 info-players: '§7Количество игроков: {%0}'

@@ -73,6 +73,7 @@ update-notsupported: '§4I-run ang command sa laro'
 # Info Command:
 info-levelnotexists: '§c{%0} ay hindi umiiral.'
 info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'
+info: '§a--- {%0} ---'
 info-name: '§7Pangalan: {%0}'
 info-folderName: '§7Pangalan ng folder: {%0}'
 info-players: '§7Bilang ng manlalaro: {%0}'

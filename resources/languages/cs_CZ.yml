@@ -73,6 +73,7 @@ update-notsupported: '§cTento příkaz není v konzoli podporován.'
 # Info Command:
 info-levelnotexists: 'Svět {%0} nebyl nalezen'
 info-unloaded: '§cNemohu najít informace o světě ({%0}), který nelze načíst.'
+info: '§a--- {%0} ---'
 info-name: '§7Název: {%0}'
 info-folderName: '§7Název složky: {%0}'
 info-players: '§7Počet hráčů: {%0}'

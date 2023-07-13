@@ -71,8 +71,9 @@ update-default-done: '§aLe monde par défaut a été modifié pour {%0}.'
 update-notsupported: '§4Veuillez exécuter cette commande dans le jeu!'
 
 # Info Command:
-info: '§a--- {%0} ---'
+info-levelnotexists: '§c{%0} nexiste pas.'
 info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'
+info: '§a--- {%0} ---'
 info-name: '§7Nomme: {%0}'
 info-folderName: '§7Nom de Dossier: {%0}'
 info-players: '§7Nombre de Joueurs: {%0}'
@@ -86,14 +87,15 @@ gamerule-list: '§aRègles de jeu disponibles: {%0}'
 gamerule-levelnotfound: '§cMonde {%0} introuvable.'
 gamerule-notexists: '§cRègle de jeu {%0} nexiste pas.'
 gamerule-done: '§aRègle de jeu {%0} en monde {%1} a été modifié pour {%2}.'
+
 # Rename Command
 rename-usage: '§cUsage: §7/mw rename <de> <à>'
 rename-exists: '§cMonde avec nom {%0} existe déjà.'
 rename-levelnotfound: '§cMonde {%0} nexiste pas.'
 rename-done: '§aMonde avec nom {%0} a été remplacé par {%1}.'
-
 rename-error: '§cCould not rename the world (Access denied)'
 
+# Duplicate Command
 duplicate-usage: '§cUsage: §7/mw duplicate <monde> [nouveauNom]'
 duplicate-exists: '§cMonde avec nom {%0} existe déjà.'
 duplicate-levelnotfound: '§cMonde {%0} nexiste pas.'

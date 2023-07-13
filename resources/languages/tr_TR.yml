@@ -73,6 +73,7 @@ update-notsupported: '§cLütfen oyun içi komutu yürütün .'
 # Info komutlar:
 info-levelnotexists: '§cDünya {%0} mevcut değil!'
 info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'
+info: '§a--- {%0} ---'
 info-name: '§aisim: {%0}'
 info-folderName: '§7Dosya-isim: {%0}'
 info-players: '§7Oyuncu sayısı : {%0}'

@@ -73,6 +73,7 @@ update-notsupported: '§c这个命令不支持控制台'
 # Info Command:
 info-levelnotexists: '§c{%0} 不存在,'
 info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'
+info: '§a--- {%0} ---'
 info-name: '§7名字: {%0}'
 info-folderName: '§7文件夹名: {%0}'
 info-players: '§7在线玩家数量: {%0}'
