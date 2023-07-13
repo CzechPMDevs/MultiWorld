@@ -29,6 +29,7 @@ use pocketmine\world\format\io\data\BaseNbtWorldData;
 use pocketmine\world\generator\GeneratorManager;
 use pocketmine\world\generator\GeneratorManagerEntry;
 use pocketmine\world\World;
+use pocketmine\world\WorldException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
@@ -48,7 +49,6 @@ use function strtolower;
 use function unlink;
 
 class WorldUtils {
-
 	public static function removeWorld(string $name): int {
 		if(Server::getInstance()->getWorldManager()->isWorldLoaded($name)) {
 			$world = WorldUtils::getWorldByNameNonNull($name);
@@ -162,6 +162,8 @@ class WorldUtils {
 	/**
 	 * @return bool Returns if the world was loaded with the function.
 	 * If it has already been loaded before calling this function, returns FALSE!
+	 *
+	 * @throws WorldException If the specified unloaded world could not be loaded.
 	 */
 	public static function lazyLoadWorld(string $name): bool {
 		return !Server::getInstance()->getWorldManager()->isWorldLoaded($name) && Server::getInstance()->getWorldManager()->loadWorld($name, true);
@@ -192,6 +194,8 @@ class WorldUtils {
 
 	/**
 	 * @return World|null Loads and returns world, if it is generated.
+	 *
+	 * @throws WorldException If the specified unloaded world could not be loaded.
 	 */
 	public static function getLoadedWorldByName(string $name): ?World {
 		WorldUtils::lazyLoadWorld($name);
