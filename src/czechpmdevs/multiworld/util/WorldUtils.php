@@ -58,7 +58,7 @@ class WorldUtils {
 				}
 			}
 
-			Server::getInstance()->getWorldManager()->unloadWorld($world);
+			Server::getInstance()->getWorldManager()->unloadWorld($world, true);
 		}
 
 		$removedFiles = 1;
