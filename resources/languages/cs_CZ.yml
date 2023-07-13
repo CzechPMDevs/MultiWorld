@@ -1,5 +1,5 @@
 ---
-### Czech language file by @GamakCZ
+### Czech language file by @VixikHD
 
 ## Commands:
 
@@ -37,6 +37,7 @@ teleport-load: 'Načítám svět {%0}...'
 teleport-done-1: '§aByl jsi úspěšně teleportován do světa {%0}.'
 teleport-done-2: '§aHráč {%1} byl teleportován do světa {%0}!'
 teleport-playernotexists: '§cHráč nebyl nalezen!'
+teleport-error: '§cNastala chyba při teleportování hráče do jiného světa: {%0}'
 
 # List Command:
 list-done: '§aSvěty ({%0}):'
@@ -46,6 +47,7 @@ load-usage: '§cPoužij: §7/mw load <svět>'
 load-levelnotexists: '§cSvět {%0} neexistuje!'
 load-loaded: '§cNelze načíst načtený svět!'
 load-done: '§aSvět byl načten!'
+load-error: '§cNastala chyba při načítání světa: {%0}'
 
 # Unload Command:
 unload-usage: '§cPoužij: §7/mw unload <svět>'

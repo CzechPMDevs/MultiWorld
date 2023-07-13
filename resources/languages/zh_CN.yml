@@ -37,6 +37,7 @@ teleport-load: '正在加载世界 {%0}...'
 teleport-done-1: '§a你被传送到这个世界 {%0}.'
 teleport-done-2: '§a玩家 {%1} 被传送到世界 {%0}!'
 teleport-playernotexists: '§c玩家 {%0} 不存在!'
+teleport-error: '§cAn error occurred whilst teleporting player: {%0}'
 
 # List Command:
 list-done: '§a世界 ({%0}):'
@@ -46,6 +47,7 @@ load-usage: '§c输入: §7/mw load <世界名>'
 load-levelnotexists: '§c世界 {%0} 不存在!'
 load-loaded: '§c不能加载这个世界!'
 load-done: '§a该世界被成功加载!'
+load-error: '§cAn error occurred whilst loading the world: {%0}'
 
 # Unload Command:
 unload-usage: '§c输入: §7/mw unload <世界名>'

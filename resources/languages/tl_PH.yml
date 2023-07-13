@@ -37,6 +37,7 @@ teleport-load: 'Nag-loload ang mundo {%0}...'
 teleport-done-1: '§aIkaw ay na teleport sa {%0}.'
 teleport-done-2: '§aManlalaro {%1} ay na teleport sa {%0}.'
 teleport-playernotexists: '§cManlalaro ay hindi umiiral.'
+teleport-error: '§cAn error occurred whilst teleporting player: {%0}'
 
 # List Command:
 list-done: '§aAng mga Mundo ({%0}):'
@@ -46,6 +47,7 @@ load-usage: '§cPaggamit: §7/mw load <world>'
 load-notexists: '§cAng Mundo {%0} ay hindi umiiral.'
 load-loaded: '§cHindi ma-load ang mundo.'
 load-done: '§aAng Mundo Ay Na-Load na.'
+load-error: '§cAn error occurred whilst loading the world: {%0}'
 
 # Unload Command:
 unload-usage: '§cPaggamit: §7/mw unload <world>'

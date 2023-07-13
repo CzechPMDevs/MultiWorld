@@ -37,6 +37,7 @@ teleport-load: 'Seviye {%0} yükleniyor...'
 teleport-done-1: '§aSen dünyaya doğdun {%0} ışınlanmış .'
 teleport-done-2: '§aOyuncu {%1} dünyanın dışındaydı {%0} ışınlanmış !'
 teleport-playernotexisten: '§cBu oyuncu mevcut değil !'
+teleport-error: '§cAn error occurred whilst teleporting player: {%0}'
 
 # List komutlar:
 list-done: '§aDünyalar ({%0}):'
@@ -46,6 +47,7 @@ load-usage: '§ckullanım: §7/mw load <seviye>'
 load-levelnotexists: '§cDünya {%0} mevcut değil!'
 load-loaded: '§cDünya yüklenemedi !'
 load-done: '§aDünya yüklendi !'
+load-error: '§cAn error occurred whilst loading the world: {%0}'
 
 # komut dünya boşalt:
 unload-usage: '§ckullanım: §7/mw unload <seviye>'

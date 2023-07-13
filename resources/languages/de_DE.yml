@@ -37,6 +37,7 @@ teleport-load: 'Lade die Welt {%0} ...'
 teleport-done-1: '§aDu wurdest in die Welt {%0} teleportiert.'
 teleport-done-2: '§aSpieler {%1} wurde in die Welt {%0} teleportiert!'
 teleport-playernotexisten: '§cDieser Spieler existiert nicht!'
+teleport-error: '§cAn error occurred whilst teleporting player: {%0}'
 
 # Liste Befehl:
 list-done: '§aWelten ({%0}):'
@@ -46,6 +47,7 @@ load-usage: '§cBenutzung: §7/mw load <welt>'
 load-levelnotexists: '§cWelt {%0} existiert nicht!'
 load-loaded: '§cLaden der Welt fehlgeschlagen!'
 load-done: '§aWelt geladen!'
+load-error: '§cAn error occurred whilst loading the world: {%0}'
 
 # Befehl entladen:
 unload-usage: '§cBenutzung: §7/mw unload <welt>'

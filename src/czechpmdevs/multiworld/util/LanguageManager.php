@@ -58,7 +58,7 @@ class LanguageManager {
 		}
 
 		LanguageManager::$defaultLang = $defaultLang;
-		if($langResources = glob(ConfigManager::getDataFolder() . "/languages/*.yml")) {
+		if($langResources = glob(MultiWorld::getInstance()->getDataFolder() . "/languages/*.yml")) {
 			foreach($langResources as $langResource) {
 				$fileContents = yaml_parse_file($langResource);
 				if(!is_array($fileContents)) {

@@ -37,6 +37,7 @@ teleport-load: 'Carregando o mundo {%0}...'
 teleport-done-1: '§aVocê foi teleportado para {%0}.'
 teleport-done-2: '§aO jogador {%1} foi teleportado para {%0}.'
 teleport-playernotexists: '§cO jogador não existe.'
+teleport-error: '§cAn error occurred whilst teleporting player: {%0}'
 
 # List Command:
 list-done: '§aMundos ({%0}):'
@@ -46,6 +47,7 @@ load-usage: '§cUse: §7/mw load <mundo>'
 load-notexists: '§cO mundo {%0} não existe.'
 load-loaded: '§cNão foi possível carregar o mundo.'
 load-done: '§aMundo carregado.'
+load-error: '§cAn error occurred whilst loading the world: {%0}'
 
 # Unload Command:
 unload-usage: '§cUse: §7/mw unload <mundo>'

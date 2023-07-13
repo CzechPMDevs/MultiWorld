@@ -37,6 +37,7 @@ teleport-load: 'Đang tải thế giới {%0}...'
 teleport-done-1: '§aBạn đã được dịch chuyển tới thế giới {%0}.'
 teleport-done-2: '§aNgười chơi {%1} đã được dịch chuyển tới {%0}.'
 teleport-playernotexists: '§cNgười chơi không tồn tại.'
+teleport-error: '§cAn error occurred whilst teleporting player: {%0}'
 
 # List Command:
 list-done: '§aDanh sách thế giới ({%0}):'
@@ -46,6 +47,7 @@ load-usage: '§cSử dụng: §7/mw load <Tên thế gưới>'
 load-notexists: '§cThế giới {%0} không tồn tại.'
 load-loaded: '§cKhông thể tải lại thế giới.'
 load-done: '§aThế giới đã được tải lại.'
+load-error: '§cAn error occurred whilst loading the world: {%0}'
 
 # Unload Command:
 unload-usage: '§cSử dụng: §7/mw unload <Tên thế giới>'

@@ -37,6 +37,7 @@ teleport-load: 'Loading world {%0}...'
 teleport-done-1: '§aYou were teleported to {%0}.'
 teleport-done-2: '§aPlayer {%1} was teleported to {%0}.'
 teleport-playernotexists: '§cPlayer does not exist.'
+teleport-error: '§cAn error occurred whilst teleporting player: {%0}'
 
 # List Command:
 list-done: '§aWorlds ({%0}):'
@@ -46,6 +47,7 @@ load-usage: '§cUsage: §7/mw load <world>'
 load-notexists: '§cWorld {%0} does not exist.'
 load-loaded: '§cUnable to load the world.'
 load-done: '§aWorld loaded.'
+load-error: '§cAn error occurred whilst loading the world: {%0}'
 
 # Unload Command:
 unload-usage: '§cUsage: §7/mw unload <world>'

@@ -37,6 +37,7 @@ teleport-load: 'Memuat dunia {%0} ...'
 teleport-done-1: '§aAnda telah diteleportasikan ke {%0}.'
 teleport-done-2: '§aPemain {%1} diteleportasikan ke {%0}.'
 teleport-playernotexists: '§cPemain tidak ada.'
+teleport-error: '§cAn error occurred whilst teleporting player: {%0}'
 
 # Daftar Perintah:
 list-done: '§aDunia ({%0}):'
@@ -46,6 +47,7 @@ load-usage: '§cPenggunaan: §7/mw load <dunia>'
 load-notexists: '§cDunia {%0} tidak ada.'
 load-loaded: '§cTidak dapat memuat dunia.'
 load-done: '§aDunia dimuat.'
+load-error: '§cAn error occurred whilst loading the world: {%0}'
 
 # Bongkar Perintah:
 unload-usage: '§cPenggunaan: §7/mw unload <dunia>'

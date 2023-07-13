@@ -37,6 +37,7 @@ teleport-load: 'ワールド {%0} を読み込み中です'
 teleport-done-1: '§aワールド {%0} にテレポートしました'
 teleport-done-2: '§aプレイヤー名 {%1} をワールド {%0} にテレポートしました'
 teleport-playernotexists: '§c指定されたプレイヤーは存在しません!'
+teleport-error: '§cAn error occurred whilst teleporting player: {%0}'
 
 # List Command:
 list-done: '§a全ワールド ({%0}):'
@@ -46,6 +47,7 @@ load-usage: '§c使用方法: §7/mw load <ワールド名>'
 load-levelnotexists: '§cワールド {%0} は存在しません!'
 load-loaded: '§c既に読み込まれたワールドを再度読み込むことはできません!'
 load-done: '§aワールドを読み込みました'
+load-error: '§cAn error occurred whilst loading the world: {%0}'
 
 # Unload Command:
 unload-usage: '§c使用方法: §7/mw unload <ワールド名>'

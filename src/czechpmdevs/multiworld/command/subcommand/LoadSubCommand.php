@@ -28,6 +28,7 @@ use czechpmdevs\multiworld\MultiWorld;
 use czechpmdevs\multiworld\util\LanguageManager;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
+use pocketmine\world\WorldException;
 
 class LoadSubCommand extends BaseSubCommand {
 	protected function prepare(): void {
@@ -53,7 +54,13 @@ class LoadSubCommand extends BaseSubCommand {
 			return;
 		}
 
-		Server::getInstance()->getWorldManager()->loadWorld($worldName, true);
+		try {
+			Server::getInstance()->getWorldManager()->loadWorld($worldName, true);
+		} catch(WorldException $e) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "load-error", [$e->getMessage()]));
+			return;
+		}
+
 		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "load-done"));
 	}
 }

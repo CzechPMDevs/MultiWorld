@@ -37,6 +37,7 @@ teleport-load: '§aЗагрузка мира {%0} ...'
 teleport-done-1: '§aВы телепортированы в мир {%0}.'
 teleport-done-2: '§aИгрок {%1} был телепортирован в мир {%0}!'
 teleport-playernotexists: '§cИгрок не найден!'
+teleport-error: '§cAn error occurred whilst teleporting player: {%0}'
 
 # List Command
 list-done: 'Миры ({%0}):'
@@ -46,6 +47,7 @@ load-usage: '§cИспользование: §7/mw load <мир>'
 load-levelnotexists: '§cМир {%0} не существует!'
 load-loaded: '§cМир уже загружен!'
 load-done: '§aМир был загружен!'
+load-error: '§cAn error occurred whilst loading the world: {%0}'
 
 # Unload Command:
 unload-usage: '§cИспользование: §7/mw unload <мир>'

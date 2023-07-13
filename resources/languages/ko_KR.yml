@@ -37,6 +37,7 @@ teleport-load: '월드 로딩중 {%0}...'
 teleport-done-1: '§a당신은 {%0} 로 이동 되었습니다.'
 teleport-done-2: '§a플레이어 {%1} 는 {%0} 로 이동되었습니다.'
 teleport-playernotexists: '§c플레이어가 존재하지 않습니다.'
+teleport-error: '§cAn error occurred whilst teleporting player: {%0}'
 
 # List Command:
 list-done: '§a월드 ({%0}):'
@@ -46,6 +47,7 @@ load-usage: '§c사용법: §7/mw load <월드이름>'
 load-notexists: '§cWorld {%0} does not exist.'
 load-loaded: '§cUnable to load the world.'
 load-done: '§aWorld loaded.'
+load-error: '§cAn error occurred whilst loading the world: {%0}'
 
 # Unload Command:
 unload-usage: '§c사용법: §7/mw unload <월드이름>'

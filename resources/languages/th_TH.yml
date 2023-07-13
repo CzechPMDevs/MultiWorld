@@ -37,6 +37,7 @@ teleport-load: 'กำลังโหลดโลก {%0}...'
 teleport-done-1: '§aคุณได้วาปมาโลก {%0}'
 teleport-done-2: '§aผู้เล่น {%1} ได้วาปไป {%0}'
 teleport-playernotexists: '§cไม่เจอผู้เล่นชื่อนี้'
+teleport-error: '§cAn error occurred whilst teleporting player: {%0}'
 
 # List Command:
 list-done: '§aรายชื่อโลก ({%0}):'
@@ -46,6 +47,7 @@ load-usage: '§cใช้: §7/mw load <ชื่อโลก>'
 load-notexists: '§cไม่พบโลก {%0}'
 load-loaded: '§cไม่สามารถโหลดโลกนี้ได้'
 load-done: '§aโลกได้ถูกโหลด'
+load-error: '§cAn error occurred whilst loading the world: {%0}'
 
 # Unload Command:
 unload-usage: '§cใช้: §7/mw unload <ชื่อโลก>'

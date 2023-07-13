@@ -30,6 +30,7 @@ use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
 use pocketmine\Server;
+use pocketmine\world\WorldException;
 
 class TeleportSubCommand extends BaseSubCommand {
 	protected function prepare(): void {
@@ -48,7 +49,13 @@ class TeleportSubCommand extends BaseSubCommand {
 		/** @var string|null $player */
 		$player = $args["player"] ?? null;
 
-		$targetWorld = WorldUtils::getLoadedWorldByName($world);
+		try {
+			$targetWorld = WorldUtils::getLoadedWorldByName($world);
+		} catch(WorldException $e) {
+			$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "teleport-error", [$e->getMessage()]));
+			return;
+		}
+
 		if($targetWorld === null) {
 			$sender->sendMessage(LanguageManager::translateMessage($sender, "teleport-levelnotexists", [$world]));
 			return;
