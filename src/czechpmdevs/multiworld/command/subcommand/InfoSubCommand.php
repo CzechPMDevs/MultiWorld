@@ -29,7 +29,6 @@ use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
 use pocketmine\Server;
-use pocketmine\utils\AssumptionFailedError;
 use pocketmine\world\World;
 use function count;
 
@@ -58,12 +57,13 @@ class InfoSubCommand extends BaseSubCommand {
 				return;
 			}
 
-			WorldUtils::lazyLoadWorld($worldName);
-			$sender->sendMessage($this->getInfoMessage($sender, WorldUtils::getWorldByNameNonNull($worldName)));
+			if(WorldUtils::lazyLoadWorld($worldName)) {
+				$sender->sendMessage($this->getInfoMessage($sender, WorldUtils::getWorldByNameNonNull($worldName)));
+			} else {
+				$sender->sendMessage(LanguageManager::translateMessage($sender, "info.unloaded", [$worldName]));
+			}
 		} elseif($sender instanceof Player) {
 			$sender->sendMessage($this->getInfoMessage($sender, $sender->getWorld()));
-		} else {
-			throw new AssumptionFailedError("Sender is not a player");
 		}
 	}
 

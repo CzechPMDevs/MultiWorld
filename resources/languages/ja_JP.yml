@@ -72,7 +72,7 @@ update-notsupported: '§cこのコマンドはコンソールでの実行に対�
 
 # Info Command:
 info-levelnotexists: '§cワールド {%0} は存在しません!'
-info: '§a--- {%0} ---'
+info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'
 info-name: '§7ワールド名: {%0}'
 info-folderName: '§7フォルダ名: {%0}'
 info-players: '§7プレイヤー数: {%0}'

@@ -72,7 +72,7 @@ update-notsupported: '§4Hãy sử dụng lệnh trong trò chơi'
 
 # Info Command:
 info-levelnotexists: '§cThế giới {%0} không tồn tại.'
-info: '§a--- {%0} ---'
+info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'
 info-name: '§7Tên: {%0}'
 info-folderName: '§7Tên thư mục: {%0}'
 info-players: '§7Người chơi tại thế giới: {%0}'

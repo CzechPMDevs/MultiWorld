@@ -72,7 +72,7 @@ update-notsupported: '§4Por favor, execute este comando no jogo'
 
 # Info Command:
 info-levelnotexists: '§c{%0} não existe.'
-info: '§a--- {%0} ---'
+info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'
 info-name: '§7Nome: {%0}'
 info-folderName: '§7Nome da pasta: {%0}'
 info-players: '§7Contagem de jogadores: {%0}'

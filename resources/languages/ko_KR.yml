@@ -72,7 +72,7 @@ update-notsupported: '§4이 커맨드를 게임내에서 입력해주세요'
 
 # Info Command:
 info-levelnotexists: '§c{%0} 은 존재하지 않습니다.'
-info: '§a--- {%0} ---'
+info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'
 info-name: '§7이름: {%0}'
 info-folderName: '§7폴더이름: {%0}'
 info-players: '§7플레이어 수: {%0}'

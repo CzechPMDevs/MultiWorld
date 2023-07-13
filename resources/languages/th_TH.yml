@@ -72,7 +72,7 @@ update-notsupported: '§4โปรดใช้คำสั่งในเกม'
 
 # Info Command:
 info-levelnotexists: '§cไม่พบโลก {%0}'
-info: '§a--- {%0} ---'
+info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'
 info-name: '§7ชื่อ: {%0}'
 info-folderName: '§7ชื่อโฟลเดอร์: {%0}'
 info-players: '§7จำนวนผู้เล่น: {%0}'

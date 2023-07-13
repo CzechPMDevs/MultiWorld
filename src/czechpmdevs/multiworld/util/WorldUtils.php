@@ -160,13 +160,15 @@ class WorldUtils {
 	}
 
 	/**
-	 * @return bool Returns if the world was loaded with the function.
-	 * If it has already been loaded before calling this function, returns FALSE!
+	 * @return bool Returns whether the world is loaded.
 	 *
 	 * @throws WorldException If the specified unloaded world could not be loaded.
 	 */
 	public static function lazyLoadWorld(string $name): bool {
-		return !Server::getInstance()->getWorldManager()->isWorldLoaded($name) && Server::getInstance()->getWorldManager()->loadWorld($name, true);
+		if(!Server::getInstance()->getWorldManager()->isWorldLoaded($name))
+			return Server::getInstance()->getWorldManager()->loadWorld($name, true);
+
+		return true;
 	}
 
 	/**

@@ -72,7 +72,7 @@ update-notsupported: '§4Mohon jalankan perintah ini dalam permainan'
 
 # Perintah Info:
 info-levelnotexists: '§cDunia {%0} tidak ada.'
-info: '§a--- {%0} ---'
+info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'
 info-name: '§7Nama Dunia: {%0}'
 info-folderName: '§7Nama folder: {%0}'
 info-players: '§7Jumlah pemain: {%0}'

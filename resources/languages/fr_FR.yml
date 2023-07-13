@@ -1,7 +1,6 @@
 ---
 ### Français/French language file by @Hydros01, updates may be needed.
 ### French in Canada and France are spoken differently.
-### Last Updated: 2022-03-13
 ## Commands:
 
 not-perms: '§cVous n’avez pas la permission d’utiliser cette commande!'
@@ -72,8 +71,8 @@ update-default-done: '§aLe monde par défaut a été modifié pour {%0}.'
 update-notsupported: '§4Veuillez exécuter cette commande dans le jeu!'
 
 # Info Command:
-info-levelnotexists: '§c{%0} nexiste pas.'
 info: '§a--- {%0} ---'
+info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'
 info-name: '§7Nomme: {%0}'
 info-folderName: '§7Nom de Dossier: {%0}'
 info-players: '§7Nombre de Joueurs: {%0}'
