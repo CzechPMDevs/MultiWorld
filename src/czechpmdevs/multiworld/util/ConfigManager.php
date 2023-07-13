@@ -25,18 +25,16 @@ namespace czechpmdevs\multiworld\util;
 use czechpmdevs\multiworld\MultiWorld;
 use function file_get_contents;
 use function file_put_contents;
-use function is_dir;
 use function is_file;
 use function is_string;
 use function mkdir;
 use function rename;
 use function unlink;
-use function var_dump;
 use function version_compare;
 
 class ConfigManager {
 	private const CONFIG_VERSION = "2.0.0.0";
-	private const LANGUAGE_VERSION = "2.1.0.0";
+	private const LANGUAGE_VERSION = "2.1.0.1";
 
 	private const LANGUAGES_AVAILABLE = ["cs_CZ", "de_DE", "en_US", "es_ES", "fr_FR", "id_ID", "ja_JP", "ko_KR", "pt_BR", "ru_RU", "th_TH", "tl_PH", "tr_TR", "vi_VN", "zh_CN"];
 
