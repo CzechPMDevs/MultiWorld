@@ -61,15 +61,6 @@ delete-usage: '§cUsage: §7/mw delete <world>'
 delete-levelnotexists: '§cWorld does not exist.'
 delete-done: '§aWorld deleted. ({%0} files removed.)'
 
-# Update Command:
-update-usage: '§cUsage: §7/mw update <mod: spawn|lobby|default> [options: (world) (x) (y) (z)]'
-update-levelnotexists: '§cWorld {%0} does not exist.'
-update-spawn-done: '§aSpawn in world {%0} was changed.'
-update-lobby-done: '§aLobby in world {%0} was changed.'
-update-default-usage: '§cUsage: §7/mw update default <level>'
-update-default-done: '§aDefault world was changed to {%0}.'
-update-notsupported: '§4Please run this command in-game'
-
 # Info Command:
 info-levelnotexists: '§c{%0} does not exist.'
 info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'

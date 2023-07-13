@@ -61,15 +61,6 @@ delete-usage: '§c使用方法: §7/mw delete <ワールド名>'
 delete-levelnotexists: '§cワールド {%0} は存在しません!'
 delete-done: '§aワールドを削除しました ({%0} つのファイルを削除しました)'
 
-# Update Command:
-update-usage: '§c使用方法: §7/mw update <spawn|lobby|default> [(ワールド名)|(x座標) (y座標) (z座標)]'
-update-levelnotexists: '§cワールド {%0} は存在しません!'
-update-spawn-done: '§aワールド {%0} のスポーン位置を変更しました'
-update-lobby-done: '§aワールド {%0} のロビーの位置を変更しました'
-update-default-usage: '§c使用方法: §7/mw update default <ワールド名>'
-update-default-done: '§aワールド {%0} を標準のワールドとして設定しました'
-update-notsupported: '§cこのコマンドはコンソールでの実行に対応していません'
-
 # Info Command:
 info-levelnotexists: '§cワールド {%0} は存在しません!'
 info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'

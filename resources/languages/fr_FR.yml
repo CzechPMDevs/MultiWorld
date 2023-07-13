@@ -61,14 +61,6 @@ delete-usage: '§cUsage: §7/mw delete <monde>'
 delete-levelnotexists: '§cMonde nexiste pas.'
 delete-done: '§aMonde supprimé. ({%0} fichiers supprimés.)'
 
-# Update Command:
-update-usage: '§cUsage: §7/mw update <mod: spawn|lobby|default> [options: (world) (x) (y) (z)]'
-update-levelnotexists: '§cMonde {%0} nexiste pas.'
-update-spawn-done: '§aFrayer dans le monde {%0} a été changé.'
-update-lobby-done: '§aLobby dans le monde {%0} a été changé.'
-update-default-usage: '§cUsage: §7/mw update default <level>'
-update-default-done: '§aLe monde par défaut a été modifié pour {%0}.'
-update-notsupported: '§4Veuillez exécuter cette commande dans le jeu!'
 
 # Info Command:
 info-levelnotexists: '§c{%0} nexiste pas.'

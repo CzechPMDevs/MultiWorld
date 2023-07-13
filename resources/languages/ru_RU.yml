@@ -61,15 +61,6 @@ delete-use: '§cИспользуйте: §7/mw delete <мир>'
 delete-levelnotexists: '§cМира не существует!'
 delete-done: '§aМир был удален!'
 
-# Update Command:
-update-usage: '§cИспользование:§7 /mw update <spawn|lobby|default> [настройка: (x) (y) (z) (мир)]'
-update-levelnotexists: '§cМир {%0} не найден.'
-update-spawn-done: '§aСпавн в мире {%0} был изменен.'
-update-lobby-done: '§aМир {%0} был установлен, как лобби.'
-update-default-done: '§aМир был установлен, как стандартный.'
-update-default-usage: '§cИспользуйте: §7/mw update default <мир>'
-update-notsupported: '§cИспользуйте комманду в игре!'
-
 # Info Command:
 info-levelnotexists: '§cМир {%0} не существует!'
 info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'

@@ -61,15 +61,6 @@ delete-use: §7/mw delete <seviye>'
 delete-levelnotexists: '§cDünya  {%0} mevcut değil!'
 delete-done: '§aDünya silindi ! ({%0} Dosyalar kaldırıldı .)'
 
-# Update komutları:
-update-usage: '§ckullanım : §7/mw update <typ: spawn|lobby|default> [Optionen: (x) (y) (z) (seviye)]'
-update-levelnotexists: '§cDünya {%0} mevcut değil!'
-update-spawn-done: '§aDünyada Spawn {%0} değişti .'
-update-lobby-done: '§aDünyadaki lobi  {%0} değişti.'
-update-default-done: '§aStandart dünya açıktı  {%0} değişti'
-update-default-usage: '§ckullanım: §7/mw update default <seviye>'
-update-notsupported: '§cLütfen oyun içi komutu yürütün .'
-
 # Info komutlar:
 info-levelnotexists: '§cDünya {%0} mevcut değil!'
 info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'

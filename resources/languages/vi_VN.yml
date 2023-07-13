@@ -61,15 +61,6 @@ delete-usage: '§cSử dụng: §7/mw delete <Tên thế giới>'
 delete-levelnotexists: '§cThế giới không tồn tại.'
 delete-done: '§aThế giới đã được xóa. ({%0} tập tin đã được xóa.)'
 
-# Update Command:
-update-usage: '§cSử dụng: §7/mw update <Chế độ: spawn|lobby|default> [Tùy chọn: (Tên thế giới) (x) (y) (z)]'
-update-levelnotexists: '§cThế giới {%0} không tồn tại.'
-update-spawn-done: '§aNơi hồi sinh đã được đặt tại thế giới {%0}.'
-update-lobby-done: '§aSảnh đã được đặt tại thế giới {%0}.'
-update-default-usage: '§cSử dụng: §7/mw update default <Tên thế giới>'
-update-default-done: '§aThế giới mặc định đã được đặt tại thế giới {%0}.'
-update-notsupported: '§4Hãy sử dụng lệnh trong trò chơi'
-
 # Info Command:
 info-levelnotexists: '§cThế giới {%0} không tồn tại.'
 info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'

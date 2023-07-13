@@ -61,15 +61,6 @@ delete-usage: '§cใช้: §7/mw delete <ชื่อโลก>'
 delete-levelnotexists: '§cไม่พบโลก'
 delete-done: '§aโลกได้ถูกลบ. ({%0} จำนวนไฟล์ที่ถูกลบ)'
 
-# Update Command:
-update-usage: '§cใช้: §7/mw update <โหมด: spawn|lobby|default> [ตัวเลือก: (โลก) (x) (y) (z)]'
-update-levelnotexists: '§cไม่พบโ,ก {%0}'
-update-spawn-done: '§aตำแหน่งจุดเกิดของโลก {%0} ได้ถูกเปลี่ยน'
-update-lobby-done: '§aล็อบบี้ของโลก {%0} ได้ถูกเปลี่ยน'
-update-default-usage: '§cใช้: §7/mw update default <ชื่อโลก>'
-update-default-done: '§aโลกค่าเริ่มต้นได้ถูกตั้งไว้ที่โลก {%0}'
-update-notsupported: '§4โปรดใช้คำสั่งในเกม'
-
 # Info Command:
 info-levelnotexists: '§cไม่พบโลก {%0}'
 info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'

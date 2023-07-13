@@ -61,15 +61,6 @@ delete-usage: '§Penggunaan: §7/mw hapus <nama dunia>'
 delete-levelnotexists: '§cDunia tidak ada.'
 delete-done: '§aDunia dihapus. ({%0} file dihapus.) '
 
-# Perbarui Perintah:
-update-usage: '§cPenggunaan: §7/mw <mod: muncul|lobi|default> [opsi: (nama dunia) (x) (y) (z)]'
-update-levelnotexists: '§cDunia {%0} tidak ada.'
-update-spawn-done: '§aKemunculan di dunia {%0} telah diubah.'
-update-lobby-done: '§aLobi di dunia {%0} telah diubah.'
-update-default-usage: '§cPenggunaan: §7/mw update default <nama dunia>'
-update-default-done: '§aDunia default diubah menjadi {%0}.'
-update-notsupported: '§4Mohon jalankan perintah ini dalam permainan'
-
 # Perintah Info:
 info-levelnotexists: '§cDunia {%0} tidak ada.'
 info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'

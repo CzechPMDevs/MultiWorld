@@ -61,15 +61,6 @@ delete-usage: '§cPaggamit: §7/mw delete <world>'
 delete-levelnotexists: '§cMundo ay hindi umiiral.'
 delete-done: '§aAng mundo ay na delete na. ({%0} files na na-delete.)'
 
-# Update Command:
-update-usage: '§cPaggamit: §7/mw update <mod: spawn|lobby|default> [options: (world) (x) (y) (z)]'
-update-levelnotexists: '§cAng Mundo {%0} ay hindi umiiral.'
-update-spawn-done: '§aSpawn sa mundo {%0} ay na-iba.'
-update-lobby-done: '§aLobby sa mundo {%0} ay na-iba.'
-update-default-usage: '§cPaggamit: §7/mw update default <level>'
-update-default-done: '§aDefault na mundo ay na-iba ng {%0}.'
-update-notsupported: '§4I-run ang command sa laro'
-
 # Info Command:
 info-levelnotexists: '§c{%0} ay hindi umiiral.'
 info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'

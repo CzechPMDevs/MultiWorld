@@ -61,15 +61,6 @@ delete-usage: '§c输入: §7/mw delete <世界名>'
 delete-levelnotexists: '§c世界 {%0} 不存在!'
 delete-done: '§a世界已经被删除! ({%0} 文件已经被删除.)'
 
-# Update Command:
-update-usage: '§c输入: §7/mw update <mod: spawn|lobby|default> [options: (世界名) (x) (y) (z)]'
-update-levelnotexists: '§c世界 {%0}不存在!'
-update-spawn-done: '§aSpawn 在如下世界 {%0}被更改.'
-update-lobby-done: '§aLobby 在如下世界 {%0}被更改.'
-update-default-usage: '§c输入: §7/mw update default <level>'
-update-default-done: '§a默认世界被更改为 {%0}.'
-update-notsupported: '§c这个命令不支持控制台'
-
 # Info Command:
 info-levelnotexists: '§c{%0} 不存在,'
 info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'

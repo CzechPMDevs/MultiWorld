@@ -61,15 +61,6 @@ delete-usage: '§c사용법: §7/mw delete <월드이름>'
 delete-levelnotexists: '§c월드가 존재하지 않습니다.'
 delete-done: '§a월드가 삭제되었습니다. ({%0} 파일이 삭제 되었습니다.)'
 
-# Update Command:
-update-usage: '§c사용법: §7/mw update <모드:spawn|lobby|default> [옵션: (월드이름) (x) (y) (z)]'
-update-levelnotexists: '§c월드 {%0} 가 존재하지 않습니다.'
-update-spawn-done: '§c {%0} 월드의 스폰이 바뀌었습니다.'
-update-lobby-done: '§a{%0} 의 로비가 바뀌었습니다.'
-update-default-usage: '§c사용법: §7/mw update default <level>'
-update-default-done: '§a기본세계가 {%0}로 변경됨.'
-update-notsupported: '§4이 커맨드를 게임내에서 입력해주세요'
-
 # Info Command:
 info-levelnotexists: '§c{%0} 은 존재하지 않습니다.'
 info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'
