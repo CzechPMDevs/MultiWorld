@@ -22,6 +22,7 @@ declare(strict_types=1);
 
 namespace czechpmdevs\multiworld\util;
 
+use ErrorException;
 use FilesystemIterator;
 use pocketmine\Server;
 use pocketmine\utils\AssumptionFailedError;
@@ -168,8 +169,12 @@ class WorldUtils {
 	 * @throws WorldException If the specified unloaded world could not be loaded.
 	 */
 	public static function lazyLoadWorld(string $name): bool {
-		if(!Server::getInstance()->getWorldManager()->isWorldLoaded($name))
-			return Server::getInstance()->getWorldManager()->loadWorld($name, true);
+		try {
+			if(!Server::getInstance()->getWorldManager()->isWorldLoaded($name))
+				return Server::getInstance()->getWorldManager()->loadWorld($name, true);
+		} catch(ErrorException $e) {
+			throw new WorldException("Unable to access world file: {$e->getMessage()}");
+		}
 
 		return true;
 	}
