@@ -92,6 +92,7 @@ rename-usage: '§c使用方法: §7/mw rename <元のワールド名> <変更先
 rename-exists: '§c{%0} という名前のワールドは既に存在します'
 rename-levelnotfound: '§cワールド {%0} は存在しません!'
 rename-done: '§aワールド名 {%0} を {%1} に変更しました'
+rename-error: '§cCould not rename the world (Access denied)'
 
 # Duplicate Command
 duplicate-usage: '§c使用方法: §7/mw duplicate <ワールド名> [コピーワールド名]'

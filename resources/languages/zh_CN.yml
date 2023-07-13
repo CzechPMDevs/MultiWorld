@@ -92,6 +92,7 @@ rename-usage: '§c用法: §7/mw rename <from> <to>'
 rename-exists: '§c地图 {%0} 已存在.'
 rename-levelnotfound: '§c地图 {%0} 不存在.'
 rename-done: '§a地图 {%0} 重命名为 {%1}.'
+rename-error: '§cCould not rename the world (Access denied)'
 
 # Duplicate Command
 duplicate-usage: '§c用法: §7/mw duplicate <world> [newName]'

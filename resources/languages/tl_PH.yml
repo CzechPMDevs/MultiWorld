@@ -92,6 +92,7 @@ rename-usage: '§cPaggamit: §7/mw rename <from> <to>'
 rename-exists: '§cLevel na may pangalan {%0} ay meron na.'
 rename-levelnotfound: '§cLevel {%0} ay hindi umiiral.'
 rename-done: '§aPangalan ng level {%0} ay na-iba ng {%1}.'
+rename-error: '§cCould not rename the world (Access denied)'
 
 # Duplicate Command
 duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'

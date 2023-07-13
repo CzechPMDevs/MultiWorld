@@ -29,6 +29,7 @@ use czechpmdevs\multiworld\util\LanguageManager;
 use czechpmdevs\multiworld\util\WorldUtils;
 use pocketmine\command\CommandSender;
 use pocketmine\Server;
+use RuntimeException;
 
 class RenameSubCommand extends BaseSubCommand {
 	protected function prepare(): void {
@@ -61,7 +62,13 @@ class RenameSubCommand extends BaseSubCommand {
 			return;
 		}
 
-		WorldUtils::renameWorld($worldName, $newName);
+		try {
+			WorldUtils::renameWorld($worldName, $newName);
+		} catch(RuntimeException) {
+			$sender->sendMessage(LanguageManager::translateMessage($sender, "rename-error"));
+			return;
+		}
+
 		$sender->sendMessage(MultiWorld::getPrefix() . LanguageManager::translateMessage($sender, "rename-done", [$worldName, $newName]));
 	}
 }

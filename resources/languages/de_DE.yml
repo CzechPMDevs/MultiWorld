@@ -92,6 +92,7 @@ rename-usage: '§cBenutzung: §7/mw rename <von> <zu>'
 rename-exists: '§cEine Welt mit dem Namen {%0} existiert bereits.'
 rename-levelnotfound: '§cDie Welt {%0} existiert nicht.'
 rename-done: '§aName der Welt {%0} wurde geändert zu {%1}.'
+rename-error: '§cCould not rename the world (Access denied)'
 
 # Duplicate Command
 duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'

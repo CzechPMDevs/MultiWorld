@@ -33,6 +33,7 @@ use pocketmine\world\World;
 use pocketmine\world\WorldException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
+use RuntimeException;
 use SplFileInfo;
 use function array_filter;
 use function array_map;
@@ -110,7 +111,11 @@ class WorldUtils {
 		$from = Server::getInstance()->getDataPath() . "/worlds/" . $oldName;
 		$to = Server::getInstance()->getDataPath() . "/worlds/" . $newName;
 
-		rename($from, $to);
+		try {
+			rename($from, $to);
+		} catch(ErrorException $e) {
+			throw new RuntimeException("Unable to rename world \"$oldName\" to \"$newName\": {$e->getMessage()}");
+		}
 
 		WorldUtils::lazyLoadWorld($newName);
 		$newWorld = Server::getInstance()->getWorldManager()->getWorldByName($newName);

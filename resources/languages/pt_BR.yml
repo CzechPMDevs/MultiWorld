@@ -92,6 +92,7 @@ rename-usage: '§cUse: §7/mw rename <de> <para>'
 rename-exists: '§cO nível com o nome {%0} já existe.'
 rename-levelnotfound: '§cO nível {%0} não existe.'
 rename-done: '§aO nome do nível {%0} foi alterado para {%1}.'
+rename-error: '§cCould not rename the world (Access denied)'
 
 # Duplicate Command
 duplicate-usage: '§cUse: §7/mw duplicate <mundo> [novoNome]'

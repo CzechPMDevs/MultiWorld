@@ -92,6 +92,7 @@ rename-usage: '§cPenggunaan: §7/mw rename <dari> <ke>'
 rename-exist: '§cDunia dengan nama {%0} sudah ada.'
 rename-levelnotfound: '§cDunia {%0} tidak ada.'
 rename-done: '§aNama dunia {%0} diubah menjadi {%1}.'
+rename-error: '§cCould not rename the world (Access denied)'
 
 # Perintah Duplikat:
 duplicate-usage: '§cPenggunaan: §7/mw duplicate <dunia> [namaBaru]'

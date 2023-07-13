@@ -92,6 +92,7 @@ rename-usage: '§c사용법: §7/mw rename <현재이름> <바꿀이름>'
 rename-exists: '§c {%0} 은 이미 존재하는 이름입니다.'
 rename-levelnotfound: '§c {%0} 은 존재하지 않습니다.'
 rename-done: '§a {%0} 가 {%1} 로 바뀌었습니다.'
+rename-error: '§cCould not rename the world (Access denied)'
 
 # Duplicate Command
 duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'

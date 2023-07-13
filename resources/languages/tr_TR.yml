@@ -92,6 +92,7 @@ rename-usage: '§ckullanım §7/mw rename <eski isim> <yeni isim>'
 rename-exists: '§cisimli bir seviye {%0} zaten var .'
 rename-levelnotfound: '§cSeviye {%0} mecut değil.'
 rename-done: '§aSeviye adı {%0} {%1} olarak değiştirildi.  '
+rename-error: '§cCould not rename the world (Access denied)'
 
 # Duplicate Command
 duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'

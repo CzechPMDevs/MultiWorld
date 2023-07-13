@@ -92,7 +92,8 @@ rename-exists: '§cMonde avec nom {%0} existe déjà.'
 rename-levelnotfound: '§cMonde {%0} nexiste pas.'
 rename-done: '§aMonde avec nom {%0} a été remplacé par {%1}.'
 
-# Duplicate Command
+rename-error: '§cCould not rename the world (Access denied)'
+
 duplicate-usage: '§cUsage: §7/mw duplicate <monde> [nouveauNom]'
 duplicate-exists: '§cMonde avec nom {%0} existe déjà.'
 duplicate-levelnotfound: '§cMonde {%0} nexiste pas.'

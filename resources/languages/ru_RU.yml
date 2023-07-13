@@ -92,6 +92,7 @@ rename-usage: '§cИспользование: §7/mw rename <мир> <новое
 rename-exists: '§cМир с названием {%0} уже существует.'
 rename-levelnotfound: '§cМира {%0} не существует.'
 rename-done: '§aНазвание мира {%0} было изменено на {%1}.'
+rename-error: '§cCould not rename the world (Access denied)'
 
 # Duplicate Command
 duplicate-usage: '§cИспользование: §7/mw duplicate <world> [newName]'

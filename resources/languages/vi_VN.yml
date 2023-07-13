@@ -92,6 +92,7 @@ rename-usage: '§cSử dụng: §7/mw rename <Tên ban đầu> <Tên mới>'
 rename-exists: '§cTên thế giới {%0} đã tồn tại.'
 rename-levelnotfound: '§cThế giới {%0} không tồn tại.'
 rename-done: '§aThế giới {%0} được đổi tên thành {%1}.'
+rename-error: '§cCould not rename the world (Access denied)'
 
 # Duplicate Command
 duplicate-usage: '§cSử dụng: §7/mw duplicate <Tên thế giới> [Tên mới]'

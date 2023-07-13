@@ -92,6 +92,7 @@ rename-usage: '§cใช้: §7/mw rename <ชื่อโลก> <ชื่อ
 rename-exists: '§cชื่อโลก {%0} มีอยู่แล้ว'
 rename-levelnotfound: '§cไม่พบโลก {%0}'
 rename-done: '§aชื่อของโลก {%0} ได้ถูกเปลี่ยนเป็น {%1}'
+rename-error: '§cCould not rename the world (Access denied)'
 
 # Duplicate Command
 duplicate-usage: '§cใช้: §7/mw duplicate <ชื่อโลก> [ชื่อโลกใหม่]'
