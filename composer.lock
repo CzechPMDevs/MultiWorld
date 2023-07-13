@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "abc768e5e435b2541d1815c22d86305b",
+    "content-hash": "4a2f2ed9b760eb9617f7494d0227aa02",
     "packages": [
         {
             "name": "adhocore/json-comment",
@@ -122,16 +122,16 @@
         },
         {
             "name": "cortexpe/commando",
-            "version": "dev-master",
+            "version": "dev-PM5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/CortexPE/Commando.git",
-                "reference": "2b4082aed204e250a79e32ffb766b06eb4e6a003"
+                "url": "https://github.com/ACM-PocketMine-MP/Commando.git",
+                "reference": "bc68c93d91f0099e1d8ae724e133b42f3dac36cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CortexPE/Commando/zipball/2b4082aed204e250a79e32ffb766b06eb4e6a003",
-                "reference": "2b4082aed204e250a79e32ffb766b06eb4e6a003",
+                "url": "https://api.github.com/repos/ACM-PocketMine-MP/Commando/zipball/bc68c93d91f0099e1d8ae724e133b42f3dac36cb",
+                "reference": "bc68c93d91f0099e1d8ae724e133b42f3dac36cb",
                 "shasum": ""
             },
             "default-branch": true,
@@ -148,10 +148,9 @@
             ],
             "description": "A Command Framework virion for PocketMine-MP ",
             "support": {
-                "source": "https://github.com/CortexPE/Commando/tree/master",
-                "issues": "https://github.com/CortexPE/Commando/issues"
+                "source": "https://github.com/ACM-PocketMine-MP/Commando/tree/PM5"
             },
-            "time": "2023-04-23T02:35:53+00:00"
+            "time": "2023-07-13T03:05:35+00:00"
         },
         {
             "name": "czechpmdevs/libpmform",
@@ -290,12 +289,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/CzechPMDevs/VanillaGenerator.git",
-                "reference": "2a8a87d920948fb1012c24c26c01429c80e532da"
+                "reference": "a996d8143a8b0b1e65234f23aaea1cc2812b68af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CzechPMDevs/VanillaGenerator/zipball/2a8a87d920948fb1012c24c26c01429c80e532da",
-                "reference": "2a8a87d920948fb1012c24c26c01429c80e532da",
+                "url": "https://api.github.com/repos/CzechPMDevs/VanillaGenerator/zipball/a996d8143a8b0b1e65234f23aaea1cc2812b68af",
+                "reference": "a996d8143a8b0b1e65234f23aaea1cc2812b68af",
                 "shasum": ""
             },
             "require": {
@@ -323,7 +322,7 @@
                 "source": "https://github.com/CzechPMDevs/VanillaGenerator/tree/master",
                 "issues": "https://github.com/CzechPMDevs/VanillaGenerator/issues"
             },
-            "time": "2023-06-08T23:11:53+00:00"
+            "time": "2023-06-08T23:33:49+00:00"
         },
         {
             "name": "pocketmine/bedrock-block-upgrade-schema",
@@ -353,16 +352,16 @@
         },
         {
             "name": "pocketmine/bedrock-data",
-            "version": "2.3.0+bedrock-1.20.0",
+            "version": "2.3.1+bedrock-1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pmmp/BedrockData.git",
-                "reference": "b3dd3f4b8e3b6759c5d84de6ec85bb20b668c3a9"
+                "reference": "fb89ccdc039252462d8d068a769635e24151b7e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pmmp/BedrockData/zipball/b3dd3f4b8e3b6759c5d84de6ec85bb20b668c3a9",
-                "reference": "b3dd3f4b8e3b6759c5d84de6ec85bb20b668c3a9",
+                "url": "https://api.github.com/repos/pmmp/BedrockData/zipball/fb89ccdc039252462d8d068a769635e24151b7e2",
+                "reference": "fb89ccdc039252462d8d068a769635e24151b7e2",
                 "shasum": ""
             },
             "type": "library",
@@ -373,9 +372,9 @@
             "description": "Blobs of data generated from Minecraft: Bedrock Edition, used by PocketMine-MP",
             "support": {
                 "issues": "https://github.com/pmmp/BedrockData/issues",
-                "source": "https://github.com/pmmp/BedrockData/tree/bedrock-1.20.0"
+                "source": "https://github.com/pmmp/BedrockData/tree/2.3.1+bedrock-1.20.0"
             },
-            "time": "2023-06-07T19:06:47+00:00"
+            "time": "2023-06-13T16:42:09+00:00"
         },
         {
             "name": "pocketmine/bedrock-item-upgrade-schema",
@@ -822,20 +821,20 @@
         },
         {
             "name": "pocketmine/pocketmine-mp",
-            "version": "5.1.1",
+            "version": "5.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pmmp/PocketMine-MP.git",
-                "reference": "4a3b17546823fa2c220ddc3b19291700a7aded78"
+                "reference": "2278275505a7f9d768027673e699e6199575c8bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pmmp/PocketMine-MP/zipball/4a3b17546823fa2c220ddc3b19291700a7aded78",
-                "reference": "4a3b17546823fa2c220ddc3b19291700a7aded78",
+                "url": "https://api.github.com/repos/pmmp/PocketMine-MP/zipball/2278275505a7f9d768027673e699e6199575c8bc",
+                "reference": "2278275505a7f9d768027673e699e6199575c8bc",
                 "shasum": ""
             },
             "require": {
-                "adhocore/json-comment": "^1.1",
+                "adhocore/json-comment": "~1.2.0",
                 "composer-runtime-api": "^2.0",
                 "ext-chunkutils2": "^0.3.1",
                 "ext-crypto": "^0.3.1",
@@ -860,7 +859,7 @@
                 "ext-yaml": ">=2.0.0",
                 "ext-zip": "*",
                 "ext-zlib": ">=1.2.11",
-                "fgrosse/phpasn1": "^2.3",
+                "fgrosse/phpasn1": "~2.5.0",
                 "php": "^8.1",
                 "php-64bit": "*",
                 "pocketmine/bedrock-block-upgrade-schema": "~2.2.0+bedrock-1.20.0",
@@ -879,8 +878,8 @@
                 "pocketmine/raklib": "^0.15.0",
                 "pocketmine/raklib-ipc": "^0.2.0",
                 "pocketmine/snooze": "^0.5.0",
-                "ramsey/uuid": "^4.1",
-                "symfony/filesystem": "^6.2"
+                "ramsey/uuid": "~4.7.0",
+                "symfony/filesystem": "~6.2.0"
             },
             "require-dev": {
                 "phpstan/phpstan": "1.10.16",
@@ -905,7 +904,7 @@
             "homepage": "https://pmmp.io",
             "support": {
                 "issues": "https://github.com/pmmp/PocketMine-MP/issues",
-                "source": "https://github.com/pmmp/PocketMine-MP/tree/5.1.1"
+                "source": "https://github.com/pmmp/PocketMine-MP/tree/5.1.3"
             },
             "funding": [
                 {
@@ -917,7 +916,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-06-07T20:59:28+00:00"
+            "time": "2023-07-01T11:18:10+00:00"
         },
         {
             "name": "pocketmine/raklib",
@@ -1134,16 +1133,16 @@
         },
         {
             "name": "ramsey/uuid",
-            "version": "4.x-dev",
+            "version": "4.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "bef858d57e5ede26bae2e2f2b51b21fd7f6e7590"
+                "reference": "60a4c63ab724854332900504274f6150ff26d286"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/bef858d57e5ede26bae2e2f2b51b21fd7f6e7590",
-                "reference": "bef858d57e5ede26bae2e2f2b51b21fd7f6e7590",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/60a4c63ab724854332900504274f6150ff26d286",
+                "reference": "60a4c63ab724854332900504274f6150ff26d286",
                 "shasum": ""
             },
             "require": {
@@ -1184,7 +1183,6 @@
                 "paragonie/random-lib": "Provides RandomLib for use with the RandomLibAdapter",
                 "ramsey/uuid-doctrine": "Allows the use of Ramsey\\Uuid\\Uuid as Doctrine field type."
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "captainhook": {
@@ -1211,7 +1209,7 @@
             ],
             "support": {
                 "issues": "https://github.com/ramsey/uuid/issues",
-                "source": "https://github.com/ramsey/uuid/tree/4.x"
+                "source": "https://github.com/ramsey/uuid/tree/4.7.4"
             },
             "funding": [
                 {
@@ -1223,20 +1221,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-29T22:02:16+00:00"
+            "time": "2023-04-15T23:01:58+00:00"
         },
         {
             "name": "symfony/filesystem",
-            "version": "6.4.x-dev",
+            "version": "6.2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "edd36776956f2a6fcf577edb5b05eb0e3bdc52ae"
+                "reference": "b0818e7203e53540f2a5c9a5017d97897df1e9bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/edd36776956f2a6fcf577edb5b05eb0e3bdc52ae",
-                "reference": "edd36776956f2a6fcf577edb5b05eb0e3bdc52ae",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/b0818e7203e53540f2a5c9a5017d97897df1e9bb",
+                "reference": "b0818e7203e53540f2a5c9a5017d97897df1e9bb",
                 "shasum": ""
             },
             "require": {
@@ -1270,7 +1268,7 @@
             "description": "Provides basic utilities for the filesystem",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/filesystem/tree/6.3"
+                "source": "https://github.com/symfony/filesystem/tree/6.2"
             },
             "funding": [
                 {
@@ -1286,7 +1284,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-01T08:30:39+00:00"
+            "time": "2023-06-01T08:29:37+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -1463,12 +1461,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "405120ff03c9a30aa73324715bcf0b9b594dd398"
+                "reference": "43cb8644244d6d80c9dc8d725ec45d4d08c7b242"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/405120ff03c9a30aa73324715bcf0b9b594dd398",
-                "reference": "405120ff03c9a30aa73324715bcf0b9b594dd398",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/43cb8644244d6d80c9dc8d725ec45d4d08c7b242",
+                "reference": "43cb8644244d6d80c9dc8d725ec45d4d08c7b242",
                 "shasum": ""
             },
             "require": {
@@ -1518,7 +1516,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-08T19:33:14+00:00"
+            "time": "2023-07-13T07:37:40+00:00"
         }
     ],
     "aliases": [],
@@ -1532,5 +1530,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
