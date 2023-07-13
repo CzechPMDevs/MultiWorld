@@ -138,7 +138,7 @@ class WorldUtils {
 
 		mkdir(Server::getInstance()->getDataPath() . "/worlds/$duplicateName");
 
-		$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(Server::getInstance()->getDataPath() . "/worlds/$worldName", FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
+		$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(Server::getInstance()->getDataPath() . "worlds/$worldName", FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::SELF_FIRST);
 		/** @var SplFileInfo $fileInfo */
 		foreach($files as $fileInfo) {
 			if($filePath = $fileInfo->getRealPath()) {
