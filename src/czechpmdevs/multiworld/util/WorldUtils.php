@@ -180,7 +180,7 @@ class WorldUtils {
 		}
 
 		// This is not necessary in case only clean PocketMine without other plugins is used,
-		// however, due to compatibility with plugins such as NativeDimensions it's needed to keep this.
+		// however, due to compatibility with plugins such as NativeDimensions it's required to keep this.
 		$files = array_unique(array_merge(
 			array_map(fn(World $world) => $world->getFolderName(), Server::getInstance()->getWorldManager()->getWorlds()),
 			$files
