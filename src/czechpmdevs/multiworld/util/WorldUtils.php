@@ -88,7 +88,7 @@ class WorldUtils {
 	public static function getWorldByNameNonNull(string $name): World {
 		$world = Server::getInstance()->getWorldManager()->getWorldByName($name);
 		if($world === null) {
-			throw new AssumptionFailedError("Required world $name is null");
+			throw new AssumptionFailedError("Required world \"$name\" is null");
 		}
 
 		return $world;
