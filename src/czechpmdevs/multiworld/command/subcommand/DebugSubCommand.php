@@ -28,6 +28,9 @@ use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
 use pocketmine\utils\AssumptionFailedError;
 use pocketmine\world\biome\BiomeRegistry;
+use pocketmine\world\format\Chunk;
+use pocketmine\world\World;
+use function min;
 
 class DebugSubCommand extends BaseSubCommand {
 	protected function prepare(): void {
@@ -45,14 +48,14 @@ class DebugSubCommand extends BaseSubCommand {
 		$position = $sender->getPosition()->floor();
 		$sender->sendMessage("Current position: {$position->getX()}, {$position->getY()}, {$position->getZ()}");
 
-		$chunkX = $position->getX() >> 4;
-		$chunkZ = $position->getZ() >> 4;
+		$chunkX = $position->getX() >> Chunk::COORD_BIT_SIZE;
+		$chunkZ = $position->getZ() >> Chunk::COORD_BIT_SIZE;
 		$sender->sendMessage("Current chunk position: $chunkX, $chunkZ");
 
 		$chunk = $sender->getPosition()->getWorld()->getChunk($chunkX, $chunkZ);
-		$x = $position->getFloorX() & 0xf;
-		$z = $position->getFloorZ() & 0xf;
-		$id = $chunk?->getBiomeId($x, $position->getFloorY(), $z) ?? 0;
+		$x = $position->getFloorX() & Chunk::COORD_MASK;
+		$z = $position->getFloorZ() & Chunk::COORD_MASK;
+		$id = $chunk?->getBiomeId($x, min($position->getFloorY(), World::Y_MAX - 1), $z) ?? 0;
 		$biome = BiomeRegistry::getInstance()->getBiome($id);
 		$sender->sendMessage("Current biome: [$id] {$biome->getName()}");
 	}
