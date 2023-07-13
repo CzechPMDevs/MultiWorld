@@ -93,7 +93,7 @@ rename-usage: '§cPoužij: §7/mw rename <svět> <novýNázev>'
 rename-exists: '§cSvět se jménem {%0} již existuje.'
 rename-levelnotfound: '§cSvět {%0} nebyl nalezen.'
 rename-done: '§aJméno bylo změněno z {%0} na {%1}!'
-rename-error: '§cCould not rename the world (Access denied)'
+rename-error: '§cSvět nelze přejmenovat, protože server nemá přístupová práva k souborům světa.'
 
 # Duplicate Command
 duplicate-usage: '§cPoužij: §7/mw duplicate <svět> [novýNázev]'
