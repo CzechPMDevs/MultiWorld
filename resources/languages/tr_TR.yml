@@ -5,6 +5,7 @@
 
 not-perms: '§cSBu komutu çalıştırmak için gerekli izinlere sahip değilsiniz !'
 default-usage: '§ckullanım : §7/mw help'
+ingame: '§cThis command can be only used in game.'
 
 # Yardim komutlar:
 help: '§2--- §fMultiWorld help page ({%0}/{%1}) §2---'
@@ -21,7 +22,8 @@ help-9: '§2/mw manage §fDünyaları yönetmek için bir kullanıcı arayüzü 
 help-10: '§2/mw rename §fBir dünyanın adını değiştirir '
 
 help-11: '§2/mw duplicate §fDuplicates a world'
-help-12: '§2/mw update §fLobiyi, bir dünyadaki doğumu veya standart dünyayı değiştirin '
+help-12: '§2/mw setspawan §fUpdate world spawn'
+help-13: '§2/mw setlobby §fUpdate server lobby position'
 
 # komut Dünya oluştur:
 create-usage: '§ckullanım : §7/mw create <İsim> [tohum] [jeneratör ]'
@@ -57,7 +59,7 @@ unload-default: '§cUnable to unload default level.'
 unload-done: '§aDünyayı boşaltın !'
 
 # komut dünya Silmek:
-delete-use: §7/mw delete <seviye>'
+delete-use: '§7/mw delete <seviye>'
 delete-levelnotexists: '§cDünya  {%0} mevcut değil!'
 delete-done: '§aDünya silindi ! ({%0} Dosyalar kaldırıldı .)'
 
@@ -91,6 +93,13 @@ duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
 duplicate-exists: '§cWorld with name {%0} already exists.'
 duplicate-levelnotfound: '§cLevel {%0} does not exist.'
 duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+
+# Set Spawn
+setspawn-success: '§a{%0} world spawn set to {%1}'
+
+# Set Lobby
+setlobby-errror: '§cCould not update default world: {%0}'
+setlobby-success: '§aServer lobby position set to {%0} at {%1}'
 
 # Forms
 forms-invalid: '§cgeçersiz istek .'

@@ -5,6 +5,7 @@
 
 not-perms: '§c你没有使用这个命令的相应权限!'
 default-usage: '§c输入: §7/mw help'
+ingame: '§cThis command can be only used in game.'
 
 # Help Command:
 help: '§2--- §fMultiWorld 帮助页码 ({%0}/{%1}) §2---'
@@ -21,7 +22,8 @@ help-9: '§2/mw manage §f显示管理世界的GUI'
 help-10: '§2/mw rename §f重命名世界'
 
 help-11: '§2/mw duplicate §f复制一个世界'
-help-12: '§2/mw update §f更新 lobby, spawn or default 世界'
+help-12: '§2/mw setspawan §fUpdate world spawn'
+help-13: '§2/mw setlobby §fUpdate server lobby position'
 
 # Create Command:
 create-usage: '§c输入: §7/mw create <世界名> [种子] [生成器]'
@@ -91,6 +93,13 @@ duplicate-usage: '§c用法: §7/mw duplicate <world> [newName]'
 duplicate-exists: '§c世界 {%0}已存在.'
 duplicate-levelnotfound: '§c地图 {%0}不村庄.'
 duplicate-done: '世界 {%0} 已复制为 {%1}'
+
+# Set Spawn
+setspawn-success: '§a{%0} world spawn set to {%1}'
+
+# Set Lobby
+setlobby-errror: '§cCould not update default world: {%0}'
+setlobby-success: '§aServer lobby position set to {%0} at {%1}'
 
 # Forms
 forms-invalid: '§c无效结果.'

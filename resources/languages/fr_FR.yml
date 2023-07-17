@@ -5,6 +5,7 @@
 
 not-perms: '§cVous n’avez pas la permission d’utiliser cette commande!'
 default-usage: '§cUsage: §7/mw help'
+ingame: '§cThis command can be only used in game.'
 
 # Help Command:
 help: '§2--- Afficher les pages d’aide MultiWorld {%0} of {%1} (/mw help <page>) ---'
@@ -21,7 +22,8 @@ help-9: '§2/mw manage §fAffiche le formulaire de gestion des mondes'
 help-10: '§2/mw rename §fRenomme le monde'
 
 help-11: '§2/mw duplicate §fDuplique le monde'
-help-12: '§2/mw update §fMettre à jour le lobby, frayer dans un monde ou changer le monde par défaut'
+help-12: '§2/mw setspawan §fUpdate world spawn'
+help-13: '§2/mw setlobby §fUpdate server lobby position'
 
 # Create Command:
 create-usage: '§cUsage: §7/mw create <nomme> [semence] [générateur]'
@@ -61,7 +63,6 @@ delete-usage: '§cUsage: §7/mw delete <monde>'
 delete-levelnotexists: '§cMonde nexiste pas.'
 delete-done: '§aMonde supprimé. ({%0} fichiers supprimés.)'
 
-
 # Info Command:
 info-levelnotexists: '§c{%0} nexiste pas.'
 info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'
@@ -91,7 +92,14 @@ rename-error: '§cCould not rename the world (Access denied)'
 duplicate-usage: '§cUsage: §7/mw duplicate <monde> [nouveauNom]'
 duplicate-exists: '§cMonde avec nom {%0} existe déjà.'
 duplicate-levelnotfound: '§cMonde {%0} nexiste pas.'
+
+# Set Spawn
+setspawn-success: '§a{%0} world spawn set to {%1}'
 duplicate-done: 'Monde {%0} dupliqué, le nom du duplicata est {%1}'
+
+# Set Lobby
+setlobby-errror: '§cCould not update default world: {%0}'
+setlobby-success: '§aServer lobby position set to {%0} at {%1}'
 
 # Forms
 forms-invalid: '§cRésultat non valide.'

@@ -5,6 +5,7 @@
 
 not-perms: '§cNemáš povolení použít tento příkaz!'
 default-usage: '§cPoužij: §7/mw help'
+ingame: '§cTento příkaz může být použit jen ve hře.'
 
 # Help Command:
 help: '§2--- Zobrazuji MultiWorld pomocnou stránku {%0} z {%1} (/mw help <page>) ---'
@@ -21,7 +22,8 @@ help-9: '§2/mw manage §fZapne správce světů'
 help-10: '§2/mw rename §fPřejmenuje svět'
 
 help-11: '§2/mw duplicate §fZduplikuje svět'
-help-12: '§2/mw update §fNastaví spawn, lobby nebo základní svět'
+help-12: '§2/mw setspawan §fUpdate world spawn'
+help-13: '§2/mw setlobby §fNastaví lobby serveru'
 
 # Create Command:
 create-usage: '§cPoužij: §7/mw create <jméno> [seed] [generátor]'
@@ -91,6 +93,13 @@ duplicate-usage: '§cPoužij: §7/mw duplicate <svět> [novýNázev]'
 duplicate-exists: '§cSvět s tímto jménem ({%0}) již existuje.'
 duplicate-levelnotfound: '§cSvět {%0} neexistuje.'
 duplicate-done: 'Svět {%0} byl úspěšně zduplikován, jméno zduplikovaného světa: {%1}'
+
+# Set Spawn
+setspawn-success: '§aSpawn světa {%0} byl nastaven na {%1}'
+
+# Set Lobby
+setlobby-errror: '§cNastala chyba při změně základního světa: {%0}'
+setlobby-success: '§aLobby nastaveno ve světě {%0} na pozici {%1}'
 
 # Forms
 forms-invalid: '§cPlugin nedostal správnou odpověď.'

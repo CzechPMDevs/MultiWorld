@@ -33,6 +33,8 @@ use czechpmdevs\multiworld\command\subcommand\ListSubCommand;
 use czechpmdevs\multiworld\command\subcommand\LoadSubCommand;
 use czechpmdevs\multiworld\command\subcommand\ManageSubCommand;
 use czechpmdevs\multiworld\command\subcommand\RenameSubCommand;
+use czechpmdevs\multiworld\command\subcommand\SetLobbySubCommand;
+use czechpmdevs\multiworld\command\subcommand\SetSpawnSubCommand;
 use czechpmdevs\multiworld\command\subcommand\TeleportSubCommand;
 use czechpmdevs\multiworld\command\subcommand\UnloadSubCommand;
 use czechpmdevs\multiworld\util\LanguageManager;
@@ -52,6 +54,8 @@ class MultiWorldCommand extends BaseCommand {
 		$this->registerSubCommand(new LoadSubCommand("load", "Load a world", ["ld"]));
 		$this->registerSubCommand(new ManageSubCommand("manage", "Show form for easier world management", ["mng", "m"]));
 		$this->registerSubCommand(new RenameSubCommand("rename", "Rename world", ["rnm", "rn"]));
+		$this->registerSubCommand(new SetLobbySubCommand("setlobby", "Updates server default world & spawn position from game", ["lobby"]));
+		$this->registerSubCommand(new SetSpawnSubCommand("setspawn", "Updates world spawn position from game", ["spawn"]));
 		$this->registerSubCommand(new TeleportSubCommand("teleport", "Teleport player to target world", ["tp"]));
 		$this->registerSubCommand(new UnloadSubCommand("unload", "Unload world", ["uld"]));
 

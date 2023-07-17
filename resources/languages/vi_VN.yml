@@ -5,6 +5,7 @@
 
 not-perms: '§cBạn không có quyền để sử dụng lệnh này'
 default-usage: '§cSử dụng: §7/mw help'
+ingame: '§cThis command can be only used in game.'
 
 # Help Command:
 help: '§2--- Hiển thị hướng dẫn của MultiWorld trang {%0} trong {%1} (/mw help <Số trang>) ---'
@@ -21,7 +22,8 @@ help-9: '§2/mw manage §fHiển thị chỉnh sửa của thế giới'
 help-10: '§2/mw rename §fĐặt tên lại thế giới'
 
 help-11: '§2/mw duplicate §fDuplicates a world'
-help-12: '§2/mw update §fCập nhật sảnh, nơi hồi sinh hoặc thế giới mặc định'
+help-12: '§2/mw setspawan §fUpdate world spawn'
+help-13: '§2/mw setlobby §fUpdate server lobby position'
 
 # Create Command:
 create-usage: '§cSử dụng: §7/mw create <Tên thế giới> [Hạt giống] [Loại thế giới]'
@@ -91,6 +93,13 @@ duplicate-usage: '§cSử dụng: §7/mw duplicate <Tên thế giới> [Tên m�
 duplicate-exists: '§cThế giới với tên {%0} đã tồn tại.'
 duplicate-levelnotfound: '§cThế giới {%0} không tồn tại.'
 duplicate-done: 'Thế giới {%0} đã được sao chép, tên của bản sao là {%1}'
+
+# Set Spawn
+setspawn-success: '§a{%0} world spawn set to {%1}'
+
+# Set Lobby
+setlobby-errror: '§cCould not update default world: {%0}'
+setlobby-success: '§aServer lobby position set to {%0} at {%1}'
 
 # Forms
 forms-invalid: '§cKết quả không hợp lệ.'

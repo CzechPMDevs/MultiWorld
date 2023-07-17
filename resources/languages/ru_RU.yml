@@ -5,6 +5,7 @@
 
 not-perms: 'У вас нет прав использовать эту команду!'
 default-usage: '§cИспользуйте: §7/mw help'
+ingame: '§cThis command can be only used in game.'
 
 # Help Command:
 help: '§2--- §fMultiWorld ({%0}/{%1}) §2---'
@@ -21,7 +22,8 @@ help-9: '§2/mw manage §fОтображает форму для управле�
 help-10: '§2/mw rename §fПереименовать мир'
 
 help-11: '§2/mw duplicate §fДублирувать мир'
-help-12: '§2/mw update §fУстановить спавн, лобби или сделать мир стандартным мир'
+help-12: '§2/mw setspawan §fUpdate world spawn'
+help-13: '§2/mw setlobby §fUpdate server lobby position'
 
 # Create Command:
 create-usage: '§cИспользование: §7/mw create <имя> [сид] [генерация]'
@@ -91,6 +93,13 @@ duplicate-usage: '§cИспользование: §7/mw duplicate <world> [newNa
 duplicate-exists: '§cМир с именем {%0} уже существует.'
 duplicate-levelnotfound: '§cМира {%0} не существует.'
 duplicate-done: 'Мир {%0} дублируется, имя дубликата {%1}'
+
+# Set Spawn
+setspawn-success: '§a{%0} world spawn set to {%1}'
+
+# Set Lobby
+setlobby-errror: '§cCould not update default world: {%0}'
+setlobby-success: '§aServer lobby position set to {%0} at {%1}'
 
 # Forms
 forms-invalid: '§cНеверный результат.'

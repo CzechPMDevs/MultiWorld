@@ -5,6 +5,7 @@
 
 not-perms: '§cこのコマンドを実行する権限がありません!'
 default-usage: '§c使用方法: §7/mw help'
+ingame: '§cThis command can be only used in game.'
 
 # Help Command:
 help: '§2--- §fMultiWorld ヘルプ ページ({%0}/{%1}) §2---'
@@ -21,7 +22,8 @@ help-9: '§2/mw manage §fワールド管理用のフォームを表示'
 help-10: '§2/mw rename §fワールド名を変更'
 
 help-11: '§2/mw duplicate §fDuplicates a world'
-help-12: '§2/mw update §fワールドのロビー、スポーン、デフォルトを設定'
+help-12: '§2/mw setspawan §fUpdate world spawn'
+help-13: '§2/mw setlobby §fUpdate server lobby position'
 
 # Create Command:
 create-usage: '§c使用方法: §7/mw create <ワールド名> [シード値] [ジェネレータ名]'
@@ -91,6 +93,13 @@ duplicate-usage: '§c使用方法: §7/mw duplicate <ワールド名> [コピー
 duplicate-exists: '§c{%0} という名前のワールドは既に存在します'
 duplicate-levelnotfound: '§cワールド {%0} は存在しません!'
 duplicate-done: 'ワールド名 {%0} のコピー {%1} を作成しました'
+
+# Set Spawn
+setspawn-success: '§a{%0} world spawn set to {%1}'
+
+# Set Lobby
+setlobby-errror: '§cCould not update default world: {%0}'
+setlobby-success: '§aServer lobby position set to {%0} at {%1}'
 
 # Forms
 forms-invalid: '§cフォームに入力した値が異常です'

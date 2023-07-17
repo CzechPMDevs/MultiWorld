@@ -5,6 +5,7 @@
 ## Commands:
 not-perms: '§cNo tienes permiso para usar este comando'
 default-usage: '§cUso: §7/mw help'
+ingame: '§cThis command can be only used in game.'
 
 # Help Command:
 help: '§2--- Mostrando la página de ayuda de MultiWorld {%0} de {%1} (/mw help <páginas>) ---'
@@ -21,7 +22,8 @@ help-9: '§2/mw manage §fMuestra el formulario para gestionar los mundos.'
 help-10: '§2/mw rename §fRenombrar el mundo'
 
 help-11: '§2/mw duplicate §fDuplicar un mundo'
-help-12: '§2/mw update §fActualice el lobby, cree un mundo o cambie el mundo estándar'
+help-12: '§2/mw setspawan §fUpdate world spawn'
+help-13: '§2/mw setlobby §fUpdate server lobby position'
 
 # Create Command:
 create-usage: '§cUso: §7/mw create <nombre> [semilla] [generador]'
@@ -91,6 +93,13 @@ duplicate-usage: '§cUso: §7/mw duplicate <mundo> [nuevoNombre]'
 duplicate-exists: '§cEl mundo con el nombre {%0} ya existe.'
 duplicate-levelnotfound: '§cEl mundo {%0} no existe.'
 duplicate-done: '§aEl mundo {%0} fue duplicado con el nombre de {%1}'
+
+# Set Spawn
+setspawn-success: '§a{%0} world spawn set to {%1}'
+
+# Set Lobby
+setlobby-errror: '§cCould not update default world: {%0}'
+setlobby-success: '§aServer lobby position set to {%0} at {%1}'
 
 # Forms
 forms-invalid: '§cResultado inválido.'

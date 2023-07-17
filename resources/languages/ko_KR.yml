@@ -5,6 +5,7 @@
 
 not-perms: '§c당신은 이 커맨드에 대한 권한이 없습니다'
 default-usage: '§c사용법: §7/mw help'
+ingame: '§cThis command can be only used in game.'
 
 # Help Command:
 help: '§2--- MultiWorld 도움말 {%0} of {%1} (/mw help <page>) ---'
@@ -21,7 +22,8 @@ help-9: '§2/mw manage §f월드를 관리할수 있는 서식표시'
 help-10: '§2/mw rename §f월드 이름 바꾸기'
 
 help-11: '§2/mw duplicate §fDuplicates a world'
-help-12: '§2/mw update §f기본월드를 변경'
+help-12: '§2/mw setspawan §fUpdate world spawn'
+help-13: '§2/mw setlobby §fUpdate server lobby position'
 
 # Create Command:
 create-usage: '§c사용법: §7/mw create <월드이름> [시드] [유형]'
@@ -91,6 +93,13 @@ duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
 duplicate-exists: '§cWorld with name {%0} already exists.'
 duplicate-levelnotfound: '§cLevel {%0} does not exist.'
 duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+
+# Set Spawn
+setspawn-success: '§a{%0} world spawn set to {%1}'
+
+# Set Lobby
+setlobby-errror: '§cCould not update default world: {%0}'
+setlobby-success: '§aServer lobby position set to {%0} at {%1}'
 
 # Forms
 forms-invalid: '§c잘못된 결과.'

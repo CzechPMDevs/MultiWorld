@@ -5,6 +5,7 @@
 
 not-perms: '§cคุณไม่มีสิทธ์ใช้คำสั่งนี้'
 default-usage: '§cใช้: §7/mw help'
+ingame: '§cThis command can be only used in game.'
 
 # Help Command:
 help: '§2--- กำลังดูคำสั่ง MultiWorld หน้าที่ {%0} ทั้งหมด {%1} (/mw help <เลขหน้า>) ---'
@@ -21,7 +22,8 @@ help-9: '§2/mw manage §fโชว์หน้าต่างตั้งค่
 help-10: '§2/mw rename §fแก้ชื่อโลก'
 
 help-11: '§2/mw duplicate §fคัดลอกโลก'
-help-12: '§2/mw update §fอัพเดท ล็อบบี้, แก้จุดเกิดของโลกนั้นๆ'
+help-12: '§2/mw setspawan §fUpdate world spawn'
+help-13: '§2/mw setlobby §fUpdate server lobby position'
 
 # Create Command:
 create-usage: '§cใช้: §7/mw create <ชื่อ> [ซีด] [Generator]'
@@ -91,6 +93,13 @@ duplicate-usage: '§cใช้: §7/mw duplicate <ชื่อโลก> [ชื
 duplicate-exists: '§cชื่อโลก {%0} มีอยู่แล้ว'
 duplicate-levelnotfound: '§cไม่พบโลก {%0}'
 duplicate-done: 'โลก {%0} ได้ถูกคัดลอก, ชื่อโลกที่คัดลอก {%1}'
+
+# Set Spawn
+setspawn-success: '§a{%0} world spawn set to {%1}'
+
+# Set Lobby
+setlobby-errror: '§cCould not update default world: {%0}'
+setlobby-success: '§aServer lobby position set to {%0} at {%1}'
 
 # Forms
 forms-invalid: '§cผลลัพธ์ไม่ถูกต้อง'

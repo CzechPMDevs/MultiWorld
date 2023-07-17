@@ -5,6 +5,7 @@
 
 not-perms: '§cSie haben nicht die benötigten Berechtigungen, diesen Befehl auszuführen!'
 default-usage: '§cBenutzung: §7/mw help'
+ingame: '§cThis command can be only used in game.'
 
 # Hilfs Befehl:
 help: '§2--- §fMultiWorld help page ({%0}/{%1}) §2---'
@@ -21,7 +22,8 @@ help-9: '§2/mw manage §fZeigt eine UI zum verwalten der Welten an'
 help-10: '§2/mw rename §fÄndert den Namen einer Welt'
 
 help-11: '§2/mw duplicate §fDuplicates world'
-help-12: '§2/mw update §fÄndere die Lobby, den Spawn in einer Welt oder die Standard Welt'
+help-12: '§2/mw setspawan §fUpdate world spawn'
+help-13: '§2/mw setlobby §fUpdate server lobby position'
 
 # Befehl erstellen:
 create-usage: '§cBenutzung: §7/mw create <name> [seed] [generator]'
@@ -91,6 +93,13 @@ duplicate-usage: '§cUsage: §7/mw duplicate <world> [newName]'
 duplicate-exists: '§cWorld with name {%0} already exists.'
 duplicate-levelnotfound: '§cLevel {%0} does not exist.'
 duplicate-done: 'World {%0} duplicated, name of the duplicate is {%1}'
+
+# Set Spawn
+setspawn-success: '§a{%0} world spawn set to {%1}'
+
+# Set Lobby
+setlobby-errror: '§cCould not update default world: {%0}'
+setlobby-success: '§aServer lobby position set to {%0} at {%1}'
 
 # Forms
 forms-invalid: '§cUngültige Anfrage.'

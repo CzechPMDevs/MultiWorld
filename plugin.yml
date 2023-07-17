@@ -43,6 +43,12 @@ permissions:
   multiworld.command.rename:
     description: Permission for /multiworld rename
     default: op
+  multiworld.command.setlobby:
+    description: Permission for /multiworld setlobby
+    default: op
+  multiworld.command.setspawn:
+    description: Permission for /multiworld setspawn
+    default: op
   multiworld.command.teleport:
     description: Permission for /multiworld teleport
     default: op

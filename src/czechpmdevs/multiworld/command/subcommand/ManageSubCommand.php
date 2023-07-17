@@ -60,6 +60,8 @@ class ManageSubCommand extends BaseSubCommand {
 		$form->addButton("Unload world");
 		$form->addButton("Teleport to the world");
 		$form->addButton("Teleport player to the world");
+		$form->addButton("Update server lobby");
+		$form->addButton("Update world spawn");
 
 		$form->setCallback(static function(Player $player, FormResponse $response): void {
 			$customForm = new CustomForm("World Manager");
@@ -208,6 +210,12 @@ class ManageSubCommand extends BaseSubCommand {
 					});
 
 					$player->sendForm($customForm);
+					break;
+				case 7:
+					Server::getInstance()->dispatchCommand($player, "mw setspawn");
+					break;
+				case 8:
+					Server::getInstance()->dispatchCommand($player, "mw setlobby");
 					break;
 			}
 		});
