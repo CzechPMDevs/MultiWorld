@@ -75,7 +75,7 @@ class WorldUtils {
 					rmdir($filePath);
 				}
 
-				$removedFiles++;
+				++$removedFiles;
 			}
 		}
 
