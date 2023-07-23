@@ -35,8 +35,18 @@ class EnderPilar implements Populator {
 	public const MIN_RADIUS = 3;
 	public const MAX_RADIUS = 5;
 
+	public function __construct(
+		protected int $centerX,
+		protected int $centerZ,
+		protected int $spawnRadius
+	) {}
+
 	public function populate(ChunkManager $world, int $chunkX, int $chunkZ, Random $random): void {
 		if($random->nextBoundedInt(10) > 0) {
+			return;
+		}
+
+		if((($chunkX << 4) - $this->centerX) ** 2 + (($chunkZ << 4) - $this->centerZ) ** 2 > $this->spawnRadius ** 2) {
 			return;
 		}
 
@@ -61,7 +71,7 @@ class EnderPilar implements Populator {
 		$centerZ = $chunkZ * SubChunk::EDGE_LENGTH + $relativeZ;
 
 		$height = $random->nextRange(28, 50);
-		$radius = $random->nextRange(3, 5);
+		$radius = $random->nextRange(self::MIN_RADIUS, self::MAX_RADIUS);
 		$radiusSquared = ($radius ** 2) - 1;
 
 		$obsidian = VanillaBlocks::OBSIDIAN();
@@ -84,7 +94,7 @@ class EnderPilar implements Populator {
 
 	private function getWorkableBlockAt(Chunk $chunk, int $x, int $z): int {
 		$air = VanillaBlocks::AIR()->getStateId();
-		for($y = EnderGenerator::MAX_BASE_ISLAND_HEIGHT, $maxY = EnderGenerator::MAX_BASE_ISLAND_HEIGHT + EnderGenerator::NOISE_SIZE; $y <= $maxY; ++$y ) {
+		for($y = EnderGenerator::BASE_ISLAND_HEIGHT, $maxY = EnderGenerator::BASE_ISLAND_HEIGHT + EnderGenerator::NOISE_SIZE; $y <= $maxY; ++$y) {
 			if($chunk->getBlockStateId($x, $y, $z) === $air) {
 				return $y;
 			}

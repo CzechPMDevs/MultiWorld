@@ -31,17 +31,20 @@ use pocketmine\world\generator\Generator;
 use pocketmine\world\generator\noise\Simplex;
 use pocketmine\world\generator\populator\Populator;
 use pocketmine\world\World;
+use function abs;
 
 class EnderGenerator extends Generator {
-	public const MIN_BASE_ISLAND_HEIGHT = 54;
-	public const MAX_BASE_ISLAND_HEIGHT = 55;
+	public const BASE_ISLAND_HEIGHT = 55;
 	public const NOISE_SIZE = 12;
+	public const NOISE_SIZE_HALF = 6;
 
 	public const CENTER_X = 255;
 	public const CENTER_Z = 255;
+
 	public const ISLAND_RADIUS = 100;
 
-	private Simplex $noiseBase;
+	private Simplex $baseNoise;
+	private Simplex $islandNoise;
 
 	/** @var Populator[] */
 	private array $populators = [];
@@ -49,8 +52,9 @@ class EnderGenerator extends Generator {
 	public function __construct(int $seed, string $preset) {
 		parent::__construct($seed, $preset);
 
-		$this->noiseBase = new Simplex($this->random, 4, 1 / 16, 1 / 64);
-		$this->populators[] = new EnderPilar();
+		$this->baseNoise = new Simplex($this->random, 4, 1 / 16, 1 / 128);
+		$this->islandNoise = new Simplex($this->random, 1, 1, 1 / 1024);
+		$this->populators[] = new EnderPilar(self::CENTER_X, self::CENTER_Z, self::ISLAND_RADIUS);
 	}
 
 	public function generateChunk(ChunkManager $world, int $chunkX, int $chunkZ): void {
@@ -58,7 +62,8 @@ class EnderGenerator extends Generator {
 
 		/** @phpstan-var Chunk $chunk */
 		$chunk = $world->getChunk($chunkX, $chunkZ);
-		$noise = $this->noiseBase->getFastNoise2D(16, 16, 2, $chunkX * 16, 0, $chunkZ * 16);
+		$noise = $this->baseNoise->getFastNoise2D(16, 16, 2, $chunkX * 16, 0, $chunkZ * 16);
+		$islandNoise = $this->islandNoise->getFastNoise2D(16, 16, 2, $chunkX * 16, 0, $chunkZ * 16);
 
 		$endStone = VanillaBlocks::END_STONE()->getStateId();
 
@@ -72,23 +77,20 @@ class EnderGenerator extends Generator {
 				for($y = World::Y_MIN; $y < World::Y_MAX; ++$y)
 					$chunk->setBiomeId($x, $y, $z, BiomeIds::THE_END);
 
-				if(($absoluteX - self::CENTER_X) ** 2 + ($absoluteZ - self::CENTER_Z) ** 2 > self::ISLAND_RADIUS ** 2) {
+
+				// @phpstan-ignore-next-line
+				$islandNoiseValue = abs($islandNoise[$x][$z]);
+				if(
+					(($absoluteX - self::CENTER_X) ** 2 + ($absoluteZ - self::CENTER_Z) ** 2 > self::ISLAND_RADIUS ** 2) &&
+					$islandNoiseValue < 0.5
+				) {
 					continue;
 				}
 
 				// @phpstan-ignore-next-line
-				$noiseValue = (int)abs($noise[$x][$z] * self::NOISE_SIZE); // wtf
-				for($y = 0; $y < $noiseValue; ++$y) {
-					$chunk->setBlockStateId($x, self::MAX_BASE_ISLAND_HEIGHT + $y, $z, $endStone);
-				}
-
-				$reversedNoiseValue = self::NOISE_SIZE - $noiseValue;
-				for($y = 0; $y < $reversedNoiseValue; ++$y) {
-					$chunk->setBlockStateId($x, self::MIN_BASE_ISLAND_HEIGHT - $y, $z, $endStone);
-				}
-
-				for($y = self::MIN_BASE_ISLAND_HEIGHT; $y < self::MAX_BASE_ISLAND_HEIGHT; ++$y) {
-					$chunk->setBlockStateId($x, $y, $z, $endStone);
+				$noiseValue = (int)abs($noise[$x][$z] * self::NOISE_SIZE) + self::NOISE_SIZE_HALF;
+				for($y = -$noiseValue; $y < $noiseValue; ++$y) {
+					$chunk->setBlockStateId($x, self::BASE_ISLAND_HEIGHT + $y, $z, $endStone);
 				}
 			}
 		}
