@@ -28,7 +28,6 @@ use pocketmine\world\format\Chunk;
 use pocketmine\world\generator\Generator;
 
 class VoidGenerator extends Generator {
-
 	public function __construct(int $seed, string $preset) {
 		parent::__construct($seed, $preset);
 	}
@@ -37,7 +36,7 @@ class VoidGenerator extends Generator {
 		/** @phpstan-var Chunk $chunk */
 		$chunk = $world->getChunk($chunkX, $chunkZ);
 
-		if($chunkX == 16 && $chunkZ == 16) {
+		if($chunkX === 16 && $chunkZ === 16) {
 			$chunk->setBlockStateId(0, 64, 0, VanillaBlocks::GRASS()->getStateId());
 		}
 	}
