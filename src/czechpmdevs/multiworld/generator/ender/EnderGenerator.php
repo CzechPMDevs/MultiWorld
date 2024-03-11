@@ -31,6 +31,8 @@ use pocketmine\world\generator\Generator;
 use pocketmine\world\generator\noise\Simplex;
 use pocketmine\world\generator\populator\Populator;
 use pocketmine\world\World;
+use customiesdevs\customies\block\CustomiesBlockFactory;
+
 use function abs;
 
 class EnderGenerator extends Generator {
@@ -65,7 +67,7 @@ class EnderGenerator extends Generator {
 		$noise = $this->baseNoise->getFastNoise2D(16, 16, 2, $chunkX * 16, 0, $chunkZ * 16);
 		$islandNoise = $this->islandNoise->getFastNoise2D(16, 16, 2, $chunkX * 16, 0, $chunkZ * 16);
 
-		$endStone = VanillaBlocks::END_STONE()->getStateId();
+		$endStone = CustomiesBlockFactory::getInstance()->get("simpho:ruby_block")->getStateId();
 
 		$baseX = $chunkX * Chunk::EDGE_LENGTH;
 		$baseZ = $chunkZ * Chunk::EDGE_LENGTH;
