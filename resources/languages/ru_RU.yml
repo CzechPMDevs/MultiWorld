@@ -1,13 +1,13 @@
 ---
-### Файл с русским языком от SteinsSquad и kostamax27
-### Russian language by SteinsSquad && kostamax27
-## Commands:
+### Переведено @iteplenky
 
-not-perms: 'У вас нет прав использовать эту команду!'
-default-usage: '§cИспользуйте: §7/mw help'
-ingame: '§cThis command can be only used in game.'
+## Команды:
 
-# Help Command:
+not-perms: '§cУ вас недостаточно прав для использования этой команды'
+default-usage: '§cИспользование: §7/mw help'
+ingame: '§cЭту команду можно использовать только в игре.'
+
+# Помощь:
 help: '§2--- §fMultiWorld ({%0}/{%1}) §2---'
 help-1: '§2/mw create §fСоздать новый мир'
 help-2: '§2/mw teleport §fТелепортироваться в мир'
@@ -16,56 +16,56 @@ help-4: '§2/mw load §fЗагрузить мир'
 help-5: '§2/mw unload §fРазгрузить мир'
 
 help-6: '§2/mw delete §fУдалить мир'
-help-7: '§2/mw info §fУзнать информацию о мире'
-help-8: '§2/mw gamerule §fНастроить мир'
-help-9: '§2/mw manage §fОтображает форму для управления мирами'
+help-7: '§2/mw info §fИнформация о мире'
+help-8: '§2/mw gamerule §fНастройка игровыми правилами'
+help-9: '§2/mw manage §fФорма для управления мирами'
 help-10: '§2/mw rename §fПереименовать мир'
 
-help-11: '§2/mw duplicate §fДублирувать мир'
-help-12: '§2/mw setspawan §fUpdate world spawn'
-help-13: '§2/mw setlobby §fUpdate server lobby position'
+help-11: '§2/mw duplicate §fДублировать мир'
+help-12: '§2/mw setspawan §fОбновить точку возрождения'
+help-13: '§2/mw setlobby §fОбновить точку лобби'
 
-# Create Command:
+# Создание:
 create-usage: '§cИспользование: §7/mw create <имя> [сид] [генерация]'
 create-exists: '§cМир {%0} уже создан!'
-create-gennotexists: 'Генерация {%0} не найдена.'
-create-generating: 'Генерирование мира {%0}...'
-create-done: 'Мир {%0} с сидом {%1} и генератором {%2} был создан.'
+create-gennotexists: '§cГенерация {%0} не найдена.'
+create-generating: '§aГенерирование мира {%0}
+create-done: 'Мир {%0} был создан с использованием сида: {%1} и генератора: {%2}.'
 
-# Teleport Command:
+# Управление телепортацией:
 teleport-usage: '§cИспользование: §7/mw teleport <мир> [игрок]'
-teleport-levelnotexists: '§aМир не найден! Используйте /mw create для создания мира.'
-teleport-load: '§aЗагрузка мира {%0} ...'
+teleport-levelnotexists: '§cМир {0} еще не был создан. Попробуйте /mw create для создания мира.'
+teleport-load: 'Загрузка мира {%0}...'
 teleport-done-1: '§aВы телепортированы в мир {%0}.'
-teleport-done-2: '§aИгрок {%1} был телепортирован в мир {%0}!'
-teleport-playernotexists: '§cИгрок не найден!'
-teleport-error: '§cAn error occurred whilst teleporting player: {%0}'
+teleport-done-2: '§aИгрок {%1} был телепортирован в мир {%0}.'
+teleport-playernotexists: '§cИгрок не найден.'
+teleport-error: '§cПроизошла непредвиденная ошибка при телепортации игрока: {%0}'
 
-# List Command
-list-done: 'Миры ({%0}):'
+# Список:
+list-done: '§aМиры ({%0}):'
 
-# Load Command:
+# Загрузка:
 load-usage: '§cИспользование: §7/mw load <мир>'
-load-levelnotexists: '§cМир {%0} не существует!'
-load-loaded: '§cМир уже загружен!'
-load-done: '§aМир был загружен!'
-load-error: '§cAn error occurred whilst loading the world: {%0}'
+load-levelnotexists: '§cМир {%0} не существует.'
+load-loaded: '§cМир уже загружен.'
+load-done: '§aМир загружен.'
+load-error: '§cПроизошла непредвиденная ошибка при загрузке мира: {%0}'
 
-# Unload Command:
+# Выгрузка:
 unload-usage: '§cИспользование: §7/mw unload <мир>'
-unload-levelnotexists: '§cМир {%0} не существует!'
-unload-unloaded: '§cМир уже выгружен!'
-unload-default: '§cUnable to unload default level.'
-unload-done: '§aМир был выгружен!'
+unload-levelnotexists: '§cМир {%0} не существует.'
+unload-unloaded: '§cНе получается выгрузить мир. Убедитесь, что указанный мир является загруженным'
+unload-default: '§cНевозможно выгрузить мир по умолчанию.'
+unload-done: '§aМир выгружен.'
 
-# Delete Command:
-delete-use: '§cИспользуйте: §7/mw delete <мир>'
-delete-levelnotexists: '§cМира не существует!'
-delete-done: '§aМир был удален!'
+# Удаление:
+delete-use: '§cИспользование: §7/mw delete <мир>'
+delete-levelnotexists: '§cМир не существует.'
+delete-done: '§aМир удален. ({%0} файлов очищено.)'
 
-# Info Command:
-info-levelnotexists: '§cМир {%0} не существует!'
-info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'
+# Информация:
+info-levelnotexists: '§cМир {%0} не существует.'
+info-unloaded: '§cНевозможно получить информацию о мире {%0}, пока мир не был загружен.'
 info: '§a--- {%0} ---'
 info-name: '§7Название мира: {%0}'
 info-folderName: '§7Название папки: {%0}'
@@ -74,33 +74,33 @@ info-generator: '§7Генерация: {%0}'
 info-seed: '§7Сид: {%0}'
 info-time: '§7Время: {%0}'
 
-# Gamerule Command:
+# Игровые правила:
 gamerule-usage: '§cИспользование: §7/mw gamerule <list|gamerule> [true|false] [мир]'
 gamerule-list: '§aДоступные правила игры: {%0}'
 gamerule-levelnotfound: '§cМир {%0} не найден.'
-gamerule-notexists: '§cНастройка {%0} не найдена.'
-gamerule-done: '§aНастройка {%0} в мире {%1} была изменена на {%2}.'
+gamerule-notexists: '§cПравило {%0} не найдено.'
+gamerule-done: '§aПравило {%0} в мире {%1} было изменено на {%2}.'
 
-# Rename Command
+# Переименование
 rename-usage: '§cИспользование: §7/mw rename <мир> <новое название>'
 rename-exists: '§cМир с названием {%0} уже существует.'
 rename-levelnotfound: '§cМира {%0} не существует.'
 rename-done: '§aНазвание мира {%0} было изменено на {%1}.'
-rename-error: '§cCould not rename the world (Access denied)'
+rename-error: '§cНе получается переименовать мир (Доступ ограничен)'
 
-# Duplicate Command
-duplicate-usage: '§cИспользование: §7/mw duplicate <world> [newName]'
+# Дублирование
+duplicate-usage: '§cИспользование: §7/mw duplicate <мир> [новое название]'
 duplicate-exists: '§cМир с именем {%0} уже существует.'
 duplicate-levelnotfound: '§cМира {%0} не существует.'
-duplicate-done: 'Мир {%0} дублируется, имя дубликата {%1}'
+duplicate-done: 'Мир {%0} продублирован, название продублированного мира {%1}'
 
-# Set Spawn
-setspawn-success: '§a{%0} world spawn set to {%1}'
+# Точка возрождения
+setspawn-success: '§aВ мире {%0} точка возрождения установлена на {%1}'
 
-# Set Lobby
-setlobby-errror: '§cCould not update default world: {%0}'
-setlobby-success: '§aServer lobby position set to {%0} at {%1}'
+# Лобби
+setlobby-errror: '§cНе получается обновить мир по умолчанию: {%0}'
+setlobby-success: '§aЛобби {%0} установлено на координатах {%1}'
 
-# Forms
+# Формы
 forms-invalid: '§cНеверный результат.'
 ...
