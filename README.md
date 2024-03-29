@@ -125,7 +125,7 @@
 
 **Translations**
 - Japanese translation by [fuyutsuki](https://github.com/fuyutsuki)
-- Russian translation by [SteinsSquad (themestl)](https://github.com/themestl)
+- Russian translation by [iteplenky](https://github.com/iteplenky)
 - Indonesian translation by [WooWBoom](https://github.com/GitWoow) and [keenanyafiqy](https://github.com/keenanyafiqy)
 - German translation by [SchdowNVIDIA](https://github.com/SchdowNVIDIA) and [Tobikisss](https://github.com/Tobikisss)
 - Chinese translation by [abc1460132901](https://github.com/abc1460132901) and [AZ1IDJC](https://github.com/Blackjack200)
