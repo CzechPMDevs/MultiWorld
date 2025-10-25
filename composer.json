@@ -10,7 +10,7 @@
     "czechpmdevs/libpmform": "*",
     "muqsit/vanillagenerator": "*",
     "muqsit/simplepackethandler": "*",
-    "cortexpe/commando": "*",
+    "trixnew/commando": "*",
     "pocketmine/pocketmine-mp": "^5.0.0"
   },
   "require-dev": {
@@ -27,7 +27,7 @@
     },
     {
       "type": "vcs",
-      "url": "https://github.com/ACM-PocketMine-MP/Commando/"
+      "url": "https://github.com/TrixNEW/Commando"
     },
     {
       "type": "package",
