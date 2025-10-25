@@ -10,7 +10,7 @@
     "czechpmdevs/libpmform": "*",
     "muqsit/vanillagenerator": "*",
     "muqsit/simplepackethandler": "*",
-    "cortexpe/commando": "*",
+    "trixnew/commando": "*",
     "pocketmine/pocketmine-mp": "^5.0.0"
   },
   "require-dev": {
