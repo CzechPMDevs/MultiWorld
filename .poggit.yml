@@ -1,6 +1,7 @@
 ---
 branches:
   - stable
+
 projects:
   MultiWorld:
     path: ''
