@@ -1,101 +1,101 @@
 ---
-### Français/French language file by @Hydros01, updates may be needed.
+### Français/French language file by @ElGodDakio. Updates may be needed.
 ### French in Canada and France are spoken differently.
 ## Commands:
 
 not-perms: '§cVous n’avez pas la permission d’utiliser cette commande!'
 default-usage: '§cUsage: §7/mw help'
-ingame: '§cThis command can be only used in game.'
+ingame: '§cCette commande doit être utilisée en jeu!'
 
 # Help Command:
-help: '§2--- Afficher les pages d’aide MultiWorld {%0} of {%1} (/mw help <page>) ---'
+help: '§2--- Multiworld {%0} of {%1} (/mw help <page>) ---'
 help-1: '§2/mw create §fCréer un monde'
-help-2: '§2/mw teleport §fTéléportate dans un monde'
+help-2: '§2/mw teleport §fSe téléporter dans un monde'
 help-3: '§2/mw list §fAffiche une liste de tous les mondes'
-help-4: '§2/mw load §fCharges un monde'
+help-4: '§2/mw load §fCharge un monde'
 help-5: '§2/mw unload §fDécharge un monde'
 
 help-6: '§2/mw delete §fSupprime un monde'
 help-7: '§2/mw info §fAffiche des informations sur un monde'
-help-8: '§2/mw gamerule §fGère les règles de jeu d’un niveau'
-help-9: '§2/mw manage §fAffiche le formulaire de gestion des mondes'
+help-8: '§2/mw gamerule §fGère les gamerule d’un niveau'
+help-9: '§2/mw manage §fAffiche l’interface de gestion des mondes'
 help-10: '§2/mw rename §fRenomme le monde'
 
 help-11: '§2/mw duplicate §fDuplique le monde'
-help-12: '§2/mw setspawan §fUpdate world spawn'
+help-12: '§2/mw setspawan §fMet à jour le spawn d’un monde'
 help-13: '§2/mw setlobby §fUpdate server lobby position'
 
 # Create Command:
-create-usage: '§cUsage: §7/mw create <nomme> [semence] [générateur]'
-create-exists: '§cMonde {%0} est déjà généré!'
+create-usage: '§cUsage: §7/mw create <nomme> [seed] [générateur]'
+create-exists: '§cMonde {%0} déjà généré!'
 create-gennotexists: '§cGénérateur {%0} non trouvé.'
-create-generating: '§aGénérer monde {%0}'
-create-done: '§aMonde {%0} a été générée en utilisant semmence: {%1} et généré: {%2}.'
+create-generating: '§aGénération du monde {%0}'
+create-done: '§aMonde {%0} généré en utilisant la seed: {%1} et le générateur: {%2}.'
 
 # Teleport Command:
 teleport-usage: '§cUsage: §7/mw teleport <monde> [joueur]'
-teleport-levelnotexists: '§cMonde {%0} n’a pas encore été créé. Essayez /mw create pour créer un monde.'
-teleport-load: 'Monde de chargement {%0}...'
+teleport-levelnotexists: '§cMonde {%0} inexistant. Essayez /mw create pour créer un monde.'
+teleport-load: 'Chargement du monde {%0}...'
 teleport-done-1: '§aVous avez été téléporté à {%0}.'
 teleport-done-2: '§aLe joueur {%1} a été téléporté à {%0}.'
 teleport-playernotexists: '§cLe joueur n’existe pas.'
-teleport-error: '§cAn error occurred whilst teleporting player: {%0}'
+teleport-error: '§cUne erreur est survenue en téléportant le joueur: {%0}'
 
 # List Command:
-list-done: '§aWorlds ({%0}):'
+list-done: '§aMondes: ({%0}):'
 
 # Load Command:
 load-usage: '§cUsage: §7/mw load <monde>'
-load-notexists: '§cMonde {%0} nexiste pas.'
-load-loaded: '§cIncapable de charger le monde.'
+load-notexists: '§cMonde {%0} inexistant.'
+load-loaded: '§cImpossible de charger le monde.'
 load-done: '§aMonde chargé.'
-load-error: '§cAn error occurred whilst loading the world: {%0}'
+load-error: '§cUne erreur est survenue durant le chargement du monde: {%0}'
 
 # Unload Command:
 unload-usage: '§cUsage: §7/mw unload <world>'
-unload-levelnotexists: '§c{%0} nexiste pas.'
-unload-unloaded: '§cIncapable de décharger le monde.'
-unload-default: '§cUnable to unload default level.'
+unload-levelnotexists: '§c{%0} inexistant.'
+unload-unloaded: '§cImpossible de décharger le monde.'
+unload-default: '§cImpossible de décharger le monde par défaut.'
 unload-done: '§aMonde déchargé.'
 
 # Delete Command:
 delete-usage: '§cUsage: §7/mw delete <monde>'
-delete-levelnotexists: '§cMonde nexiste pas.'
+delete-levelnotexists: '§cMonde inexistant.'
 delete-done: '§aMonde supprimé. ({%0} fichiers supprimés.)'
 
 # Info Command:
-info-levelnotexists: '§c{%0} nexiste pas.'
-info-unloaded: '§cCould not fetch info from the world {%0}, due to the world could not be loaded.'
+info-levelnotexists: '§c{%0} inexistant.'
+info-unloaded: '§cImpossible d’obtenir des informations à propos du monde {%0} car ce monde ne peut pas être chargé.'
 info: '§a--- {%0} ---'
-info-name: '§7Nomme: {%0}'
-info-folderName: '§7Nom de Dossier: {%0}'
-info-players: '§7Nombre de Joueurs: {%0}'
+info-name: '§7Nom: {%0}'
+info-folderName: '§7Nom du dossier: {%0}'
+info-players: '§7Nombre de joueurs: {%0}'
 info-generator: '§7Générateur: {%0}'
-info-seed: '§7Semence: {%0}'
+info-seed: '§7Seed: {%0}'
 info-time: '§7Heure: {%0}'
 
 # Gamerule Command:
-gamerule-usage: '§cUsage: §7/mw gamerule <liste|gamerule> [vrai|faux] [monde]'
-gamerule-list: '§aRègles de jeu disponibles: {%0}'
+gamerule-usage: '§cUsage: §7/mw gamerule <liste|gamerule> [true|false] [monde]'
+gamerule-list: '§aGamerules: {%0}'
 gamerule-levelnotfound: '§cMonde {%0} introuvable.'
-gamerule-notexists: '§cRègle de jeu {%0} nexiste pas.'
-gamerule-done: '§aRègle de jeu {%0} en monde {%1} a été modifié pour {%2}.'
+gamerule-notexists: '§cGamerule {%0} inexistant.'
+gamerule-done: '§aLa gamerule {%0} a été modifiée en {%2} pour le monde {%1}.'
 
 # Rename Command
-rename-usage: '§cUsage: §7/mw rename <de> <à>'
-rename-exists: '§cMonde avec nom {%0} existe déjà.'
-rename-levelnotfound: '§cMonde {%0} nexiste pas.'
-rename-done: '§aMonde avec nom {%0} a été remplacé par {%1}.'
-rename-error: '§cCould not rename the world (Access denied)'
+rename-usage: '§cUsage: §7/mw rename <avant> <après>'
+rename-exists: '§cMonde {%0} nommé comme ceci.'
+rename-levelnotfound: '§cMonde {%0} inexistant.'
+rename-done: '§aMonde {%0} renommé en {%1}.'
+rename-error: '§cImpossible de renommer le monde (Access denied).'
 
 # Duplicate Command
-duplicate-usage: '§cUsage: §7/mw duplicate <monde> [nouveauNom]'
-duplicate-exists: '§cMonde avec nom {%0} existe déjà.'
-duplicate-levelnotfound: '§cMonde {%0} nexiste pas.'
+duplicate-usage: '§cUsage: §7/mw duplicate <monde> [nouveau_nom]'
+duplicate-exists: '§cMonde {%0} déjà existant.'
+duplicate-levelnotfound: '§cMonde {%0} inexistant.'
+duplicate-done: 'Monde {%0} dupliqué, le nom du duplicata est {%1}'
 
 # Set Spawn
-setspawn-success: '§a{%0} world spawn set to {%1}'
-duplicate-done: 'Monde {%0} dupliqué, le nom du duplicata est {%1}'
+setspawn-success: '§aSpawn du monde {%0} défini à {%1}'
 
 # Set Lobby
 setlobby-errror: '§cCould not update default world: {%0}'
